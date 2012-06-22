@@ -1,0 +1,2 @@
+LEARNABLE=org.neat4j.neat.nn.core.learning.GALearnable
+TRAINING.SET=xor/xor.csv
