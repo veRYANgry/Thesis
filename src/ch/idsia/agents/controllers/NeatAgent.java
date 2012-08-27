@@ -44,7 +44,7 @@ import ch.idsia.benchmark.mario.environments.Environment;
 
 public class NeatAgent extends BasicMarioAIAgent implements Agent {
 	final int numberOfOutputs = Environment.numberOfKeys;
-	final int numberOfInputs = 14;
+	final int numberOfInputs = 30;
 	NeuralNet net;
 
 	public NeatAgent() {
@@ -73,8 +73,8 @@ public class NeatAgent extends BasicMarioAIAgent implements Agent {
 		double[] inputs = new double[numberOfInputs];
 
 		int which = 0;
-		for (int i = -1; i < 2; i++) {
-			for (int j = -1; j < 2; j++) {
+		for (int i = -2; i < 3; i++) {
+			for (int j = -2; j < 3; j++) {
 				inputs[which++] = probe(i, j, scene);
 			}
 		}
@@ -109,9 +109,9 @@ public class NeatAgent extends BasicMarioAIAgent implements Agent {
 		// "enemy is:" + enemies[realX][realY] + "output is" +
 		// (double)(levelScene[realX][realY] + enemies[realX][realY]) / 100);
 		if (levelScene[realX][realY] == 1)
-			return 1;
-		else if (enemies[realX][realY] == 1)
 			return 0;
+		else if (enemies[realX][realY] == 1)
+			return 1;
 		else
 			return .5;
 	}

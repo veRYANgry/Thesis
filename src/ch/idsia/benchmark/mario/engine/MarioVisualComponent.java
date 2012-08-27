@@ -42,6 +42,8 @@ import ch.idsia.tools.Scale2x;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.image.VolatileImage;
 import java.text.DecimalFormat;
 import java.util.List;
@@ -84,7 +86,7 @@ private String agentNameStr;
 private GameViewer gameViewer = null;
 private static MarioVisualComponent marioVisualComponent = null;
 
-private Scale2x scale2x = new Scale2x(320, 240);
+private Scale2x scale2x = new Scale2x(640, 480);
 
 private MarioVisualComponent(MarioAIOptions marioAIOptions, MarioEnvironment marioEnvironment)
 {
@@ -147,7 +149,17 @@ public void CreateMarioComponentFrame(MarioVisualComponent m)
         m.init();
         marioComponentFrame.pack();
         marioComponentFrame.setResizable(false);
-       // marioComponentFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        marioComponentFrame.addWindowListener(new WindowAdapter()
+        {
+           public void windowClosing(WindowEvent e)
+           {
+               GlobalOptions.isGameplayStopped = true;
+               //TODO find out how to stop this thread when spawned by another (v key does it)
+        	   marioComponentFrame.dispose();
+           }
+        });
+        
+        //marioComponentFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
     marioComponentFrame.setVisible(true);
     m.postInitGraphics();

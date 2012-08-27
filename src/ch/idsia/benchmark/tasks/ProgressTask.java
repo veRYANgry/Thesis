@@ -77,16 +77,17 @@ private float evaluateSingleLevel(int ld, int tl, int ls, boolean vis, Agent con
     this.setOptionsAndReset(options);
     this.runSingleEpisode(1);
    // distanceTravelled += (this.getEnvironment().getEvaluationInfo().marioStatus == Mario.STATUS_WIN ? 1 : 0) * 1000;
-    distanceTravelled += this.getEnvironment().getEvaluationInfo().computeDistancePassed()/ 10;
+    distanceTravelled += this.getEnvironment().getEvaluationInfo().computeDistancePassed();
     //distanceTravelled -= (this.getEnvironment().getEvaluationInfo().marioMode == 0 ? 1 : 0) * 1000;
     //distanceTravelled += this.getEnvironment().getEvaluationInfo().greenMushroomsDevoured * 100;
     //distanceTravelled += this.getEnvironment().getEvaluationInfo().flowersDevoured * 40;
     //distanceTravelled += this.getEnvironment().getEvaluationInfo().coinsGained;
-    distanceTravelled += this.getEnvironment().getEvaluationInfo().killsByFire * 60;
-    distanceTravelled += this.getEnvironment().getEvaluationInfo().killsByShell * 100;
-    distanceTravelled += this.getEnvironment().getEvaluationInfo().killsByStomp * 50;
-    distanceTravelled -= this.getEnvironment().getEvaluationInfo().collisionsWithCreatures * 400;
-    distanceTravelled += this.getEnvironment().getEvaluationInfo().timeSpentMovingTowardememy / 100;
+    //distanceTravelled += this.getEnvironment().getEvaluationInfo().killsByFire * 60;
+    //distanceTravelled += this.getEnvironment().getEvaluationInfo().killsByShell * 100;
+    distanceTravelled += this.getEnvironment().getEvaluationInfo().killsByStomp * 500;
+    //distanceTravelled -= this.getEnvironment().getEvaluationInfo().collisionsWithCreatures * 400;
+    //might remove timeSpent (bad heuristic)
+    //distanceTravelled += this.getEnvironment().getEvaluationInfo().timeSpentMovingTowardememy / 100;
     return distanceTravelled;
 }
 

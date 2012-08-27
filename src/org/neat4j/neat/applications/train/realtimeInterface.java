@@ -65,6 +65,11 @@ public class realtimeInterface extends JFrame implements ActionListener {
 	static int difficulty = 0;
 	static int seed = 0;
 	static Random rand = new Random(System.currentTimeMillis());
+	
+	////////////
+	//Demo stuff
+	////////////
+	SwingWorker<Void, Void> demoWorker;
 
 	/**
 	 * @param args
@@ -111,13 +116,18 @@ public class realtimeInterface extends JFrame implements ActionListener {
 			    
 			    for (difficulty = 0; difficulty < 11; difficulty++)
 			    {
+					seed = rand.nextInt();
+			        options.setArgs("-ls " + seed);
 			        options.setLevelDifficulty(difficulty);
 			        System.out.println("New EvolveIncrementally phase with difficulty = " + difficulty + " started.");
 
 				
 				while (true) {
+					//seed = rand.nextInt();
+			        //options.setArgs("-ls " + seed);
 			        System.out.println("Running Epoch[" + i + "] with diff:" + difficulty);
 					((NEATGeneticAlgorithmMario)ga).runEpoch(task);
+
 					
 					/////////////////////////////////////////
 					//Gui Process stuff
@@ -135,64 +145,11 @@ public class realtimeInterface extends JFrame implements ActionListener {
 						}
 					}
 					//////////////////////////////////////////
-					
-					if(first){
-						seed = rand.nextInt();
-				        options.setArgs("-ls " + seed);
-						firstbest = (((NEATGeneticAlgorithmMario) ga).genBest());
-						first = false;
-					}
+	
 
-					options.setVisualization(false);
-					
-						
-					
-					
-					if ((((NEATGeneticAlgorithmMario) ga).genBest() > firstbest)){
-						System.out.println("Improvment" + firstbest + "to -->" + ((NEATGeneticAlgorithmMario) ga).genBest());
-				       
-						
-				        options.setLevelDifficulty(difficulty);
-				        options.setFPS(32);
-				        options.setVisualization(true);
-				        
-				        NeuralNet nets = null;
-						try {
-							nets = gam.createNet(config);
-						} catch (InitialisationFailedException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-						((NEATNetDescriptor)(nets.netDescriptor())).updateStructure(ga.discoverdBestMember());
-						((NEATNeuralNet)nets).updateNetStructure();
-						
-				        
-						 task.evaluate((Agent) new NeatAgent(nets));
-				        
-
-
-					        first = true;
-					        System.out.println("better found in " + diffGen + "runs");
-					        diffGen = 0;
-							//((NEATGeneticAlgorithmMario) this.ga).resetdiscoverdBestMember();
-						
-						
-						
-				      
-				        options.setFPS(GlobalOptions.MaxFPS);
-				        options.setVisualization(false);
-
-						if(((NEATGeneticAlgorithmMario) ga).genBest() >= 2000){
-							NEATFrame frame = new NEATFrame((NEATNeuralNet)nets);
-							frame.setTitle("Generation: " + i + " Score :" + ((NEATGeneticAlgorithmMario) ga).genBest());
-							frame.showNet();
-							seed = rand.nextInt();
-					        options.setArgs("-ls " + seed);
-
-							first = true;
+						if(((NEATGeneticAlgorithmMario) ga).genBest() >= 10000){
 							break;
 						}
-					}
 					diffGen++;
 					i++;
 				}
@@ -301,38 +258,48 @@ public class realtimeInterface extends JFrame implements ActionListener {
 
 				if(DemoMember != null)
 				{
-					SwingWorker<Void, Void> demoWorker = new SwingWorker<Void, Void>() {
+					if(demoWorker == null || demoWorker.isDone()){
 
-						@Override
-						public Void doInBackground() {
-							MarioAIOptions WorkerOptions = new MarioAIOptions("nothing");
-							
-							WorkerOptions.setLevelDifficulty(difficulty);
-							WorkerOptions.setFPS(32);
-							WorkerOptions.setVisualization(true);
-							WorkerOptions.setArgs("-ls " + seed);
-							
-							Task WorkerTask = new ProgressTask(WorkerOptions);
-							
-					        NeuralNet nets = null;
-							try {
-								nets = gam.createNet(config);
-							} catch (InitialisationFailedException a) {
-								// TODO Auto-generated catch block
-								a.printStackTrace();
+						demoWorker = new SwingWorker<Void, Void>() {
+
+							@Override
+							public Void doInBackground() {
+
+								MarioAIOptions WorkerOptions = new MarioAIOptions("nothing");
+								
+								WorkerOptions.setLevelDifficulty(difficulty);
+								WorkerOptions.setFPS(32);
+								WorkerOptions.setVisualization(true);
+								WorkerOptions.setArgs("-ls " + seed);
+								
+								Task WorkerTask = new ProgressTask(WorkerOptions);
+								
+						        NeuralNet nets = null;
+								try {
+									nets = gam.createNet(config);
+								} catch (InitialisationFailedException a) {
+									// TODO Auto-generated catch block
+									a.printStackTrace();
+								}
+								
+								((NEATNetDescriptor)(nets.netDescriptor())).updateStructure(DemoMember);
+								((NEATNeuralNet)nets).updateNetStructure();
+								
+								NEATFrame frame = new NEATFrame((NEATNeuralNet)nets);
+								frame.setTitle("Demo");
+								frame.showNet();
+						        
+								WorkerTask.evaluate((Agent) new NeatAgent(nets));
+								
+								 
+								
+								return null;
 							}
-							
-							((NEATNetDescriptor)(nets.netDescriptor())).updateStructure(DemoMember);
-							((NEATNeuralNet)nets).updateNetStructure();
-							
-					        
-							WorkerTask.evaluate((Agent) new NeatAgent(nets));
-							 
-							
-							return null;
-						}
-					};
-					demoWorker.execute();
+						};
+						demoWorker.execute();
+
+
+					}
 				}
 				else{
 					System.out.println("Chromosome is null something is wrong");
