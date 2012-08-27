@@ -62,6 +62,10 @@ public class NEATGeneticAlgorithmMario implements GeneticAlgorithm , Serializabl
 		this.specieList = new Species();		
 	}
 	
+	public Species GetSpecies() {
+		return specieList;
+	}
+	
 	public FitnessFunction gaEvaluator() {
 		return (this.func);
 	}

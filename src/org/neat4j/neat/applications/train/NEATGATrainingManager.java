@@ -60,6 +60,10 @@ public class NEATGATrainingManager {
 	public GeneticAlgorithm ga() {
 		return (this.ga);
 	}
+	
+	public AIConfig GetConfig() {
+		return (this.config);
+	}
 	/**
 	 * @see org.neat4j.ailibrary.core.AIController#initialise(org.neat4j.ailibrary.AIConfig)
 	 */

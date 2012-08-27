@@ -147,7 +147,7 @@ public void CreateMarioComponentFrame(MarioVisualComponent m)
         m.init();
         marioComponentFrame.pack();
         marioComponentFrame.setResizable(false);
-        marioComponentFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+       // marioComponentFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
     marioComponentFrame.setVisible(true);
     m.postInitGraphics();
