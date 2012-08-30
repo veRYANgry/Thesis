@@ -65,16 +65,17 @@ public class realtimeInterface extends JFrame implements ActionListener {
 	///////////////////////////////
 	//NEAT stuff
 	///////////////////////////////
+	static NEATGATrainingManager gam;
 	private static NEATGeneticAlgorithmMario ga;
 	private static AIConfig config;
 	private static Chromosome DemoMember;
+	private static AIConfig configs;
 	
 	///////////////////////////////
 	//Mario testbed stuff
 	///////////////////////////////
 	static Task task;
-	final static MarioAIOptions options = new MarioAIOptions("nothing");
-	final static NEATGATrainingManager gam = new NEATGATrainingManager();
+	static MarioAIOptions options = new MarioAIOptions("nothing");
 	static int difficulty = 0;
 	static int seed = 0;
 	static Random rand = new Random(System.currentTimeMillis());
@@ -91,108 +92,118 @@ public class realtimeInterface extends JFrame implements ActionListener {
 	 */
 
 	public static void main(final String[] args) {
-		// TODO Auto-generated method stub
-		final String[] s = {"xor_neat.ga"};
 		new realtimeInterface();
+		configs = new NEATLoader().loadConfig("xor_neat.ga");
+
 		
-		
-		try {
-			if (s.length != 1) {
-				System.out
-						.println("Usage: NEATGAManager <ga ga config file");
-				return;
-			} else {
-				AIConfig configs = new NEATLoader().loadConfig(s[0]);
-				//lets shove the config from the old main class into this one
-				gam.initialise(configs);
-				//gam.evolve();
-				ga = (NEATGeneticAlgorithmMario)gam.ga();
-				config = gam.GetConfig();
-			}
-		} catch (InitialisationFailedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		
-		
-		//TODO: for this worker give feedback data every so often and update info (said info needs to be created)
-		worker = new SwingWorker<Void, Void>() {
 
-			@Override
-			public Void doInBackground() {
-				double firstbest = 100;
-				int i = 0,diffGen = 0;
-				boolean first = false;
-				
-		        options.setFPS(GlobalOptions.MaxFPS);
-		        options.setVisualization(false);
-		        task = new ProgressTask(options);
-			    
-			    for (difficulty = 0; difficulty < 11; difficulty++)
-			    {
-					seed = rand.nextInt();
-
-			        System.out.println("New EvolveIncrementally phase with difficulty = " + difficulty + " started.");
-
-				
-				while (true) {
-
-					setOptions(options);
-			        System.out.println("Running Epoch[" + i + "] with diff:" + difficulty);
-					((NEATGeneticAlgorithmMario)ga).runEpoch(task);
-
-					
-					/////////////////////////////////////////
-					//Gui Process stuff
-					/////////////
-					//Get results
-					publish();
-					//pause to read results
-					while(IsPaused){
-
-			               try {
-							Thread.sleep(500);
-						} catch (InterruptedException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-					}
-					//////////////////////////////////////////
+	}
 	
+	public class mainWorker extends SwingWorker<Void, Void> {
 
-						if(((NEATGeneticAlgorithmMario) ga).genBest() >= 10000){
-							break;
-						}
-					diffGen++;
-					i++;
-				}
-			    }
+		@Override
+		public Void doInBackground() {
+			double firstbest = 100;
+			int i = 0,diffGen = 0;
+			boolean first = false;
+			System.out.println("in worker thread");
+			options = new MarioAIOptions("nothing");
+	        options.setFPS(GlobalOptions.MaxFPS);
+	        options.setVisualization(false);
+	        task = new ProgressTask(options);
+		    
+		    for (difficulty = 0; difficulty < 11; difficulty++)
+		    {
+				seed = rand.nextInt();
+
+		        System.out.println("New EvolveIncrementally phase with difficulty = " + difficulty + " started.");
+
+			
+			while (true) {
+
+				setOptions(options);
+		        System.out.println("Running Epoch[" + i + "] with diff:" + difficulty);
+		        
+				((NEATGeneticAlgorithmMario)ga).runEpoch(task);
+
 				
-				return null;
-			}
-			@Override
-			protected void process(List<Void> t) {
-				//specData[0][0] = Integer.toString(ga.population().genoTypes().length);
-				specData = new String[ga.GetSpecies().specieList().size()][2];
-				for(int i = 0; i < ga.GetSpecies().specieList().size() ; i++){
-					specData[i][0] = Integer.toString(((Specie)ga.GetSpecies().specieList().get(i)).id());
-					specData[i][1] = Integer.toString(((Specie)ga.GetSpecies().specieList().get(i)).specieMembers().size());
+				/////////////////////////////////////////
+				//Gui Process stuff
+				/////////////
+				//Get results
+				publish();
+				//pause to read results
+				while(IsPaused){
+
+		               try {
+						Thread.sleep(500);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						return null;
+					}
 				}
-				                       
-				SpecDataTable.setModel(new DefaultTableModel(specData,SpecDataHeading));
-				SpecDataTable.updateUI();
+				//////////////////////////////////////////
+
+
+					if(((NEATGeneticAlgorithmMario) ga).genBest() >= 10000){
+						break;
+					}
+				diffGen++;
+				i++;
 			}
+		    }
+			
+			return null;
+		}
+		@Override
+		protected void process(List<Void> t) {
+			//specData[0][0] = Integer.toString(ga.population().genoTypes().length);
+			specData = new String[ga.GetSpecies().specieList().size()][2];
+			for(int i = 0; i < ga.GetSpecies().specieList().size() ; i++){
+				specData[i][0] = Integer.toString(((Specie)ga.GetSpecies().specieList().get(i)).id());
+				specData[i][1] = Integer.toString(((Specie)ga.GetSpecies().specieList().get(i)).specieMembers().size());
+			}
+			                       
+			SpecDataTable.setModel(new DefaultTableModel(specData,SpecDataHeading));
+			SpecDataTable.updateUI();
+		}
 
-			/*
-			 * @Override public void done() { ; }
-			 */
-		};
-
+		/*
+		 * @Override public void done() { ; }
+		 */
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		 
+		if(worker != null && !worker.isDone()){
+			System.out.println("cancel!?");
+			worker.cancel(true);
+			try {
+				Thread.sleep(600);
+			} catch (InterruptedException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+		
+		if(worker == null || worker.isDone()){
+		worker = new mainWorker();
+			System.out.println("runiingngng");
+		//lets shove the config from the old main class into this one
+		configs = new NEATLoader().loadConfig("xor_neat.ga");
+		gam = new NEATGATrainingManager();
+		try {
+			gam.initialise(configs);
+		} catch (InitialisationFailedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		ga = (NEATGeneticAlgorithmMario)gam.ga();
+		config = gam.GetConfig();
+		System.out.println("?!?!?");
 		worker.execute();
+		}
+
 	}
 
 	public realtimeInterface() {

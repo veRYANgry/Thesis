@@ -186,7 +186,7 @@ public class NEATGATrainingManager {
 			i++;
 		}
 	    }
-		cat.debug("Innovation Database Stats - Hits:" + InnovationDatabase.hits + " - misses:" + InnovationDatabase.misses);
+		//cat.debug("Innovation Database Stats - Hits:" + InnovationDatabase.hits + " - misses:" + InnovationDatabase.misses);
 	}
 	
 	/**

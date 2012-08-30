@@ -24,11 +24,11 @@ import org.neat4j.neat.utils.MathUtils;
 public class InnovationDatabase {
 	private Random ran = new Random();
 	private HashMap innovations;
-	private static int innovationId = 1;
-	private static int neuronId = 1;
-	private static final InnovationDatabase database = new InnovationDatabase();
-	public static int hits = 0;
-	public static int misses = 0;
+	private  int innovationId = 1;
+	private  int neuronId = 1;
+	private static InnovationDatabase database = new InnovationDatabase();
+	public  int hits = 0;
+	public  int misses = 0;
 	
 	private InnovationDatabase() {
 		this.innovations = new HashMap();
@@ -142,6 +142,10 @@ public class InnovationDatabase {
 		NEATInnovation databaseEntry = new NEATNodeInnovation();
 		databaseEntry.setInnovationId(innovationNumber);
 		((NEATNodeInnovation)databaseEntry).setNodeId(this.nextNodeNumber());
+		
+		if(type == NEATNodeGene.INPUT)
+		System.out.println("Id for IN" + ((NEATNodeInnovation)databaseEntry).getNodeId());
+		
 		this.innovations.put(new Integer(innovationNumber), databaseEntry);
 		NEATNodeGene nodeGene = new NEATNodeGene(innovationNumber, ((NEATNodeInnovation)databaseEntry).getNodeId(), MathUtils.nextDouble(), type, MathUtils.nextPlusMinusOne());
 		

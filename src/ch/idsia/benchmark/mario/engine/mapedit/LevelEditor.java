@@ -146,7 +146,7 @@ public void actionPerformed(ActionEvent e)
     {
         if (e.getSource() == loadButton)
         {
-            levelEditView.setLevel(Level.load(new ObjectInputStream(LevelScene.class.getResourceAsStream(nameField.getText().trim()))));
+            levelEditView.setLevel(Level.load(new ObjectInputStream(new FileInputStream(nameField.getText().trim()))));
         }
         if (e.getSource() == saveButton)
         {

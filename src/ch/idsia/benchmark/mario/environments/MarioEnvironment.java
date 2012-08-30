@@ -80,6 +80,8 @@ public final class MarioEnvironment implements Environment {
 
 	public static SystemOfValues IntermediateRewardsSystemOfValues = new SystemOfValues();
 	private double moveTowards = 0;
+	
+	private int lastTime = 0;
 
 	DecimalFormat df = new DecimalFormat("######.#");
 
@@ -100,6 +102,21 @@ public final class MarioEnvironment implements Environment {
 		//levelScene.mario.x += 1;
 		//levelScene.mario.mapX += 1;
 
+	}
+	
+	//Call to see if mario should be killed due to not moving
+	public void MarioMovement(){
+		//System.out.println("tick is " + levelScene.tickCount + "last is" + lastTime);
+		//System.out.println("levelScene.mario.x is " + levelScene.mario.x + "levelScene.mario.xOld is" + levelScene.mario.xOld);
+		if(levelScene.mario.x - levelScene.mario.xOld > .8)
+			lastTime = levelScene.tickCount;
+		else if(levelScene.tickCount - lastTime > 100)
+		{
+			lastTime = 0;
+			levelScene.mario.die("Move!!!");
+		}
+
+		
 	}
 
 	public void calculateMovingToCloseSprite() {
@@ -151,8 +168,11 @@ public final class MarioEnvironment implements Environment {
 		 * System.out.flush();
 		 */
 		// if (!setUpOptions.getReplayOptions().equals(""))
+		
+		lastTime = 0;
 
 		this.setAgent(setUpOptions.getAgent());
+		
 
 		receptiveFieldWidth = setUpOptions.getReceptiveFieldWidth();
 		receptiveFieldHeight = setUpOptions.getReceptiveFieldHeight();
@@ -241,7 +261,8 @@ public final class MarioEnvironment implements Environment {
 		levelScene.tick();
 		if (GlobalOptions.isVisualization)
 			marioVisualComponent.tick();
-		calculateMovingToCloseSprite();
+		MarioMovement();
+		//calculateMovingToCloseSprite();
 	}
 
 	public float[] getMarioFloatPos() {
