@@ -96,6 +96,10 @@ public final class MarioEnvironment implements Environment {
 		// System.out.flush();
 		System.out.println(GlobalOptions.getBenchmarkName());
 		levelScene = new LevelScene();
+		System.out.println(levelScene.mario == null);
+		//levelScene.mario.x += 1;
+		//levelScene.mario.mapX += 1;
+
 	}
 
 	public void calculateMovingToCloseSprite() {

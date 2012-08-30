@@ -109,15 +109,15 @@ public class realtimeInterface extends JFrame implements ActionListener {
 				int i = 0,diffGen = 0;
 				boolean first = false;
 				
-		       // options.setArgs("-ls " + "resources/test.lvl" );
+		        options.setArgs("-ls " + "resources/test.lvl" );
 		        options.setFPS(GlobalOptions.MaxFPS);
 		        options.setVisualization(false);
 		        task = new ProgressTask(options);
 			    
-			    for (difficulty = 0; difficulty < 11; difficulty++)
+			    for (difficulty = 1; difficulty < 11; difficulty++)
 			    {
-					seed = rand.nextInt();
-			        options.setArgs("-ls " + seed);
+					//seed = rand.nextInt();
+			        //options.setArgs("-ls " + seed);
 			        options.setLevelDifficulty(difficulty);
 			        System.out.println("New EvolveIncrementally phase with difficulty = " + difficulty + " started.");
 
@@ -270,8 +270,8 @@ public class realtimeInterface extends JFrame implements ActionListener {
 								WorkerOptions.setLevelDifficulty(difficulty);
 								WorkerOptions.setFPS(32);
 								WorkerOptions.setVisualization(true);
-								WorkerOptions.setArgs("-ls " + seed);
-								
+								//WorkerOptions.setArgs("-ls " + seed);
+								WorkerOptions.setArgs("-ls " + "resources/test.lvl" );
 								Task WorkerTask = new ProgressTask(WorkerOptions);
 								
 						        NeuralNet nets = null;

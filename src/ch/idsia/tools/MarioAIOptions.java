@@ -328,6 +328,12 @@ public Point getMarioInitialPos()
     return marioInitialPos;
 }
 
+public void setMarioInitialPos(int x, int y)
+{
+    this.setParameterValue("-mix",s(x));
+    this.setParameterValue("-miy",s(y));
+}
+
 public void reset()
 {
     optionsHashMap.clear();

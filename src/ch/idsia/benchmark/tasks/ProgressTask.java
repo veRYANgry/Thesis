@@ -35,6 +35,7 @@ import ch.idsia.tools.MarioAIOptions;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Random;
 
 /**
  * Created by IntelliJ IDEA.
@@ -65,8 +66,11 @@ public int totalEpisodes = 0;
 private float evaluateSingleLevel(int ld, int tl, int ls, boolean vis, Agent controller)
 {
     this.totalEpisodes++;
-
+    Random rand = new Random(System.currentTimeMillis());
     float distanceTravelled = 0;
+    options.setMarioInitialPos(rand.nextInt(100), 0);
+    options.setMarioMode(0);
+    
     options.setAgent(controller);
 //        options.setLevelDifficulty(ld);
 //        options.setTimeLimit(tl);
@@ -83,11 +87,13 @@ private float evaluateSingleLevel(int ld, int tl, int ls, boolean vis, Agent con
     //distanceTravelled += this.getEnvironment().getEvaluationInfo().flowersDevoured * 40;
     //distanceTravelled += this.getEnvironment().getEvaluationInfo().coinsGained;
     //distanceTravelled += this.getEnvironment().getEvaluationInfo().killsByFire * 60;
-    //distanceTravelled += this.getEnvironment().getEvaluationInfo().killsByShell * 100;
-    distanceTravelled += this.getEnvironment().getEvaluationInfo().killsByStomp * 500;
-    //distanceTravelled -= this.getEnvironment().getEvaluationInfo().collisionsWithCreatures * 400;
+    distanceTravelled += this.getEnvironment().getEvaluationInfo().killsByShell * 1000;
+    distanceTravelled += this.getEnvironment().getEvaluationInfo().killsByStomp * 300;
+    distanceTravelled -= this.getEnvironment().getEvaluationInfo().collisionsWithCreatures * 1000;
     //might remove timeSpent (bad heuristic)
-    //distanceTravelled += this.getEnvironment().getEvaluationInfo().timeSpentMovingTowardememy / 100;
+   // distanceTravelled += this.getEnvironment().getEvaluationInfo().timeSpentMovingTowardememy / 100;
+    if(distanceTravelled < 0)
+    	distanceTravelled = 0;
     return distanceTravelled;
 }
 

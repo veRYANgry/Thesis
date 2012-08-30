@@ -40,7 +40,7 @@ public class NEATMutator implements Mutator, Serializable {
 	private double biasPerturb = 0.1;
 
 	private static final int MAX_LINK_ATTEMPTS = 5;
-	private static final Random linkRand = new Random();
+	private static final Random linkRand = new Random(System.currentTimeMillis());
 	private static final Random nodeRand = new Random(linkRand.nextLong());
 	private static final Random perturbRand = new Random(linkRand.nextLong());
 	private static final Random disableRand = new Random(linkRand.nextLong());
