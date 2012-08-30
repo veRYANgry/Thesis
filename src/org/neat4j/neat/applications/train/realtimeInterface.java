@@ -1,18 +1,25 @@
 package org.neat4j.neat.applications.train;
 
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.util.List;
 import java.util.Random;
 
 import javax.swing.AbstractButton;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingWorker;
@@ -40,13 +47,10 @@ import ch.idsia.tools.MarioAIOptions;
 
 public class realtimeInterface extends JFrame implements ActionListener {
 	
-	
 	private static boolean IsPaused;
-	private static Chromosome DemoMember;
 	
 	static SwingWorker<Void, Void> worker;
-	private static NEATGeneticAlgorithmMario ga;
-	private static AIConfig config;
+
 	
 	private static String[][] specData;
 	static String[] SpecDataHeading = {"Species" , "Species members"};
@@ -56,6 +60,15 @@ public class realtimeInterface extends JFrame implements ActionListener {
 	private static String[][] specMemberData;
 	static String[] SpecMemberDataHeading = {"Species member" , "Other info???"};
 	static JTable SpecMemberDataTable;
+	
+	static int LevelModeIndex = 0;
+	///////////////////////////////
+	//NEAT stuff
+	///////////////////////////////
+	private static NEATGeneticAlgorithmMario ga;
+	private static AIConfig config;
+	private static Chromosome DemoMember;
+	
 	///////////////////////////////
 	//Mario testbed stuff
 	///////////////////////////////
@@ -65,6 +78,8 @@ public class realtimeInterface extends JFrame implements ActionListener {
 	static int difficulty = 0;
 	static int seed = 0;
 	static Random rand = new Random(System.currentTimeMillis());
+	
+	static String levelName = "resources/test.lvl";
 	
 	////////////
 	//Demo stuff
@@ -79,6 +94,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		// TODO Auto-generated method stub
 		final String[] s = {"xor_neat.ga"};
 		new realtimeInterface();
+		
 		
 		try {
 			if (s.length != 1) {
@@ -109,22 +125,20 @@ public class realtimeInterface extends JFrame implements ActionListener {
 				int i = 0,diffGen = 0;
 				boolean first = false;
 				
-		        options.setArgs("-ls " + "resources/test.lvl" );
 		        options.setFPS(GlobalOptions.MaxFPS);
 		        options.setVisualization(false);
 		        task = new ProgressTask(options);
 			    
-			    for (difficulty = 1; difficulty < 11; difficulty++)
+			    for (difficulty = 0; difficulty < 11; difficulty++)
 			    {
-					//seed = rand.nextInt();
-			        //options.setArgs("-ls " + seed);
-			        options.setLevelDifficulty(difficulty);
+					seed = rand.nextInt();
+
 			        System.out.println("New EvolveIncrementally phase with difficulty = " + difficulty + " started.");
 
 				
 				while (true) {
-					//seed = rand.nextInt();
-			        //options.setArgs("-ls " + seed);
+
+					setOptions(options);
 			        System.out.println("Running Epoch[" + i + "] with diff:" + difficulty);
 					((NEATGeneticAlgorithmMario)ga).runEpoch(task);
 
@@ -208,6 +222,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 	    SpecDataTable = new JTable(specData,SpecDataHeading);
 		
 		JScrollPane SpecieInfo = new JScrollPane(SpecDataTable);
+		SpecieInfo.setPreferredSize(new Dimension(300, 200));
 
 		
 		content.add(SpecieInfo);
@@ -219,6 +234,8 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		specMemberData = new String[10][2];
 		SpecMemberDataTable = new JTable(specMemberData,SpecMemberDataHeading);
 		JScrollPane SpecieMemberInfo = new JScrollPane(SpecMemberDataTable);
+		SpecieMemberInfo.setPreferredSize(new Dimension(300, 200));
+		
 		//update on species click
 		SpecDataTable.addMouseListener( new MouseAdapter() {
 	          public void mouseClicked(MouseEvent e) {
@@ -270,8 +287,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 								WorkerOptions.setLevelDifficulty(difficulty);
 								WorkerOptions.setFPS(32);
 								WorkerOptions.setVisualization(true);
-								//WorkerOptions.setArgs("-ls " + seed);
-								WorkerOptions.setArgs("-ls " + "resources/test.lvl" );
+								setOptions(WorkerOptions);
 								Task WorkerTask = new ProgressTask(WorkerOptions);
 								
 						        NeuralNet nets = null;
@@ -327,7 +343,68 @@ public class realtimeInterface extends JFrame implements ActionListener {
 	          }
 		});
 		
+		levelOptions(content);
+		this.pack();
+
+	}
+	
+	//set up options for the next run according to set parameters
+	public static void setOptions(MarioAIOptions options){
 		
+		switch(LevelModeIndex){
+		case 0:
+	        options.setLevelDifficulty(difficulty);
+	        options.setArgs("-ls " + seed);
+			break;
+		case 1:
+			options.setArgs("-ls " + levelName);
+			break;
+		default:
+	        options.setLevelDifficulty(difficulty);
+	        options.setArgs("-ls " + seed);
+			break;
+
+		}
+		
+	}
+	
+	//function to add level options such as difficulty or task trails
+	public void levelOptions(final Container content){
+		JRadioButton setLevelSingle = new JRadioButton("Use single level from file");
+		setLevelSingle.addActionListener(new  ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				
+		        final JFileChooser fc = new JFileChooser();
+		        fc.setCurrentDirectory(new File("/home/bbb/workspace/Thesis/resources"));
+		        fc.showOpenDialog(content);
+		        levelName = fc.getSelectedFile().getAbsolutePath();
+		        LevelModeIndex = 1;
+			}
+		});
+		
+		
+		JRadioButton setLevelRandomOnly = new JRadioButton("Set all levels to be random");
+		setLevelRandomOnly.setSelected(true);
+		
+		setLevelRandomOnly.addActionListener(new  ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				LevelModeIndex = 0;
+			}
+		});
+		
+		ButtonGroup group = new ButtonGroup();
+		group.add(setLevelSingle);
+		group.add(setLevelRandomOnly);
+		
+		JPanel radioPanel = new JPanel(new GridLayout(0, 1));
+		radioPanel.add(setLevelSingle);
+		radioPanel.add(setLevelRandomOnly);
+		
+		
+		content.add(radioPanel);
+		
+        
+        
 	}
 
 }
