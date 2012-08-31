@@ -22,12 +22,14 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.SwingWorker;
 import javax.swing.table.DefaultTableModel;
 
 import org.neat4j.core.AIConfig;
 import org.neat4j.core.InitialisationFailedException;
 import org.neat4j.neat.applications.gui.NEATFrame;
+import org.neat4j.neat.core.InnovationDatabase;
 import org.neat4j.neat.core.NEATChromosome;
 import org.neat4j.neat.core.NEATGeneticAlgorithmMario;
 import org.neat4j.neat.core.NEATLoader;
@@ -58,7 +60,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 	static int currentSpecies;
 	
 	private static String[][] specMemberData;
-	static String[] SpecMemberDataHeading = {"Species member" , "Other info???"};
+	static String[] SpecMemberDataHeading = {"Species member" , "Fitness"};
 	static JTable SpecMemberDataTable;
 	
 	static int LevelModeIndex = 0;
@@ -92,11 +94,8 @@ public class realtimeInterface extends JFrame implements ActionListener {
 	 */
 
 	public static void main(final String[] args) {
-		new realtimeInterface();
 		configs = new NEATLoader().loadConfig("xor_neat.ga");
-
-		
-
+		new realtimeInterface();
 	}
 	
 	public class mainWorker extends SwingWorker<Void, Void> {
@@ -188,9 +187,10 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		
 		if(worker == null || worker.isDone()){
 		worker = new mainWorker();
+		InnovationDatabase.databaseReset();
 			System.out.println("runiingngng");
 		//lets shove the config from the old main class into this one
-		configs = new NEATLoader().loadConfig("xor_neat.ga");
+
 		gam = new NEATGATrainingManager();
 		try {
 			gam.initialise(configs);
@@ -216,9 +216,11 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		Container content = this.getContentPane();
 	    content.setLayout(new FlowLayout());
 	    
-		JButton b1 = new JButton("START");
+	    JPanel GridPanel = new JPanel(new FlowLayout());
+	    
+		JButton b1 = new JButton("Start New Run");
 		b1.addActionListener(this);
-		content.add(b1);
+		GridPanel.add(b1);
 		
 		JButton b2 = new JButton("Pause on next break");
 		b2.addActionListener(new  ActionListener(){
@@ -226,8 +228,22 @@ public class realtimeInterface extends JFrame implements ActionListener {
 				IsPaused = !IsPaused;
 			}
 		});
-		content.add(b2);
+		GridPanel.add(b2);
 		
+		JPanel StackPanel = new JPanel(new GridLayout(0, 1));
+		
+		StackPanel.add(GridPanel);
+		SpeciesBoxes(StackPanel);
+		content.add(StackPanel);
+		
+		levelOptions(content);
+		NEATConfig(content);
+		
+		this.pack();
+
+	}
+	
+	public void SpeciesBoxes(final Container content){
 		//species data table
 		specData = new String[10][2];
 	    SpecDataTable = new JTable(specData,SpecDataHeading);
@@ -334,7 +350,9 @@ public class realtimeInterface extends JFrame implements ActionListener {
 
 			}
 		});
-		content.add(b3);
+		 JPanel FlowPanel = new JPanel(new FlowLayout());
+		 FlowPanel.add(b3);
+		content.add(FlowPanel);
 		
 		
 		SpecMemberDataTable.addMouseListener( new MouseAdapter() {
@@ -353,10 +371,6 @@ public class realtimeInterface extends JFrame implements ActionListener {
 	              
 	          }
 		});
-		
-		levelOptions(content);
-		this.pack();
-
 	}
 	
 	//set up options for the next run according to set parameters
@@ -417,5 +431,93 @@ public class realtimeInterface extends JFrame implements ActionListener {
         
         
 	}
+	//Config options panel
+	
+	//only use on textboxes there is an unsafe cast
+	public class Neatboxes implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			configs.updateConfig(e.getActionCommand() , ((JTextField)e.getSource()).getText());
+		}
+	}
+	
+	public void NEATConfig(final Container content){
+		Neatboxes Listener = this.new Neatboxes();
+		
+		JPanel OptionsPanel = new JPanel(new GridLayout(0, 2));
+		
+		JLabel PopLabel = new JLabel("Population size");
+		JTextField PopSize = new JTextField(5);
+		PopSize.setActionCommand("POP.SIZE");
+		PopSize.setText(configs.configElement("POP.SIZE"));
+		PopSize.addActionListener(Listener);
+		OptionsPanel.add(PopLabel);
+		OptionsPanel.add(PopSize);
+		
+		JLabel MutationLabel = new JLabel("Mutation rate (what kind?)");
+		JTextField MutationText = new JTextField(5);
+		MutationText.setActionCommand("PROBABILITY.MUTATION");
+		MutationText.setText(configs.configElement("PROBABILITY.MUTATION"));
+		MutationText.addActionListener(Listener);
+		OptionsPanel.add(MutationLabel);
+		OptionsPanel.add(MutationText);
+		
+		JLabel CrossoverLabel = new JLabel("Crossover rate");
+		JTextField CrossoverText = new JTextField(5);
+		CrossoverText.setActionCommand("PROBABILITY.CROSSOVER");
+		CrossoverText.setText(configs.configElement("PROBABILITY.CROSSOVER"));
+		CrossoverText.addActionListener(Listener);
+		OptionsPanel.add(CrossoverLabel);
+		OptionsPanel.add(CrossoverText);
+		
+		JLabel AddLinkLabel = new JLabel("Add link rate");
+		JTextField AddLinkText = new JTextField(5);
+		AddLinkText.setActionCommand("PROBABILITY.ADDLINK");
+		AddLinkText.setText(configs.configElement("PROBABILITY.ADDLINK"));
+		AddLinkText.addActionListener(Listener);
+		OptionsPanel.add(AddLinkLabel);
+		OptionsPanel.add(AddLinkText);
+		
+		JLabel AddNodeLabel = new JLabel("Add node rate");
+		JTextField AddNodeText = new JTextField(5);
+		AddNodeText.setActionCommand("PROBABILITY.ADDNODE");
+		AddNodeText.setText(configs.configElement("PROBABILITY.ADDNODE"));
+		AddNodeText.addActionListener(Listener);
+		OptionsPanel.add(AddNodeLabel);
+		OptionsPanel.add(AddNodeText);
+		
+		JLabel MutateBiasLabel = new JLabel("Mutation bias rate");
+		JTextField MutateBiasText = new JTextField(5);
+		MutateBiasText.setActionCommand("PROBABILITY.MUTATEBIAS");
+		MutateBiasText.setText(configs.configElement("PROBABILITY.MUTATEBIAS"));
+		MutateBiasText.addActionListener(Listener);
+		OptionsPanel.add(MutateBiasLabel);
+		OptionsPanel.add(MutateBiasText);
+		
+		JLabel ToggleLinkLabel = new JLabel("Toggle link rate");
+		JTextField  ToggleLinkText = new JTextField(5);
+		ToggleLinkText.setActionCommand("PROBABILITY.TOGGLELINK");
+		ToggleLinkText.setText(configs.configElement("PROBABILITY.TOGGLELINK"));
+		ToggleLinkText.addActionListener(Listener);
+		OptionsPanel.add(ToggleLinkLabel);
+		OptionsPanel.add(ToggleLinkText);
+		
+		JLabel WeightReplaceLabel = new JLabel("Bias weight replace rate");
+		JTextField  WeightReplaceText = new JTextField(5);
+		WeightReplaceText.setActionCommand("PROBABILITY.WEIGHT.REPLACED");
+		WeightReplaceText.setText(configs.configElement("PROBABILITY.WEIGHT.REPLACED"));
+		WeightReplaceText.addActionListener(Listener);
+		OptionsPanel.add(WeightReplaceLabel);
+		OptionsPanel.add(WeightReplaceText);
+		
+		
+		
+		
+		content.add(OptionsPanel);
+	}
+
+	
+	
 
 }

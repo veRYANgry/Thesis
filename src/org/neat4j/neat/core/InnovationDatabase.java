@@ -50,6 +50,10 @@ public class InnovationDatabase {
 		return (database);
 	}
 	
+	public static void databaseReset() {
+		database = new InnovationDatabase();
+	}
+	
 	/**
 	 * Creates popsize chromosomes ready for creating a NEAT network. 
 	 * @param popSize - size of the population
