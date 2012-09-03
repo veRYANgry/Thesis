@@ -102,9 +102,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 
 		@Override
 		public Void doInBackground() {
-			double firstbest = 100;
 			int i = 0,diffGen = 0;
-			boolean first = false;
 			System.out.println("in worker thread");
 			options = new MarioAIOptions("nothing");
 	        options.setFPS(GlobalOptions.MaxFPS);
@@ -511,7 +509,22 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		OptionsPanel.add(WeightReplaceLabel);
 		OptionsPanel.add(WeightReplaceText);
 		
+		JLabel SpecieCountLabel = new JLabel("Number of Species to try to keep");
+		JTextField  SpecieCountText = new JTextField(5);
+		SpecieCountText.setActionCommand("SPECIE.COUNT");
+		SpecieCountText.setText(configs.configElement("SPECIE.COUNT"));
+		SpecieCountText.addActionListener(Listener);
+		OptionsPanel.add(SpecieCountLabel);
+		OptionsPanel.add(SpecieCountText);
 		
+		JButton SetAll = new JButton("Set All");
+		SetAll.addActionListener(new  ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				LevelModeIndex = 0;
+			}
+		});
+		
+		OptionsPanel.add(SetAll);
 		
 		
 		content.add(OptionsPanel);

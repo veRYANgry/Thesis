@@ -87,9 +87,9 @@ private float evaluateSingleLevel(int ld, int tl, int ls, boolean vis, Agent con
     //distanceTravelled += this.getEnvironment().getEvaluationInfo().flowersDevoured * 40;
     //distanceTravelled += this.getEnvironment().getEvaluationInfo().coinsGained;
     //distanceTravelled += this.getEnvironment().getEvaluationInfo().killsByFire * 60;
-    distanceTravelled += this.getEnvironment().getEvaluationInfo().killsByShell * 1000;
-    distanceTravelled += this.getEnvironment().getEvaluationInfo().killsByStomp * 300;
-    distanceTravelled -= this.getEnvironment().getEvaluationInfo().collisionsWithCreatures * 1000;
+    //distanceTravelled += this.getEnvironment().getEvaluationInfo().killsByShell * 1000;
+    //distanceTravelled += this.getEnvironment().getEvaluationInfo().killsByStomp * 300;
+    //distanceTravelled -= this.getEnvironment().getEvaluationInfo().collisionsWithCreatures * 1000;
     //might remove timeSpent (bad heuristic)
    // distanceTravelled += this.getEnvironment().getEvaluationInfo().timeSpentMovingTowardememy / 100;
     if(distanceTravelled < 0)
