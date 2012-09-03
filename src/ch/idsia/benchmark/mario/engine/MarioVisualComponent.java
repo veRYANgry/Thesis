@@ -84,11 +84,11 @@ int delay;
 private KeyAdapter prevHumanKeyBoardAgent;
 private String agentNameStr;
 private GameViewer gameViewer = null;
-private static MarioVisualComponent marioVisualComponent = null;
+private  MarioVisualComponent marioVisualComponent = null;
 
 private Scale2x scale2x = new Scale2x(640, 480);
 
-private MarioVisualComponent(MarioAIOptions marioAIOptions, MarioEnvironment marioEnvironment)
+public MarioVisualComponent(MarioAIOptions marioAIOptions, MarioEnvironment marioEnvironment)
 {
     this.marioEnvironment = marioEnvironment;
     adjustFPS();
@@ -126,19 +126,11 @@ private MarioVisualComponent(MarioAIOptions marioAIOptions, MarioEnvironment mar
             this.gameViewer.setVisible(true);
         }
     }
+    CreateMarioComponentFrame(this);
 }
 
-public static MarioVisualComponent getInstance(MarioAIOptions marioAIOptions, MarioEnvironment marioEnvironment)
-{
-    if (marioVisualComponent == null)
-    {
-        marioVisualComponent = new MarioVisualComponent(marioAIOptions, marioEnvironment);
-        marioVisualComponent.CreateMarioComponentFrame(marioVisualComponent);
-    }
-    return marioVisualComponent;
-}
 
-private static JFrame marioComponentFrame = null;
+private JFrame marioComponentFrame = null;
 
 public void CreateMarioComponentFrame(MarioVisualComponent m)
 {
@@ -153,7 +145,14 @@ public void CreateMarioComponentFrame(MarioVisualComponent m)
         {
            public void windowClosing(WindowEvent e)
            {
-               GlobalOptions.isGameplayStopped = true;
+        	   mario.die("Window closed");
+               
+               try {
+				Thread.sleep(100);
+			} catch (InterruptedException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
                //TODO find out how to stop this thread when spawned by another (v key does it)
         	   marioComponentFrame.dispose();
            }
@@ -305,11 +304,11 @@ public void render(Graphics g)
     drawStringDropShadow(g, "by Shell : " + marioEnvironment.getKilledCreaturesByShell(), 19, 2, 1);
     // COINS:
     g.drawImage(Art.level[0][2], 2, 43, 10, 10, null);
-    drawStringDropShadow(g, "x" + df.format(Mario.coins), 1, 5, 4);
+    drawStringDropShadow(g, "x" + df.format(mario.coins), 1, 5, 4);
     g.drawImage(Art.items[0][0], 47, 43, 11, 11, null);
-    drawStringDropShadow(g, "x" + df.format(Mario.mushroomsDevoured), 7, 5, 4);
+    drawStringDropShadow(g, "x" + df.format(mario.mushroomsDevoured), 7, 5, 4);
     g.drawImage(Art.items[1][0], 89, 43, 11, 11, null);
-    drawStringDropShadow(g, "x" + df.format(Mario.flowersDevoured), 12, 5, 4);
+    drawStringDropShadow(g, "x" + df.format(mario.flowersDevoured), 12, 5, 4);
 //    drawStringDropShadow(g, "MUSHROOMS: " + df.format(Mario.mushroomsDevoured), 0, 5, 4);
     drawStringDropShadow(g, "by Stomp : " + marioEnvironment.getKilledCreaturesByStomp(), 19, 3, 1);
 //    drawStringDropShadow(g, "FLOWERS  : " + df.format(Mario.flowersDevoured), 0, 6, 4);
@@ -370,13 +369,13 @@ private void drawProgress(Graphics g)
     drawStringDropShadow(g, "intermediate reward: " + marioEnvironment.getIntermediateReward(), 0, 27, 2);
 }
 
-public static void drawStringDropShadow(Graphics g, String text, int x, int y, int c)
+public  void drawStringDropShadow(Graphics g, String text, int x, int y, int c)
 {
     drawString(g, text, x * 8 + 5, y * 8 + 5, 0);
     drawString(g, text, x * 8 + 4, y * 8 + 4, c);
 }
 
-public static void drawString(Graphics g, String text, int x, int y, int c)
+public  void drawString(Graphics g, String text, int x, int y, int c)
 {
     char[] ch = text.toCharArray();
     for (int i = 0; i < ch.length; i++)
@@ -385,7 +384,7 @@ public static void drawString(Graphics g, String text, int x, int y, int c)
 
 //Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 //        frame.setLocation((screenSize.length-frame.getWidth())/2, (screenSize.height-frame.getHeight())/2);
-private static GraphicsConfiguration graphicsConfiguration;
+private  GraphicsConfiguration graphicsConfiguration;
 
 public void init()
 {

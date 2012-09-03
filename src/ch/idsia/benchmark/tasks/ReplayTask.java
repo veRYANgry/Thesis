@@ -47,7 +47,7 @@ import java.io.IOException;
  */
 public class ReplayTask implements Task
 {
-protected final static Environment environment = MarioEnvironment.getInstance();
+protected Environment environment = new MarioEnvironment();
 private ReplayAgent agent;
 private String name = getClass().getSimpleName();
 private Replayer replayer;

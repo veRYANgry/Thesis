@@ -32,6 +32,7 @@ import ch.idsia.benchmark.mario.engine.level.LevelGenerator;
 import ch.idsia.benchmark.mario.engine.level.SpriteTemplate;
 import ch.idsia.benchmark.mario.engine.sprites.*;
 import ch.idsia.benchmark.mario.environments.Environment;
+import ch.idsia.benchmark.tasks.SystemOfValues;
 import ch.idsia.tools.MarioAIOptions;
 
 import java.awt.*;
@@ -343,7 +344,7 @@ public void bump(int x, int y, boolean canBreakBricks)
     if ((Level.TILE_BEHAVIORS[block & 0xff] & Level.BIT_BUMPABLE) > 0)
     {
         if (block == 1)
-            Mario.gainHiddenBlock();
+            mario.gainHiddenBlock();
         bumpInto(x, y - 1);
         byte blockData = level.getBlockData(x, y);
         if (blockData < 0)
@@ -363,7 +364,7 @@ public void bump(int x, int y, boolean canBreakBricks)
                 ++level.counters.greenMushrooms;
             } else
             {
-                if (!Mario.large)
+                if (!mario.large)
                 {
                     addSprite(new Mushroom(this, x * cellSize + 8, y * cellSize + 8));
                     ++level.counters.mushrooms;
@@ -375,7 +376,7 @@ public void bump(int x, int y, boolean canBreakBricks)
             }
         } else
         {
-            Mario.gainCoin();
+            mario.gainCoin();
             addSprite(new CoinAnim(x, y));
         }
     }
@@ -401,7 +402,7 @@ public void bumpInto(int x, int y)
     byte block = level.getBlock(x, y);
     if (((Level.TILE_BEHAVIORS[block & 0xff]) & Level.BIT_PICKUPABLE) > 0)
     {
-        Mario.gainCoin();
+        mario.gainCoin();
         level.setBlock(x, y, (byte) 0);
         addSprite(new CoinAnim(x, y + 1));
     }
@@ -493,13 +494,13 @@ public boolean isMarioOnGround()
 public boolean isMarioAbleToJump()
 { return mario.mayJump(); }
 
-public void resetDefault()
+/*public void resetDefault()
 {
     // TODO: set values to defaults
     reset(MarioAIOptions.getDefaultOptions());
-}
+}*/
 
-public void reset(MarioAIOptions marioAIOptions)
+public void reset(MarioAIOptions marioAIOptions , SystemOfValues IntermediateRewardsSystemOfValues)
 {
 //        System.out.println("\nLevelScene RESET!");
 //        this.gameViewer = setUpOptions[0] == 1;
@@ -585,11 +586,12 @@ public void reset(MarioAIOptions marioAIOptions)
     Sprite.setCreaturesGravity(marioAIOptions.getCreaturesGravity());
     Sprite.setCreaturesWind(marioAIOptions.getWind());
     Sprite.setCreaturesIce(marioAIOptions.getIce());
-    Mario.resetStatic(marioAIOptions);
+    mario = new Mario(this, IntermediateRewardsSystemOfValues);
+    mario.resetStatic(marioAIOptions);
 
     bonusPoints = -1;
 
-    mario = new Mario(this);
+
     //System.out.println("mario = " + mario);
     memo = "";
 

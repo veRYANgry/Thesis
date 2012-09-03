@@ -47,7 +47,7 @@ import java.util.Vector;
 
 public class BasicTask implements Task
 {
-protected final static Environment environment = MarioEnvironment.getInstance();
+protected Environment environment = new MarioEnvironment();
 private Agent agent;
 protected MarioAIOptions options;
 private long COMPUTATION_TIME_BOUND = 42; // stands for prescribed  FPS 24.

@@ -220,7 +220,7 @@ public void render(final Graphics og)
                 og.drawLine((int) (x + k * wdOfRow + 8), (int) y - marioRow * htOfRow - 16/*height / 2 - 8*/, (int) (x + k * wdOfRow + 8), (int) y + (height - marioRow) * htOfRow - 16 /*(y + height / 2 - 8)*/);
         }
         og.setColor(Color.GREEN);
-        MarioVisualComponent.drawString(og, String.valueOf(this.kind), (int) x - 4, (int) y - 8, 2);
+        //MarioVisualComponent.drawString(og, String.valueOf(this.kind), (int) x - 4, (int) y - 8, 2);
     }
 }
 

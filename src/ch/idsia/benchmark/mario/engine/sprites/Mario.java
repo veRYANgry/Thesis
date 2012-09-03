@@ -33,6 +33,7 @@ import ch.idsia.benchmark.mario.engine.LevelScene;
 import ch.idsia.benchmark.mario.engine.level.Level;
 import ch.idsia.benchmark.mario.environments.Environment;
 import ch.idsia.benchmark.mario.environments.MarioEnvironment;
+import ch.idsia.benchmark.tasks.SystemOfValues;
 import ch.idsia.tools.MarioAIOptions;
 
 public final class Mario extends Sprite
@@ -51,20 +52,20 @@ public static final int STATUS_RUNNING = 2;
 public static final int STATUS_WIN = 1;
 public static final int STATUS_DEAD = 0;
 
-private static float marioGravity;
+private float marioGravity;
 
-public static boolean large = false;
-public static boolean fire = false;
-public static int coins = 0;
-public static int hiddenBlocksFound = 0;
-public static int collisionsWithCreatures = 0;
-public static int mushroomsDevoured = 0;
-public static int greenMushroomsDevoured = 0;
-public static int flowersDevoured = 0;
+public  boolean large = false;
+public  boolean fire = false;
+public  int coins = 0;
+public  int hiddenBlocksFound = 0;
+public  int collisionsWithCreatures = 0;
+public  int mushroomsDevoured = 0;
+public  int greenMushroomsDevoured = 0;
+public  int flowersDevoured = 0;
 
-private static boolean isTrace;
+private  boolean isTrace;
 
-private static boolean isMarioInvulnerable;
+private  boolean isMarioInvulnerable;
 
 private int status = STATUS_RUNNING;
 // for racoon when carrying the shell
@@ -83,7 +84,7 @@ private boolean inLadderZone;
 private boolean onLadder;
 private boolean onTopOfLadder = false;
 
-public static void resetStatic(MarioAIOptions marioAIOptions)
+public void resetStatic(MarioAIOptions marioAIOptions)
 {
     large = marioAIOptions.getMarioMode() > 0;
     fire = marioAIOptions.getMarioMode() == 2;
@@ -101,6 +102,16 @@ public static void resetStatic(MarioAIOptions marioAIOptions)
 
     iceCoeff = marioAIOptions.getIce();
     windCoeff = marioAIOptions.getWind();
+    
+    x = levelScene.getMarioInitialPos().x;
+    y = levelScene.getMarioInitialPos().y;
+    mapX = (int) (x / 16);
+    mapY = (int) (y / 16);
+
+    facing = 1;
+    setMode(large, fire);
+    yaa = marioGravity * 3;
+    jT = jumpPower / (marioGravity);
 }
 
 public int getMode()
@@ -136,24 +147,18 @@ public int xDeathPos, yDeathPos;
 public int deathTime = 0;
 public int winTime = 0;
 private int invulnerableTime = 0;
+private SystemOfValues IntermediateRewardsSystemOfValues;
 
 public Sprite carried = null;
 //    private static Mario instance;
 
-public Mario(LevelScene levelScene)
+public Mario(LevelScene levelScene, SystemOfValues IntermediateRewardsSystemOfValues)
 {
     kind = KIND_MARIO;
-//        Mario.instance = this;
     this.levelScene = levelScene;
-    x = levelScene.getMarioInitialPos().x;
-    y = levelScene.getMarioInitialPos().y;
-    mapX = (int) (x / 16);
-    mapY = (int) (y / 16);
+    this.IntermediateRewardsSystemOfValues = IntermediateRewardsSystemOfValues;
+//        Mario.instance = this;
 
-    facing = 1;
-    setMode(Mario.large, Mario.fire);
-    yaa = marioGravity * 3;
-    jT = jumpPower / (marioGravity);
 }
 
 private float jT;
@@ -164,8 +169,8 @@ private boolean newFire;
 
 private void blink(boolean on)
 {
-    Mario.large = on ? newLarge : lastLarge;
-    Mario.fire = on ? newFire : lastFire;
+    large = on ? newLarge : lastLarge;
+    fire = on ? newFire : lastFire;
 
 //        System.out.println("on = " + on);
     if (large)
@@ -195,14 +200,14 @@ void setMode(boolean large, boolean fire)
     if (fire) large = true;
     if (!large) fire = false;
 
-    lastLarge = Mario.large;
-    lastFire = Mario.fire;
+    lastLarge = large;
+    lastFire = fire;
 
-    Mario.large = large;
-    Mario.fire = fire;
+    large = large;
+    fire = fire;
 
-    newLarge = Mario.large;
-    newFire = Mario.fire;
+    newLarge = large;
+    newFire = fire;
 
     blink(true);
 }
@@ -394,12 +399,12 @@ public void move()
         sliding = false;
     }
 
-    if (keys[KEY_SPEED] && ableToShoot && Mario.fire && levelScene.fireballsOnScreen < 2)
+    if (keys[KEY_SPEED] && ableToShoot && fire && levelScene.fireballsOnScreen < 2)
     {
         levelScene.addSprite(new Fireball(levelScene, x + facing * 6, y - 20, facing));
     }
     // Cheats:
-    if (GlobalOptions.isPowerRestoration && keys[KEY_SPEED] && (!Mario.large || !Mario.fire))
+    if (GlobalOptions.isPowerRestoration && keys[KEY_SPEED] && (!large || !fire))
         setMode(true, true);
 //        if (cheatKeys[KEY_LIFE_UP])
 //            this.lives++;
@@ -468,6 +473,7 @@ public void move()
     ya *= 0.85f;
     if (onGround)
     {
+    	
         xa *= (GROUND_INERTIA + windScale(windCoeff, facing) + iceScale(iceCoeff));
     } else
     {
@@ -478,7 +484,7 @@ public void move()
 
     if (!onGround)
     {
-//        ya += 3;
+
         ya += yaa;
     }
 
@@ -653,7 +659,7 @@ private boolean isBlocking(final float _x, final float _y, final float xa, final
 
     if (((Level.TILE_BEHAVIORS[block & 0xff]) & Level.BIT_PICKUPABLE) > 0)
     {
-        Mario.gainCoin();
+    	gainCoin();
         levelScene.level.setBlock(x, y, (byte) 0);
         for (int xx = 0; xx < 2; xx++)
             for (int yy = 0; yy < 2; yy++)
@@ -683,7 +689,7 @@ public void stomp(final Enemy enemy)
     onGround = false;
     sliding = false;
     invulnerableTime = 1;
-    levelScene.appendBonusPoints(MarioEnvironment.IntermediateRewardsSystemOfValues.stomp);
+    levelScene.appendBonusPoints(IntermediateRewardsSystemOfValues.stomp);
 }
 
 public void stomp(final Shell shell)
@@ -709,7 +715,7 @@ public void stomp(final Shell shell)
         sliding = false;
         invulnerableTime = 1;
     }
-    levelScene.appendBonusPoints(MarioEnvironment.IntermediateRewardsSystemOfValues.stomp);
+    levelScene.appendBonusPoints(IntermediateRewardsSystemOfValues.stomp);
 }
 
 public void getHurt(final int spriteKind)
@@ -719,17 +725,17 @@ public void getHurt(final int spriteKind)
     if (invulnerableTime > 0) return;
 
     ++collisionsWithCreatures;
-    levelScene.appendBonusPoints(-MarioEnvironment.IntermediateRewardsSystemOfValues.kills);
+    levelScene.appendBonusPoints(-IntermediateRewardsSystemOfValues.kills);
     if (large)
     {
 //        levelScene.paused = true;
 //        powerUpTime = -3 * FractionalPowerUpTime;
         if (fire)
         {
-            levelScene.mario.setMode(true, false);
+            setMode(true, false);
         } else
         {
-            levelScene.mario.setMode(false, false);
+            setMode(false, false);
         }
         invulnerableTime = 32;
     } else
@@ -744,7 +750,7 @@ public void win()
     yDeathPos = (int) y;
     winTime = 1;
     status = Mario.STATUS_WIN;
-    levelScene.appendBonusPoints(MarioEnvironment.IntermediateRewardsSystemOfValues.win);
+    levelScene.appendBonusPoints(IntermediateRewardsSystemOfValues.win);
 }
 
 public void die(final String reasonOfDeath)
@@ -754,7 +760,7 @@ public void die(final String reasonOfDeath)
     deathTime = 25;
     status = Mario.STATUS_DEAD;
     levelScene.addMemoMessage("Reason of death: " + reasonOfDeath);
-    levelScene.appendBonusPoints(-MarioEnvironment.IntermediateRewardsSystemOfValues.win / 2);
+    levelScene.appendBonusPoints(-IntermediateRewardsSystemOfValues.win / 2);
 }
 
 public void devourFlower()
@@ -763,13 +769,13 @@ public void devourFlower()
 
     if (!fire)
     {
-        levelScene.mario.setMode(true, true);
+        setMode(true, true);
     } else
     {
-        Mario.gainCoin();
+       gainCoin();
     }
     ++flowersDevoured;
-    levelScene.appendBonusPoints(MarioEnvironment.IntermediateRewardsSystemOfValues.flowerFire);
+    levelScene.appendBonusPoints(IntermediateRewardsSystemOfValues.flowerFire);
 }
 
 public void devourMushroom()
@@ -778,13 +784,13 @@ public void devourMushroom()
 
     if (!large)
     {
-        levelScene.mario.setMode(true, false);
+        setMode(true, false);
     } else
     {
-        Mario.gainCoin();
+       gainCoin();
     }
     ++mushroomsDevoured;
-    levelScene.appendBonusPoints(MarioEnvironment.IntermediateRewardsSystemOfValues.mushroom);
+    levelScene.appendBonusPoints(IntermediateRewardsSystemOfValues.mushroom);
 }
 
 public void devourGreenMushroom(final int mushroomMode)
@@ -828,21 +834,21 @@ public void stomp(final BulletBill bill)
     onGround = false;
     sliding = false;
     invulnerableTime = 1;
-    levelScene.appendBonusPoints(MarioEnvironment.IntermediateRewardsSystemOfValues.stomp);
+    levelScene.appendBonusPoints(IntermediateRewardsSystemOfValues.stomp);
 }
 
-public static void gainCoin()
+public void gainCoin()
 {
     coins++;
-    levelScene.appendBonusPoints(MarioEnvironment.IntermediateRewardsSystemOfValues.coins);
+    levelScene.appendBonusPoints(IntermediateRewardsSystemOfValues.coins);
 //        if (coins % 100 == 0)
 //            get1Up();
 }
 
-public static void gainHiddenBlock()
+public void gainHiddenBlock()
 {
     ++hiddenBlocksFound;
-    levelScene.appendBonusPoints(MarioEnvironment.IntermediateRewardsSystemOfValues.hiddenBlock);
+    levelScene.appendBonusPoints(IntermediateRewardsSystemOfValues.hiddenBlock);
 }
 
 public int getStatus()
