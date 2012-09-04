@@ -1,6 +1,7 @@
 package org.neat4j.neat.core.fitness;
 
 import org.neat4j.neat.applications.gui.NEATFrame;
+import org.neat4j.neat.applications.train.VisionBound;
 import org.neat4j.neat.core.NEATFitnessFunction;
 import org.neat4j.neat.core.NEATNeuralNet;
 import org.neat4j.neat.data.core.ExpectedOutputSet;
@@ -34,14 +35,8 @@ public class MSENEATFitnessFunction extends NEATFitnessFunction {
 	
 	public double evaluate(Chromosome genoType) {return 2;}
 	
-	public double evaluates(Chromosome genoType, Task task) {
+	public double evaluates(Chromosome genoType, Task task, VisionBound Vision) {
 
-		int j;
-		NetworkOutputSet opSet;
-		NetworkInput ip;
-		double[] op;
-		double[] eOp;
-		double error = 0;
 
 		// need to create a net based on this chromo
 		this.createNetFromChromo(genoType);
@@ -51,7 +46,7 @@ public class MSENEATFitnessFunction extends NEATFitnessFunction {
 	    for (int i = 0; i < evaluationRepetitions; i++)
 	    {
 	        //population[which].reset();
-	        fitness += task.evaluate((Agent) new NeatAgent(this.net()));
+	        fitness += task.evaluate((Agent) new NeatAgent(this.net(),Vision));
 
 //	            System.out.println("which " + which + " fitness " + fitness[which]);
 	    }

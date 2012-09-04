@@ -27,14 +27,11 @@
 
 package ch.idsia.agents.controllers;
 
-import java.io.Serializable;
-
-import org.neat4j.neat.data.core.NetworkInput;
+import org.neat4j.neat.applications.train.VisionBound;
 import org.neat4j.neat.data.core.NetworkOutputSet;
 import org.neat4j.neat.nn.core.NeuralNet;
 
 import ch.idsia.agents.Agent;
-import ch.idsia.benchmark.mario.engine.sprites.Mario;
 import ch.idsia.benchmark.mario.environments.Environment;
 
 /**
@@ -44,8 +41,9 @@ import ch.idsia.benchmark.mario.environments.Environment;
 
 public class NeatAgent extends BasicMarioAIAgent implements Agent {
 	final int numberOfOutputs = Environment.numberOfKeys;
-	final int numberOfInputs = 30;
-	NeuralNet net;
+	private VisionBound Vision;
+	private int numberOfInputs;
+	private NeuralNet net;
 
 	public NeatAgent() {
 		super("NeatAgent");
@@ -54,9 +52,11 @@ public class NeatAgent extends BasicMarioAIAgent implements Agent {
 
 	}
 
-	public NeatAgent(NeuralNet net) {
+	public NeatAgent(NeuralNet net,VisionBound Vision) {
 		super("NeatAgent");
 		this.net = net;
+		this.Vision = Vision;
+		numberOfInputs = (Vision.XVisionStart - Vision.XVisionEnd)*(Vision.YVisionStart - Vision.YVisionEnd) + 1;
 		reset();
 	}
 
@@ -73,17 +73,17 @@ public class NeatAgent extends BasicMarioAIAgent implements Agent {
 		double[] inputs = new double[numberOfInputs];
 
 		int which = 0;
-		for (int i = -2; i < 3; i++) {
-			for (int j = -2; j < 3; j++) {
+		for (int i = Vision.XVisionStart; i < Vision.XVisionEnd ; i++) {
+			for (int j = Vision.YVisionStart; j < Vision.YVisionEnd ; j++) {
 				inputs[which++] = probe(i, j, scene);
 			}
 		}
 
-		inputs[inputs.length - 5] = marioMode == 0 ? 1 : 0;
-		inputs[inputs.length - 4] = isMarioCarrying ? 1 : 0;
-		inputs[inputs.length - 3] = isMarioOnGround ? 1 : 0;
-		inputs[inputs.length - 2] = isMarioAbleToJump ? 1 : 0;
-		inputs[inputs.length - 1] = isMarioAbleToShoot ? 1 : 0;
+		//inputs[inputs.length - 5] = marioMode == 0 ? 1 : 0;
+		inputs[inputs.length - 1] = isMarioCarrying ? 1 : 0;
+		//inputs[inputs.length - 3] = isMarioOnGround ? 1 : 0;
+		//inputs[inputs.length - 2] = isMarioAbleToJump ? 1 : 0;
+		//inputs[inputs.length - 1] = isMarioAbleToShoot ? 1 : 0;
 
 		ip = new MarioInput();
 

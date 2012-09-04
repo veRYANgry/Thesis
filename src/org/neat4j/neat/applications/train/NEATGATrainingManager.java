@@ -56,6 +56,7 @@ public class NEATGATrainingManager {
 	private static final Category cat = Category.getInstance(NEATGATrainingManager.class);
 	private GeneticAlgorithm ga;
 	private AIConfig config;
+	private VisionBound Vision = new VisionBound(-2,3,-2,3);
 	
 	public GeneticAlgorithm ga() {
 		return (this.ga);
@@ -123,7 +124,7 @@ public class NEATGATrainingManager {
 		
 		while (true) {
 	        System.out.println("Running Epoch[" + i + "] with diff:" + difficulty);
-			((NEATGeneticAlgorithmMario)this.ga).runEpoch(task);
+			((NEATGeneticAlgorithmMario)this.ga).runEpoch(task,Vision);
 			
 					
 			if(first){
@@ -157,7 +158,7 @@ public class NEATGATrainingManager {
 				((NEATNeuralNet)nets).updateNetStructure();
 				
 		        
-				 task.evaluate((Agent) new NeatAgent(nets));
+				 task.evaluate((Agent) new NeatAgent(nets , Vision));
 		        
 
 

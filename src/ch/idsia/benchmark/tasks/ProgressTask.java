@@ -124,7 +124,7 @@ public int evaluate(Agent controller)
 
     this.uniqueSeed += 1;
     this.fitnessEvaluations++;
-    this.dumpFitnessEvaluation(fitn, "fitnesses-");
+    //this.dumpFitnessEvaluation(fitn, "fitnesses-");
     return fitn;
 }
 

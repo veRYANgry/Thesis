@@ -17,6 +17,7 @@ import java.util.Collections;
 import java.util.Comparator;
 
 import org.apache.log4j.Category;
+import org.neat4j.neat.applications.train.VisionBound;
 import org.neat4j.neat.core.fitness.MSENEATFitnessFunction;
 import org.neat4j.neat.core.mutators.NEATMutator;
 import org.neat4j.neat.ga.core.Chromosome;
@@ -141,12 +142,12 @@ public class NEATGeneticAlgorithmMario implements GeneticAlgorithm , Serializabl
 		return (best);
 	}
 
-	private void evaluatePopulation(Chromosome[] genoTypes,Task task) {
+	private void evaluatePopulation(Chromosome[] genoTypes,Task task,  VisionBound Vision) {
 		int i;
 		double eval;
 		
 		for (i = 0; i < genoTypes.length; i++) {
-			eval = ((MSENEATFitnessFunction) this.func).evaluates(genoTypes[i], task);
+			eval = ((MSENEATFitnessFunction) this.func).evaluates(genoTypes[i], task, Vision);
 			genoTypes[i].updateFitness(eval);			
 		}
 	}
@@ -199,11 +200,11 @@ public class NEATGeneticAlgorithmMario implements GeneticAlgorithm , Serializabl
 	/**
 	 * Runs an evaluation and evolution cycle
 	 */
-	public void runEpoch(Task task) {
+	public void runEpoch(Task task,  VisionBound Vision) {
 		Chromosome[] currentGen = this.pop.genoTypes();
 		this.setChromosomeNO(currentGen);
 		System.out.println("Evaluating pop");
-		this.evaluatePopulation(currentGen, task);
+		this.evaluatePopulation(currentGen, task, Vision);
 		this.runEvolutionCycle(currentGen);
 	}
 	

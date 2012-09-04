@@ -146,6 +146,12 @@ public void actionPerformed(ActionEvent e)
     {
         if (e.getSource() == loadButton)
         {
+	        final JFileChooser fc = new JFileChooser();
+	        fc.setCurrentDirectory(new File(System.getProperty("user.dir")));
+	        fc.showOpenDialog(this);
+	        if(fc.getSelectedFile() != null){
+	        	nameField.setText( fc.getSelectedFile().getAbsolutePath());
+	        }
             levelEditView.setLevel(Level.load(new ObjectInputStream(new FileInputStream(nameField.getText().trim()))));
         }
         if (e.getSource() == saveButton)
