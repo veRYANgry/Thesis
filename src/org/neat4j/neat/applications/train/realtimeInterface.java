@@ -77,6 +77,12 @@ public class realtimeInterface extends JFrame implements ActionListener {
 	
 	ArrayList<JTextField> OptionsBoxes = new ArrayList<JTextField>();
 	ArrayList<String> OptionsBoxesHash = new ArrayList<String>();
+	
+	ArrayList<JTextField> HeuristicBoxes = new ArrayList<JTextField>();
+	
+	JLabel RunningStatus;
+	String RunningPausedNotification = "Paused";
+	JTextField SeedText;
 	///////////////////////////////
 	//NEAT stuff
 	///////////////////////////////
@@ -89,13 +95,15 @@ public class realtimeInterface extends JFrame implements ActionListener {
 	///////////////////////////////
 	//Mario testbed stuff
 	///////////////////////////////
-	static Task task;
+	static ProgressTask task;
 	static MarioAIOptions options = new MarioAIOptions("nothing");
 	static int difficulty = 0;
 	static int seed = 0;
 	static Random rand = new Random(System.currentTimeMillis());
-	
 	static String levelName = "resources/test.lvl";
+	
+	private double DistanceHeuristic = 1, MushroomHeuristic = 0, FlowerHeuristic = 0,  CoinsHeuristic = 0, StompKillsHeuristic = 200,ShellKillHeuristic = 500;
+
 	
 	////////////
 	//Demo stuff
@@ -108,6 +116,11 @@ public class realtimeInterface extends JFrame implements ActionListener {
 
 	public static void main(final String[] args) {
 		configs = new NEATLoader().loadConfig("xor_neat.ga");
+		options = new MarioAIOptions("nothing");
+        options.setFPS(GlobalOptions.MaxFPS);
+        options.setVisualization(false);
+        task = new ProgressTask(options);
+    	seed = rand.nextInt();
 		new realtimeInterface();
 	}
 	
@@ -116,18 +129,9 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		@Override
 		public Void doInBackground() {
 			int i = 0,diffGen = 0;
-			System.out.println("in worker thread");
-			options = new MarioAIOptions("nothing");
-	        options.setFPS(GlobalOptions.MaxFPS);
-	        options.setVisualization(false);
-	        task = new ProgressTask(options);
-		    
 		    for (difficulty = 0; difficulty < 11; difficulty++)
 		    {
-				seed = rand.nextInt();
-
 		        System.out.println("New EvolveIncrementally phase with difficulty = " + difficulty + " started.");
-
 			
 			while (true) {
 
@@ -140,9 +144,12 @@ public class realtimeInterface extends JFrame implements ActionListener {
 				/////////////////////////////////////////
 				//Gui Process stuff
 				/////////////
+				//pause to read results
+				if(IsPaused){
+					RunningPausedNotification = "Paused";
+				}
 				//Get results
 				publish();
-				//pause to read results
 				while(IsPaused){
 
 		               try {
@@ -152,6 +159,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 						return null;
 					}
 				}
+				RunningPausedNotification = "Running";
 				//////////////////////////////////////////
 
 
@@ -167,6 +175,8 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		}
 		@Override
 		protected void process(List<Void> t) {
+			RunningStatus.setText(RunningPausedNotification);
+			
 			//specData[0][0] = Integer.toString(ga.population().genoTypes().length);
 			specData = new String[ga.GetSpecies().specieList().size()][2];
 			for(int i = 0; i < ga.GetSpecies().specieList().size() ; i++){
@@ -223,11 +233,15 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		this.setSize(800, 800);
 		setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setTitle("NEAT Mario Nets Alpha2");
 		
 		Container content = this.getContentPane();
 	    content.setLayout(new FlowLayout());
 	    
 	    JPanel GridPanel = new JPanel(new FlowLayout());
+	    
+	    RunningStatus = new JLabel(RunningPausedNotification);
+	    GridPanel.add(RunningStatus);
 	    
 		JButton b1 = new JButton("Start New Run");
 		b1.addActionListener(this);
@@ -248,7 +262,12 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		content.add(StackPanel);
 		
 		levelOptions(content);
-		NEATConfig(content);
+		
+		JPanel StackPanel2 = new JPanel(new GridLayout(0, 1));
+		
+		NEATConfig(StackPanel2);
+		FitnessFunction(StackPanel2);
+		content.add(StackPanel2);
 		
 		VisionRange(content);
 		
@@ -364,6 +383,63 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		});
 		 JPanel FlowPanel = new JPanel(new FlowLayout());
 		 FlowPanel.add(b3);
+		 
+		JButton DemoGenBestButton = new JButton("View demo of best member this gen");
+		DemoGenBestButton.addActionListener(new  ActionListener(){
+				public void actionPerformed(ActionEvent e) {
+
+					if(DemoMember != null)
+					{
+						if(demoWorker == null || demoWorker.isDone()){
+
+							demoWorker = new SwingWorker<Void, Void>() {
+
+								@Override
+								public Void doInBackground() {
+
+									MarioAIOptions WorkerOptions = new MarioAIOptions("nothing");
+									
+									WorkerOptions.setLevelDifficulty(difficulty);
+									WorkerOptions.setFPS(32);
+									WorkerOptions.setVisualization(true);
+									setOptions(WorkerOptions);
+									Task WorkerTask = new ProgressTask(WorkerOptions);
+									
+							        NeuralNet nets = null;
+									try {
+										nets = gam.createNet(config);
+									} catch (InitialisationFailedException a) {
+										// TODO Auto-generated catch block
+										a.printStackTrace();
+									}
+									
+									((NEATNetDescriptor)(nets.netDescriptor())).updateStructure(ga.generationBest());
+									((NEATNeuralNet)nets).updateNetStructure();
+									
+									NEATFrame frame = new NEATFrame((NEATNeuralNet)nets);
+									frame.setTitle("Demo");
+									frame.showNet();
+							        
+									WorkerTask.evaluate((Agent) new NeatAgent(nets, Vision));
+									
+									 
+									
+									return null;
+								}
+							};
+							demoWorker.execute();
+
+
+						}
+					}
+					else{
+						System.out.println("Chromosome is null something is wrong");
+					}
+
+				}
+			});
+		FlowPanel.add(DemoGenBestButton);
+		 
 		content.add(FlowPanel);
 		
 		
@@ -396,6 +472,15 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		case 1:
 			options.setArgs("-ls " + levelName);
 			break;
+		case 2:
+			seed = rand.nextInt();
+	        options.setLevelDifficulty(difficulty);
+	        options.setArgs("-ls " + seed);
+			break;
+		case 3:
+	        options.setLevelDifficulty(difficulty);
+	        options.setArgs("-ls " + seed);
+			break;
 		default:
 	        options.setLevelDifficulty(difficulty);
 	        options.setArgs("-ls " + seed);
@@ -407,7 +492,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 	
 	//function to add level options such as difficulty or task trails
 	public void levelOptions(final Container content){
-		JRadioButton setLevelSingle = new JRadioButton("Use single level from file");
+		JRadioButton setLevelSingle = new JRadioButton("Use level from file for all runs");
 		setLevelSingle.addActionListener(new  ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				
@@ -423,7 +508,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		});
 		
 		
-		JRadioButton setLevelRandomOnly = new JRadioButton("Set all levels to be random");
+		JRadioButton setLevelRandomOnly = new JRadioButton("Set all levels one random level");
 		setLevelRandomOnly.setSelected(true);
 		
 		setLevelRandomOnly.addActionListener(new  ActionListener(){
@@ -432,13 +517,54 @@ public class realtimeInterface extends JFrame implements ActionListener {
 			}
 		});
 		
+		JRadioButton setEachLevelRandomOnly = new JRadioButton("Set Each run to have a new level");
+		setEachLevelRandomOnly.setSelected(false);
+		
+		setEachLevelRandomOnly.addActionListener(new  ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				LevelModeIndex = 2;
+			}
+		});
+		
+		JRadioButton setSeed = new JRadioButton("Set all runs to have the same seed");
+		setSeed.setSelected(false);
+		
+		setSeed.addActionListener(new  ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				LevelModeIndex = 3;
+			}
+		});
+		
+		
+		
 		ButtonGroup group = new ButtonGroup();
 		group.add(setLevelSingle);
 		group.add(setLevelRandomOnly);
+		group.add(setEachLevelRandomOnly);
+		group.add(setSeed);
 		
 		JPanel radioPanel = new JPanel(new GridLayout(0, 1));
 		radioPanel.add(setLevelSingle);
 		radioPanel.add(setLevelRandomOnly);
+		radioPanel.add(setEachLevelRandomOnly);
+		radioPanel.add(setSeed);
+		
+		JPanel SeedPanel = new JPanel(new GridLayout(0, 3));
+		JLabel SeedLabel = new JLabel("Seed");
+		 SeedText = new JTextField(10);
+		SeedText.setText(Integer.toString(seed));
+		
+		JButton SeedButton = new JButton("SetSeed");
+		SeedButton.addActionListener(new  ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				seed = Integer.valueOf(SeedText.getText());
+			}
+		});
+		
+		SeedPanel.add(SeedLabel);
+		SeedPanel.add(SeedText);
+		SeedPanel.add(SeedButton);
+		radioPanel.add(SeedPanel);
 		
 		JButton LevelButton = new JButton("Edit levels");
 		LevelButton.addActionListener(new  ActionListener(){
@@ -652,6 +778,117 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		
 		content.add(VisionPanel);
 
+	}
+	
+	public void FitnessFunction(final Container content){
+		
+	   class Heuristicboxes implements ActionListener {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(e.getActionCommand().equals("Distance")){
+					DistanceHeuristic = Double.valueOf(((JTextField)e.getSource()).getText());
+					task.setDistanceHeuristic(DistanceHeuristic);
+				} 
+				else if(e.getActionCommand().equals("Mushroom")){
+					MushroomHeuristic = Double.valueOf(((JTextField)e.getSource()).getText());
+					task.setMushroomHeuristic(MushroomHeuristic);
+				}				
+				else if(e.getActionCommand().equals("Flower")){
+					FlowerHeuristic = Double.valueOf(((JTextField)e.getSource()).getText());
+					task.setFlowerHeuristic(FlowerHeuristic);
+				}
+				else if(e.getActionCommand().equals("Coins")){
+					CoinsHeuristic = Double.valueOf(((JTextField)e.getSource()).getText());
+					task.setCoinsHeuristic(CoinsHeuristic);
+				}
+				else if(e.getActionCommand().equals("StompKills")){
+					StompKillsHeuristic = Double.valueOf(((JTextField)e.getSource()).getText());
+					task.setStompKillsHeuristic(StompKillsHeuristic);
+				}
+				else if(e.getActionCommand().equals("ShellKill")){
+					ShellKillHeuristic = Double.valueOf(((JTextField)e.getSource()).getText());
+					task.setShellKillHeuristic(ShellKillHeuristic);
+				}
+			}
+		}
+	    Heuristicboxes HBoxes = new Heuristicboxes();
+		
+		JPanel OptionsPanel = new JPanel(new GridLayout(0, 2));
+		OptionsPanel.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
+		
+		JPanel LabelPanel =  new JPanel(new FlowLayout());
+		LabelPanel.add(new JLabel("Heuristic Options"));
+		OptionsPanel.add(LabelPanel);
+		OptionsPanel.add( new JPanel(new FlowLayout()));
+		
+		JLabel DistanceLabel = new JLabel("Distance Heuristic Wieght");
+		JTextField DistanceText = new JTextField(5);
+		DistanceText.addActionListener(HBoxes);
+		DistanceText.setActionCommand("Distance");
+		DistanceText.setText(Double.toString(DistanceHeuristic));
+		OptionsPanel.add(DistanceLabel);
+		OptionsPanel.add(DistanceText);
+		HeuristicBoxes.add(DistanceText);
+		
+		JLabel MushroomLabel = new JLabel("Mushroom Heuristic Wieght");
+		JTextField MushroomText = new JTextField(5);
+		MushroomText.addActionListener(HBoxes);
+		MushroomText.setActionCommand("Mushroom");
+		MushroomText.setText(Double.toString(MushroomHeuristic));
+		OptionsPanel.add(MushroomLabel);
+		OptionsPanel.add(MushroomText);
+		HeuristicBoxes.add(MushroomText);
+		
+		JLabel FlowerLabel = new JLabel("Flower Heuristic Wieght");
+		JTextField FlowerText = new JTextField(5);
+		FlowerText.addActionListener(HBoxes);
+		FlowerText.setActionCommand("Flower");
+		FlowerText.setText(Double.toString(FlowerHeuristic));
+		OptionsPanel.add(FlowerLabel);
+		OptionsPanel.add(FlowerText);
+		HeuristicBoxes.add(FlowerText);
+		
+		JLabel CoinsLabel = new JLabel("Coins Heuristic Wieght");
+		JTextField CoinsText = new JTextField(5);
+		CoinsText.addActionListener(HBoxes);
+		CoinsText.setActionCommand("Coins");
+		CoinsText.setText(Double.toString(CoinsHeuristic));
+		OptionsPanel.add(CoinsLabel);
+		OptionsPanel.add(CoinsText);
+		HeuristicBoxes.add(CoinsText);
+				
+		JLabel StompKillsLabel = new JLabel("StompKills Heuristic Wieght");
+		JTextField StompKillsText = new JTextField(5);
+		StompKillsText.addActionListener(HBoxes);
+		StompKillsText.setActionCommand("StompKills");
+		StompKillsText.setText(Double.toString(StompKillsHeuristic));
+		OptionsPanel.add(StompKillsLabel);
+		OptionsPanel.add(StompKillsText);
+		HeuristicBoxes.add(StompKillsText);
+		
+		JLabel ShellKillLabel = new JLabel("ShellKill Heuristic Wieght");
+		JTextField ShellKillText = new JTextField(5);
+		ShellKillText.addActionListener(HBoxes);
+		ShellKillText.setActionCommand("ShellKill");
+		ShellKillText.setText(Double.toString(ShellKillHeuristic));
+		OptionsPanel.add(ShellKillLabel);
+		OptionsPanel.add(ShellKillText);
+		HeuristicBoxes.add(ShellKillText);
+		
+		JButton SetAll = new JButton("Set All");
+		SetAll.addActionListener(new  ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				for(JTextField text:HeuristicBoxes){
+					text.postActionEvent();
+				}
+			}
+		});
+		
+		OptionsPanel.add(SetAll);
+
+		content.add(OptionsPanel);
+		
 	}
 
 	

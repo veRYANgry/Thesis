@@ -51,8 +51,41 @@ private int uniqueSeed;
 private int fitnessEvaluations = 0;
 public int uid;
 private String fileTimeStamp = "-uid-" + uid + "-" + GlobalOptions.getTimeStamp();
+private double DistanceHeuristic = 1, MushroomHeuristic = 0, FlowerHeuristic = 0,  CoinsHeuristic = 0, StompKillsHeuristic = 200,ShellKillHeuristic = 500;
 
 //    private int startingSeed;
+
+public void setFitnessEvaluations(int fitnessEvaluations) {
+	this.fitnessEvaluations = fitnessEvaluations;
+}
+
+public void setDistanceHeuristic(double distanceHeuristic) {
+	DistanceHeuristic = distanceHeuristic;
+}
+
+public void setMushroomHeuristic(double mushroomHeuristic) {
+	MushroomHeuristic = mushroomHeuristic;
+}
+
+public void setFlowerHeuristic(double flowerHeuristic) {
+	FlowerHeuristic = flowerHeuristic;
+}
+
+public void setCoinsHeuristic(double coinsHeuristic) {
+	CoinsHeuristic = coinsHeuristic;
+}
+
+public void setStompKillsHeuristic(double stompKillsHeuristic) {
+	StompKillsHeuristic = stompKillsHeuristic;
+}
+
+public void setShellKillHeuristic(double shellKillHeuristic) {
+	ShellKillHeuristic = shellKillHeuristic;
+}
+
+public void setTotalEpisodes(int totalEpisodes) {
+	this.totalEpisodes = totalEpisodes;
+}
 
 public ProgressTask(MarioAIOptions evaluationOptions)
 {
@@ -81,14 +114,15 @@ private float evaluateSingleLevel(int ld, int tl, int ls, boolean vis, Agent con
     this.setOptionsAndReset(options);
     this.runSingleEpisode(1);
    // distanceTravelled += (this.getEnvironment().getEvaluationInfo().marioStatus == Mario.STATUS_WIN ? 1 : 0) * 1000;
-    distanceTravelled += this.getEnvironment().getEvaluationInfo().computeDistancePassed();
+    distanceTravelled += this.getEnvironment().getEvaluationInfo().computeDistancePassed() * DistanceHeuristic;
+    distanceTravelled += this.getEnvironment().getEvaluationInfo().mushroomsDevoured * MushroomHeuristic;
     //distanceTravelled -= (this.getEnvironment().getEvaluationInfo().marioMode == 0 ? 1 : 0) * 1000;
     //distanceTravelled += this.getEnvironment().getEvaluationInfo().greenMushroomsDevoured * 100;
-    //distanceTravelled += this.getEnvironment().getEvaluationInfo().flowersDevoured * 40;
-    //distanceTravelled += this.getEnvironment().getEvaluationInfo().coinsGained;
+    distanceTravelled += this.getEnvironment().getEvaluationInfo().flowersDevoured * FlowerHeuristic;
+    distanceTravelled += this.getEnvironment().getEvaluationInfo().coinsGained * CoinsHeuristic;
     //distanceTravelled += this.getEnvironment().getEvaluationInfo().killsByFire * 60;
-    //distanceTravelled += this.getEnvironment().getEvaluationInfo().killsByShell * 1000;
-    //distanceTravelled += this.getEnvironment().getEvaluationInfo().killsByStomp * 300;
+    distanceTravelled += this.getEnvironment().getEvaluationInfo().killsByShell * ShellKillHeuristic;
+    distanceTravelled += this.getEnvironment().getEvaluationInfo().killsByStomp * StompKillsHeuristic;
     //distanceTravelled -= this.getEnvironment().getEvaluationInfo().collisionsWithCreatures * 1000;
     //might remove timeSpent (bad heuristic)
    // distanceTravelled += this.getEnvironment().getEvaluationInfo().timeSpentMovingTowardememy / 100;
