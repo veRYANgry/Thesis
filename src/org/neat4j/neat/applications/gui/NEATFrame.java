@@ -52,7 +52,7 @@ import org.neat4j.neat.core.NEATNodeGene;
 }
 
 class NEATCanvas extends Canvas {
-	private static final Category cat = Category.getInstance(NEATCanvas.class); 
+
 	private NEATNeuralNet net;
 	private int canvasH;
 	private int canvasW;
@@ -124,7 +124,11 @@ class NEATCanvas extends Canvas {
 					row = neuron.neuronDepth();
 				}
 				col = nDepthWidth[row];
+
+				if(col < maxWidth)
 				neuronStructure[row][col] = neuron;
+				else
+					System.out.println("ROW COL IS" + row + "  " + col);
 				nDepthWidth[row]++;
 			}
 		}

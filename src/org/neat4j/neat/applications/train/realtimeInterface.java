@@ -10,6 +10,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -28,12 +30,15 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingWorker;
 import javax.swing.border.EtchedBorder;
 import javax.swing.table.DefaultTableModel;
+
+import junit.framework.Test;
 
 import org.neat4j.core.AIConfig;
 import org.neat4j.core.InitialisationFailedException;
@@ -70,8 +75,10 @@ public class realtimeInterface extends JFrame implements ActionListener {
 	static int currentSpecies;
 	
 	private static String[][] specMemberData;
-	static String[] SpecMemberDataHeading = {"Species member" , "Fitness"};
+	static String[] SpecMemberDataHeading = {"Species member" , "Adjusted Fitness"};
 	static JTable SpecMemberDataTable;
+	
+	static String[] ChromosomeDataHeading = {"chromo ID" , "Type", "Links"};
 	
 	static int LevelModeIndex = 0;
 	
@@ -115,6 +122,15 @@ public class realtimeInterface extends JFrame implements ActionListener {
 	 */
 
 	public static void main(final String[] args) {
+		String path = Test.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+		try {
+			String decodedPath = URLDecoder.decode(path, "UTF-8");
+			System.setProperty("user.dir",decodedPath);
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		 System.out.println(realtimeInterface.class.getProtectionDomain().getCodeSource().getLocation().getPath());
 		configs = new NEATLoader().loadConfig("xor_neat.ga");
 		options = new MarioAIOptions("nothing");
         options.setFPS(GlobalOptions.MaxFPS);
@@ -234,9 +250,20 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setTitle("NEAT Mario Nets Alpha2");
-		
+        
+        JTabbedPane tabbedPane = new JTabbedPane();
+        
+        JPanel runPanel = new JPanel(false);
+        runPanel.setLayout(new FlowLayout());
+        JPanel optionsPanel = new JPanel(false);
+        optionsPanel.setLayout(new FlowLayout());
+        tabbedPane.add("Run Info" , runPanel);
+        tabbedPane.add("Options" , optionsPanel);
+        
 		Container content = this.getContentPane();
 	    content.setLayout(new FlowLayout());
+	    
+	    content.add(tabbedPane);
 	    
 	    JPanel GridPanel = new JPanel(new FlowLayout());
 	    
@@ -255,11 +282,13 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		});
 		GridPanel.add(b2);
 		
-		JPanel StackPanel = new JPanel(new GridLayout(0, 1));
+		
+		
+		JPanel StackPanel = new JPanel(new GridLayout(3, 2));
 		
 		StackPanel.add(GridPanel);
 		SpeciesBoxes(StackPanel);
-		content.add(StackPanel);
+		runPanel.add(StackPanel);
 		
 		levelOptions(content);
 		
@@ -267,9 +296,9 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		
 		NEATConfig(StackPanel2);
 		FitnessFunction(StackPanel2);
-		content.add(StackPanel2);
+		optionsPanel.add(StackPanel2);
 		
-		VisionRange(content);
+		VisionRange(optionsPanel);
 		
 		this.pack();
 
@@ -279,14 +308,11 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		//species data table
 		specData = new String[10][2];
 	    SpecDataTable = new JTable(specData,SpecDataHeading);
-		
 		JScrollPane SpecieInfo = new JScrollPane(SpecDataTable);
 		SpecieInfo.setPreferredSize(new Dimension(300, 200));
 
 		
 		content.add(SpecieInfo);
-		SpecDataTable.setVisible(true);
-		SpecieInfo.setVisible(true);
 		
 		//species member data
 		
@@ -294,6 +320,14 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		SpecMemberDataTable = new JTable(specMemberData,SpecMemberDataHeading);
 		JScrollPane SpecieMemberInfo = new JScrollPane(SpecMemberDataTable);
 		SpecieMemberInfo.setPreferredSize(new Dimension(300, 200));
+		
+		//chromosome data
+
+		JTable ChromosomeDataTable = new JTable(new String[10][3],ChromosomeDataHeading);
+		JScrollPane ChromosomePane = new JScrollPane(ChromosomeDataTable);
+		ChromosomePane.setPreferredSize(new Dimension(300, 200));
+		
+		content.add(ChromosomePane);
 		
 		//update on species click
 		SpecDataTable.addMouseListener( new MouseAdapter() {
@@ -331,7 +365,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		b3.addActionListener(new  ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 
-				if(DemoMember != null)
+				if(DemoMember != null && IsPaused)
 				{
 					if(demoWorker == null || demoWorker.isDone()){
 
@@ -381,16 +415,16 @@ public class realtimeInterface extends JFrame implements ActionListener {
 
 			}
 		});
-		 JPanel FlowPanel = new JPanel(new FlowLayout());
-		 FlowPanel.add(b3);
+		 JPanel FlowPanel1 = new JPanel(new FlowLayout());
+		 JPanel FlowPanel2 = new JPanel(new FlowLayout());
+		 FlowPanel1.add(b3);
 		 
 		JButton DemoGenBestButton = new JButton("View demo of best member this gen");
 		DemoGenBestButton.addActionListener(new  ActionListener(){
 				public void actionPerformed(ActionEvent e) {
 
-					if(DemoMember != null)
-					{
-						if(demoWorker == null || demoWorker.isDone()){
+
+						if((demoWorker == null || demoWorker.isDone()) && IsPaused){
 
 							demoWorker = new SwingWorker<Void, Void>() {
 
@@ -431,16 +465,16 @@ public class realtimeInterface extends JFrame implements ActionListener {
 
 
 						}
-					}
-					else{
-						System.out.println("Chromosome is null something is wrong");
+	
+
 					}
 
-				}
+				
 			});
-		FlowPanel.add(DemoGenBestButton);
+		FlowPanel2.add(DemoGenBestButton);
 		 
-		content.add(FlowPanel);
+		content.add(FlowPanel1);
+		content.add(FlowPanel2);
 		
 		
 		SpecMemberDataTable.addMouseListener( new MouseAdapter() {
@@ -508,7 +542,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		});
 		
 		
-		JRadioButton setLevelRandomOnly = new JRadioButton("Set all levels one random level");
+		JRadioButton setLevelRandomOnly = new JRadioButton("Set all runs to one random level");
 		setLevelRandomOnly.setSelected(true);
 		
 		setLevelRandomOnly.addActionListener(new  ActionListener(){
@@ -517,7 +551,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 			}
 		});
 		
-		JRadioButton setEachLevelRandomOnly = new JRadioButton("Set Each run to have a new level");
+		JRadioButton setEachLevelRandomOnly = new JRadioButton("Set each run to have a new level");
 		setEachLevelRandomOnly.setSelected(false);
 		
 		setEachLevelRandomOnly.addActionListener(new  ActionListener(){
@@ -738,7 +772,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				
 				Vision.XVisionStart = ((JComboBox)e.getSource()).getSelectedIndex() + -11;
-				configs.updateConfig("INPUT.NODES" , Integer.toString((Vision.XVisionStart - Vision.XVisionEnd)*(Vision.YVisionStart - Vision.YVisionEnd) + 1));
+				configs.updateConfig("INPUT.NODES" , Integer.toString((Vision.XVisionStart - Vision.XVisionEnd)*(Vision.YVisionStart - Vision.YVisionEnd) ));
 				}
 
 		});
@@ -751,7 +785,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		Xend.addActionListener(new  ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				Vision.XVisionEnd = ((JComboBox)e.getSource()).getSelectedIndex() + -11;
-				configs.updateConfig("INPUT.NODES" , Integer.toString((Vision.XVisionStart - Vision.XVisionEnd)*(Vision.YVisionStart - Vision.YVisionEnd) + 1));}
+				configs.updateConfig("INPUT.NODES" , Integer.toString((Vision.XVisionStart - Vision.XVisionEnd)*(Vision.YVisionStart - Vision.YVisionEnd) ));}
 		});
 		
 		JLabel YstartLabel = new JLabel("Starting Y value");
@@ -762,7 +796,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		Ystart.addActionListener(new  ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				Vision.YVisionStart = ((JComboBox)e.getSource()).getSelectedIndex() + -11;
-				configs.updateConfig("INPUT.NODES" , Integer.toString((Vision.XVisionStart - Vision.XVisionEnd)*(Vision.YVisionStart - Vision.YVisionEnd) + 1));}
+				configs.updateConfig("INPUT.NODES" , Integer.toString((Vision.XVisionStart - Vision.XVisionEnd)*(Vision.YVisionStart - Vision.YVisionEnd) ));}
 		});
 		
 		JLabel YendLabel = new JLabel("Ending Y value");
@@ -773,7 +807,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		Yend.addActionListener(new  ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				Vision.YVisionEnd = ((JComboBox)e.getSource()).getSelectedIndex() + -11;
-				configs.updateConfig("INPUT.NODES" , Integer.toString((Vision.XVisionStart - Vision.XVisionEnd)*(Vision.YVisionStart - Vision.YVisionEnd) + 1));}
+				configs.updateConfig("INPUT.NODES" , Integer.toString((Vision.XVisionStart - Vision.XVisionEnd)*(Vision.YVisionStart - Vision.YVisionEnd) ));}
 		});
 		
 		content.add(VisionPanel);

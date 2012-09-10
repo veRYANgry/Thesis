@@ -101,7 +101,7 @@ private float evaluateSingleLevel(int ld, int tl, int ls, boolean vis, Agent con
     this.totalEpisodes++;
     Random rand = new Random(System.currentTimeMillis());
     float distanceTravelled = 0;
-    options.setMarioInitialPos(rand.nextInt(100), 50);
+    options.setMarioInitialPos(rand.nextInt(100), 120);
     options.setMarioMode(0);
     
     options.setAgent(controller);

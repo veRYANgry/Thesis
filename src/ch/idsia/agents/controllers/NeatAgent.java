@@ -44,6 +44,7 @@ public class NeatAgent extends BasicMarioAIAgent implements Agent {
 	private VisionBound Vision;
 	private int numberOfInputs;
 	private NeuralNet net;
+	private int pulse = 0;
 
 	public NeatAgent() {
 		super("NeatAgent");
@@ -56,7 +57,7 @@ public class NeatAgent extends BasicMarioAIAgent implements Agent {
 		super("NeatAgent");
 		this.net = net;
 		this.Vision = Vision;
-		numberOfInputs = (Vision.XVisionStart - Vision.XVisionEnd)*(Vision.YVisionStart - Vision.YVisionEnd) + 1;
+		numberOfInputs = (Vision.XVisionStart - Vision.XVisionEnd)*(Vision.YVisionStart - Vision.YVisionEnd);
 		reset();
 	}
 
@@ -71,6 +72,7 @@ public class NeatAgent extends BasicMarioAIAgent implements Agent {
 
 		byte[][] scene = levelScene;
 		double[] inputs = new double[numberOfInputs];
+	//System.out.println( "level1 is:" + levelScene[9][10] + "enemy" + enemies[9][10]);
 
 		int which = 0;
 		for (int i = Vision.XVisionStart; i < Vision.XVisionEnd ; i++) {
@@ -78,11 +80,15 @@ public class NeatAgent extends BasicMarioAIAgent implements Agent {
 				inputs[which++] = probe(i, j, scene);
 			}
 		}
-
+		if(pulse == 0)
+			pulse = 1;
+		else
+			pulse = 0;
+		//inputs[inputs.length - 1] = pulse;
 		//inputs[inputs.length - 5] = marioMode == 0 ? 1 : 0;
-		inputs[inputs.length - 1] = isMarioCarrying ? 1 : 0;
+		//inputs[inputs.length - 1] = isMarioCarrying ? 1 : 0;
 		//inputs[inputs.length - 3] = isMarioOnGround ? 1 : 0;
-		//inputs[inputs.length - 2] = isMarioAbleToJump ? 1 : 0;
+		//inputs[inputs.length - 1] = isMarioAbleToJump ? 1 : 0;
 		//inputs[inputs.length - 1] = isMarioAbleToShoot ? 1 : 0;
 
 		ip = new MarioInput();
@@ -105,14 +111,14 @@ public class NeatAgent extends BasicMarioAIAgent implements Agent {
 	private double probe(int x, int y, byte[][] scene) {
 		int realX = x + 11;
 		int realY = y + 11;
-
 		// System.out.println( "level is:" + levelScene[realX][realY] +
 		// "enemy is:" + enemies[realX][realY] + "output is" +
 		// (double)(levelScene[realX][realY] + enemies[realX][realY]) / 100);
-		if (levelScene[realX][realY] != 0)
+		//return levelScene[realX][realY] + enemies[realX][realY];
+		if (levelScene[realY][realX] != 0)
 			return 1;
-		else if (enemies[realX][realY] > 2)
-			return -1;
+		else if (enemies[realY][realX] > 2)
+			return 1;
 		else
 			return 0;
 	}

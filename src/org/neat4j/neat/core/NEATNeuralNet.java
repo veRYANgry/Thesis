@@ -96,11 +96,14 @@ public class NEATNeuralNet implements NeuralNet {
 				if (neuron.id() == ((NEATNeuron)sourceNodes[i]).id()) {				
 					// Self Recurrent
 					//cat.debug("Self Recurrent:" + neuron.id() + ":" + ((NEATNeuron)sourceNodes.get(i)).id());
+					//System.out.println("before selfRecurrent:" + neuron.id() + " value " + inputPattern[i]);
 					inputPattern[i] = neuron.lastActivation();
+					//System.out.println("after selfRecurrent:" + neuron.id() + " value " + inputPattern[i]);
 				} else if (neuron.neuronDepth() > ((NEATNeuron)sourceNodes[i]).neuronDepth()) {
 					// Recurrent
-					//cat.debug("Recurrent:" + neuron.id() + ":" + ((NEATNeuron)sourceNodes.get(i)).id());
+					//System.out.println("before Recurrent:" + neuron.id() + " value " + inputPattern[i]);
 					inputPattern[i] = ((NEATNeuron)sourceNodes[i]).lastActivation();
+					//System.out.println("after Recurrent:" + neuron.id() + " value " + inputPattern[i]);
 				} else {
 					inputPattern[i] = this.neuronOutput((NEATNeuron)sourceNodes[i], netInput);
 //					if (((Synapse)incomingSynapses[i]).isEnabled()) {
