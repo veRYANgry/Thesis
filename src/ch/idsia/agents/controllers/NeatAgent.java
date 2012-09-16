@@ -101,9 +101,11 @@ public class NeatAgent extends BasicMarioAIAgent implements Agent {
 		op = opSet.nextOutput().values();
 
 		boolean[] action = new boolean[numberOfOutputs];
-		for (int i = 0; i < action.length; i++) {
+/*		for (int i = 0; i < action.length; i++) {
 			action[i] = op[i] > .75;
-		}
+		}*/
+		action[1] = op[0] > .75;
+		action[3] = op[1] > .75;
 
 		return action;
 	}
@@ -118,7 +120,7 @@ public class NeatAgent extends BasicMarioAIAgent implements Agent {
 		if (levelScene[realY][realX] != 0)
 			return 1;
 		else if (enemies[realY][realX] > 2)
-			return 1;
+			return -1;
 		else
 			return 0;
 	}
