@@ -47,7 +47,7 @@ public class NEATSpecieManager {
 			if (((NEATGene)applicantGenes[applicantIdx]).getInnovationNumber() == ((NEATGene)repGenes[repIdx]).getInnovationNumber()) {
 				// find average weight diff
 				if (applicantGenes[applicantIdx] instanceof NEATLinkGene ) {
-					weightDiffTotal += (((NEATLinkGene)applicantGenes[applicantIdx]).getWeight() - ((NEATLinkGene)repGenes[repIdx]).getWeight());
+					weightDiffTotal += Math.abs((((NEATLinkGene)applicantGenes[applicantIdx]).getWeight() - ((NEATLinkGene)repGenes[repIdx]).getWeight()));
 				}
 				applicantIdx++;
 				repIdx++;
