@@ -23,19 +23,21 @@ public class NEATPopulation implements Population {
 	private int inputs;
 	private int outputs;
 	private boolean featureSelection;
+	private boolean selfRegulation;
 	private int extraFeatureCount = 0;
 	
-	public NEATPopulation(int popSize, int initialChromoSize, int inputs, int outputs, boolean featureSelection, int extraFeaturecount) {
+	public NEATPopulation(int popSize, int initialChromoSize, int inputs, int outputs, boolean featureSelection, int extraFeaturecount, boolean selfRegulation) {
 		this.popSize = popSize;
 		this.initialChromoSize = initialChromoSize;
 		this.inputs = inputs;
 		this.outputs = outputs;
 		this.featureSelection = featureSelection;
 		this.extraFeatureCount = extraFeaturecount;
+		this.selfRegulation = selfRegulation;
 	}
 
 	public NEATPopulation(int popSize, int initialChromoSize, int inputs, int outputs, boolean featureSelection) {
-		this(popSize, initialChromoSize, inputs, outputs, featureSelection, 0);
+		this(popSize, initialChromoSize, inputs, outputs, featureSelection, 0, false);
 	}
 	
 	public Chromosome[] genoTypes() {
@@ -49,7 +51,7 @@ public class NEATPopulation implements Population {
 		this.chromosomes = new Chromosome[this.popSize];
 		int i;
 		// use the innovation database to create the initial population
-		Chromosome[] templates = InnovationDatabase.database().initialiseInnovations(this.popSize, this.inputs, this.outputs, this.featureSelection, this.extraFeatureCount);
+		Chromosome[] templates = InnovationDatabase.database().initialiseInnovations(this.popSize, this.inputs, this.outputs, this.featureSelection, this.extraFeatureCount,this.selfRegulation);
 		
 		for (i = 0; i < this.popSize; i++) {
 			this.chromosomes[i] = this.individualFromTemplate(templates[i]);
@@ -63,6 +65,7 @@ public class NEATPopulation implements Population {
 		NEATNodeGene nodeGene;
 		NEATLinkGene linkGene;
 		NEATFeatureGene featureGene;
+		NEATSelfRegulationGene regulation;
 		
 		for (i = 0; i < templateGenes.length; i++) {
 			if (templateGenes[i] instanceof NEATNodeGene) {
@@ -74,6 +77,9 @@ public class NEATPopulation implements Population {
 			} else if (templateGenes[i] instanceof NEATFeatureGene) {
 				featureGene = (NEATFeatureGene)templateGenes[i];
 				individualGenes[i] = new NEATFeatureGene(featureGene.getInnovationNumber(), MathUtils.nextDouble());
+			} else if(templateGenes[i] instanceof NEATSelfRegulationGene) {
+				regulation = (NEATSelfRegulationGene)templateGenes[i];
+				individualGenes[i] = new NEATSelfRegulationGene(regulation.getInnovationNumber());
 			}
 		}
 

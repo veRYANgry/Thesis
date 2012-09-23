@@ -68,7 +68,7 @@ public class NEATGeneticAlgorithm implements GeneticAlgorithm {
 	public void createPopulation() {
 		int popSize = this.descriptor.gaPopulationSize();
 		int initialChromoSize = this.func.requiredChromosomeSize() + this.descriptor.getExtraFeatureCount();
-		this.pop = new NEATPopulation(popSize, initialChromoSize, this.descriptor.getInputNodes(), this.descriptor.getOutputNodes(), this.descriptor.featureSelectionEnabled(), this.descriptor.getExtraFeatureCount());
+		this.pop = new NEATPopulation(popSize, initialChromoSize, this.descriptor.getInputNodes(), this.descriptor.getOutputNodes(), this.descriptor.featureSelectionEnabled(), this.descriptor.getExtraFeatureCount(), this.descriptor.isSelfRegulation());
 		this.pop.createPopulation();
 	}
 
@@ -316,6 +316,7 @@ public class NEATGeneticAlgorithm implements GeneticAlgorithm {
 		this.mut.setPMutateBias(this.descriptor.getPMutateBias());
 		this.mut.setBiasPerturb(this.descriptor.getMaxBiasPerturb());
 		this.mut.setPerturb(this.descriptor.getMaxPerturb());
+		this.mut.setSelfRegualtion(this.descriptor.isSelfRegulation());
 	}
 
 	/**

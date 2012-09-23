@@ -50,7 +50,14 @@ public class NEATGADescriptor implements GADescriptor , Serializable {
 	private boolean naturalOrder;
 	private double maxPerturb;
 	private double maxBiasPerturb;
+	private boolean selfRegulation = true;
 
+	public boolean isSelfRegulation() {
+		return selfRegulation;
+	}
+	public void setSelfRegulation(boolean selfRegulation) {
+		this.selfRegulation = selfRegulation;
+	}
 	/**
 	 * @return Returns the survivalThreshold.
 	 */

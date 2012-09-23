@@ -17,6 +17,7 @@ import org.neat4j.neat.core.NEATFeatureGene;
 import org.neat4j.neat.core.NEATLinkGene;
 import org.neat4j.neat.core.NEATNeuron;
 import org.neat4j.neat.core.NEATNodeGene;
+import org.neat4j.neat.core.NEATSelfRegulationGene;
 import org.neat4j.neat.ga.core.Chromosome;
 import org.neat4j.neat.ga.core.Gene;
 import org.neat4j.neat.ga.core.Mutator;
@@ -38,6 +39,9 @@ public class NEATMutator implements Mutator, Serializable {
 	private boolean recurrencyAllowed = true;
 	private double perturb = 5;
 	private double biasPerturb = 0.1;
+	private boolean selfRegualtion;
+
+
 
 	private static final int MAX_LINK_ATTEMPTS = 5;
 	private static final Random linkRand = new Random(System.currentTimeMillis());
@@ -52,6 +56,14 @@ public class NEATMutator implements Mutator, Serializable {
 		this.pAddNode = pAddNode;
 		this.pAddLink = pAddLink;
 		this.pToggle = pDisable;
+	}
+	
+	public boolean isSelfRegualtion() {
+		return selfRegualtion;
+	}
+
+	public void setSelfRegualtion(boolean selfRegualtion) {
+		this.selfRegualtion = selfRegualtion;
 	}
 	
 	public void setRecurrencyAllowed(boolean allowed) {
@@ -73,7 +85,21 @@ public class NEATMutator implements Mutator, Serializable {
 	public Chromosome mutate(Chromosome mutatee) {
 		Gene[] genes = mutatee.genes();
 		NEATChromosome mutated;
+		NEATSelfRegulationGene activeReg;
 		int i;
+		//set variables to individuals genes
+		if(selfRegualtion){
+			for (i = 0; i < genes.length; i++) {
+				if (genes[i] instanceof NEATSelfRegulationGene) {
+					if(((NEATSelfRegulationGene)genes[i]).isActive()){
+						activeReg = (NEATSelfRegulationGene)genes[i];
+					}else{
+						System.out.println("Error in Mutate: no active Regulation gene found");
+					}
+				}
+			}	
+		}
+		
 		for (i = 0; i < genes.length; i++) {
 			if (genes[i] instanceof NEATLinkGene) {
 				genes[i] = this.mutateLink((NEATLinkGene)genes[i]);

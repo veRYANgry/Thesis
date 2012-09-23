@@ -64,7 +64,7 @@ public class InnovationDatabase {
 	 *  evolving data inputs.
 	 * @return Created chromosome population
 	 */
-	public Chromosome[] initialiseInnovations(int popSize, int inputs, int outputs, boolean featureSelection, int extraFeatureCount) {	
+	public Chromosome[] initialiseInnovations(int popSize, int inputs, int outputs, boolean featureSelection, int extraFeatureCount, boolean SelfRegualtion) {	
 		int i;
 		int j;
 		int popIdx;
@@ -72,8 +72,13 @@ public class InnovationDatabase {
 		//NEATLinkGene[] links = new NEATLinkGene[totalNumConnections] ;
 		NEATLinkGene[] links;
 		NEATFeatureGene[] features = new NEATFeatureGene[extraFeatureCount];
+		NEATSelfRegulationGene[] regulations = new NEATSelfRegulationGene[SelfRegualtion ? 1 : 0];
 		
 		Chromosome[] templates = new Chromosome[popSize];
+		
+		if(SelfRegualtion){
+			regulations[0] = createSelfRegulationGene();
+		}
 		
 		for (i = 0; i < extraFeatureCount; i++) {
 			features[i] = this.createFeatureGene();
@@ -116,18 +121,19 @@ public class InnovationDatabase {
 //			links[3].setWeight(MathUtils.nextPlusMinusOne());
 //			links[3] = this.submitLinkInnovation(nodes[3].id(), nodes[2].id());
 //			links[3].setWeight(MathUtils.nextPlusMinusOne());
-			templates[popIdx] = this.createNEATChromosome(nodes, links, features);
+			templates[popIdx] = this.createNEATChromosome(nodes, links, features,regulations);
 		}
 		
 		
 		return (templates);
 	}
 	
-	private Chromosome createNEATChromosome(NEATNodeGene[] nodes, NEATLinkGene[] links, NEATFeatureGene[] features) {
-		Gene[] genes = new Gene[nodes.length + links.length + features.length];
+	private Chromosome createNEATChromosome(NEATNodeGene[] nodes, NEATLinkGene[] links, NEATFeatureGene[] features, NEATSelfRegulationGene[] regulations) {
+		Gene[] genes = new Gene[nodes.length + links.length + features.length + regulations.length];
 		System.arraycopy(features, 0, genes, 0, features.length);
 		System.arraycopy(nodes, 0, genes, features.length, nodes.length);
 		System.arraycopy(links, 0, genes, features.length + nodes.length, links.length);
+		System.arraycopy(regulations, 0, genes, features.length + nodes.length + links.length, regulations.length);
 		
 		return (new NEATChromosome(genes));
 	}
@@ -139,6 +145,15 @@ public class InnovationDatabase {
 		this.innovations.put(new Integer(innovationNumber), databaseEntry);
 		
 		return (new NEATFeatureGene(innovationNumber, MathUtils.nextDouble()));
+	}
+	
+	private NEATSelfRegulationGene createSelfRegulationGene() {
+		int innovationNumber = this.nextInnovationNumber();
+		NEATInnovation databaseEntry = new NEATSelfRegulationInnovation();
+		databaseEntry.setInnovationId(innovationNumber);
+		this.innovations.put(new Integer(innovationNumber), databaseEntry);
+		
+		return (new NEATSelfRegulationGene(innovationNumber));
 	}
 	
 	private NEATNodeGene createNewNodeGene(int type) {
