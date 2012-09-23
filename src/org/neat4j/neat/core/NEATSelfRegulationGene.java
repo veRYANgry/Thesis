@@ -2,11 +2,11 @@ package org.neat4j.neat.core;
 
 import java.util.Random;
 
-public class NEATSelfRegulationGene implements NEATGene {
+public class NEATSelfRegulationGene implements NEATGene, Cloneable {
 	private int innovationNumber;
 	private NEATSelfRegulationGene linkForward;
-	private double CompletionThreshold; //used to determined if its time to move to the Gene rules
-	private int ThresholdType; //describes the type of rule to determine threshold
+	private double CompletionThreshold = 0; //used to determined if its time to move to the Gene rules
+	private int ThresholdType = 0; //describes the type of rule to determine threshold
 	private boolean active;
 
 	//values that can be changed separately for each individual
@@ -30,6 +30,8 @@ public class NEATSelfRegulationGene implements NEATGene {
 	private int specieYouthThreshold;
 	private double agePenalty;
 	private double youthBoost;
+	
+	private double survivalThreshold;
 	//New features added
 	private double pMutatateRegulation;
 	
@@ -39,6 +41,43 @@ public class NEATSelfRegulationGene implements NEATGene {
 		active = true;
 	}
 	
+	public NEATSelfRegulationGene(int innovationNumber,
+			NEATSelfRegulationGene linkForward, double completionThreshold,
+			int thresholdType, boolean active, double pAddLink,
+			double pAddNode, double pToggleLink, double pMutation,
+			double pMutateBias, double pWeightReplaced, double maxPerturb,
+			double maxBiasPerturb, double disjointCoeff, double excessCoeff,
+			double weightCoeff, double threshold, int maxSpecieAge,
+			int specieAgeThreshold, int specieYouthThreshold,
+			double agePenalty, double youthBoost, double survivalThreshold,
+			double pMutatateRegulation) {
+		super();
+		this.innovationNumber = innovationNumber;
+		this.linkForward = linkForward;
+		CompletionThreshold = completionThreshold;
+		ThresholdType = thresholdType;
+		this.active = active;
+		this.pAddLink = pAddLink;
+		this.pAddNode = pAddNode;
+		this.pToggleLink = pToggleLink;
+		this.pMutation = pMutation;
+		this.pMutateBias = pMutateBias;
+		this.pWeightReplaced = pWeightReplaced;
+		this.maxPerturb = maxPerturb;
+		this.maxBiasPerturb = maxBiasPerturb;
+		this.disjointCoeff = disjointCoeff;
+		this.excessCoeff = excessCoeff;
+		this.weightCoeff = weightCoeff;
+		this.threshold = threshold;
+		this.maxSpecieAge = maxSpecieAge;
+		this.specieAgeThreshold = specieAgeThreshold;
+		this.specieYouthThreshold = specieYouthThreshold;
+		this.agePenalty = agePenalty;
+		this.youthBoost = youthBoost;
+		this.survivalThreshold = survivalThreshold;
+		this.pMutatateRegulation = pMutatateRegulation;
+	}
+
 	public void initialize(Random Rand){
 		pAddLink = Rand.nextDouble();
 		pAddNode = Rand.nextDouble();
@@ -54,6 +93,7 @@ public class NEATSelfRegulationGene implements NEATGene {
 		excessCoeff = Rand.nextDouble();
 		weightCoeff = Rand.nextDouble();
 		threshold = Rand.nextDouble();
+		survivalThreshold = Rand.nextDouble();
 		
 		maxSpecieAge = Rand.nextInt(1000);
 		specieAgeThreshold = Rand.nextInt(1000);
@@ -62,6 +102,19 @@ public class NEATSelfRegulationGene implements NEATGene {
 		agePenalty = 1;
 		youthBoost = Rand.nextInt(10)  + 1;
 		
+	}
+	@Override
+	public NEATSelfRegulationGene clone(){
+		return new NEATSelfRegulationGene( innovationNumber,
+				 linkForward,  CompletionThreshold,
+				 ThresholdType,  active,  pAddLink,
+				 pAddNode,  pToggleLink,  pMutation,
+				 pMutateBias,  pWeightReplaced,  maxPerturb,
+				 maxBiasPerturb,  disjointCoeff,  excessCoeff,
+				 weightCoeff,  threshold,  maxSpecieAge,
+				 specieAgeThreshold,  specieYouthThreshold,
+				 agePenalty,  youthBoost,  survivalThreshold,
+				 pMutatateRegulation);
 	}
 
 	public double getpWeightReplaced() {
@@ -74,6 +127,102 @@ public class NEATSelfRegulationGene implements NEATGene {
 
 	public boolean isActive() {
 		return active;
+	}
+
+	public double getSurvivalThreshold() {
+		return survivalThreshold;
+	}
+
+	public void setSurvivalThreshold(double survivalThreshold) {
+		this.survivalThreshold = survivalThreshold;
+	}
+
+	public double getMaxPerturb() {
+		return maxPerturb;
+	}
+
+	public void setMaxPerturb(double maxPerturb) {
+		this.maxPerturb = maxPerturb;
+	}
+
+	public double getMaxBiasPerturb() {
+		return maxBiasPerturb;
+	}
+
+	public void setMaxBiasPerturb(double maxBiasPerturb) {
+		this.maxBiasPerturb = maxBiasPerturb;
+	}
+
+	public double getDisjointCoeff() {
+		return disjointCoeff;
+	}
+
+	public void setDisjointCoeff(double disjointCoeff) {
+		this.disjointCoeff = disjointCoeff;
+	}
+
+	public double getExcessCoeff() {
+		return excessCoeff;
+	}
+
+	public void setExcessCoeff(double excessCoeff) {
+		this.excessCoeff = excessCoeff;
+	}
+
+	public double getWeightCoeff() {
+		return weightCoeff;
+	}
+
+	public void setWeightCoeff(double weightCoeff) {
+		this.weightCoeff = weightCoeff;
+	}
+
+	public double getThreshold() {
+		return threshold;
+	}
+
+	public void setThreshold(double threshold) {
+		this.threshold = threshold;
+	}
+
+	public int getMaxSpecieAge() {
+		return maxSpecieAge;
+	}
+
+	public void setMaxSpecieAge(int maxSpecieAge) {
+		this.maxSpecieAge = maxSpecieAge;
+	}
+
+	public int getSpecieAgeThreshold() {
+		return specieAgeThreshold;
+	}
+
+	public void setSpecieAgeThreshold(int specieAgeThreshold) {
+		this.specieAgeThreshold = specieAgeThreshold;
+	}
+
+	public int getSpecieYouthThreshold() {
+		return specieYouthThreshold;
+	}
+
+	public void setSpecieYouthThreshold(int specieYouthThreshold) {
+		this.specieYouthThreshold = specieYouthThreshold;
+	}
+
+	public double getAgePenalty() {
+		return agePenalty;
+	}
+
+	public void setAgePenalty(double agePenalty) {
+		this.agePenalty = agePenalty;
+	}
+
+	public double getYouthBoost() {
+		return youthBoost;
+	}
+
+	public void setYouthBoost(double youthBoost) {
+		this.youthBoost = youthBoost;
 	}
 
 	public void setActive(boolean active) {

@@ -169,6 +169,17 @@ public class NEATGeneticAlgorithmMario implements GeneticAlgorithm , Serializabl
 		
 		this.specieList.resetSpecies(this.descriptor.getThreshold());
 		
+		//find all active regulation genes for each member to save on calculation
+		if( this.descriptor.isSelfRegulation()){
+			for (i = 0; i < currentGen.length; i++) {
+				((NEATChromosome)currentGen[i]).findActiveReg();
+			}
+
+			for (i = 0; i < this.specieList.specieList().size(); i++) {
+				((NEATChromosome)((NEATSpecie)this.specieList.specieList().get(i)).findBestMember()).findActiveReg();
+			}
+		}
+		
 		System.out.println("Compat threshold:" + this.descriptor.getThreshold());
 		for (i = 0; i < currentGen.length; i++) {
 			if (!memberAssigned) {

@@ -14,6 +14,7 @@ import org.neat4j.neat.core.NEATFeatureGene;
 import org.neat4j.neat.core.NEATGene;
 import org.neat4j.neat.core.NEATLinkGene;
 import org.neat4j.neat.core.NEATNodeGene;
+import org.neat4j.neat.core.NEATSelfRegulationGene;
 
 /**
  * @author MSimmerson
@@ -28,7 +29,7 @@ public abstract class Specie implements Comparable, Serializable {
 	private int currentFitnessAge = 0;
 	private boolean extinct = false;	
 	private double threshold;
-	private Chromosome specieRepresentative = null;
+	protected Chromosome specieRepresentative = null;
 	private int specieId = -1;	
 	private double bestAvFitness = 0;
 	private double survivalThreshold = 0.3;
@@ -237,7 +238,9 @@ public abstract class Specie implements Comparable, Serializable {
 				cloned[i] = new NEATFeatureGene(((NEATGene)clonee[i]).getInnovationNumber(),
 												((NEATFeatureGene)clonee[i]).geneAsNumber().doubleValue()
 											);
-			}
+			} else if (clonee[i] instanceof NEATSelfRegulationGene) {
+				cloned[i] = ((NEATSelfRegulationGene) clonee[i]).clone();
+}
 		}
 		return (cloned);
 	}

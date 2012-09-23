@@ -109,6 +109,8 @@ public class NEATCrossover implements CrossOver {
 			geneSet[i] = (NEATGene)genes.get(i);
 		}
 		chromo = new NEATChromosome(geneSet);
+		//TODO make more efficient
+		chromo.findActiveReg();
 		
 		return (chromo);
 	}

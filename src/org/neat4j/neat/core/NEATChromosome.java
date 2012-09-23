@@ -19,10 +19,38 @@ public class NEATChromosome implements Chromosome {
 	private double fitness;
 	private int specieId = -1;
 	private boolean nOrder = false;
+	private NEATSelfRegulationGene lastRegulationGene;
 	
-	
+
+
 	public NEATChromosome(Gene[] genes) {
 		this.updateChromosome(genes);
+	}
+	
+	public NEATSelfRegulationGene getLastRegulationGene() {
+		return lastRegulationGene;
+	}
+	
+	public NEATSelfRegulationGene findActiveReg(){
+		NEATSelfRegulationGene reg = null;
+		int i, n = 0;
+			for (i = 0; i < genes.length; i++) {
+				if (genes[i] instanceof NEATSelfRegulationGene) {
+					if(((NEATSelfRegulationGene)genes[i]).isActive()){
+						n++;
+						reg = (NEATSelfRegulationGene)genes[i];
+						
+					}else{
+						System.out.println("Error in Mutate: no active Regulation gene found");
+					}
+				}
+			}	
+		//TODO remove debug printfs
+		if(n > 1){
+			System.out.println("Error in Mutate: Too many active Regulation genes found");
+		}
+		lastRegulationGene = reg;
+		return reg;
 	}
 
 	

@@ -86,31 +86,20 @@ public class NEATMutator implements Mutator, Serializable {
 		Gene[] genes = mutatee.genes();
 		NEATChromosome mutated;
 		NEATSelfRegulationGene activeReg;
-		int i, num = 0;
+		int i;
 		//set variables to individuals genes
 		if(selfRegualtion){
-			for (i = 0; i < genes.length; i++) {
-				if (genes[i] instanceof NEATSelfRegulationGene) {
-					if(((NEATSelfRegulationGene)genes[i]).isActive()){
-						num++;
-						activeReg = (NEATSelfRegulationGene)genes[i];
-						this.pAddLink = activeReg.getpAddLink();
-						this.pAddNode = activeReg.getpAddNode();
-						this.pPerturb  = activeReg.getpMutation();
-						this.pToggle = activeReg.getpToggleLink();
-						this.pWeightReplaced =  activeReg.getpWeightReplaced();
-						this.pMutateBias = activeReg.getpMutateBias();
-						
-					}else{
-						System.out.println("Error in Mutate: no active Regulation gene found");
-					}
-				}
-			}	
+			activeReg = ((NEATChromosome)mutatee).getLastRegulationGene();
+			this.pAddLink = activeReg.getpAddLink();
+			this.pAddNode = activeReg.getpAddNode();
+			this.pPerturb  = activeReg.getpMutation();
+			this.pToggle = activeReg.getpToggleLink();
+			this.pWeightReplaced =  activeReg.getpWeightReplaced();
+			this.pMutateBias = activeReg.getpMutateBias();
+			this.biasPerturb =  activeReg.getMaxBiasPerturb();
+			this.perturb = activeReg.getMaxPerturb();
 		}
-		//TODO remove debug printfs
-		if(num > 1){
-			System.out.println("Error in Mutate: Too many active Regulation genes found");
-		}
+
 		
 		for (i = 0; i < genes.length; i++) {
 			if (genes[i] instanceof NEATLinkGene) {
@@ -237,10 +226,7 @@ public class NEATMutator implements Mutator, Serializable {
 				from = ((NEATNodeGene)nodes.get(rIdx));
 				rIdx = linkRand.nextInt(nodes.size());
 				to = ((NEATNodeGene)nodes.get(rIdx));
-				// TODO Remove
-//				if (from.getInnovationNumber() == 2  && to.getInnovationNumber() == 5) {
-//					System.out.println("a");
-//				}
+
 				if (!this.linkIllegal(from, to, links)) {
 					// set it to a random value
 					newLink = InnovationDatabase.database().submitLinkInnovation(from.id(), to.id());

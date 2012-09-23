@@ -82,13 +82,20 @@ public class NEATSpecie extends Specie implements Serializable {
 		int i;
 		Chromosome member;
 		this.fitnessMultiplier = 1;
-		
+		NEATSelfRegulationGene reg  = ((NEATChromosome)this.specieRepresentative).getLastRegulationGene();
+		if(reg != null){
+			this.ageThreshold = reg.getSpecieAgeThreshold();
+			this.youthBoost = reg.getYouthBoost();
+			this.agePenalty = reg.getAgePenalty();
+		}
+			
 		if (this.ageThreshold < this.specieAge) {
 			this.fitnessMultiplier = this.agePenalty;
 		} else if (this.youthThreshold > this.specieAge) {
 			this.fitnessMultiplier = this.youthBoost;
 		}
 		
+		//TODO check to see if this should be individual or Rep based
 		for (i = 0; i < members.size(); i++) {
 			member = (Chromosome)members.get(i);
 			member.updateFitness((member.fitness() * this.fitnessMultiplier));
@@ -106,7 +113,13 @@ public class NEATSpecie extends Specie implements Serializable {
 		if (specieRepresentative == null) {
 			compatable = true;
 		} else {
-			compatabilityScore = NEATSpecieManager.specieManager().compatibilityScore(specieApplicant, specieRepresentative, this.excessCoeff, this.disjointCoeff, this.weightCoeff);
+			//If there is an active reg gene use it
+			//TODO when creating pop sort by smallest threshold to coef ratio so one specie cant gobble another
+			NEATSelfRegulationGene reg = ((NEATChromosome)specieRepresentative).getLastRegulationGene();
+			if(reg != null)
+				compatabilityScore = NEATSpecieManager.specieManager().compatibilityScore(specieApplicant, specieRepresentative, reg.getExcessCoeff(), reg.getDisjointCoeff(), reg.getWeightCoeff());
+			else
+				compatabilityScore = NEATSpecieManager.specieManager().compatibilityScore(specieApplicant, specieRepresentative, this.excessCoeff, this.disjointCoeff, this.weightCoeff);
 			//cat.debug("compatabilityScore:" + compatabilityScore);
 			compatable = compatabilityScore < this.specieThreshold();
 		}
@@ -127,6 +140,11 @@ public class NEATSpecie extends Specie implements Serializable {
 		Arrays.sort(sorted);
 
 		// take the top n%
+		NEATSelfRegulationGene reg  = ((NEATChromosome)this.specieRepresentative).getLastRegulationGene();
+		if(reg != null){
+			this.setSurvivalThreshold(reg.getSurvivalThreshold());
+		}
+		
 		int matableCount = (int)Math.ceil(sorted.length * this.getSurvivalThreshold());
 		matableMembers = new NEATChromosome[matableCount];
 		
@@ -143,6 +161,7 @@ public class NEATSpecie extends Specie implements Serializable {
 			for (i = 1; i < offspring.length; i++) { 
 				parents = selector.selectParents(matableMembers, false);
 				child = xOver.crossOver(this.cloneParents(parents));
+				
 				offspring[i] = mut.mutate(child.nextChromosome());
 				parents = null;
 			}
