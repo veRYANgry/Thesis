@@ -15,6 +15,7 @@ public class NEATSelfRegulationGene implements NEATGene {
 	private double pToggleLink;
 	private double pMutation;
 	private double pMutateBias;
+	private double pWeightReplaced;
 	
 	private double maxPerturb;
 	private double maxBiasPerturb;
@@ -44,6 +45,7 @@ public class NEATSelfRegulationGene implements NEATGene {
 		pToggleLink = Rand.nextDouble();
 		pMutation = Rand.nextDouble();
 		pMutateBias = Rand.nextDouble();
+		pWeightReplaced = Rand.nextDouble();
 		
 		maxPerturb = Rand.nextDouble();
 		maxBiasPerturb = Rand.nextDouble();
@@ -62,12 +64,68 @@ public class NEATSelfRegulationGene implements NEATGene {
 		
 	}
 
+	public double getpWeightReplaced() {
+		return pWeightReplaced;
+	}
+
+	public void setpWeightReplaced(double pWeightReplaced) {
+		this.pWeightReplaced = pWeightReplaced;
+	}
+
 	public boolean isActive() {
 		return active;
 	}
 
 	public void setActive(boolean active) {
 		this.active = active;
+	}
+	
+	public double getpAddLink() {
+		return pAddLink;
+	}
+
+	public void setpAddLink(double pAddLink) {
+		this.pAddLink = pAddLink;
+	}
+
+	public double getpAddNode() {
+		return pAddNode;
+	}
+
+	public void setpAddNode(double pAddNode) {
+		this.pAddNode = pAddNode;
+	}
+
+	public double getpToggleLink() {
+		return pToggleLink;
+	}
+
+	public void setpToggleLink(double pToggleLink) {
+		this.pToggleLink = pToggleLink;
+	}
+
+	public double getpMutation() {
+		return pMutation;
+	}
+
+	public void setpMutation(double pMutation) {
+		this.pMutation = pMutation;
+	}
+
+	public double getpMutateBias() {
+		return pMutateBias;
+	}
+
+	public void setpMutateBias(double pMutateBias) {
+		this.pMutateBias = pMutateBias;
+	}
+
+	public double getpMutatateRegulation() {
+		return pMutatateRegulation;
+	}
+
+	public void setpMutatateRegulation(double pMutatateRegulation) {
+		this.pMutatateRegulation = pMutatateRegulation;
 	}
 	
 	@Override

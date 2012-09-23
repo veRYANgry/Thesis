@@ -86,18 +86,30 @@ public class NEATMutator implements Mutator, Serializable {
 		Gene[] genes = mutatee.genes();
 		NEATChromosome mutated;
 		NEATSelfRegulationGene activeReg;
-		int i;
+		int i, num = 0;
 		//set variables to individuals genes
 		if(selfRegualtion){
 			for (i = 0; i < genes.length; i++) {
 				if (genes[i] instanceof NEATSelfRegulationGene) {
 					if(((NEATSelfRegulationGene)genes[i]).isActive()){
+						num++;
 						activeReg = (NEATSelfRegulationGene)genes[i];
+						this.pAddLink = activeReg.getpAddLink();
+						this.pAddNode = activeReg.getpAddNode();
+						this.pPerturb  = activeReg.getpMutation();
+						this.pToggle = activeReg.getpToggleLink();
+						this.pWeightReplaced =  activeReg.getpWeightReplaced();
+						this.pMutateBias = activeReg.getpMutateBias();
+						
 					}else{
 						System.out.println("Error in Mutate: no active Regulation gene found");
 					}
 				}
 			}	
+		}
+		//TODO remove debug printfs
+		if(num > 1){
+			System.out.println("Error in Mutate: Too many active Regulation genes found");
 		}
 		
 		for (i = 0; i < genes.length; i++) {
@@ -107,6 +119,9 @@ public class NEATMutator implements Mutator, Serializable {
 				genes[i] = this.mutateNode((NEATNodeGene)genes[i]);
 			} else if (genes[i] instanceof NEATFeatureGene) {
 				genes[i] = this.mutateFeature((NEATFeatureGene)genes[i]);
+			}else if (genes[i] instanceof NEATSelfRegulationGene) {
+				//TODO mutate the regulation gene
+				genes[i] = (NEATSelfRegulationGene)genes[i];
 			}
 		}		
 		mutated = new NEATChromosome(genes);
