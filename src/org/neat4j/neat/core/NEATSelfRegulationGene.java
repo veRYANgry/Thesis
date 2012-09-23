@@ -34,6 +34,12 @@ public class NEATSelfRegulationGene implements NEATGene, Cloneable {
 	private double survivalThreshold;
 	//New features added
 	private double pMutatateRegulation;
+	private double pMutatateRegulationHueristics;
+	private double pMutatateRegulationCoeff;
+	private double pMutatateRegulationMutation;
+	private double pMutatateRegulationAgeing;
+	
+	private double maxPerturbRegulation;//max change that a value listed above can change in one mutation
 	
 	public NEATSelfRegulationGene(int innovationNumber){
 		this.innovationNumber = innovationNumber;
@@ -41,6 +47,7 @@ public class NEATSelfRegulationGene implements NEATGene, Cloneable {
 		active = true;
 	}
 	
+
 	public NEATSelfRegulationGene(int innovationNumber,
 			NEATSelfRegulationGene linkForward, double completionThreshold,
 			int thresholdType, boolean active, double pAddLink,
@@ -50,7 +57,9 @@ public class NEATSelfRegulationGene implements NEATGene, Cloneable {
 			double weightCoeff, double threshold, int maxSpecieAge,
 			int specieAgeThreshold, int specieYouthThreshold,
 			double agePenalty, double youthBoost, double survivalThreshold,
-			double pMutatateRegulation) {
+			double pMutatateRegulation, double pMutatateRegulationHueristics,
+			double pMutatateRegulationCoeff,
+			double pMutatateRegulationMutation, double pMutatateRegulationAgeing,double maxPerturbRegulation ) {
 		super();
 		this.innovationNumber = innovationNumber;
 		this.linkForward = linkForward;
@@ -76,7 +85,13 @@ public class NEATSelfRegulationGene implements NEATGene, Cloneable {
 		this.youthBoost = youthBoost;
 		this.survivalThreshold = survivalThreshold;
 		this.pMutatateRegulation = pMutatateRegulation;
+		this.pMutatateRegulationHueristics = pMutatateRegulationHueristics;
+		this.pMutatateRegulationCoeff = pMutatateRegulationCoeff;
+		this.pMutatateRegulationMutation = pMutatateRegulationMutation;
+		this.pMutatateRegulationAgeing = pMutatateRegulationAgeing;
+		this.maxPerturbRegulation = maxPerturbRegulation;
 	}
+
 
 	public void initialize(Random Rand){
 		pAddLink = Rand.nextDouble();
@@ -102,6 +117,13 @@ public class NEATSelfRegulationGene implements NEATGene, Cloneable {
 		agePenalty = 1;
 		youthBoost = Rand.nextInt(10)  + 1;
 		
+		pMutatateRegulation  = Rand.nextDouble();
+		pMutatateRegulationHueristics  = Rand.nextDouble();
+		pMutatateRegulationCoeff  = Rand.nextDouble();
+		pMutatateRegulationMutation  = Rand.nextDouble();
+		pMutatateRegulationAgeing  = Rand.nextDouble();
+		maxPerturbRegulation = Rand.nextDouble();
+		
 	}
 	@Override
 	public NEATSelfRegulationGene clone(){
@@ -114,7 +136,9 @@ public class NEATSelfRegulationGene implements NEATGene, Cloneable {
 				 weightCoeff,  threshold,  maxSpecieAge,
 				 specieAgeThreshold,  specieYouthThreshold,
 				 agePenalty,  youthBoost,  survivalThreshold,
-				 pMutatateRegulation);
+				 pMutatateRegulation,  pMutatateRegulationHueristics,
+					 pMutatateRegulationCoeff,
+					 pMutatateRegulationMutation,  pMutatateRegulationAgeing, maxPerturbRegulation);
 	}
 
 	public double getpWeightReplaced() {
@@ -128,6 +152,57 @@ public class NEATSelfRegulationGene implements NEATGene, Cloneable {
 	public boolean isActive() {
 		return active;
 	}
+
+	public double getMaxPerturbRegulation() {
+		return maxPerturbRegulation;
+	}
+
+
+	public void setMaxPerturbRegulation(double maxPerturbRegulation) {
+		this.maxPerturbRegulation = maxPerturbRegulation;
+	}
+
+
+	public double getpMutatateRegulationHueristics() {
+		return pMutatateRegulationHueristics;
+	}
+
+
+	public void setpMutatateRegulationHueristics(
+			double pMutatateRegulationHueristics) {
+		this.pMutatateRegulationHueristics = pMutatateRegulationHueristics;
+	}
+
+
+	public double getpMutatateRegulationCoeff() {
+		return pMutatateRegulationCoeff;
+	}
+
+
+	public void setpMutatateRegulationCoeff(double pMutatateRegulationCoeff) {
+		this.pMutatateRegulationCoeff = pMutatateRegulationCoeff;
+	}
+
+
+	public double getpMutatateRegulationMutation() {
+		return pMutatateRegulationMutation;
+	}
+
+
+	public void setpMutatateRegulationMutation(double pMutatateRegulationMutation) {
+		this.pMutatateRegulationMutation = pMutatateRegulationMutation;
+	}
+
+
+	public double getpMutatateRegulationAgeing() {
+		return pMutatateRegulationAgeing;
+	}
+
+
+	public void setpMutatateRegulationAgeing(double pMutatateRegulationAgeing) {
+		this.pMutatateRegulationAgeing = pMutatateRegulationAgeing;
+	}
+
 
 	public double getSurvivalThreshold() {
 		return survivalThreshold;

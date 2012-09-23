@@ -110,7 +110,7 @@ public class NEATMutator implements Mutator, Serializable {
 				genes[i] = this.mutateFeature((NEATFeatureGene)genes[i]);
 			}else if (genes[i] instanceof NEATSelfRegulationGene) {
 				//TODO mutate the regulation gene
-				genes[i] = (NEATSelfRegulationGene)genes[i];
+				genes[i] = this.mutateRegulation( (NEATSelfRegulationGene)genes[i]);
 			}
 		}		
 		mutated = new NEATChromosome(genes);
@@ -123,6 +123,71 @@ public class NEATMutator implements Mutator, Serializable {
 		mutated.updateChromosome(this.ensureLegalLinks(mutated.genes()));
 		
 		return (mutated);
+	}
+	
+	private Gene mutateRegulation(NEATSelfRegulationGene mutatee) {
+		NEATSelfRegulationGene mutated = mutatee;
+		//check all random rolls
+		boolean mutateProb = perturbRand.nextDouble() < mutatee.getpMutatateRegulationMutation();
+		boolean mutateSpecie = perturbRand.nextDouble() <  mutatee.getpMutatateRegulationCoeff();
+		boolean mutateAge = perturbRand.nextDouble() <  mutatee.getpMutatateRegulationAgeing();
+		boolean mutateReg = perturbRand.nextDouble() < mutatee.getpMutatateRegulation();
+		if(mutateProb || mutateSpecie || mutateAge || mutateReg){
+			double PerturbRegulation = mutatee.getMaxPerturbRegulation();
+			mutated = mutatee.clone();
+			if(mutateReg){
+				double next = perturbRand.nextDouble();
+				if(next > .75){
+					mutated.setpMutatateRegulation(mutatee.getpMutatateRegulation() + MathUtils.nextClampedDouble(-PerturbRegulation, PerturbRegulation));
+				} else if (next > .5){
+					mutated.setpMutatateRegulationCoeff( mutatee.getpMutatateRegulationCoeff() + MathUtils.nextClampedDouble(-PerturbRegulation, PerturbRegulation));
+				}  else if (next > .25){
+					mutated.setpMutatateRegulationAgeing( mutatee.getpMutatateRegulationAgeing() + MathUtils.nextClampedDouble(-PerturbRegulation, PerturbRegulation));
+				} else {
+					mutated.setpMutatateRegulationMutation( mutatee.getpMutatateRegulationMutation() + MathUtils.nextClampedDouble(-PerturbRegulation, PerturbRegulation));
+				}					
+			}
+			
+			if(mutateProb){
+				double next = perturbRand.nextDouble();
+				if(next > .875){
+					mutated.setpAddLink(mutatee.getpAddLink() + MathUtils.nextClampedDouble(-PerturbRegulation, PerturbRegulation));
+				} else if (next > .750){
+					mutated.setpAddNode(mutatee.getpAddNode() + MathUtils.nextClampedDouble(-PerturbRegulation, PerturbRegulation));
+				}  else if (next > .625){
+					mutated.setpToggleLink(mutatee.getpToggleLink() + MathUtils.nextClampedDouble(-PerturbRegulation, PerturbRegulation));
+				} else if (next > .500){
+					mutated.setpMutation(mutatee.getpMutation() + MathUtils.nextClampedDouble(-PerturbRegulation, PerturbRegulation));
+				} else if (next > .375){
+					mutated.setpMutateBias(mutatee.getpMutateBias() + MathUtils.nextClampedDouble(-PerturbRegulation, PerturbRegulation));
+				} else if (next > .250){
+					mutated.setpWeightReplaced(mutatee.getpWeightReplaced() + MathUtils.nextClampedDouble(-PerturbRegulation, PerturbRegulation));
+				} else if (next > .125){
+					mutated.setMaxPerturb(mutatee.getMaxPerturb() + MathUtils.nextClampedDouble(-PerturbRegulation, PerturbRegulation));
+				} else {
+					mutated.setMaxBiasPerturb(mutatee.getMaxBiasPerturb() + MathUtils.nextClampedDouble(-PerturbRegulation, PerturbRegulation));
+				}
+			}
+			
+			if(mutateAge){
+				mutated.setMaxSpecieAge(mutatee.getMaxSpecieAge() + perturbRand.nextInt(100) - 50);
+				//TODO add agePenalty and youthBoost with the heuristic addons
+			}
+			
+			if(mutateSpecie){
+				double next = perturbRand.nextDouble();
+				if(next > .66){
+					mutated.setDisjointCoeff(mutatee.getDisjointCoeff() + MathUtils.nextClampedDouble(-PerturbRegulation, PerturbRegulation));
+				} else if (next > .33){
+					mutated.setExcessCoeff( mutatee.getExcessCoeff() + MathUtils.nextClampedDouble(-PerturbRegulation, PerturbRegulation));
+				} else {
+					mutated.setWeightCoeff( mutatee.getWeightCoeff() + MathUtils.nextClampedDouble(-PerturbRegulation, PerturbRegulation));
+				}	
+			}
+			
+
+		}
+		return (Gene)mutated;
 	}
 	
 	private Gene mutateFeature(NEATFeatureGene mutatee) {
