@@ -52,6 +52,7 @@ import org.neat4j.neat.core.NEATLoader;
 import org.neat4j.neat.core.NEATNetDescriptor;
 import org.neat4j.neat.core.NEATNeuralNet;
 import org.neat4j.neat.core.NEATNodeGene;
+import org.neat4j.neat.core.NEATSelfRegulationGene;
 import org.neat4j.neat.ga.core.Chromosome;
 import org.neat4j.neat.ga.core.Gene;
 import org.neat4j.neat.ga.core.GeneticAlgorithm;
@@ -513,9 +514,13 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		      						ChromosomeData[i][4] = Integer.toString(((NEATLinkGene)chrome).getFromId());
 		      						ChromosomeData[i][5] = Integer.toString(((NEATLinkGene)chrome).getToId());
 		      					} 
-		      					else{
+		      					else if (chrome.getClass() == NEATFeatureGene.class){
 		      						ChromosomeData[i][0] = "NEATFeatureGene";
 		      						ChromosomeData[i][1] = Integer.toString(((NEATFeatureGene)chrome).getInnovationNumber());
+		      					} else if(chrome.getClass() == NEATSelfRegulationGene.class){
+		      						ChromosomeData[i][0] = "NEATSelfRegulationGene";
+		      						ChromosomeData[i][1] = Integer.toString(((NEATSelfRegulationGene)chrome).getInnovationNumber());
+		      						ChromosomeData[i][3] =  Integer.toString(((NEATSelfRegulationGene)chrome).getMaxSpecieAge());
 		      					}
 		      					
 		    				}
