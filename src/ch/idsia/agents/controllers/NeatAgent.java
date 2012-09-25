@@ -27,6 +27,8 @@
 
 package ch.idsia.agents.controllers;
 
+import java.util.ArrayList;
+
 import org.neat4j.neat.applications.train.VisionBound;
 import org.neat4j.neat.data.core.NetworkOutputSet;
 import org.neat4j.neat.nn.core.NeuralNet;
@@ -45,6 +47,7 @@ public class NeatAgent extends BasicMarioAIAgent implements Agent {
 	private int numberOfInputs;
 	private NeuralNet net;
 	private int pulse = 0;
+	ArrayList<double[]> Hueristics;
 
 	public NeatAgent() {
 		super("NeatAgent");
@@ -53,15 +56,20 @@ public class NeatAgent extends BasicMarioAIAgent implements Agent {
 
 	}
 
+	public ArrayList<double[]> getHueristics() {
+		return Hueristics;
+	}
+
 	public NeuralNet getNet() {
 		return net;
 	}
 
-	public NeatAgent(NeuralNet net,VisionBound Vision) {
+	public NeatAgent(NeuralNet net,VisionBound Vision, ArrayList<double[]> Hueristics) {
 		super("NeatAgent");
 		this.net = net;
 		this.Vision = Vision;
 		numberOfInputs = (Vision.XVisionStart - Vision.XVisionEnd)*(Vision.YVisionStart - Vision.YVisionEnd);
+		this.Hueristics = Hueristics;
 		reset();
 	}
 

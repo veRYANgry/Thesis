@@ -109,13 +109,21 @@ public ProgressTask(MarioAIOptions evaluationOptions)
 
 public int totalEpisodes = 0;
 
-private float evaluateSingleLevel(int ld, int tl, int ls, boolean vis, Agent controller)
+private double[] evaluateSingleLevel(int ld, int tl, int ls, boolean vis, Agent controller)
 {
     this.totalEpisodes++;
     Random rand = new Random(System.currentTimeMillis());
     float distanceTravelled = 0;
+    double results[];
     //options.setMarioInitialPos(rand.nextInt(100), 120);
-    options.setMarioInitialPos(1, 120);
+    
+    if(((NeatAgent)controller).getHueristics() != null){
+    	results = new double[2];
+    }
+    else
+    	results = new double[1];
+    
+    options.setMarioInitialPos(rand.nextInt(50), 120);
     options.setMarioMode(0);
     
     options.setAgent(controller);
@@ -144,33 +152,34 @@ private float evaluateSingleLevel(int ld, int tl, int ls, boolean vis, Agent con
    // distanceTravelled += this.getEnvironment().getEvaluationInfo().timeSpentMovingTowardememy / 100;
     if(distanceTravelled < 0)
     	distanceTravelled = 0;
-    return distanceTravelled;
+    results[0] = distanceTravelled;
+    distanceTravelled = 0;
+    //TODO for each level type run and get results
+    if(((NeatAgent)controller).getHueristics() != null){
+    	int i = 0;
+        distanceTravelled += this.getEnvironment().getEvaluationInfo().computeDistancePassed() / 4000 * ((NeatAgent)controller).getHueristics().get(i)[0];
+        distanceTravelled += this.getEnvironment().getEvaluationInfo().mushroomsDevoured * ((NeatAgent)controller).getHueristics().get(i)[1];
+        distanceTravelled += this.getEnvironment().getEvaluationInfo().flowersDevoured * ((NeatAgent)controller).getHueristics().get(i)[2];
+        distanceTravelled += this.getEnvironment().getEvaluationInfo().coinsGained / 100 * ((NeatAgent)controller).getHueristics().get(i)[3];
+        distanceTravelled += this.getEnvironment().getEvaluationInfo().killsByShell * ((NeatAgent)controller).getHueristics().get(i)[4];
+        distanceTravelled += this.getEnvironment().getEvaluationInfo().killsByStomp / 10 * ((NeatAgent)controller).getHueristics().get(i)[5];
+        distanceTravelled += ((NEATNeuralNet)((NeatAgent)controller).getNet()).connectionCount() * ((NeatAgent)controller).getHueristics().get(i)[6];
+        distanceTravelled += ((NEATNeuralNet)((NeatAgent)controller).getNet()).connectionCount() * ((NeatAgent)controller).getHueristics().get(i)[7];
+    	
+        if(distanceTravelled < 0)
+        	distanceTravelled = 0;
+        results[i + 1] = distanceTravelled;
+        distanceTravelled = 0;
+    }
+    
+    return results;
 }
 
-public int evaluate(Agent controller)
+public double[] evaluateAll(Agent controller)
 {
-//        controller.reset();
-//        options.setLevelRandSeed(startingSeed++);
-//        System.out.println("controller = " + controller);
-    int fitn = (int) this.evaluateSingleLevel(0, 40, this.uniqueSeed, false, controller);
-//        System.out.println("fitn = " + fitn);
-//        if (fitn > 1000)
-//            fitn = this.evaluateSingleLevel(0, 150, this.uniqueSeed, false, controller);
-////        System.out.println("fitn2 = " + fitn);
-//        if (fitn > 4000)
-//            fitn = 10000 + this.evaluateSingleLevel(1, 150, this.uniqueSeed, false, controller);
-////        System.out.println("fitn3 = " + fitn);
-//        if (fitn > 14000)
-//            fitn = 20000 + this.evaluateSingleLevel(3, 150, this.uniqueSeed, false, controller);
-//        if (fitn > 24000)
-//        {
-////            this.evaluateSingleLevel(3, 150, this.uniqueSeed, true, controller);
-//            fitn = 40000 + this.evaluateSingleLevel(5, 160, this.uniqueSeed, false, controller);
-//        }
-////        if (fitn > 34000)
-////            fitn = 40000 + this.evaluateSingleLevel(5, 160, this.uniqueSeed, false, controller);
-//        if (fitn > 44000)
-//            fitn = 50000 + this.evaluateSingleLevel(7, 160, this.uniqueSeed, false, controller);
+
+   double fitn[] = this.evaluateSingleLevel(0, 40, this.uniqueSeed, false, controller);
+
 
     this.uniqueSeed += 1;
     this.fitnessEvaluations++;

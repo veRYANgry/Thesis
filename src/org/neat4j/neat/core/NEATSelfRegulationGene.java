@@ -1,5 +1,6 @@
 package org.neat4j.neat.core;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class NEATSelfRegulationGene implements NEATGene, Cloneable {
@@ -41,6 +42,10 @@ public class NEATSelfRegulationGene implements NEATGene, Cloneable {
 	
 	private double maxPerturbRegulation;//max change that a value listed above can change in one mutation
 	
+	private  ArrayList<double[]> Hueristics;
+	
+
+
 	public NEATSelfRegulationGene(int innovationNumber){
 		this.innovationNumber = innovationNumber;
 		initialize(new Random(System.currentTimeMillis()));
@@ -59,7 +64,7 @@ public class NEATSelfRegulationGene implements NEATGene, Cloneable {
 			double agePenalty, double youthBoost, double survivalThreshold,
 			double pMutatateRegulation, double pMutatateRegulationHueristics,
 			double pMutatateRegulationCoeff,
-			double pMutatateRegulationMutation, double pMutatateRegulationAgeing,double maxPerturbRegulation ) {
+			double pMutatateRegulationMutation, double pMutatateRegulationAgeing,double maxPerturbRegulation,  ArrayList<double[]> Hueristics ) {
 		super();
 		this.innovationNumber = innovationNumber;
 		this.linkForward = linkForward;
@@ -90,6 +95,14 @@ public class NEATSelfRegulationGene implements NEATGene, Cloneable {
 		this.pMutatateRegulationMutation = pMutatateRegulationMutation;
 		this.pMutatateRegulationAgeing = pMutatateRegulationAgeing;
 		this.maxPerturbRegulation = maxPerturbRegulation;
+		this.Hueristics = new  ArrayList<double[]>();
+		if(Hueristics != null){
+			for(int i = 0; i < Hueristics.size();i++){
+				this.Hueristics.add(new double[Hueristics.get(i).length]);
+				for(int j = 0; j < Hueristics.get(i).length; j++)
+					this.Hueristics.get(i)[j] = Hueristics.get(i)[j];
+			}
+		}
 	}
 
 
@@ -124,7 +137,14 @@ public class NEATSelfRegulationGene implements NEATGene, Cloneable {
 		pMutatateRegulationAgeing  = Rand.nextDouble();
 		maxPerturbRegulation = Rand.nextDouble();
 		
-		//heuristics 
+		//TODO create a way to vary the number of h values
+		//TODO normalize h values from the runs to be constant for max value or approach a constant
+		Hueristics = new  ArrayList<double[]>();
+		Hueristics.add(new double[8]);
+		for(int i = 0; i < Hueristics.get(0).length;i++){
+			Hueristics.get(0)[i] = (Rand.nextDouble() - .5) * 2;
+		}
+		
 		
 	}
 	@Override
@@ -140,7 +160,11 @@ public class NEATSelfRegulationGene implements NEATGene, Cloneable {
 				 agePenalty,  youthBoost,  survivalThreshold,
 				 pMutatateRegulation,  pMutatateRegulationHueristics,
 					 pMutatateRegulationCoeff,
-					 pMutatateRegulationMutation,  pMutatateRegulationAgeing, maxPerturbRegulation);
+					 pMutatateRegulationMutation, pMutatateRegulationAgeing, maxPerturbRegulation, Hueristics);
+	}
+	
+	public ArrayList<double[]> getHueristics() {
+		return Hueristics;
 	}
 
 	public double getpWeightReplaced() {

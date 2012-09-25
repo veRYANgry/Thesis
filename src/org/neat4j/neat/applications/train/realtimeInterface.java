@@ -130,15 +130,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 	 */
 
 	public static void main(final String[] args) {
-		String path = Test.class.getProtectionDomain().getCodeSource().getLocation().getPath();
-		try {
-			String decodedPath = URLDecoder.decode(path, "UTF-8");
-			System.setProperty("user.dir",decodedPath);
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		 System.out.println(realtimeInterface.class.getProtectionDomain().getCodeSource().getLocation().getPath());
+
 		configs = new NEATLoader().loadConfig("xor_neat.ga");
 		options = new MarioAIOptions("nothing");
         options.setFPS(GlobalOptions.MaxFPS);
@@ -389,7 +381,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 								WorkerOptions.setFPS(32);
 								WorkerOptions.setVisualization(true);
 								setOptions(WorkerOptions);
-								Task WorkerTask = new ProgressTask(WorkerOptions);
+								ProgressTask WorkerTask = new ProgressTask(WorkerOptions);
 								
 						        NeuralNet nets = null;
 								try {
@@ -406,7 +398,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 								frame.setTitle("Demo");
 								frame.showNet();
 						        
-								WorkerTask.evaluate((Agent) new NeatAgent(nets, Vision));
+								WorkerTask.evaluateAll((Agent) new NeatAgent(nets, Vision, null));
 								
 								 
 								
@@ -446,7 +438,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 									WorkerOptions.setFPS(32);
 									WorkerOptions.setVisualization(true);
 									setOptions(WorkerOptions);
-									Task WorkerTask = new ProgressTask(WorkerOptions);
+									ProgressTask WorkerTask = new ProgressTask(WorkerOptions);
 									
 							        NeuralNet nets = null;
 									try {
@@ -463,7 +455,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 									frame.setTitle("Demo");
 									frame.showNet();
 							        
-									WorkerTask.evaluate((Agent) new NeatAgent(nets, Vision));
+									WorkerTask.evaluateAll((Agent) new NeatAgent(nets, Vision, null));
 									
 									 
 									

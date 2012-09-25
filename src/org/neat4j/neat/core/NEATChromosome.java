@@ -17,6 +17,7 @@ import org.neat4j.neat.ga.core.Gene;
 public class NEATChromosome implements Chromosome {
 	private Gene[] genes;
 	private double fitness;
+	private double selfFitness;
 	private int specieId = -1;
 	private boolean nOrder = false;
 	private NEATSelfRegulationGene lastRegulationGene;
@@ -97,20 +98,34 @@ public class NEATChromosome implements Chromosome {
 		int returnVal = 0;
 		NEATChromosome test = (NEATChromosome)o;
 		// sorts with highest first
-		if (this.fitness > test.fitness()) {
-			if (this.nOrder) {
-				returnVal = 1;
-			} else {
-				returnVal = -1;
-			}
-		} else if (this.fitness < test.fitness()) {
-			if (this.nOrder) {
-				returnVal = -1;
-			} else {
-				returnVal = 1;
-			}
-		}
 		
+		if(lastRegulationGene == null){
+			if (this.fitness > test.fitness()) {
+				if (this.nOrder) {
+					returnVal = 1;
+				} else {
+					returnVal = -1;
+				}
+			} else if (this.fitness < test.fitness()) {
+				if (this.nOrder) {
+					returnVal = -1;
+				} else {
+					returnVal = 1;
+				}
+			}
+		} else{
+			if (this.fitness > test.fitness())
+				returnVal = -1;
+			else if (this.fitness < test.fitness())
+				returnVal = 1;
+				
+		}
 		return (returnVal);
+	}
+
+	public void updateAllFitness(double[] fitnesses) {
+		fitness = fitnesses[0];
+		selfFitness = fitnesses[1];
+		
 	}
 }

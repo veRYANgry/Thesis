@@ -144,17 +144,17 @@ public class NEATGeneticAlgorithmMario implements GeneticAlgorithm , Serializabl
 
 	private void evaluatePopulation(Chromosome[] genoTypes,Task task,  VisionBound Vision) {
 		int i;
-		double eval;
+		double eval[];
 		
 		for (i = 0; i < genoTypes.length; i++) {
 			eval = ((MSENEATFitnessFunction) this.func).evaluates(genoTypes[i], task, Vision);
-			genoTypes[i].updateFitness(eval);			
+			((NEATChromosome)genoTypes[i]).updateAllFitness(eval);			
 		}
 	}
 	
 	private Chromosome cloneBest(Chromosome best) {
 		Chromosome cloneBest = new NEATChromosome(best.genes());
-		cloneBest.updateFitness(best.fitness());
+		((NEATChromosome)cloneBest).updateFitness(best.fitness());
 		((NEATChromosome)cloneBest).setSpecieId(((NEATChromosome)best).getSpecieId());
 		
 		return (cloneBest);

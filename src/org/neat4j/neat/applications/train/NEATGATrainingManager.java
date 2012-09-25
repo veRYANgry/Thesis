@@ -158,7 +158,7 @@ public class NEATGATrainingManager {
 				((NEATNeuralNet)nets).updateNetStructure();
 				
 		        
-				 task.evaluate((Agent) new NeatAgent(nets , Vision));
+				 task.evaluate((Agent) new NeatAgent(nets , Vision, null));
 		        
 
 
