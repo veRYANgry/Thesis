@@ -53,6 +53,10 @@ public class NeatAgent extends BasicMarioAIAgent implements Agent {
 
 	}
 
+	public NeuralNet getNet() {
+		return net;
+	}
+
 	public NeatAgent(NeuralNet net,VisionBound Vision) {
 		super("NeatAgent");
 		this.net = net;

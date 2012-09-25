@@ -41,6 +41,14 @@ public class NEATNeuralNet implements NeuralNet {
 		return (this.neurons);
 	}
 	
+	public int neuronCount(){
+		return neurons.length;
+	}
+	
+	public int connectionCount(){
+		return connections.length;
+	}
+	
 	/**
 	 * Exercises the network for the given input data set
 	 */

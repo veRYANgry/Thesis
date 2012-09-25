@@ -28,6 +28,7 @@
 package ch.idsia.benchmark.tasks;
 
 import ch.idsia.agents.Agent;
+import ch.idsia.agents.controllers.NeatAgent;
 import ch.idsia.benchmark.mario.engine.GlobalOptions;
 import ch.idsia.benchmark.mario.engine.sprites.Mario;
 import ch.idsia.tools.MarioAIOptions;
@@ -36,6 +37,8 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Random;
+
+import org.neat4j.neat.core.NEATNeuralNet;
 
 /**
  * Created by IntelliJ IDEA.
@@ -51,9 +54,19 @@ private int uniqueSeed;
 private int fitnessEvaluations = 0;
 public int uid;
 private String fileTimeStamp = "-uid-" + uid + "-" + GlobalOptions.getTimeStamp();
+
 private double DistanceHeuristic = 1, MushroomHeuristic = 0, FlowerHeuristic = 0,  CoinsHeuristic = 0, StompKillsHeuristic = 200,ShellKillHeuristic = 500;
+private double ConnectionHeuristic = 0, NeuronHeuristic = 0;
 
 //    private int startingSeed;
+
+public void setConnectionHeuristic(double connectionHeuristic) {
+	ConnectionHeuristic = connectionHeuristic;
+}
+
+public void setNeuronHeuristic(double neuronHeuristic) {
+	NeuronHeuristic = neuronHeuristic;
+}
 
 public void setFitnessEvaluations(int fitnessEvaluations) {
 	this.fitnessEvaluations = fitnessEvaluations;
@@ -124,6 +137,8 @@ private float evaluateSingleLevel(int ld, int tl, int ls, boolean vis, Agent con
     //distanceTravelled += this.getEnvironment().getEvaluationInfo().killsByFire * 60;
     distanceTravelled += this.getEnvironment().getEvaluationInfo().killsByShell * ShellKillHeuristic;
     distanceTravelled += this.getEnvironment().getEvaluationInfo().killsByStomp * StompKillsHeuristic;
+    distanceTravelled += ((NEATNeuralNet)((NeatAgent)controller).getNet()).connectionCount() * ConnectionHeuristic;
+    distanceTravelled += ((NEATNeuralNet)((NeatAgent)controller).getNet()).connectionCount() * NeuronHeuristic;
     //distanceTravelled -= this.getEnvironment().getEvaluationInfo().collisionsWithCreatures * 1000;
     //might remove timeSpent (bad heuristic)
    // distanceTravelled += this.getEnvironment().getEvaluationInfo().timeSpentMovingTowardememy / 100;

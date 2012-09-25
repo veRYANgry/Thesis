@@ -124,6 +124,8 @@ public class NEATSelfRegulationGene implements NEATGene, Cloneable {
 		pMutatateRegulationAgeing  = Rand.nextDouble();
 		maxPerturbRegulation = Rand.nextDouble();
 		
+		//heuristics 
+		
 	}
 	@Override
 	public NEATSelfRegulationGene clone(){

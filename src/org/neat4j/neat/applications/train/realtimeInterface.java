@@ -117,6 +117,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 	static String levelName = "resources/test.lvl";
 	
 	private double DistanceHeuristic = 1, MushroomHeuristic = 0, FlowerHeuristic = 0,  CoinsHeuristic = 0, StompKillsHeuristic = 200,ShellKillHeuristic = 500;
+	private double ConnectionHeuristic = 0, NeuronHeuristic = 0;
 
 	
 	////////////
@@ -521,6 +522,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		      						ChromosomeData[i][0] = "NEATSelfRegulationGene";
 		      						ChromosomeData[i][1] = Integer.toString(((NEATSelfRegulationGene)chrome).getInnovationNumber());
 		      						ChromosomeData[i][3] =  Integer.toString(((NEATSelfRegulationGene)chrome).getMaxSpecieAge());
+		      						ChromosomeData[i][4] =  Double.toString(((NEATSelfRegulationGene)chrome).getpAddLink());
 		      					}
 		      					
 		    				}
@@ -886,6 +888,14 @@ public class realtimeInterface extends JFrame implements ActionListener {
 					ShellKillHeuristic = Double.valueOf(((JTextField)e.getSource()).getText());
 					task.setShellKillHeuristic(ShellKillHeuristic);
 				}
+				else if(e.getActionCommand().equals("Connection")){
+					ConnectionHeuristic = Double.valueOf(((JTextField)e.getSource()).getText());
+					task.setConnectionHeuristic(ConnectionHeuristic);
+				}
+				else if(e.getActionCommand().equals("Neuron")){
+					NeuronHeuristic = Double.valueOf(((JTextField)e.getSource()).getText());
+					task.setNeuronHeuristic(NeuronHeuristic);
+				}
 			}
 		}
 	    Heuristicboxes HBoxes = new Heuristicboxes();
@@ -951,6 +961,24 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		OptionsPanel.add(ShellKillLabel);
 		OptionsPanel.add(ShellKillText);
 		HeuristicBoxes.add(ShellKillText);
+		
+		JLabel ConnectionLabel = new JLabel("Connection Heuristic Wieght");
+		JTextField ConnectionText = new JTextField(5);
+		ConnectionText.addActionListener(HBoxes);
+		ConnectionText.setActionCommand("Connection");
+		ConnectionText.setText(Double.toString(ConnectionHeuristic));
+		OptionsPanel.add(ConnectionLabel);
+		OptionsPanel.add(ConnectionText);
+		HeuristicBoxes.add(ConnectionText);
+		
+		JLabel NeuronLabel = new JLabel("Neuron Heuristic Wieght");
+		JTextField NeuronText = new JTextField(5);
+		NeuronText.addActionListener(HBoxes);
+		NeuronText.setActionCommand("Neuron");
+		NeuronText.setText(Double.toString(NeuronHeuristic));
+		OptionsPanel.add(NeuronLabel);
+		OptionsPanel.add(NeuronText);
+		HeuristicBoxes.add(NeuronText);
 		
 		JButton SetAll = new JButton("Set All");
 		SetAll.addActionListener(new  ActionListener(){
