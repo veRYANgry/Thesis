@@ -114,6 +114,7 @@ private double[] evaluateSingleLevel(int ld, int tl, int ls, boolean vis, Agent 
     this.totalEpisodes++;
     Random rand = new Random(System.currentTimeMillis());
     float distanceTravelled = 0;
+    int randomStartDistance;
     double results[];
     //options.setMarioInitialPos(rand.nextInt(100), 120);
     
@@ -122,8 +123,8 @@ private double[] evaluateSingleLevel(int ld, int tl, int ls, boolean vis, Agent 
     }
     else
     	results = new double[1];
-    
-    options.setMarioInitialPos(rand.nextInt(50), 120);
+    randomStartDistance = rand.nextInt(50);
+    options.setMarioInitialPos(randomStartDistance, 120);
     options.setMarioMode(0);
     
     options.setAgent(controller);
@@ -136,7 +137,7 @@ private double[] evaluateSingleLevel(int ld, int tl, int ls, boolean vis, Agent 
     this.setOptionsAndReset(options);
     this.runSingleEpisode(1);
    // distanceTravelled += (this.getEnvironment().getEvaluationInfo().marioStatus == Mario.STATUS_WIN ? 1 : 0) * 1000;
-    distanceTravelled += this.getEnvironment().getEvaluationInfo().computeDistancePassed() * DistanceHeuristic;
+    distanceTravelled += (this.getEnvironment().getEvaluationInfo().computeDistancePassed() -  randomStartDistance)* DistanceHeuristic;
     distanceTravelled += this.getEnvironment().getEvaluationInfo().mushroomsDevoured * MushroomHeuristic;
     //distanceTravelled -= (this.getEnvironment().getEvaluationInfo().marioMode == 0 ? 1 : 0) * 1000;
     //distanceTravelled += this.getEnvironment().getEvaluationInfo().greenMushroomsDevoured * 100;
@@ -157,7 +158,7 @@ private double[] evaluateSingleLevel(int ld, int tl, int ls, boolean vis, Agent 
     //TODO for each level type run and get results
     if(((NeatAgent)controller).getHueristics() != null){
     	int i = 0;
-        distanceTravelled += this.getEnvironment().getEvaluationInfo().computeDistancePassed() / 4000 * ((NeatAgent)controller).getHueristics().get(i)[0];
+        distanceTravelled += (this.getEnvironment().getEvaluationInfo().computeDistancePassed() -  randomStartDistance) / 4000 * ((NeatAgent)controller).getHueristics().get(i)[0];
         distanceTravelled += this.getEnvironment().getEvaluationInfo().mushroomsDevoured * ((NeatAgent)controller).getHueristics().get(i)[1];
         distanceTravelled += this.getEnvironment().getEvaluationInfo().flowersDevoured * ((NeatAgent)controller).getHueristics().get(i)[2];
         distanceTravelled += this.getEnvironment().getEvaluationInfo().coinsGained / 100 * ((NeatAgent)controller).getHueristics().get(i)[3];

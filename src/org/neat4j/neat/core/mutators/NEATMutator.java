@@ -132,40 +132,54 @@ public class NEATMutator implements Mutator, Serializable {
 		boolean mutateSpecie = perturbRand.nextDouble() <  mutatee.getpMutatateRegulationCoeff();
 		boolean mutateAge = perturbRand.nextDouble() <  mutatee.getpMutatateRegulationAgeing();
 		boolean mutateReg = perturbRand.nextDouble() < mutatee.getpMutatateRegulation();
-		if(mutateProb || mutateSpecie || mutateAge || mutateReg){
+		boolean mutateHue = perturbRand.nextDouble() < mutatee.getpMutatateRegulationHueristics();
+		
+		if(mutateProb || mutateSpecie || mutateAge || mutateReg || mutateHue){
 			double PerturbRegulation = mutatee.getMaxPerturbRegulation();
 			mutated = mutatee.clone();
+			
+			if(mutateHue){
+				int place = perturbRand.nextInt((mutatee.getHueristics().size() * mutatee.getHueristics().get(0).length));
+				mutatee.getHueristics().get(place /  mutatee.getHueristics().get(0).length)[place %  mutatee.getHueristics().get(0).length] += MathUtils.nextClampedDouble(-PerturbRegulation, PerturbRegulation);
+			}
+			
 			if(mutateReg){
 				double next = perturbRand.nextDouble();
-				if(next > .75){
+				if(next > .8){
 					mutated.setpMutatateRegulation(mutatee.getpMutatateRegulation() + MathUtils.nextClampedDouble(-PerturbRegulation, PerturbRegulation));
-				} else if (next > .5){
+				} else if (next > .6){
 					mutated.setpMutatateRegulationCoeff( mutatee.getpMutatateRegulationCoeff() + MathUtils.nextClampedDouble(-PerturbRegulation, PerturbRegulation));
-				}  else if (next > .25){
+				}  else if (next > .4){
 					mutated.setpMutatateRegulationAgeing( mutatee.getpMutatateRegulationAgeing() + MathUtils.nextClampedDouble(-PerturbRegulation, PerturbRegulation));
-				} else {
+				} else if (next > .2){
 					mutated.setpMutatateRegulationMutation( mutatee.getpMutatateRegulationMutation() + MathUtils.nextClampedDouble(-PerturbRegulation, PerturbRegulation));
-				}					
+				}		else{
+					mutated.setMaxPerturbRegulation( mutatee.getMaxPerturbRegulation() + MathUtils.nextClampedDouble(-PerturbRegulation, PerturbRegulation));
+				}
+				
 			}
 			
 			if(mutateProb){
 				double next = perturbRand.nextDouble();
-				if(next > .875){
+				if(next > .899){
 					mutated.setpAddLink(mutatee.getpAddLink() + MathUtils.nextClampedDouble(-PerturbRegulation, PerturbRegulation));
-				} else if (next > .750){
+				} else if (next > .788){
 					mutated.setpAddNode(mutatee.getpAddNode() + MathUtils.nextClampedDouble(-PerturbRegulation, PerturbRegulation));
-				}  else if (next > .625){
+				}  else if (next > .677){
 					mutated.setpToggleLink(mutatee.getpToggleLink() + MathUtils.nextClampedDouble(-PerturbRegulation, PerturbRegulation));
-				} else if (next > .500){
+				} else if (next > .566){
 					mutated.setpMutation(mutatee.getpMutation() + MathUtils.nextClampedDouble(-PerturbRegulation, PerturbRegulation));
-				} else if (next > .375){
+				} else if (next > .455){
 					mutated.setpMutateBias(mutatee.getpMutateBias() + MathUtils.nextClampedDouble(-PerturbRegulation, PerturbRegulation));
-				} else if (next > .250){
+				} else if (next > .344){
 					mutated.setpWeightReplaced(mutatee.getpWeightReplaced() + MathUtils.nextClampedDouble(-PerturbRegulation, PerturbRegulation));
-				} else if (next > .125){
+				} else if (next > .233){
 					mutated.setMaxPerturb(mutatee.getMaxPerturb() + MathUtils.nextClampedDouble(-PerturbRegulation, PerturbRegulation));
-				} else {
+				} else if (next > .122){
 					mutated.setMaxBiasPerturb(mutatee.getMaxBiasPerturb() + MathUtils.nextClampedDouble(-PerturbRegulation, PerturbRegulation));
+				} else {
+					mutated.setpMutatateRegulationHueristics(mutatee.getpMutatateRegulationHueristics() + MathUtils.nextClampedDouble(-PerturbRegulation, PerturbRegulation));
+
 				}
 			}
 			

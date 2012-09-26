@@ -80,7 +80,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 	static int currentSpecies;
 	
 	private static String[][] specMemberData;
-	static String[] SpecMemberDataHeading = {"Species member" , "Adjusted Fitness"};
+	static String[] SpecMemberDataHeading = {"Species member" , "Adjusted Fitness", "Genes"};
 	static JTable SpecMemberDataTable;
 	
 	private static String[][] ChromosomeData;
@@ -316,7 +316,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		
 		//species member data
 		
-		specMemberData = new String[10][2];
+		specMemberData = new String[10][3];
 		SpecMemberDataTable = new JTable(specMemberData,SpecMemberDataHeading);
 		JScrollPane SpecieMemberInfo = new JScrollPane(SpecMemberDataTable);
 		SpecieMemberInfo.setPreferredSize(new Dimension(300, 200));
@@ -340,12 +340,13 @@ public class realtimeInterface extends JFrame implements ActionListener {
 	            	  RecentClicked = SpecDataTable.getSelectedRow();
 	            	  if(RecentClicked < ga.GetSpecies().specieList().size()){
 	            		  currentSpecies = RecentClicked;
-	            		  specMemberData = new String[((Specie)ga.GetSpecies().specieList().get(RecentClicked)).specieMembers().size()][2];
+	            		  specMemberData = new String[((Specie)ga.GetSpecies().specieList().get(RecentClicked)).specieMembers().size()][3];
 	            		  ((Specie)ga.GetSpecies().specieList().get(RecentClicked)).specieMembers().size();
 	            		  
 	      				for(int i = 0; i < ((Specie)ga.GetSpecies().specieList().get(RecentClicked)).specieMembers().size() ; i++){
 	      					specMemberData[i][0] = Integer.toString(((NEATChromosome) ((Specie)ga.GetSpecies().specieList().get(RecentClicked)).specieMembers().get(i)).getSpecieId() );
 	      					specMemberData[i][1] = Double.toString(((NEATChromosome) ((Specie)ga.GetSpecies().specieList().get(RecentClicked)).specieMembers().get(i)).fitness());
+	      					specMemberData[i][2] = Integer.toString(((NEATChromosome) ((Specie)ga.GetSpecies().specieList().get(RecentClicked)).specieMembers().get(i)).genes().length);
 	    				}
 	    				                       
 	      				SpecMemberDataTable.setModel(new DefaultTableModel(specMemberData,SpecMemberDataHeading));

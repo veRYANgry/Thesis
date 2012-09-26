@@ -34,6 +34,7 @@ public class NEATSpecieManager {
 		boolean repIdxEnded = false;
 		double avWeightDiff = 0;
 		double weightDiffTotal = 0;
+		double selfRegulationDiff = 0;
 		int N;
 		double compatabilityScore = Integer.MAX_VALUE;
 		Gene[] applicantGenes;
@@ -48,7 +49,10 @@ public class NEATSpecieManager {
 				// find average weight diff
 				if (applicantGenes[applicantIdx] instanceof NEATLinkGene ) {
 					weightDiffTotal += Math.abs((((NEATLinkGene)applicantGenes[applicantIdx]).getWeight() - ((NEATLinkGene)repGenes[repIdx]).getWeight()));
+				} else if (applicantGenes[applicantIdx] instanceof NEATSelfRegulationGene ) {
+					selfRegulationDiff = ((NEATSelfRegulationGene)applicantGenes[applicantIdx]).Difference((NEATSelfRegulationGene)repGenes[repIdx]);
 				}
+				
 				applicantIdx++;
 				repIdx++;
 			} else if (((NEATGene)applicantGenes[applicantIdx]).getInnovationNumber() > ((NEATGene)repGenes[repIdx]).getInnovationNumber()) {
@@ -83,7 +87,7 @@ public class NEATSpecieManager {
 			}
 		}
 		avWeightDiff = Math.abs(weightDiffTotal / (N - disjoints - excess));
-		compatabilityScore = ((excessCoeff * excess) / N) + ((disjointCoeff * disjoints) / N) + weightCoeff * avWeightDiff;
+		compatabilityScore = ((excessCoeff * excess) / N) + ((disjointCoeff * disjoints) / N) + weightCoeff * avWeightDiff + selfRegulationDiff;
 		
 		return (compatabilityScore);
 	}
