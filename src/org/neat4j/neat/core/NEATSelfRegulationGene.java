@@ -127,10 +127,10 @@ public class NEATSelfRegulationGene implements NEATGene, Cloneable {
 		////////////////////
 		maxSpecieAge = Rand.nextInt(1000);
 		specieAgeThreshold = Rand.nextInt(1000);
-		specieYouthThreshold = Rand.nextInt(10);
+		specieYouthThreshold = 1;
 		//TODO use equations to check for suitable ranges (may not even be needed)
 		agePenalty = 1;
-		youthBoost = Rand.nextInt(10)  + 1;
+		youthBoost =  1;
 		
 		pMutatateRegulation  = Rand.nextDouble();
 		pMutatateRegulationHueristics  = Rand.nextDouble();
@@ -180,7 +180,7 @@ public class NEATSelfRegulationGene implements NEATGene, Cloneable {
 		totalDiff += Math.abs(this.excessCoeff - compareTo.excessCoeff);
 		totalDiff += Math.abs(this.weightCoeff - compareTo.weightCoeff);
 		
-		totalDiff += Math.abs(this.maxSpecieAge - compareTo.maxSpecieAge) / 10;
+		//totalDiff += Math.abs(this.maxSpecieAge - compareTo.maxSpecieAge) / 10;
 		
 		totalDiff += Math.abs(this.survivalThreshold - compareTo.survivalThreshold);
 		totalDiff += Math.abs(this.pMutatateRegulation - compareTo.pMutatateRegulation);
@@ -191,7 +191,7 @@ public class NEATSelfRegulationGene implements NEATGene, Cloneable {
 		totalDiff += Math.abs(this.maxPerturbRegulation - compareTo.maxPerturbRegulation);
 		
 		
-		return totalDiff / ((this.maxPerturbRegulation + compareTo.maxPerturbRegulation) / 2 * 19);
+		return totalDiff / ((this.maxPerturbRegulation + compareTo.maxPerturbRegulation) / 2 * 18);
 	}
 	
 	public ArrayList<double[]> getHueristics() {

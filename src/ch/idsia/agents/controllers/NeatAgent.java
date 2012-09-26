@@ -128,12 +128,12 @@ public class NeatAgent extends BasicMarioAIAgent implements Agent {
 		// System.out.println( "level is:" + levelScene[realX][realY] +
 		// "enemy is:" + enemies[realX][realY] + "output is" +
 		// (double)(levelScene[realX][realY] + enemies[realX][realY]) / 100);
-		//return levelScene[realX][realY] + enemies[realX][realY];
-		if (levelScene[realY][realX] != 0)
+		return levelScene[realX][realY] + enemies[realX][realY];
+/*		if (levelScene[realY][realX] != 0)
 			return 1;
 		else if (enemies[realY][realX] > 2)
 			return -1;
 		else
-			return 0;
+			return 0;*/
 	}
 }

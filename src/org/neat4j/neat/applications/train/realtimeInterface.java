@@ -87,6 +87,12 @@ public class realtimeInterface extends JFrame implements ActionListener {
 	private static  JTable ChromosomeDataTable;
 	static String[] ChromosomeDataHeading = {"Type" , "Innovation #", "ID #","Wieght / Bias", "From","To"};
 	
+	private static String[][] GeneData;
+	private static  JTable GeneDataTable;
+	static String[] GeneDataHeading = {"Type" , "Innovation #", "Max specie age","pAddLink", "pAddNode", "pToggleLink","pMutation","pMutateBias","pWeightReplaced","maxPerturb","maxBiasPerturb",
+		"disjointCoeff", "excessCoeff","weightCoeff","pMutatateRegulation","pMutatateRegulationHueristics","pMutatateRegulationCoeff","pMutatateRegulationMutation","pMutatateRegulationAgeing","maxPerturbRegulation"
+		,"DistanceHeuristic", "MushroomHeuristic","FlowerHeuristic","CoinsHeuristic", "ShellKillHeuristic", "StompKillHeuristic","ConnectionHeuristic", "NeuronHeuristic" };
+	
 	static int LevelModeIndex = 0;
 	
 	ArrayList<JTextField> OptionsBoxes = new ArrayList<JTextField>();
@@ -179,7 +185,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 				//////////////////////////////////////////
 
 
-					if(((NEATGeneticAlgorithmMario) ga).genBest() >= 10000){
+					if(((NEATGeneticAlgorithmMario) ga).genBest() >= 1000000){
 						break;
 					}
 				diffGen++;
@@ -284,11 +290,15 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		
 		
 		
-		JPanel StackPanel = new JPanel(new GridLayout(3, 2));
+		JPanel StackPanel = new JPanel(new GridLayout(4, 2));
 		
 		StackPanel.add(GridPanel);
 		SpeciesBoxes(StackPanel);
+		
 		runPanel.add(StackPanel);
+		
+		GeneInfo(runPanel);
+
 		
 		levelOptions(content);
 		
@@ -302,6 +312,17 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		
 		this.pack();
 
+	}
+	
+	public void GeneInfo(final Container content){
+		//chromosome data
+		GeneData = new String[1][GeneDataHeading.length];
+		 GeneDataTable = new JTable(GeneData,GeneDataHeading);
+		JScrollPane GenePane = new JScrollPane(GeneDataTable, JScrollPane.VERTICAL_SCROLLBAR_NEVER, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		GenePane.setPreferredSize(new Dimension(400, 50));
+		((JTable) GeneDataTable).setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		
+		content.add(GenePane);
 	}
 	
 	public void SpeciesBoxes(final Container content){
@@ -512,10 +533,40 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		      						ChromosomeData[i][0] = "NEATFeatureGene";
 		      						ChromosomeData[i][1] = Integer.toString(((NEATFeatureGene)chrome).getInnovationNumber());
 		      					} else if(chrome.getClass() == NEATSelfRegulationGene.class){
-		      						ChromosomeData[i][0] = "NEATSelfRegulationGene";
-		      						ChromosomeData[i][1] = Integer.toString(((NEATSelfRegulationGene)chrome).getInnovationNumber());
-		      						ChromosomeData[i][3] =  Integer.toString(((NEATSelfRegulationGene)chrome).getMaxSpecieAge());
-		      						ChromosomeData[i][4] =  Double.toString(((NEATSelfRegulationGene)chrome).getpAddLink());
+		      						GeneData[0][0] =ChromosomeData[i][0] = "NEATSelfRegulationGene";
+		      						GeneData[0][1] =ChromosomeData[i][1] = Integer.toString(((NEATSelfRegulationGene)chrome).getInnovationNumber());
+		      						GeneData[0][2] =ChromosomeData[i][3] =  Integer.toString(((NEATSelfRegulationGene)chrome).getMaxSpecieAge());
+		      						GeneData[0][3] =ChromosomeData[i][4] =  Double.toString(((NEATSelfRegulationGene)chrome).getpAddLink());
+		      						
+		      					    GeneData[0][4] = Double.toString(((NEATSelfRegulationGene)chrome).getpAddNode());
+		      					    GeneData[0][5] = Double.toString(((NEATSelfRegulationGene)chrome).getpToggleLink());
+		      					    GeneData[0][6] = Double.toString(((NEATSelfRegulationGene)chrome).getpMutation());
+			      					GeneData[0][7] = Double.toString(((NEATSelfRegulationGene)chrome).getpMutateBias());
+			      					GeneData[0][8] = Double.toString(((NEATSelfRegulationGene)chrome).getpWeightReplaced());
+			      					GeneData[0][9] = Double.toString(((NEATSelfRegulationGene)chrome).getMaxPerturb());
+			      					GeneData[0][10] = Double.toString(((NEATSelfRegulationGene)chrome).getMaxBiasPerturb());
+			      					GeneData[0][11] = Double.toString(((NEATSelfRegulationGene)chrome).getDisjointCoeff());
+			      					GeneData[0][12] = Double.toString(((NEATSelfRegulationGene)chrome).getExcessCoeff());
+			      					GeneData[0][13] = Double.toString(((NEATSelfRegulationGene)chrome).getWeightCoeff());
+			      					GeneData[0][14] = Double.toString(((NEATSelfRegulationGene)chrome).getpMutatateRegulation());
+			      					GeneData[0][15] = Double.toString(((NEATSelfRegulationGene)chrome).getpMutatateRegulationHueristics());
+			      					GeneData[0][16] = Double.toString(((NEATSelfRegulationGene)chrome).getpMutatateRegulationCoeff());
+			      					GeneData[0][17] = Double.toString(((NEATSelfRegulationGene)chrome).getpMutatateRegulationMutation());
+			      					GeneData[0][18] = Double.toString(((NEATSelfRegulationGene)chrome).getpMutatateRegulationAgeing());
+			      					GeneData[0][19] = Double.toString(((NEATSelfRegulationGene)chrome).getMaxPerturbRegulation());
+			      					
+			      					GeneData[0][20] = Double.toString(((NEATSelfRegulationGene)chrome).getHueristics().get(0)[0]);
+			      					GeneData[0][21] = Double.toString(((NEATSelfRegulationGene)chrome).getHueristics().get(0)[1]);
+			      					GeneData[0][22] = Double.toString(((NEATSelfRegulationGene)chrome).getHueristics().get(0)[2]);
+			      					GeneData[0][23] = Double.toString(((NEATSelfRegulationGene)chrome).getHueristics().get(0)[3]);
+			      					GeneData[0][24] = Double.toString(((NEATSelfRegulationGene)chrome).getHueristics().get(0)[4]);
+			      					GeneData[0][25] = Double.toString(((NEATSelfRegulationGene)chrome).getHueristics().get(0)[5]);
+			      					GeneData[0][26] = Double.toString(((NEATSelfRegulationGene)chrome).getHueristics().get(0)[6]);
+			      					GeneData[0][27] = Double.toString(((NEATSelfRegulationGene)chrome).getHueristics().get(0)[7]);
+		      						
+		      						GeneDataTable.setModel(new DefaultTableModel(GeneData,GeneDataHeading));
+		      						GeneDataTable.updateUI();
+		      						
 		      					}
 		      					
 		    				}
