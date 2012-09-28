@@ -80,7 +80,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 	static int currentSpecies;
 	
 	private static String[][] specMemberData;
-	static String[] SpecMemberDataHeading = {"Species member" , "Adjusted Fitness", "Genes"};
+	static String[] SpecMemberDataHeading = {"Species member" , "Adjusted Fitness","self fitness", "Genes"};
 	static JTable SpecMemberDataTable;
 	
 	private static String[][] ChromosomeData;
@@ -91,7 +91,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 	private static  JTable GeneDataTable;
 	static String[] GeneDataHeading = {"Type" , "Innovation #", "Max specie age","pAddLink", "pAddNode", "pToggleLink","pMutation","pMutateBias","pWeightReplaced","maxPerturb","maxBiasPerturb",
 		"disjointCoeff", "excessCoeff","weightCoeff","pMutatateRegulation","pMutatateRegulationHueristics","pMutatateRegulationCoeff","pMutatateRegulationMutation","pMutatateRegulationAgeing","maxPerturbRegulation"
-		,"DistanceHeuristic", "MushroomHeuristic","FlowerHeuristic","CoinsHeuristic", "ShellKillHeuristic", "StompKillHeuristic","ConnectionHeuristic", "NeuronHeuristic" };
+		,"DistanceHeuristic", "MushroomHeuristic","FlowerHeuristic","CoinsHeuristic", "ShellKillHeuristic", "StompKillHeuristic","ConnectionHeuristic", "NeuronHeuristic", "Survival threshold" };
 	
 	static int LevelModeIndex = 0;
 	
@@ -111,7 +111,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 	private static AIConfig config;
 	private static Chromosome DemoMember;
 	private static AIConfig configs;
-	private VisionBound Vision = new VisionBound(-2,3,-2,3);
+	private static VisionBound Vision = new VisionBound(-3,3,-5,3);
 	///////////////////////////////
 	//Mario testbed stuff
 	///////////////////////////////
@@ -143,6 +143,9 @@ public class realtimeInterface extends JFrame implements ActionListener {
         options.setVisualization(false);
         task = new ProgressTask(options);
     	seed = rand.nextInt();
+    	
+		configs.updateConfig("INPUT.NODES" , Integer.toString((Vision.XVisionStart - Vision.XVisionEnd)*(Vision.YVisionStart - Vision.YVisionEnd) ));
+
 		new realtimeInterface();
 	}
 	
@@ -337,7 +340,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		
 		//species member data
 		
-		specMemberData = new String[10][3];
+		specMemberData = new String[10][4];
 		SpecMemberDataTable = new JTable(specMemberData,SpecMemberDataHeading);
 		JScrollPane SpecieMemberInfo = new JScrollPane(SpecMemberDataTable);
 		SpecieMemberInfo.setPreferredSize(new Dimension(300, 200));
@@ -361,13 +364,14 @@ public class realtimeInterface extends JFrame implements ActionListener {
 	            	  RecentClicked = SpecDataTable.getSelectedRow();
 	            	  if(RecentClicked < ga.GetSpecies().specieList().size()){
 	            		  currentSpecies = RecentClicked;
-	            		  specMemberData = new String[((Specie)ga.GetSpecies().specieList().get(RecentClicked)).specieMembers().size()][3];
+	            		  specMemberData = new String[((Specie)ga.GetSpecies().specieList().get(RecentClicked)).specieMembers().size()][4];
 	            		  ((Specie)ga.GetSpecies().specieList().get(RecentClicked)).specieMembers().size();
 	            		  
 	      				for(int i = 0; i < ((Specie)ga.GetSpecies().specieList().get(RecentClicked)).specieMembers().size() ; i++){
 	      					specMemberData[i][0] = Integer.toString(((NEATChromosome) ((Specie)ga.GetSpecies().specieList().get(RecentClicked)).specieMembers().get(i)).getSpecieId() );
 	      					specMemberData[i][1] = Double.toString(((NEATChromosome) ((Specie)ga.GetSpecies().specieList().get(RecentClicked)).specieMembers().get(i)).fitness());
-	      					specMemberData[i][2] = Integer.toString(((NEATChromosome) ((Specie)ga.GetSpecies().specieList().get(RecentClicked)).specieMembers().get(i)).genes().length);
+	      					specMemberData[i][2] = Double.toString(((NEATChromosome) ((Specie)ga.GetSpecies().specieList().get(RecentClicked)).specieMembers().get(i)).getSelfFitness());
+	      					specMemberData[i][3] = Integer.toString(((NEATChromosome) ((Specie)ga.GetSpecies().specieList().get(RecentClicked)).specieMembers().get(i)).genes().length);
 	    				}
 	    				                       
 	      				SpecMemberDataTable.setModel(new DefaultTableModel(specMemberData,SpecMemberDataHeading));
@@ -509,9 +513,11 @@ public class realtimeInterface extends JFrame implements ActionListener {
 	            	  RecentClicked = SpecMemberDataTable.getSelectedRow();
 	            	  if(RecentClicked < ((Specie)ga.GetSpecies().specieList().get(currentSpecies)).specieMembers().size()){
 	            		  DemoMember = (Chromosome) ((Specie)ga.GetSpecies().specieList().get(currentSpecies)).specieMembers().get(RecentClicked);
-	            		  
+	    
 	            		  ChromosomeData = new String[((NEATChromosome)((Specie)ga.GetSpecies().specieList().get(currentSpecies)).specieMembers().get(RecentClicked)).genes().length][6];
-	            		  
+	            		  if( ((NEATChromosome)DemoMember).findActiveReg() == null)
+	            				 System.out.println("nothing here!!!");
+
 		      				for(int i = 0; i < ((NEATChromosome)((Specie)ga.GetSpecies().specieList().get(currentSpecies)).specieMembers().get(RecentClicked)).genes().length ; i++){
 		      					Gene chrome =((NEATChromosome) ((Specie)ga.GetSpecies().specieList().get(currentSpecies)).specieMembers().get(RecentClicked)).genes()[i];
 		      					if(chrome.getClass() == NEATNodeGene.class){
@@ -563,6 +569,8 @@ public class realtimeInterface extends JFrame implements ActionListener {
 			      					GeneData[0][25] = Double.toString(((NEATSelfRegulationGene)chrome).getHueristics().get(0)[5]);
 			      					GeneData[0][26] = Double.toString(((NEATSelfRegulationGene)chrome).getHueristics().get(0)[6]);
 			      					GeneData[0][27] = Double.toString(((NEATSelfRegulationGene)chrome).getHueristics().get(0)[7]);
+			      					
+			      					GeneData[0][28] = Double.toString(((NEATSelfRegulationGene)chrome).getSurvivalThreshold());
 		      						
 		      						GeneDataTable.setModel(new DefaultTableModel(GeneData,GeneDataHeading));
 		      						GeneDataTable.updateUI();
@@ -853,7 +861,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		
 		JLabel XstartLabel = new JLabel("Starting X value");
 		JComboBox Xstart = new JComboBox(List);
-		Xstart.setSelectedIndex(9);
+		Xstart.setSelectedIndex(Vision.XVisionStart + 11);
 		VisionPanel.add(XstartLabel);
 		VisionPanel.add(Xstart);
 		Xstart.addActionListener(new  ActionListener(){
@@ -867,7 +875,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		
 		JLabel XendLabel = new JLabel("Ending X value");
 		JComboBox Xend = new JComboBox(List);
-		Xend.setSelectedIndex(14);
+		Xend.setSelectedIndex(Vision.XVisionEnd + 11);
 		VisionPanel.add(XendLabel);
 		VisionPanel.add(Xend);
 		Xend.addActionListener(new  ActionListener(){
@@ -878,7 +886,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		
 		JLabel YstartLabel = new JLabel("Starting Y value");
 		JComboBox Ystart = new JComboBox(List);
-		Ystart.setSelectedIndex(9);
+		Ystart.setSelectedIndex(Vision.YVisionStart + 11);
 		VisionPanel.add(YstartLabel);
 		VisionPanel.add(Ystart);
 		Ystart.addActionListener(new  ActionListener(){
@@ -889,7 +897,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		
 		JLabel YendLabel = new JLabel("Ending Y value");
 		JComboBox Yend = new JComboBox(List);
-		Yend.setSelectedIndex(14);
+		Yend.setSelectedIndex(Vision.YVisionEnd + 11);
 		VisionPanel.add(YendLabel);
 		VisionPanel.add(Yend);
 		Yend.addActionListener(new  ActionListener(){

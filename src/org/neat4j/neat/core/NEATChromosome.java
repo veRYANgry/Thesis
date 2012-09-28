@@ -32,6 +32,10 @@ public class NEATChromosome implements Chromosome {
 		return lastRegulationGene;
 	}
 	
+	public double getSelfFitness() {
+		return selfFitness;
+	}
+
 	public NEATSelfRegulationGene findActiveReg(){
 		NEATSelfRegulationGene reg = null;
 		int i, n = 0;
@@ -114,9 +118,10 @@ public class NEATChromosome implements Chromosome {
 				}
 			}
 		} else{
-			if (this.fitness > test.fitness())
+
+			if (this.selfFitness > test.selfFitness)
 				returnVal = -1;
-			else if (this.fitness < test.fitness())
+			else if (this.selfFitness < test.selfFitness)
 				returnVal = 1;
 				
 		}

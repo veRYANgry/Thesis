@@ -145,7 +145,7 @@ public class NEATSpecie extends Specie implements Serializable {
 			this.setSurvivalThreshold(reg.getSurvivalThreshold());
 		}
 		
-		int matableCount = (int)Math.ceil(sorted.length * this.getSurvivalThreshold());
+		int matableCount = Math.abs((int)Math.ceil(sorted.length * this.getSurvivalThreshold()));
 		matableMembers = new NEATChromosome[matableCount];
 		
 		for (i = 0; i < matableCount; i++) {

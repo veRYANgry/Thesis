@@ -185,16 +185,19 @@ public class NEATMutator implements Mutator, Serializable {
 			
 			if(mutateAge){
 				mutated.setMaxSpecieAge(mutatee.getMaxSpecieAge() + perturbRand.nextInt(100) - 50);
-				//TODO add agePenalty and youthBoost with the heuristic addons
+				//TODO add agePenalty and youthBoost
 			}
 			
 			if(mutateSpecie){
 				double next = perturbRand.nextDouble();
-				if(next > .66){
+				if(next > .75){
 					mutated.setDisjointCoeff(mutatee.getDisjointCoeff() + MathUtils.nextClampedDouble(-PerturbRegulation, PerturbRegulation));
-				} else if (next > .33){
+				} else if (next > .5){
 					mutated.setExcessCoeff( mutatee.getExcessCoeff() + MathUtils.nextClampedDouble(-PerturbRegulation, PerturbRegulation));
-				} else {
+				} else if (next > .5){
+					mutated.setSurvivalThreshold( mutatee.getSurvivalThreshold() + MathUtils.nextClampedDouble(-PerturbRegulation, PerturbRegulation));
+				}
+					else {
 					mutated.setWeightCoeff( mutatee.getWeightCoeff() + MathUtils.nextClampedDouble(-PerturbRegulation, PerturbRegulation));
 				}	
 			}
