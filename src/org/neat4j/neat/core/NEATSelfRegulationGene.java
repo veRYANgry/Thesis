@@ -142,6 +142,7 @@ public class NEATSelfRegulationGene implements NEATGene, Cloneable {
 		pMutatateRegulationMutation  = .01;
 		pMutatateRegulationAgeing  = .01;
 		maxPerturbRegulation = .1;
+		Levels = new ArrayList<Integer>();
 		Levels.add(Rand.nextInt());
 		Levels.add(Rand.nextInt());
 		
