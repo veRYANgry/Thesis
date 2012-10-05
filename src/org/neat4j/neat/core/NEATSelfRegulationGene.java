@@ -5,9 +5,7 @@ import java.util.Random;
 
 public class NEATSelfRegulationGene implements NEATGene, Cloneable {
 	private int innovationNumber;
-	private NEATSelfRegulationGene linkForward;
-	private double CompletionThreshold = 0; //used to determined if its time to move to the Gene rules
-	private int ThresholdType = 0; //describes the type of rule to determine threshold
+
 	private boolean active;
 
 	//values that can be changed separately for each individual
@@ -17,6 +15,7 @@ public class NEATSelfRegulationGene implements NEATGene, Cloneable {
 	private double pMutation;
 	private double pMutateBias;
 	private double pWeightReplaced;
+	private double pAddRecLink;
 	
 	private double maxPerturb;
 	private double maxBiasPerturb;
@@ -44,6 +43,8 @@ public class NEATSelfRegulationGene implements NEATGene, Cloneable {
 	
 	private  ArrayList<double[]> Hueristics;
 	
+	private ArrayList<Integer> Levels;
+	
 
 
 	public NEATSelfRegulationGene(int innovationNumber){
@@ -53,9 +54,8 @@ public class NEATSelfRegulationGene implements NEATGene, Cloneable {
 	}
 	
 
-	public NEATSelfRegulationGene(int innovationNumber,
-			NEATSelfRegulationGene linkForward, double completionThreshold,
-			int thresholdType, boolean active, double pAddLink,
+	public NEATSelfRegulationGene(int innovationNumber,ArrayList<Integer> Levels,
+		    boolean active, double pAddLink,
 			double pAddNode, double pToggleLink, double pMutation,
 			double pMutateBias, double pWeightReplaced, double maxPerturb,
 			double maxBiasPerturb, double disjointCoeff, double excessCoeff,
@@ -64,12 +64,10 @@ public class NEATSelfRegulationGene implements NEATGene, Cloneable {
 			double agePenalty, double youthBoost, double survivalThreshold,
 			double pMutatateRegulation, double pMutatateRegulationHueristics,
 			double pMutatateRegulationCoeff,
-			double pMutatateRegulationMutation, double pMutatateRegulationAgeing,double maxPerturbRegulation,  ArrayList<double[]> Hueristics ) {
+			double pMutatateRegulationMutation, double pMutatateRegulationAgeing,double maxPerturbRegulation,  ArrayList<double[]> Hueristics,double pAddRecLink) {
 		super();
 		this.innovationNumber = innovationNumber;
-		this.linkForward = linkForward;
-		CompletionThreshold = completionThreshold;
-		ThresholdType = thresholdType;
+
 		this.active = active;
 		this.pAddLink = pAddLink;
 		this.pAddNode = pAddNode;
@@ -95,6 +93,7 @@ public class NEATSelfRegulationGene implements NEATGene, Cloneable {
 		this.pMutatateRegulationMutation = pMutatateRegulationMutation;
 		this.pMutatateRegulationAgeing = pMutatateRegulationAgeing;
 		this.maxPerturbRegulation = maxPerturbRegulation;
+		this.pAddRecLink = pAddRecLink;
 		this.Hueristics = new  ArrayList<double[]>();
 		if(Hueristics != null){
 			for(int i = 0; i < Hueristics.size();i++){
@@ -103,25 +102,30 @@ public class NEATSelfRegulationGene implements NEATGene, Cloneable {
 					this.Hueristics.get(i)[j] = Hueristics.get(i)[j];
 			}
 		}
+		if(Levels != null){
+			for(int i = 0; i < Levels.size();i++){
+				this.Levels.add(Levels.get(i));
+			}
+		}
 	}
 
 
 	public void initialize(Random Rand){
-		pAddLink = Rand.nextDouble();
-		pAddNode = Rand.nextDouble();
-		pToggleLink = Rand.nextDouble();
-		pMutation = Rand.nextDouble();
-		pMutateBias = Rand.nextDouble();
-		pWeightReplaced = Rand.nextDouble();
+		pAddLink = .01;
+		pAddNode = .01;
+		pToggleLink = .01;
+		pMutation = .01;
+		pMutateBias = .01;
+		pWeightReplaced = .01;
+		pAddRecLink = .01;		
+		maxPerturb = .01;
+		maxBiasPerturb = .01;
 		
-		maxPerturb = Rand.nextDouble();
-		maxBiasPerturb = Rand.nextDouble();
-		
-		disjointCoeff = Rand.nextDouble();
-		excessCoeff = Rand.nextDouble();
-		weightCoeff = Rand.nextDouble();
-		threshold = Rand.nextDouble();
-		survivalThreshold = Rand.nextDouble();
+		disjointCoeff = 1;
+		excessCoeff = 1;
+		weightCoeff = 2;
+		threshold = 1;
+		survivalThreshold = .20;
 		/////////////////
 		//TODO age needs to be worked on!!!!!!!
 		////////////////////
@@ -132,12 +136,14 @@ public class NEATSelfRegulationGene implements NEATGene, Cloneable {
 		agePenalty = 1;
 		youthBoost =  1;
 		
-		pMutatateRegulation  = Rand.nextDouble();
-		pMutatateRegulationHueristics  = Rand.nextDouble();
-		pMutatateRegulationCoeff  = Rand.nextDouble();
-		pMutatateRegulationMutation  = Rand.nextDouble();
-		pMutatateRegulationAgeing  = Rand.nextDouble();
-		maxPerturbRegulation = Rand.nextDouble();
+		pMutatateRegulation  = .5;
+		pMutatateRegulationHueristics  = .01;
+		pMutatateRegulationCoeff  = .01;
+		pMutatateRegulationMutation  = .01;
+		pMutatateRegulationAgeing  = .01;
+		maxPerturbRegulation = .1;
+		Levels.add(Rand.nextInt());
+		Levels.add(Rand.nextInt());
 		
 		//TODO create a way to vary the number of h values
 		//TODO normalize h values from the runs to be constant for max value or approach a constant
@@ -149,11 +155,12 @@ public class NEATSelfRegulationGene implements NEATGene, Cloneable {
 		
 		
 	}
+
+
 	@Override
 	public NEATSelfRegulationGene clone(){
 		return new NEATSelfRegulationGene( innovationNumber,
-				 linkForward,  CompletionThreshold,
-				 ThresholdType,  active,  pAddLink,
+				Levels,  active,  pAddLink,
 				 pAddNode,  pToggleLink,  pMutation,
 				 pMutateBias,  pWeightReplaced,  maxPerturb,
 				 maxBiasPerturb,  disjointCoeff,  excessCoeff,
@@ -162,7 +169,7 @@ public class NEATSelfRegulationGene implements NEATGene, Cloneable {
 				 agePenalty,  youthBoost,  survivalThreshold,
 				 pMutatateRegulation,  pMutatateRegulationHueristics,
 					 pMutatateRegulationCoeff,
-					 pMutatateRegulationMutation, pMutatateRegulationAgeing, maxPerturbRegulation, Hueristics);
+					 pMutatateRegulationMutation, pMutatateRegulationAgeing, maxPerturbRegulation, Hueristics, pAddRecLink);
 	}
 	
 	public double Difference(NEATSelfRegulationGene compareTo){
@@ -191,7 +198,11 @@ public class NEATSelfRegulationGene implements NEATGene, Cloneable {
 		totalDiff += Math.abs(this.maxPerturbRegulation - compareTo.maxPerturbRegulation);
 		
 		
-		return totalDiff / ((this.maxPerturbRegulation + compareTo.maxPerturbRegulation) / 2 * 18);
+		return totalDiff /  Math.min(this.maxPerturbRegulation , compareTo.maxPerturbRegulation);
+	}
+	
+	public ArrayList<Integer> getLevels() {
+		return Levels;
 	}
 	
 	public ArrayList<double[]> getHueristics() {
@@ -209,6 +220,16 @@ public class NEATSelfRegulationGene implements NEATGene, Cloneable {
 	public boolean isActive() {
 		return active;
 	}
+
+	public double getpAddRecLink() {
+		return pAddRecLink;
+	}
+
+
+	public void setpAddRecLink(double pAddRecLink) {
+		this.pAddRecLink = pAddRecLink;
+	}
+
 
 	public double getMaxPerturbRegulation() {
 		return maxPerturbRegulation;

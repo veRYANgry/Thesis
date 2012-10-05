@@ -539,6 +539,7 @@ public void reset(MarioAIOptions marioAIOptions , SystemOfValues IntermediateRew
     marioInitialPos = marioAIOptions.getMarioInitialPos();
     greenMushroomMode = marioAIOptions.getGreenMushroomMode();
 
+    String fileName = marioAIOptions.getLevelFileName();
     if (replayer != null)
     {
         try
@@ -557,11 +558,7 @@ public void reset(MarioAIOptions marioAIOptions , SystemOfValues IntermediateRew
         {
             e.printStackTrace();
         }
-    } else
-        level = LevelGenerator.createLevel(marioAIOptions);
-
-    String fileName = marioAIOptions.getLevelFileName();
-    if (!fileName.equals(""))
+    } else  if (!fileName.equals(""))
     {
         try
         {
@@ -571,6 +568,9 @@ public void reset(MarioAIOptions marioAIOptions , SystemOfValues IntermediateRew
             System.err.println("[Mario AI Exception] : Cannot write to file " + fileName);
             e.printStackTrace();
         }
+    }
+    else {
+        level = LevelGenerator.createLevel(marioAIOptions);
     }
     this.levelSeed = level.randomSeed;
     this.levelLength = level.length;

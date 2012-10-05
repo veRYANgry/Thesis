@@ -35,6 +35,7 @@ public class NEATMutator implements Mutator, Serializable {
 	private double pToggle;
 	private double pWeightReplaced;
 	private double pMutateBias;
+	private double pAddRecLink;
 	private boolean featureSelection = false;
 	private boolean recurrencyAllowed = true;
 	private double perturb = 5;
@@ -98,6 +99,7 @@ public class NEATMutator implements Mutator, Serializable {
 			this.pMutateBias = activeReg.getpMutateBias();
 			this.biasPerturb =  activeReg.getMaxBiasPerturb();
 			this.perturb = activeReg.getMaxPerturb();
+			this.pAddRecLink =  activeReg.getpAddRecLink();
 		}
 
 		
@@ -139,10 +141,15 @@ public class NEATMutator implements Mutator, Serializable {
 			mutated = mutatee.clone();
 			
 			if(mutateHue){
-				int place = perturbRand.nextInt((mutatee.getHueristics().size() * mutatee.getHueristics().get(0).length));
-				mutated.getHueristics().get(place /  mutatee.getHueristics().get(0).length)[place %  mutatee.getHueristics().get(0).length] += MathUtils.nextClampedDouble(-PerturbRegulation, PerturbRegulation);
+				double next = perturbRand.nextDouble();
+				if(next > .5){
+					int place = perturbRand.nextInt((mutatee.getHueristics().size() * mutatee.getHueristics().get(0).length));
+					mutated.getHueristics().get(place /  mutatee.getHueristics().get(0).length)[place %  mutatee.getHueristics().get(0).length] += MathUtils.nextClampedDouble(-PerturbRegulation, PerturbRegulation);
+				} else {
+					int place = perturbRand.nextInt(mutatee.getLevels().size());
+					mutatee.getLevels().set(place, perturbRand.nextInt());
+				}
 			}
-			
 			if(mutateReg){
 				double next = perturbRand.nextDouble();
 				if(next > .8){
@@ -161,22 +168,25 @@ public class NEATMutator implements Mutator, Serializable {
 			
 			if(mutateProb){
 				double next = perturbRand.nextDouble();
-				if(next > .899){
+				if(next > .9){
 					mutated.setpAddLink(mutatee.getpAddLink() + MathUtils.nextClampedDouble(-PerturbRegulation, PerturbRegulation));
-				} else if (next > .788){
+				} else if (next > .8){
 					mutated.setpAddNode(mutatee.getpAddNode() + MathUtils.nextClampedDouble(-PerturbRegulation, PerturbRegulation));
-				}  else if (next > .677){
+				}  else if (next > .7){
 					mutated.setpToggleLink(mutatee.getpToggleLink() + MathUtils.nextClampedDouble(-PerturbRegulation, PerturbRegulation));
-				} else if (next > .566){
+				} else if (next > .6){
 					mutated.setpMutation(mutatee.getpMutation() + MathUtils.nextClampedDouble(-PerturbRegulation, PerturbRegulation));
-				} else if (next > .455){
+				} else if (next > .5){
 					mutated.setpMutateBias(mutatee.getpMutateBias() + MathUtils.nextClampedDouble(-PerturbRegulation, PerturbRegulation));
-				} else if (next > .344){
+				} else if (next > .4){
 					mutated.setpWeightReplaced(mutatee.getpWeightReplaced() + MathUtils.nextClampedDouble(-PerturbRegulation, PerturbRegulation));
-				} else if (next > .233){
+				} else if (next > .3){
 					mutated.setMaxPerturb(mutatee.getMaxPerturb() + MathUtils.nextClampedDouble(-PerturbRegulation, PerturbRegulation));
-				} else if (next > .122){
+				} else if (next > .2){
 					mutated.setMaxBiasPerturb(mutatee.getMaxBiasPerturb() + MathUtils.nextClampedDouble(-PerturbRegulation, PerturbRegulation));
+				} 
+				else if (next > .1){
+					mutated.setpAddRecLink(mutatee.getpAddRecLink() + MathUtils.nextClampedDouble(-PerturbRegulation, PerturbRegulation));
 				} else {
 					mutated.setpMutatateRegulationHueristics(mutatee.getpMutatateRegulationHueristics() + MathUtils.nextClampedDouble(-PerturbRegulation, PerturbRegulation));
 
@@ -299,7 +309,32 @@ public class NEATMutator implements Mutator, Serializable {
 		System.arraycopy(mutatee.genes(), 0, genes, 0, mutatee.genes().length);
 		Gene newLink = null;
 		
-		if (linkRandVal < this.pAddLink) {
+		if(linkRandVal < this.pAddRecLink){
+			nodes = this.candidateNodes(mutatee.genes());
+			links = this.candidateLinks(mutatee.genes(), false);
+			// find a new available link that is recurrent
+			while (newLink == null && i < MAX_LINK_ATTEMPTS) {
+				rIdx = linkRand.nextInt(nodes.size());
+				from = ((NEATNodeGene)nodes.get(rIdx));
+				
+				rIdx = linkRand.nextInt(nodes.size());
+				to = ((NEATNodeGene)nodes.get(rIdx));
+
+
+				if (from.getDepth() <= to.getDepth() && !this.linkIllegal(from, to, links)) {
+					// set it to a random value
+					
+					newLink = InnovationDatabase.database().submitLinkInnovation(from.id(), to.id());
+					((NEATLinkGene)newLink).setWeight(MathUtils.nextPlusMinusOne());
+					// add link between 2 unconnected nodes
+					genes[genes.length - 1] = newLink;
+					mutatee.updateChromosome(genes);
+				}
+				i++;
+			}
+
+		}
+		else if (linkRandVal < this.pAddLink) {
 			nodes = this.candidateNodes(mutatee.genes());
 			links = this.candidateLinks(mutatee.genes(), false);
 			// find a new available link
