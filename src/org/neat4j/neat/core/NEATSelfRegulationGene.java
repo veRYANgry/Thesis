@@ -144,7 +144,7 @@ public class NEATSelfRegulationGene implements NEATGene, Cloneable {
 		maxPerturbRegulation = .1;
 		Levels = new ArrayList<Integer>();
 		Levels.add(Rand.nextInt());
-		Levels.add(Rand.nextInt());
+		//Levels.add(Rand.nextInt());
 		
 		//TODO create a way to vary the number of h values
 		//TODO normalize h values from the runs to be constant for max value or approach a constant

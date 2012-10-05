@@ -48,12 +48,17 @@ public class NeatAgent extends BasicMarioAIAgent implements Agent {
 	private NeuralNet net;
 	private int pulse = 0;
 	ArrayList<double[]> Hueristics;
+	ArrayList<Integer> Levels;
 
 	public NeatAgent() {
 		super("NeatAgent");
 		this.zLevelEnemies = 1;
 		this.zLevelScene = 1;
 
+	}
+
+	public ArrayList<Integer> getLevels() {
+		return Levels;
 	}
 
 	public ArrayList<double[]> getHueristics() {
@@ -64,12 +69,13 @@ public class NeatAgent extends BasicMarioAIAgent implements Agent {
 		return net;
 	}
 
-	public NeatAgent(NeuralNet net,VisionBound Vision, ArrayList<double[]> Hueristics) {
+	public NeatAgent(NeuralNet net,VisionBound Vision, ArrayList<double[]> Hueristics, ArrayList<Integer> Levels) {
 		super("NeatAgent");
 		this.net = net;
 		this.Vision = Vision;
 		numberOfInputs = (Vision.XVisionStart - Vision.XVisionEnd)*(Vision.YVisionStart - Vision.YVisionEnd);
 		this.Hueristics = Hueristics;
+		this.Levels = Levels;
 		reset();
 	}
 

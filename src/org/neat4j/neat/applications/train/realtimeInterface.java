@@ -424,7 +424,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 								frame.setTitle("Demo");
 								frame.showNet();
 						        
-								WorkerTask.evaluateAll((Agent) new NeatAgent(nets, Vision, null));
+								WorkerTask.evaluateAll((Agent) new NeatAgent(nets, Vision, null,((NEATChromosome)DemoMember).findActiveReg().getLevels() ));
 								
 								 
 								
@@ -481,7 +481,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 									frame.setTitle("Demo");
 									frame.showNet();
 							        
-									WorkerTask.evaluateAll((Agent) new NeatAgent(nets, Vision, null));
+									WorkerTask.evaluateAll((Agent) new NeatAgent(nets, Vision, null,((NEATChromosome)DemoMember).findActiveReg().getLevels()));
 									
 									 
 									

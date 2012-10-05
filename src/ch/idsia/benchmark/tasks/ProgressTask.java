@@ -157,7 +157,12 @@ private double[] evaluateSingleLevel(int ld, int tl, int ls, boolean vis, Agent 
     distanceTravelled = 0;
     //TODO for each level type run and get results
     if(((NeatAgent)controller).getHueristics() != null){
+    	MarioAIOptions evaluationOptions = new MarioAIOptions();
+    	evaluationOptions.setMarioInitialPos(randomStartDistance, 120);
+    	evaluationOptions.setMarioMode(0);
+    	options.setAgent(controller);
     	int i = 0;
+    	options.setLevelRandSeed(((NeatAgent)controller).getLevels().get(i));
         distanceTravelled += (this.getEnvironment().getEvaluationInfo().computeDistancePassed() -  randomStartDistance) / 4000 * ((NeatAgent)controller).getHueristics().get(i)[0];
         distanceTravelled += this.getEnvironment().getEvaluationInfo().mushroomsDevoured * ((NeatAgent)controller).getHueristics().get(i)[1];
         distanceTravelled += this.getEnvironment().getEvaluationInfo().flowersDevoured * ((NeatAgent)controller).getHueristics().get(i)[2];

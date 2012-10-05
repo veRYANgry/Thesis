@@ -45,8 +45,8 @@ public class MSENEATFitnessFunction extends NEATFitnessFunction {
 	   // System.out.println("fitness is " + fitness);
 		//TODO return an array of fitnesses 
 		if(((NEATChromosome)genoType).findActiveReg() != null)
-			return ((ProgressTask)task).evaluateAll((Agent) new NeatAgent(this.net(),Vision,((NEATChromosome)genoType).findActiveReg().getHueristics()));
+			return ((ProgressTask)task).evaluateAll((Agent) new NeatAgent(this.net(),Vision,((NEATChromosome)genoType).findActiveReg().getHueristics(),((NEATChromosome)genoType).findActiveReg().getLevels()));
 		else
-			return ((ProgressTask)task).evaluateAll((Agent) new NeatAgent(this.net(),Vision,null));
+			return ((ProgressTask)task).evaluateAll((Agent) new NeatAgent(this.net(),Vision,null, null));
 	}
 }
