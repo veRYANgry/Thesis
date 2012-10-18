@@ -102,6 +102,7 @@ public class NEATSelfRegulationGene implements NEATGene, Cloneable {
 					this.Hueristics.get(i)[j] = Hueristics.get(i)[j];
 			}
 		}
+		this.Levels =new  ArrayList<Integer>();
 		if(Levels != null){
 			for(int i = 0; i < Levels.size();i++){
 				this.Levels.add(Levels.get(i));
@@ -117,7 +118,7 @@ public class NEATSelfRegulationGene implements NEATGene, Cloneable {
 		pMutation = .01;
 		pMutateBias = .01;
 		pWeightReplaced = .01;
-		pAddRecLink = .01;		
+		pAddRecLink = .91;		
 		maxPerturb = .01;
 		maxBiasPerturb = .01;
 		

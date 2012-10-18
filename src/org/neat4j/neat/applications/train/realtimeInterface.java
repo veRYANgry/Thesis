@@ -868,7 +868,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				
 				Vision.XVisionStart = ((JComboBox)e.getSource()).getSelectedIndex() + -11;
-				configs.updateConfig("INPUT.NODES" , Integer.toString((Vision.XVisionStart - Vision.XVisionEnd)*(Vision.YVisionStart - Vision.YVisionEnd) ));
+				configs.updateConfig("INPUT.NODES" , Integer.toString((Vision.XVisionStart - Vision.XVisionEnd)*(Vision.YVisionStart - Vision.YVisionEnd) + 1 ));
 				}
 
 		});
@@ -881,7 +881,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		Xend.addActionListener(new  ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				Vision.XVisionEnd = ((JComboBox)e.getSource()).getSelectedIndex() + -11;
-				configs.updateConfig("INPUT.NODES" , Integer.toString((Vision.XVisionStart - Vision.XVisionEnd)*(Vision.YVisionStart - Vision.YVisionEnd) ));}
+				configs.updateConfig("INPUT.NODES" , Integer.toString((Vision.XVisionStart - Vision.XVisionEnd)*(Vision.YVisionStart - Vision.YVisionEnd) + 1 ));}
 		});
 		
 		JLabel YstartLabel = new JLabel("Starting Y value");
@@ -892,7 +892,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		Ystart.addActionListener(new  ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				Vision.YVisionStart = ((JComboBox)e.getSource()).getSelectedIndex() + -11;
-				configs.updateConfig("INPUT.NODES" , Integer.toString((Vision.XVisionStart - Vision.XVisionEnd)*(Vision.YVisionStart - Vision.YVisionEnd) ));}
+				configs.updateConfig("INPUT.NODES" , Integer.toString((Vision.XVisionStart - Vision.XVisionEnd)*(Vision.YVisionStart - Vision.YVisionEnd) + 1 ));}
 		});
 		
 		JLabel YendLabel = new JLabel("Ending Y value");
@@ -903,7 +903,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		Yend.addActionListener(new  ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				Vision.YVisionEnd = ((JComboBox)e.getSource()).getSelectedIndex() + -11;
-				configs.updateConfig("INPUT.NODES" , Integer.toString((Vision.XVisionStart - Vision.XVisionEnd)*(Vision.YVisionStart - Vision.YVisionEnd) ));}
+				configs.updateConfig("INPUT.NODES" , Integer.toString((Vision.XVisionStart - Vision.XVisionEnd)*(Vision.YVisionStart - Vision.YVisionEnd) + 1 ));}
 		});
 		
 		content.add(VisionPanel);

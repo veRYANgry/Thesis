@@ -73,7 +73,7 @@ public class NeatAgent extends BasicMarioAIAgent implements Agent {
 		super("NeatAgent");
 		this.net = net;
 		this.Vision = Vision;
-		numberOfInputs = (Vision.XVisionStart - Vision.XVisionEnd)*(Vision.YVisionStart - Vision.YVisionEnd);
+		numberOfInputs = (Vision.XVisionStart - Vision.XVisionEnd)*(Vision.YVisionStart - Vision.YVisionEnd) + 1;
 		this.Hueristics = Hueristics;
 		this.Levels = Levels;
 		reset();
@@ -106,7 +106,7 @@ public class NeatAgent extends BasicMarioAIAgent implements Agent {
 		//inputs[inputs.length - 5] = marioMode == 0 ? 1 : 0;
 		//inputs[inputs.length - 1] = isMarioCarrying ? 1 : 0;
 		//inputs[inputs.length - 3] = isMarioOnGround ? 1 : 0;
-		//inputs[inputs.length - 1] = isMarioAbleToJump ? 1 : 0;
+		inputs[inputs.length - 1] = isMarioAbleToJump ? 1 : 0;
 		//inputs[inputs.length - 1] = isMarioAbleToShoot ? 1 : 0;
 
 		ip = new MarioInput();

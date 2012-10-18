@@ -158,11 +158,17 @@ private double[] evaluateSingleLevel(int ld, int tl, int ls, boolean vis, Agent 
     //TODO for each level type run and get results
     if(((NeatAgent)controller).getHueristics() != null){
     	MarioAIOptions evaluationOptions = new MarioAIOptions();
-    	evaluationOptions.setMarioInitialPos(randomStartDistance, 120);
+    	evaluationOptions.setMarioInitialPos(randomStartDistance, 50);
     	evaluationOptions.setMarioMode(0);
-    	options.setAgent(controller);
+    	evaluationOptions.setAgent(controller);
+    	evaluationOptions.setFPS(GlobalOptions.MaxFPS);
+    	evaluationOptions.setVisualization(false);
+    	//evaluationOptions.setArgs("-ls " + "/home/bbb/workspace/Thesis/resources/bumps.lvl");
+    	options.setArgs("-ls " + ((NeatAgent)controller).getLevels().get(0));
+    	this.options = evaluationOptions;
+    	this.runSingleEpisode(1);
     	int i = 0;
-    	options.setLevelRandSeed(((NeatAgent)controller).getLevels().get(i));
+    	evaluationOptions.setLevelRandSeed(((NeatAgent)controller).getLevels().get(i));
         distanceTravelled += (this.getEnvironment().getEvaluationInfo().computeDistancePassed() -  randomStartDistance) / 4000 * ((NeatAgent)controller).getHueristics().get(i)[0];
         distanceTravelled += this.getEnvironment().getEvaluationInfo().mushroomsDevoured * ((NeatAgent)controller).getHueristics().get(i)[1];
         distanceTravelled += this.getEnvironment().getEvaluationInfo().flowersDevoured * ((NeatAgent)controller).getHueristics().get(i)[2];
@@ -176,6 +182,17 @@ private double[] evaluateSingleLevel(int ld, int tl, int ls, boolean vis, Agent 
         	distanceTravelled = 0;
         results[i + 1] = distanceTravelled;
         distanceTravelled = 0;
+    } else {
+    	MarioAIOptions evaluationOptions = new MarioAIOptions();
+    	evaluationOptions.setMarioInitialPos(randomStartDistance, 120);
+    	evaluationOptions.setMarioMode(0);
+    	evaluationOptions.setAgent(controller);
+    	evaluationOptions.setFPS(23);
+    	evaluationOptions.setVisualization(true);
+    	options.setArgs("-ls " + ((NeatAgent)controller).getLevels().get(0));
+    	this.options = evaluationOptions;
+    	this.runSingleEpisode(1);
+    	
     }
     
     return results;
@@ -185,11 +202,7 @@ public double[] evaluateAll(Agent controller)
 {
 
    double fitn[] = this.evaluateSingleLevel(0, 40, this.uniqueSeed, false, controller);
-   double fitx[] = this.evaluateSingleLevel(0, 40, this.uniqueSeed, false, controller);
-   double fity[] = this.evaluateSingleLevel(0, 40, this.uniqueSeed, false, controller);
-   
-   for(int i= 0; i < fitn.length;i++)
-	   fitn[i] = (fitn[i] + fitx[i] + fity[i]) /3;
+
 
     this.uniqueSeed += 1;
     this.fitnessEvaluations++;

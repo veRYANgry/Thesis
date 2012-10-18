@@ -25,6 +25,8 @@ public abstract class Specie implements Comparable, Serializable {
 	private ArrayList specieMembers;
 	private double bestFitness;
 	private double avFitness = 0;
+	private double selfAvFitness = 0;
+	private double lastSelfAvFitness = 0;
 	private int maxFitnessAge;
 	private int currentFitnessAge = 0;
 	private boolean extinct = false;	
@@ -57,12 +59,21 @@ public abstract class Specie implements Comparable, Serializable {
 	public void ageFitness() {
 		int i;
 		double totalFitness = 0;
+		double totalSelfFitness = 0;
 		
 		if (this.specieMembers.size() > 0) {
 			for (i = 0; i < this.specieMembers.size(); i++) {
 				totalFitness += ((Chromosome)this.specieMembers.get(i)).fitness();
+				totalSelfFitness += ((NEATChromosome)this.specieMembers.get(i)).getSelfFitness();
 			}
+
 			this.avFitness = totalFitness / this.specieMembers.size();
+			this.selfAvFitness = totalSelfFitness / this.specieMembers.size();
+			if(lastSelfAvFitness != 0){
+				this.avFitness += (this.selfAvFitness - this.lastSelfAvFitness) / this.selfAvFitness * (this.avFitness + 40000);
+			}
+			this.avFitness += this.selfAvFitness;
+			this.lastSelfAvFitness = this.selfAvFitness;
 			if (this.avFitness > this.bestAvFitness) {
 				this.currentFitnessAge = 0;
 				this.bestAvFitness = this.avFitness; 
