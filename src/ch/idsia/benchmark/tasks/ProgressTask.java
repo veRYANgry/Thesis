@@ -155,45 +155,7 @@ private double[] evaluateSingleLevel(int ld, int tl, int ls, boolean vis, Agent 
     	distanceTravelled = 0;
     results[0] = distanceTravelled;
     distanceTravelled = 0;
-    //TODO for each level type run and get results
-    if(((NeatAgent)controller).getHueristics() != null){
-    	MarioAIOptions evaluationOptions = new MarioAIOptions();
-    	evaluationOptions.setMarioInitialPos(randomStartDistance, 50);
-    	evaluationOptions.setMarioMode(0);
-    	evaluationOptions.setAgent(controller);
-    	evaluationOptions.setFPS(GlobalOptions.MaxFPS);
-    	evaluationOptions.setVisualization(false);
-    	//evaluationOptions.setArgs("-ls " + "/home/bbb/workspace/Thesis/resources/bumps.lvl");
-    	options.setArgs("-ls " + ((NeatAgent)controller).getLevels().get(0));
-    	this.options = evaluationOptions;
-    	this.runSingleEpisode(1);
-    	int i = 0;
-    	evaluationOptions.setLevelRandSeed(((NeatAgent)controller).getLevels().get(i));
-        distanceTravelled += (this.getEnvironment().getEvaluationInfo().computeDistancePassed() -  randomStartDistance) / 4000 * ((NeatAgent)controller).getHueristics().get(i)[0];
-        distanceTravelled += this.getEnvironment().getEvaluationInfo().mushroomsDevoured * ((NeatAgent)controller).getHueristics().get(i)[1];
-        distanceTravelled += this.getEnvironment().getEvaluationInfo().flowersDevoured * ((NeatAgent)controller).getHueristics().get(i)[2];
-        distanceTravelled += this.getEnvironment().getEvaluationInfo().coinsGained / 100 * ((NeatAgent)controller).getHueristics().get(i)[3];
-        distanceTravelled += this.getEnvironment().getEvaluationInfo().killsByShell * ((NeatAgent)controller).getHueristics().get(i)[4];
-        distanceTravelled += this.getEnvironment().getEvaluationInfo().killsByStomp / 10 * ((NeatAgent)controller).getHueristics().get(i)[5];
-       // distanceTravelled += ((NEATNeuralNet)((NeatAgent)controller).getNet()).connectionCount() * ((NeatAgent)controller).getHueristics().get(i)[6];
-        //distanceTravelled += ((NEATNeuralNet)((NeatAgent)controller).getNet()).neuronCount() * ((NeatAgent)controller).getHueristics().get(i)[7];
-    	
-        if(distanceTravelled < 0)
-        	distanceTravelled = 0;
-        results[i + 1] = distanceTravelled;
-        distanceTravelled = 0;
-    } else {
-    	MarioAIOptions evaluationOptions = new MarioAIOptions();
-    	evaluationOptions.setMarioInitialPos(randomStartDistance, 120);
-    	evaluationOptions.setMarioMode(0);
-    	evaluationOptions.setAgent(controller);
-    	evaluationOptions.setFPS(23);
-    	evaluationOptions.setVisualization(true);
-    	options.setArgs("-ls " + ((NeatAgent)controller).getLevels().get(0));
-    	this.options = evaluationOptions;
-    	this.runSingleEpisode(1);
-    	
-    }
+
     
     return results;
 }
