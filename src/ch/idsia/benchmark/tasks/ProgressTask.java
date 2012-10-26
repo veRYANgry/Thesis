@@ -37,6 +37,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Random;
+import java.util.Vector;
 
 import org.neat4j.neat.core.NEATNeuralNet;
 
@@ -58,7 +59,7 @@ private String fileTimeStamp = "-uid-" + uid + "-" + GlobalOptions.getTimeStamp(
 private double DistanceHeuristic = 1, MushroomHeuristic = 0, FlowerHeuristic = 0,  CoinsHeuristic = 0, StompKillsHeuristic = 200,ShellKillHeuristic = 500;
 private double ConnectionHeuristic = 0, NeuronHeuristic = 0;
 
-//    private int startingSeed;
+public Vector<MarioAIOptions> levelQueue; // additions options for queues of levels
 
 public void setConnectionHeuristic(double connectionHeuristic) {
 	ConnectionHeuristic = connectionHeuristic;
@@ -178,9 +179,20 @@ private double[] evaluateSingleLevel(int ld, int tl, int ls, boolean vis, Agent 
 
 public double[] evaluateAll(Agent controller)
 {
-
-   double fitn[] = this.evaluateSingleLevel(0, 40, this.uniqueSeed, false, controller);
-
+	double fitn[] = new double[2];
+	if(levelQueue == null){
+		fitn = this.evaluateSingleLevel(0, 40, this.uniqueSeed, false, controller);
+	}else{
+		int i = 0;
+		for(; i < levelQueue.size();i++){
+			this.options = levelQueue.get(i);
+				double temp[] = this.evaluateSingleLevel(0, 40, this.uniqueSeed, false, controller);
+				fitn[0] += temp[0];
+				fitn[1] += temp[1];
+		}
+		fitn[0] = fitn[0] / i;
+		fitn[1] = fitn[1] / i;
+	}
 
     this.uniqueSeed += 1;
     this.fitnessEvaluations++;

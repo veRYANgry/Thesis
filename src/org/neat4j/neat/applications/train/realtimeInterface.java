@@ -74,6 +74,11 @@ public class realtimeInterface extends JFrame implements ActionListener {
 	
 	static SwingWorker<Void, Void> worker;
 
+	private static String[][] queueData;
+	static String[] queueDataHeading = {"Levels"};
+	static JTable queueDataTable;
+
+	
 	
 	private static String[][] specData;
 	static String[] SpecDataHeading = {"Species" , "Species members"};
@@ -136,7 +141,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 	////////////
 	//Level stuff
 	////////////
-	Vector<MarioAIOptions> levelQueue; //should be a vector of game options or parts of data set
+	Vector<MarioAIOptions> levelQueue = new Vector<MarioAIOptions>(); //should be a vector of game options or parts of data set
 	/**
 	 * @param args
 	 */
@@ -308,7 +313,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		
 		GeneInfo(runPanel);
 
-		
+		levelQueue(content);
 		levelOptions(content);
 		
 		JPanel StackPanel2 = new JPanel(new GridLayout(0, 1));
@@ -625,6 +630,60 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		}
 		
 	}
+	public void setQueueLevels(){
+		queueData = new String[levelQueue.size()][1];
+		int i = 0;
+		for(MarioAIOptions Op: levelQueue){
+			queueData[i][0] = Op.asString();
+		    i++;
+		}
+		task.levelQueue = levelQueue;
+		queueDataTable.setModel(new DefaultTableModel(queueData,queueDataHeading));
+		queueDataTable.updateUI();
+	}
+	
+	//used to set up a series of levels and display them
+	public void levelQueue(final Container content){
+		JPanel QueuePanel = new JPanel(new GridLayout(0, 1));
+		
+		
+		queueData = new String[10][1];
+		queueDataTable = new JTable(queueData,queueDataHeading);
+		JScrollPane queuePane = new JScrollPane(queueDataTable);
+		queuePane.setPreferredSize(new Dimension(400, 50));
+		QueuePanel.add(queuePane);
+		
+		
+		JButton AddLevelButton = new JButton("Add level");
+		QueuePanel.add(AddLevelButton);
+		AddLevelButton.addActionListener(new  ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				MarioAIOptions WorkerOptions = new MarioAIOptions("nothing");
+				WorkerOptions.setLevelDifficulty(difficulty);
+				WorkerOptions.setFPS(GlobalOptions.MaxFPS);
+				WorkerOptions.setVisualization(false);
+				setOptions(WorkerOptions);
+				levelQueue.add(WorkerOptions);
+	
+				setQueueLevels();
+				
+			}
+		});
+		
+		
+		JButton RemoveLevelButton = new JButton("Remove selected level");
+		QueuePanel.add(RemoveLevelButton);
+		RemoveLevelButton.addActionListener(new  ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				int RecentClicked = queueDataTable.getSelectedRow();
+				if(RecentClicked < levelQueue.size())
+					levelQueue.remove(RecentClicked);
+				setQueueLevels();
+			}
+		});
+		content.add(QueuePanel);
+	}
+	
 	
 	//function to add level options such as difficulty or task trails
 	public void levelOptions(final Container content){
