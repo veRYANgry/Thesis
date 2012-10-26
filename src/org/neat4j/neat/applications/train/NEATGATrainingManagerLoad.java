@@ -114,7 +114,7 @@ public class NEATGATrainingManagerLoad {
 		
 		while (true) {
 	        System.out.println("Running Epoch[" + i + "] with diff:" + difficulty);
-			((NEATGeneticAlgorithmMario)this.ga).runEpoch(task);
+			//((NEATGeneticAlgorithmMario)this.ga).runEpoch(task);
 			
 					
 			
@@ -136,7 +136,7 @@ public class NEATGATrainingManagerLoad {
 				frame.setTitle("Generation: " + i + " Score :" + ((NEATGeneticAlgorithmMario) this.ga).genBest());
 				frame.showNet();
 		        
-		        ((MSENEATFitnessFunction) ((NEATGeneticAlgorithmMario) ga).gaEvaluator()).evaluates(this.ga.discoverdBestMember(), task);
+		        //((MSENEATFitnessFunction) ((NEATGeneticAlgorithmMario) ga).gaEvaluator()).evaluates(this.ga.discoverdBestMember(), task);
 				
 				if(((NEATGeneticAlgorithmMario) this.ga).genBest() > bestsofar) {
 					bestsofar = (((NEATGeneticAlgorithmMario) this.ga).genBest());

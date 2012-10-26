@@ -15,6 +15,7 @@ import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.Vector;
 
 import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
@@ -130,7 +131,12 @@ public class realtimeInterface extends JFrame implements ActionListener {
 	//Demo stuff
 	////////////
 	SwingWorker<Void, Void> demoWorker;
-
+	
+	
+	////////////
+	//Level stuff
+	////////////
+	Vector<MarioAIOptions> levelQueue; //should be a vector of game options or parts of data set
 	/**
 	 * @param args
 	 */
@@ -868,7 +874,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				
 				Vision.XVisionStart = ((JComboBox)e.getSource()).getSelectedIndex() + -11;
-				configs.updateConfig("INPUT.NODES" , Integer.toString((Vision.XVisionStart - Vision.XVisionEnd)*(Vision.YVisionStart - Vision.YVisionEnd) ));
+				configs.updateConfig("INPUT.NODES" , Integer.toString((Vision.XVisionStart - Vision.XVisionEnd)*(Vision.YVisionStart - Vision.YVisionEnd) + 2));
 				}
 
 		});
@@ -881,7 +887,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		Xend.addActionListener(new  ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				Vision.XVisionEnd = ((JComboBox)e.getSource()).getSelectedIndex() + -11;
-				configs.updateConfig("INPUT.NODES" , Integer.toString((Vision.XVisionStart - Vision.XVisionEnd)*(Vision.YVisionStart - Vision.YVisionEnd) ));}
+				configs.updateConfig("INPUT.NODES" , Integer.toString((Vision.XVisionStart - Vision.XVisionEnd)*(Vision.YVisionStart - Vision.YVisionEnd) + 2));}
 		});
 		
 		JLabel YstartLabel = new JLabel("Starting Y value");
@@ -892,7 +898,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		Ystart.addActionListener(new  ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				Vision.YVisionStart = ((JComboBox)e.getSource()).getSelectedIndex() + -11;
-				configs.updateConfig("INPUT.NODES" , Integer.toString((Vision.XVisionStart - Vision.XVisionEnd)*(Vision.YVisionStart - Vision.YVisionEnd) ));}
+				configs.updateConfig("INPUT.NODES" , Integer.toString((Vision.XVisionStart - Vision.XVisionEnd)*(Vision.YVisionStart - Vision.YVisionEnd) + 2 ));}
 		});
 		
 		JLabel YendLabel = new JLabel("Ending Y value");
@@ -903,7 +909,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		Yend.addActionListener(new  ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				Vision.YVisionEnd = ((JComboBox)e.getSource()).getSelectedIndex() + -11;
-				configs.updateConfig("INPUT.NODES" , Integer.toString((Vision.XVisionStart - Vision.XVisionEnd)*(Vision.YVisionStart - Vision.YVisionEnd) ));}
+				configs.updateConfig("INPUT.NODES" , Integer.toString((Vision.XVisionStart - Vision.XVisionEnd)*(Vision.YVisionStart - Vision.YVisionEnd) + 2));}
 		});
 		
 		content.add(VisionPanel);

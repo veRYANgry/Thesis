@@ -146,8 +146,8 @@ private double[] evaluateSingleLevel(int ld, int tl, int ls, boolean vis, Agent 
     //distanceTravelled += this.getEnvironment().getEvaluationInfo().killsByFire * 60;
     distanceTravelled += this.getEnvironment().getEvaluationInfo().killsByShell * ShellKillHeuristic;
     distanceTravelled += this.getEnvironment().getEvaluationInfo().killsByStomp * StompKillsHeuristic;
-    distanceTravelled += ((NEATNeuralNet)((NeatAgent)controller).getNet()).connectionCount() * ConnectionHeuristic;
-    distanceTravelled += ((NEATNeuralNet)((NeatAgent)controller).getNet()).neuronCount() * NeuronHeuristic;
+   // distanceTravelled += ((NEATNeuralNet)((NeatAgent)controller).getNet()).connectionCount() * ConnectionHeuristic;
+   // distanceTravelled += ((NEATNeuralNet)((NeatAgent)controller).getNet()).neuronCount() * NeuronHeuristic;
     //distanceTravelled -= this.getEnvironment().getEvaluationInfo().collisionsWithCreatures * 1000;
     //might remove timeSpent (bad heuristic)
    // distanceTravelled += this.getEnvironment().getEvaluationInfo().timeSpentMovingTowardememy / 100;
@@ -164,8 +164,8 @@ private double[] evaluateSingleLevel(int ld, int tl, int ls, boolean vis, Agent 
         distanceTravelled += this.getEnvironment().getEvaluationInfo().coinsGained / 100 * ((NeatAgent)controller).getHueristics().get(i)[3];
         distanceTravelled += this.getEnvironment().getEvaluationInfo().killsByShell * ((NeatAgent)controller).getHueristics().get(i)[4];
         distanceTravelled += this.getEnvironment().getEvaluationInfo().killsByStomp / 10 * ((NeatAgent)controller).getHueristics().get(i)[5];
-        distanceTravelled += ((NEATNeuralNet)((NeatAgent)controller).getNet()).connectionCount() * ((NeatAgent)controller).getHueristics().get(i)[6];
-        distanceTravelled += ((NEATNeuralNet)((NeatAgent)controller).getNet()).neuronCount() * ((NeatAgent)controller).getHueristics().get(i)[7];
+        //distanceTravelled += ((NEATNeuralNet)((NeatAgent)controller).getNet()).connectionCount() * ((NeatAgent)controller).getHueristics().get(i)[6];
+        //distanceTravelled += ((NEATNeuralNet)((NeatAgent)controller).getNet()).neuronCount() * ((NeatAgent)controller).getHueristics().get(i)[7];
     	
         if(distanceTravelled < 0)
         	distanceTravelled = 0;

@@ -107,37 +107,37 @@ public class NEATSelfRegulationGene implements NEATGene, Cloneable {
 
 
 	public void initialize(Random Rand){
-		pAddLink = Rand.nextDouble();
-		pAddNode = Rand.nextDouble();
-		pToggleLink = Rand.nextDouble();
-		pMutation = Rand.nextDouble();
-		pMutateBias = Rand.nextDouble();
-		pWeightReplaced = Rand.nextDouble();
+		pAddLink = .05;
+		pAddNode = .05;
+		pToggleLink = .05;
+		pMutation = .05;
+		pMutateBias = .15;
+		pWeightReplaced = .05;
 		
-		maxPerturb = Rand.nextDouble();
-		maxBiasPerturb = Rand.nextDouble();
+		maxPerturb = .05;
+		maxBiasPerturb = .05;
 		
-		disjointCoeff = Rand.nextDouble();
-		excessCoeff = Rand.nextDouble();
-		weightCoeff = Rand.nextDouble();
-		threshold = Rand.nextDouble();
-		survivalThreshold = Rand.nextDouble();
+		disjointCoeff = 1;
+		excessCoeff = 1;
+		weightCoeff = 2;
+		threshold = 1;
+		survivalThreshold = .2;
 		/////////////////
 		//TODO age needs to be worked on!!!!!!!
 		////////////////////
 		maxSpecieAge = Rand.nextInt(1000);
-		specieAgeThreshold = Rand.nextInt(1000);
-		specieYouthThreshold = 1;
+		specieAgeThreshold = 20;
+		specieYouthThreshold = 5;
 		//TODO use equations to check for suitable ranges (may not even be needed)
-		agePenalty = 1;
-		youthBoost =  1;
+		agePenalty = 1.5;
+		youthBoost =  1.1;
 		
-		pMutatateRegulation  = Rand.nextDouble();
-		pMutatateRegulationHueristics  = Rand.nextDouble();
-		pMutatateRegulationCoeff  = Rand.nextDouble();
-		pMutatateRegulationMutation  = Rand.nextDouble();
-		pMutatateRegulationAgeing  = Rand.nextDouble();
-		maxPerturbRegulation = Rand.nextDouble();
+		pMutatateRegulation  = .01;
+		pMutatateRegulationHueristics  = .01;
+		pMutatateRegulationCoeff  = .01;
+		pMutatateRegulationMutation  = .01;
+		pMutatateRegulationAgeing  = .01;
+		maxPerturbRegulation = .01;
 		
 		//TODO create a way to vary the number of h values
 		//TODO normalize h values from the runs to be constant for max value or approach a constant
@@ -191,7 +191,7 @@ public class NEATSelfRegulationGene implements NEATGene, Cloneable {
 		totalDiff += Math.abs(this.maxPerturbRegulation - compareTo.maxPerturbRegulation);
 		
 		
-		return totalDiff / ((this.maxPerturbRegulation + compareTo.maxPerturbRegulation) / 2 * 18);
+		return totalDiff / Math.min(this.maxPerturbRegulation , compareTo.maxPerturbRegulation);
 	}
 	
 	public ArrayList<double[]> getHueristics() {
