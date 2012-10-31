@@ -137,7 +137,7 @@ public class NEATSelfRegulationGene implements NEATGene, Cloneable {
 		pMutatateRegulationCoeff  = .01;
 		pMutatateRegulationMutation  = .01;
 		pMutatateRegulationAgeing  = .01;
-		maxPerturbRegulation = .01;
+		maxPerturbRegulation = .5;
 		
 		//TODO create a way to vary the number of h values
 		//TODO normalize h values from the runs to be constant for max value or approach a constant

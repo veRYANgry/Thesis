@@ -68,7 +68,7 @@ public class NeatAgent extends BasicMarioAIAgent implements Agent {
 		super("NeatAgent");
 		this.net = net;
 		this.Vision = Vision;
-		numberOfInputs = (Vision.XVisionStart - Vision.XVisionEnd)*(Vision.YVisionStart - Vision.YVisionEnd) + 2;
+		numberOfInputs = (Vision.XVisionStart - Vision.XVisionEnd)*(Vision.YVisionStart - Vision.YVisionEnd) + 4;
 		this.Hueristics = Hueristics;
 		reset();
 	}
@@ -96,12 +96,12 @@ public class NeatAgent extends BasicMarioAIAgent implements Agent {
 			pulse = 1;
 		else
 			pulse = 0;
-		inputs[inputs.length - 1] = 1;
-		inputs[inputs.length - 2] = pulse;
+		inputs[inputs.length - 1] = -6;
+		inputs[inputs.length - 2] = 8;
 		//inputs[inputs.length - 5] = marioMode == 0 ? 1 : 0;
 		//inputs[inputs.length - 1] = isMarioCarrying ? 1 : 0;
-		//inputs[inputs.length - 2] = isMarioOnGround ? 1 : 0;
-		//inputs[inputs.length - 1] = isMarioAbleToJump ? 1 : 0;
+		inputs[inputs.length - 3] = isMarioOnGround ? 1 : 0;
+		inputs[inputs.length - 4] = isMarioAbleToJump ? 1 : 0;
 		//inputs[inputs.length - 1] = isMarioAbleToShoot ? 1 : 0;
 
 		ip = new MarioInput();
@@ -117,10 +117,19 @@ public class NeatAgent extends BasicMarioAIAgent implements Agent {
 /*		for (int i = 0; i < action.length; i++) {
 			action[i] = op[i] > .75;
 		}*/
+		
+/*		public static final int KEY_LEFT = 0;
+		public static final int KEY_RIGHT = 1;
+		public static final int KEY_DOWN = 2;
+		public static final int KEY_JUMP = 3;
+		public static final int KEY_SPEED = 4;
+		public static final int KEY_UP = 5;*/
+		
 		action[1] = op[0] > .75;
-		action[2] = op[1] > .75;
+		action[0] = op[1] > .75;
 		action[3] = op[2] > .75;
 		action[4] = op[3] > .75;
+		action[5] = op[4] > .75;
 
 		return action;
 	}
@@ -128,10 +137,10 @@ public class NeatAgent extends BasicMarioAIAgent implements Agent {
 	private double probe(int x, int y, byte[][] scene) {
 		int realX = x + 11;
 		int realY = y + 11;
-		// System.out.println( "level is:" + levelScene[realX][realY] +
-		// "enemy is:" + enemies[realX][realY] + "output is" +
-		// (double)(levelScene[realX][realY] + enemies[realX][realY]) / 100);
-		return levelScene[realX][realY] + enemies[realX][realY];
+/*		 System.out.println( "level is:" + levelScene[realX][realY] +
+		 "enemy is:" + enemies[realX][realY] + "output is" +
+		 (double)(levelScene[realX][realY] + enemies[realX][realY]) / 10);*/
+		return (levelScene[realX][realY] + enemies[realX][realY]) / 10;
 /*		if (levelScene[realY][realX] != 0)
 			return 1;
 		else if (enemies[realY][realX] > 2)

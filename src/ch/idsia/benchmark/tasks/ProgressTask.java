@@ -186,6 +186,7 @@ public double[] evaluateAll(Agent controller)
 		int i = 0;
 		for(; i < levelQueue.size();i++){
 			this.options = levelQueue.get(i);
+
 				double temp[] = this.evaluateSingleLevel(0, 40, this.uniqueSeed, false, controller);
 				fitn[0] += temp[0];
 				fitn[1] += temp[1];

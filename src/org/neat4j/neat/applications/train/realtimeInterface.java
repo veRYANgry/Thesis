@@ -71,15 +71,18 @@ import ch.idsia.tools.MarioAIOptions;
 public class realtimeInterface extends JFrame implements ActionListener {
 	
 	private static boolean IsPaused;
+	private static int runNumber = 0, GenNumber = 0;
 	
 	static SwingWorker<Void, Void> worker;
 
+	private static String[][] StatData;
+	static String[] StatDataHeading = {"Run name", "Best Fit", "Best This Gen" , "Generations"};
+	static JTable StatDataTable;
+	
 	private static String[][] queueData;
 	static String[] queueDataHeading = {"Levels"};
 	static JTable queueDataTable;
 
-	
-	
 	private static String[][] specData;
 	static String[] SpecDataHeading = {"Species" , "Species members"};
 	static JTable SpecDataTable;
@@ -107,6 +110,9 @@ public class realtimeInterface extends JFrame implements ActionListener {
 	ArrayList<JTextField> HeuristicBoxes = new ArrayList<JTextField>();
 	
 	JLabel RunningStatus;
+	
+	JLabel GenerationLabel;
+	
 	String RunningPausedNotification = "Paused";
 	JTextField SeedText;
 	///////////////////////////////
@@ -118,6 +124,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 	private static Chromosome DemoMember;
 	private static AIConfig configs;
 	private static VisionBound Vision = new VisionBound(-3,3,-5,3);
+	private static int extraFeatures = 4;
 	///////////////////////////////
 	//Mario testbed stuff
 	///////////////////////////////
@@ -142,6 +149,12 @@ public class realtimeInterface extends JFrame implements ActionListener {
 	//Level stuff
 	////////////
 	Vector<MarioAIOptions> levelQueue = new Vector<MarioAIOptions>(); //should be a vector of game options or parts of data set
+	
+	////////////
+	//Statistics stuff
+	////////////
+	Vector<runStatistics> levelStat = new Vector<runStatistics>();
+	
 	/**
 	 * @param args
 	 */
@@ -161,10 +174,12 @@ public class realtimeInterface extends JFrame implements ActionListener {
 	}
 	
 	public class mainWorker extends SwingWorker<Void, Void> {
-
+		
 		@Override
 		public Void doInBackground() {
 			int i = 0,diffGen = 0;
+			runNumber++;
+			levelStat.add(new runStatistics("" + runNumber,0,0));
 		    for (difficulty = 0; difficulty < 11; difficulty++)
 		    {
 		        System.out.println("New EvolveIncrementally phase with difficulty = " + difficulty + " started.");
@@ -173,6 +188,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 
 				setOptions(options);
 		        System.out.println("Running Epoch[" + i + "] with diff:" + difficulty);
+		        GenNumber = i;
 		        
 				((NEATGeneticAlgorithmMario)ga).runEpoch(task,Vision);
 
@@ -212,6 +228,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		@Override
 		protected void process(List<Void> t) {
 			RunningStatus.setText(RunningPausedNotification);
+			GenerationLabel.setText("Current Generation: " + GenNumber);
 			
 			//specData[0][0] = Integer.toString(ga.population().genoTypes().length);
 			specData = new String[ga.GetSpecies().specieList().size()][2];
@@ -222,6 +239,8 @@ public class realtimeInterface extends JFrame implements ActionListener {
 			                       
 			SpecDataTable.setModel(new DefaultTableModel(specData,SpecDataHeading));
 			SpecDataTable.updateUI();
+			
+			
 		}
 
 		/*
@@ -312,9 +331,12 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		runPanel.add(StackPanel);
 		
 		GeneInfo(runPanel);
-
-		levelQueue(content);
-		levelOptions(content);
+		
+		JPanel SidePanel = new JPanel(new GridLayout(0, 1));
+		StatisticBox(SidePanel);
+		levelQueue(SidePanel);
+		levelOptions(SidePanel);
+		content.add(SidePanel);
 		
 		JPanel StackPanel2 = new JPanel(new GridLayout(0, 1));
 		
@@ -642,6 +664,25 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		queueDataTable.updateUI();
 	}
 	
+	//Display stats
+	public void StatisticBox(final Container content){
+		
+		JPanel StatsPanel = new JPanel(new GridLayout(0, 1));
+	     GenerationLabel = new JLabel("Current Generation: 0"); 
+		
+		StatsPanel.add(GenerationLabel);
+
+		
+		StatData = new String[10][4];
+		StatDataTable = new JTable(StatData,StatDataHeading);
+		JScrollPane StatPane = new JScrollPane(StatDataTable);
+		StatPane.setPreferredSize(new Dimension(400, 50));
+		StatsPanel.add(StatPane);
+		
+		content.add(StatsPanel);
+	}
+	
+	
 	//used to set up a series of levels and display them
 	public void levelQueue(final Container content){
 		JPanel QueuePanel = new JPanel(new GridLayout(0, 1));
@@ -933,7 +974,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				
 				Vision.XVisionStart = ((JComboBox)e.getSource()).getSelectedIndex() + -11;
-				configs.updateConfig("INPUT.NODES" , Integer.toString((Vision.XVisionStart - Vision.XVisionEnd)*(Vision.YVisionStart - Vision.YVisionEnd) + 2));
+				configs.updateConfig("INPUT.NODES" , Integer.toString((Vision.XVisionStart - Vision.XVisionEnd)*(Vision.YVisionStart - Vision.YVisionEnd) + extraFeatures));
 				}
 
 		});
@@ -946,7 +987,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		Xend.addActionListener(new  ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				Vision.XVisionEnd = ((JComboBox)e.getSource()).getSelectedIndex() + -11;
-				configs.updateConfig("INPUT.NODES" , Integer.toString((Vision.XVisionStart - Vision.XVisionEnd)*(Vision.YVisionStart - Vision.YVisionEnd) + 2));}
+				configs.updateConfig("INPUT.NODES" , Integer.toString((Vision.XVisionStart - Vision.XVisionEnd)*(Vision.YVisionStart - Vision.YVisionEnd) + extraFeatures));}
 		});
 		
 		JLabel YstartLabel = new JLabel("Starting Y value");
@@ -957,7 +998,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		Ystart.addActionListener(new  ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				Vision.YVisionStart = ((JComboBox)e.getSource()).getSelectedIndex() + -11;
-				configs.updateConfig("INPUT.NODES" , Integer.toString((Vision.XVisionStart - Vision.XVisionEnd)*(Vision.YVisionStart - Vision.YVisionEnd) + 2 ));}
+				configs.updateConfig("INPUT.NODES" , Integer.toString((Vision.XVisionStart - Vision.XVisionEnd)*(Vision.YVisionStart - Vision.YVisionEnd) + extraFeatures ));}
 		});
 		
 		JLabel YendLabel = new JLabel("Ending Y value");
@@ -968,7 +1009,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		Yend.addActionListener(new  ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				Vision.YVisionEnd = ((JComboBox)e.getSource()).getSelectedIndex() + -11;
-				configs.updateConfig("INPUT.NODES" , Integer.toString((Vision.XVisionStart - Vision.XVisionEnd)*(Vision.YVisionStart - Vision.YVisionEnd) + 2));}
+				configs.updateConfig("INPUT.NODES" , Integer.toString((Vision.XVisionStart - Vision.XVisionEnd)*(Vision.YVisionStart - Vision.YVisionEnd) + extraFeatures));}
 		});
 		
 		content.add(VisionPanel);
