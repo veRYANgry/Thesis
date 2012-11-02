@@ -135,6 +135,7 @@ private double[] evaluateSingleLevel(int ld, int tl, int ls, boolean vis, Agent 
 //        options.setVisualization(vis);
 //        options.setFPS(vis ? 42 : 100);
 //        this.setAgent(controller);
+
     this.setOptionsAndReset(options);
     this.runSingleEpisode(1);
    // distanceTravelled += (this.getEnvironment().getEvaluationInfo().marioStatus == Mario.STATUS_WIN ? 1 : 0) * 1000;
@@ -181,6 +182,7 @@ public double[] evaluateAll(Agent controller)
 {
 	double fitn[] = new double[2];
 	if(levelQueue == null){
+		//this.options.setMarioInvulnerable(true);
 		fitn = this.evaluateSingleLevel(0, 40, this.uniqueSeed, false, controller);
 	}else{
 		int i = 0;

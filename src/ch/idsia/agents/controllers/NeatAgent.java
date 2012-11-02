@@ -96,8 +96,8 @@ public class NeatAgent extends BasicMarioAIAgent implements Agent {
 			pulse = 1;
 		else
 			pulse = 0;
-		inputs[inputs.length - 1] = -6;
-		inputs[inputs.length - 2] = 8;
+		inputs[inputs.length - 1] = pulse;
+		inputs[inputs.length - 2] = 0;
 		//inputs[inputs.length - 5] = marioMode == 0 ? 1 : 0;
 		//inputs[inputs.length - 1] = isMarioCarrying ? 1 : 0;
 		inputs[inputs.length - 3] = isMarioOnGround ? 1 : 0;
@@ -140,12 +140,12 @@ public class NeatAgent extends BasicMarioAIAgent implements Agent {
 /*		 System.out.println( "level is:" + levelScene[realX][realY] +
 		 "enemy is:" + enemies[realX][realY] + "output is" +
 		 (double)(levelScene[realX][realY] + enemies[realX][realY]) / 10);*/
-		return (levelScene[realX][realY] + enemies[realX][realY]) / 10;
-/*		if (levelScene[realY][realX] != 0)
+		//return (levelScene[realX][realY] + enemies[realX][realY]) / 10;
+		if (levelScene[realY][realX] != 0)
 			return 1;
 		else if (enemies[realY][realX] > 2)
 			return -1;
 		else
-			return 0;*/
+			return 0;
 	}
 }

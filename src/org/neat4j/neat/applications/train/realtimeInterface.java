@@ -240,6 +240,11 @@ public class realtimeInterface extends JFrame implements ActionListener {
 			SpecDataTable.setModel(new DefaultTableModel(specData,SpecDataHeading));
 			SpecDataTable.updateUI();
 			
+			////////////////
+			runStatistics run = levelStat.get(runNumber - 1);
+			run.setBestFitness(ga.discoverdBestMember().fitness());
+			run.setGeneration(GenNumber);
+			StatisticsTableUp();
 			
 		}
 
@@ -662,6 +667,17 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		task.levelQueue = levelQueue;
 		queueDataTable.setModel(new DefaultTableModel(queueData,queueDataHeading));
 		queueDataTable.updateUI();
+	}
+	
+	public void StatisticsTableUp(){
+		StatData = new String[levelStat.size()][StatDataHeading.length];
+		for(int i = 0; i < levelStat.size();i++){
+			StatData[i][0] = levelStat.get(i).getRunName();
+			StatData[i][1] = Double.toString(levelStat.get(i).getBestFitness());
+			StatData[i][3] = Integer.toString(levelStat.get(i).getGeneration());
+		}
+		StatDataTable.setModel(new DefaultTableModel(StatData,StatDataHeading));
+		StatDataTable.updateUI();
 	}
 	
 	//Display stats

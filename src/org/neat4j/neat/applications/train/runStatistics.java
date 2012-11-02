@@ -4,16 +4,47 @@ import java.util.Vector;
 
 public class runStatistics {
 
+
+
 	private String RunName;
-	private int bestFitness;
+	private double bestFitness;
 	private int generation;
-	private Vector<Integer> BestFitEachGeneration;
+	private Vector<Double> BestFitEachGeneration;
 	
 	
-	public runStatistics(String runName, int bestFitness, int generation) {
+	public runStatistics(String runName, double bestFitness, int generation) {
 		super();
 		RunName = runName;
 		this.bestFitness = bestFitness;
+		this.generation = generation;
+	}
+	
+	public String getRunName() {
+		return RunName;
+	}
+
+
+	public void setRunName(String runName) {
+		RunName = runName;
+	}
+
+
+	public double getBestFitness() {
+		return bestFitness;
+	}
+
+
+	public void setBestFitness(double bestFitness) {
+		this.bestFitness = bestFitness;
+	}
+
+
+	public int getGeneration() {
+		return generation;
+	}
+
+
+	public void setGeneration(int generation) {
 		this.generation = generation;
 	}
 }
