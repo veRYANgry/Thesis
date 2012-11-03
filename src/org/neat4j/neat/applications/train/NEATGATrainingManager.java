@@ -315,9 +315,11 @@ public class NEATGATrainingManager {
 		double terminationValue = Double.parseDouble(config.configElement("TERMINATION.VALUE"));
 		double maxPerturb = Double.parseDouble(config.configElement("MAX.PERTURB"));
 		double maxBiasPerturb = Double.parseDouble(config.configElement("MAX.BIAS.PERTURB"));
+		boolean selfreg = Boolean.valueOf(config.configElement("SELF.REG")).booleanValue();
 
 		
 		NEATGADescriptor descriptor = new NEATGADescriptor();
+		descriptor.setSelfRegulation(selfreg);
 		descriptor.setPAddLink(pAddLink);
 		descriptor.setPAddNode(pAddNode);
 		descriptor.setPToggleLink(pToggleLink);

@@ -8,6 +8,7 @@ public class runStatistics {
 
 	private String RunName;
 	private double bestFitness;
+	private int bestFitGen;
 	private int generation;
 	private Vector<Double> BestFitEachGeneration;
 	
@@ -19,6 +20,14 @@ public class runStatistics {
 		this.generation = generation;
 	}
 	
+	public int getBestFitGen() {
+		return bestFitGen;
+	}
+
+	public void setBestFitGen(int bestFitGen) {
+		this.bestFitGen = bestFitGen;
+	}
+
 	public String getRunName() {
 		return RunName;
 	}

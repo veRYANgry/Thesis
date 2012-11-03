@@ -130,7 +130,8 @@ public class NEATChromosome implements Chromosome {
 
 	public void updateAllFitness(double[] fitnesses) {
 		fitness = fitnesses[0];
-		selfFitness = fitnesses[1];
+		if(lastRegulationGene != null)
+			selfFitness = fitnesses[1];
 		
 	}
 }

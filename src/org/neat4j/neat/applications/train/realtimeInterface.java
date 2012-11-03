@@ -7,6 +7,8 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
@@ -38,6 +40,9 @@ import javax.swing.ListSelectionModel;
 import javax.swing.SwingWorker;
 import javax.swing.border.EtchedBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.JCheckBox;
+
+
 
 import junit.framework.Test;
 
@@ -76,7 +81,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 	static SwingWorker<Void, Void> worker;
 
 	private static String[][] StatData;
-	static String[] StatDataHeading = {"Run name", "Best Fit", "Best This Gen" , "Generations"};
+	static String[] StatDataHeading = {"Run name", "Best Fit", "Best Fit Gen" , "Generations (Age)"};
 	static JTable StatDataTable;
 	
 	private static String[][] queueData;
@@ -125,6 +130,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 	private static AIConfig configs;
 	private static VisionBound Vision = new VisionBound(-3,3,-5,3);
 	private static int extraFeatures = 4;
+	private static boolean SelfRegulation = true;
 	///////////////////////////////
 	//Mario testbed stuff
 	///////////////////////////////
@@ -242,7 +248,10 @@ public class realtimeInterface extends JFrame implements ActionListener {
 			
 			////////////////
 			runStatistics run = levelStat.get(runNumber - 1);
-			run.setBestFitness(ga.discoverdBestMember().fitness());
+			if(run.getBestFitness() != ga.discoverdBestMember().fitness()){
+				run.setBestFitness(ga.discoverdBestMember().fitness());
+				run.setBestFitGen(GenNumber);
+			}
 			run.setGeneration(GenNumber);
 			StatisticsTableUp();
 			
@@ -350,6 +359,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		optionsPanel.add(StackPanel2);
 		
 		VisionRange(optionsPanel);
+		CheckBoxRunOptions(optionsPanel);
 		
 		this.pack();
 
@@ -364,6 +374,30 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		((JTable) GeneDataTable).setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		
 		content.add(GenePane);
+	}
+	
+	public void CheckBoxRunOptions(final Container content){
+		JCheckBox enableSelfRegulation = new JCheckBox("Enable Self Regulation Gene");
+		enableSelfRegulation.setSelected(true);
+		enableSelfRegulation.addItemListener(new  ItemListener(){
+
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+
+		        if (e.getStateChange() == ItemEvent.DESELECTED) {
+		        	configs.updateConfig("SELF.REG",Boolean.toString(false));
+		        }else {
+		        	configs.updateConfig("SELF.REG",Boolean.toString(true));
+		        }
+			}
+		});
+		
+		
+		
+		
+		JPanel radioPanel = new JPanel(new GridLayout(0, 1));
+		radioPanel.add(enableSelfRegulation);
+		content.add(radioPanel);
 	}
 	
 	public void SpeciesBoxes(final Container content){
@@ -385,7 +419,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		
 		//chromosome data
 
-		 ChromosomeDataTable = new JTable(new String[10][6],ChromosomeDataHeading);
+		ChromosomeDataTable = new JTable(new String[10][6],ChromosomeDataHeading);
 		JScrollPane ChromosomePane = new JScrollPane(ChromosomeDataTable);
 		ChromosomePane.setPreferredSize(new Dimension(300, 200));
 		
@@ -674,6 +708,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		for(int i = 0; i < levelStat.size();i++){
 			StatData[i][0] = levelStat.get(i).getRunName();
 			StatData[i][1] = Double.toString(levelStat.get(i).getBestFitness());
+			StatData[i][2] = Double.toString(levelStat.get(i).getBestFitGen());
 			StatData[i][3] = Integer.toString(levelStat.get(i).getGeneration());
 		}
 		StatDataTable.setModel(new DefaultTableModel(StatData,StatDataHeading));
