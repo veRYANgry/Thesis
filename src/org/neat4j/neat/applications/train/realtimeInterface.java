@@ -130,7 +130,6 @@ public class realtimeInterface extends JFrame implements ActionListener {
 	private static AIConfig configs;
 	private static VisionBound Vision = new VisionBound(-3,3,-5,3);
 	private static int extraFeatures = 4;
-	private static boolean SelfRegulation = true;
 	///////////////////////////////
 	//Mario testbed stuff
 	///////////////////////////////
@@ -161,6 +160,14 @@ public class realtimeInterface extends JFrame implements ActionListener {
 	////////////
 	Vector<runStatistics> levelStat = new Vector<runStatistics>();
 	
+	////////////
+	//AutoRun stuff
+	////////////
+	static boolean Autorun = true;
+	static int AutoRunMode;
+	JTextField GenText;
+	static int GenerationLimit = 100;
+	
 	/**
 	 * @param args
 	 */
@@ -174,7 +181,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
         task = new ProgressTask(options);
     	seed = rand.nextInt();
     	
-		configs.updateConfig("INPUT.NODES" , Integer.toString((Vision.XVisionStart - Vision.XVisionEnd)*(Vision.YVisionStart - Vision.YVisionEnd) ));
+		configs.updateConfig("INPUT.NODES" , Integer.toString((Vision.XVisionStart - Vision.XVisionEnd)*(Vision.YVisionStart - Vision.YVisionEnd) +  extraFeatures));
 
 		new realtimeInterface();
 	}
@@ -190,7 +197,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		    {
 		        System.out.println("New EvolveIncrementally phase with difficulty = " + difficulty + " started.");
 			
-			while (true) {
+			while (!isCancelled()) {
 
 				setOptions(options);
 		        System.out.println("Running Epoch[" + i + "] with diff:" + difficulty);
@@ -208,6 +215,9 @@ public class realtimeInterface extends JFrame implements ActionListener {
 				}
 				//Get results
 				publish();
+
+				
+				
 				while(IsPaused){
 
 		               try {
@@ -221,9 +231,6 @@ public class realtimeInterface extends JFrame implements ActionListener {
 				//////////////////////////////////////////
 
 
-					if(((NEATGeneticAlgorithmMario) ga).genBest() >= 1000000){
-						break;
-					}
 				diffGen++;
 				i++;
 			}
@@ -254,6 +261,10 @@ public class realtimeInterface extends JFrame implements ActionListener {
 			}
 			run.setGeneration(GenNumber);
 			StatisticsTableUp();
+			
+			
+			if(Autorun)
+				autoRun();
 			
 		}
 
@@ -350,6 +361,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		StatisticBox(SidePanel);
 		levelQueue(SidePanel);
 		levelOptions(SidePanel);
+		NextRunOptions(SidePanel);
 		content.add(SidePanel);
 		
 		JPanel StackPanel2 = new JPanel(new GridLayout(0, 1));
@@ -691,6 +703,26 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		}
 		
 	}
+	
+	//automatically run a series of runs with constraints
+	void AutorunBox(final Container content){
+		
+		JPanel StatsPanel = new JPanel(new GridLayout(0, 1));
+	     GenerationLabel = new JLabel("Current Generation: 0"); 
+		
+		StatsPanel.add(GenerationLabel);
+
+		
+		StatData = new String[10][4];
+		StatDataTable = new JTable(StatData,StatDataHeading);
+		JScrollPane StatPane = new JScrollPane(StatDataTable);
+		StatPane.setPreferredSize(new Dimension(400, 50));
+		StatsPanel.add(StatPane);
+		
+		content.add(StatsPanel);
+	}
+	
+	
 	public void setQueueLevels(){
 		queueData = new String[levelQueue.size()][1];
 		int i = 0;
@@ -775,6 +807,86 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		});
 		content.add(QueuePanel);
 	}
+	
+	public void autoRun(){
+		switch(AutoRunMode){
+		case 0:
+			if(GenNumber >= GenerationLimit){
+				actionPerformed(null);
+			}
+			break;
+		default:
+			break;
+
+		} 
+		
+	}
+	
+	
+	//function to add level options such as difficulty or task trails
+	public void NextRunOptions(final Container content){
+		
+		JLabel Title = new JLabel("Auto Next Run Options");
+		
+		JRadioButton setNoAuto = new JRadioButton("Always Same Run");
+		setNoAuto.addActionListener(new  ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+					Autorun = false;
+		        }
+
+		});
+		
+		JRadioButton AutoOnGeneration = new JRadioButton("New Run On generation:");
+		AutoOnGeneration.addActionListener(new  ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+					Autorun = true;
+					AutoRunMode = 0;
+		        }
+
+		});
+		
+		AutoOnGeneration.setSelected(true);
+		
+		
+		
+		ButtonGroup group = new ButtonGroup();
+		group.add(setNoAuto);
+		group.add(AutoOnGeneration);
+
+		
+		JPanel radioPanel = new JPanel(new GridLayout(0, 1));
+		radioPanel.add(Title);
+		radioPanel.add(setNoAuto);
+		radioPanel.add(AutoOnGeneration);
+
+		
+		JPanel GenPanel = new JPanel(new GridLayout(0, 3));
+		JLabel GenLabel = new JLabel("Generation");
+		GenText = new JTextField(10);
+		GenText.setText(Integer.toString(GenerationLimit));
+		
+		JButton GenButton = new JButton("Set Generation");
+		GenButton.addActionListener(new  ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				GenerationLimit = Integer.valueOf(GenText.getText());
+			}
+		});
+		
+		GenPanel.add(GenLabel);
+		GenPanel.add(GenText);
+		GenPanel.add(GenButton);
+		radioPanel.add(GenPanel);
+		
+
+		
+		content.add(radioPanel);
+		
+        
+        
+	}
+	
+	
+	
 	
 	
 	//function to add level options such as difficulty or task trails
