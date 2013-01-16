@@ -189,12 +189,14 @@ public double[] evaluateAll(Agent controller)
 		for(; i < levelQueue.size();i++){
 			this.options = levelQueue.get(i);
 
-				double temp[] = this.evaluateSingleLevel(0, 40, this.uniqueSeed, false, controller);
+				double temp[] = this.evaluateSingleLevel(0, 40, this.uniqueSeed, false, controller);				
 				fitn[0] += temp[0];
-				fitn[1] += temp[1];
+				 if(((NeatAgent)controller).getHueristics() != null)
+					 fitn[1] += temp[1];
 		}
 		fitn[0] = fitn[0] / i;
-		fitn[1] = fitn[1] / i;
+		 if(((NeatAgent)controller).getHueristics() != null)
+			 fitn[1] = fitn[1] / i;
 	}
 
     this.uniqueSeed += 1;

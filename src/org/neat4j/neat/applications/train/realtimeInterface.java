@@ -186,22 +186,63 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		new realtimeInterface();
 	}
 	
-	public class mainWorker extends SwingWorker<Void, Void> {
+	public class loopWorker extends SwingWorker<Void, Void>{
+		private mainWorker workerThread;
+		public boolean isDone = true;
+		@Override
+		protected Void doInBackground() throws Exception {
+			while(this.isDone){
+				
+				
+				if(workerThread == null || workerThread.isDone()){
+					workerThread = new mainWorker();
+				InnovationDatabase.databaseReset();
+
+				//lets shove the config from the old main class into this one
+
+				gam = new NEATGATrainingManager();
+				try {
+					gam.initialise(configs);
+				} catch (InitialisationFailedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				ga = (NEATGeneticAlgorithmMario)gam.ga();
+				config = gam.GetConfig();
+
+				workerThread.execute();
+				}
+				
+	               try {
+					Thread.sleep(500);
+				} catch (InterruptedException e) {
+
+					return null;
+				} 
+	               
+	            
+			}
+			return null;
+		}
 		
+	}
+	
+	public class mainWorker extends SwingWorker<Void, Void> {
+		private int gen =0;
 		@Override
 		public Void doInBackground() {
-			int i = 0,diffGen = 0;
+			int diffGen = 0;
 			runNumber++;
 			levelStat.add(new runStatistics("" + runNumber,0,0));
 		    for (difficulty = 0; difficulty < 11; difficulty++)
 		    {
 		        System.out.println("New EvolveIncrementally phase with difficulty = " + difficulty + " started.");
 			
-			while (!isCancelled()) {
+			while (true) {
 
 				setOptions(options);
-		        System.out.println("Running Epoch[" + i + "] with diff:" + difficulty);
-		        GenNumber = i;
+		        System.out.println("Running Epoch[" + gen + "] with diff:" + difficulty);
+		        GenNumber = gen;
 		        
 				((NEATGeneticAlgorithmMario)ga).runEpoch(task,Vision);
 
@@ -214,9 +255,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 					RunningPausedNotification = "Paused";
 				}
 				//Get results
-				publish();
-
-				
+				publish();		
 				
 				while(IsPaused){
 
@@ -229,15 +268,32 @@ public class realtimeInterface extends JFrame implements ActionListener {
 				}
 				RunningPausedNotification = "Running";
 				//////////////////////////////////////////
+				if(Autorun){
+					switch(AutoRunMode){
+					case 0:
+						if(gen >= GenerationLimit){
+							return null;
+						}
+						break;
+					default:
+						break;
 
+					} 
+				}
+					
+				//TODO this will not work for autorun
+				if(isCancelled())
+					return null;
 
 				diffGen++;
-				i++;
+				gen++;
 			}
 		    }
 			
 			return null;
 		}
+		
+		
 		@Override
 		protected void process(List<Void> t) {
 			RunningStatus.setText(RunningPausedNotification);
@@ -255,16 +311,15 @@ public class realtimeInterface extends JFrame implements ActionListener {
 			
 			////////////////
 			runStatistics run = levelStat.get(runNumber - 1);
-			if(run.getBestFitness() != ga.discoverdBestMember().fitness()){
-				run.setBestFitness(ga.discoverdBestMember().fitness());
-				run.setBestFitGen(GenNumber);
-			}
+			if(ga.discoverdBestMember() != null)
+				if(run.getBestFitness() != ga.discoverdBestMember().fitness()){
+					run.setBestFitness(ga.discoverdBestMember().fitness());
+					run.setBestFitGen(GenNumber);
+				}
 			run.setGeneration(GenNumber);
 			StatisticsTableUp();
 			
 			
-			if(Autorun)
-				autoRun();
 			
 		}
 
@@ -272,12 +327,37 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		 * @Override public void done() { ; }
 		 */
 	}
+	
+	public class reWorker extends SwingWorker<Void, Void> {
+		
+		@Override
+		public Void doInBackground() {
 
+			actionPerformed(null);
+			
+			return null;
+		}
+
+
+		/*
+		 * @Override public void done() { ; }
+		 */
+	}
+	
 	public void actionPerformed(ActionEvent e) {
-		 
-		if(worker != null && !worker.isDone()){
+		if(!Autorun){
+		  callRunWith(this.worker);
+		}
+		else {
+	      callRunWithLoop(this.worker);
+		}
 
-			worker.cancel(true);
+	}
+	
+	public void callRunWith(SwingWorker work){
+		if(work != null && !work.isDone()){
+
+			work.cancel(true);
 			try {
 				Thread.sleep(600);
 			} catch (InterruptedException e1) {
@@ -286,8 +366,8 @@ public class realtimeInterface extends JFrame implements ActionListener {
 			}
 		}
 		
-		if(worker == null || worker.isDone()){
-		worker = new mainWorker();
+		if(work == null || work.isDone()){
+			work = new mainWorker();
 		InnovationDatabase.databaseReset();
 
 		//lets shove the config from the old main class into this one
@@ -302,9 +382,40 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		ga = (NEATGeneticAlgorithmMario)gam.ga();
 		config = gam.GetConfig();
 
-		worker.execute();
+		work.execute();
 		}
+	}
+	
+	public void callRunWithLoop(SwingWorker work){
+		if(work != null && !work.isDone()){
 
+			work.cancel(true);
+			try {
+				Thread.sleep(600);
+			} catch (InterruptedException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+		
+		if(work == null || work.isDone()){
+			work = new loopWorker();
+		InnovationDatabase.databaseReset();
+
+		//lets shove the config from the old main class into this one
+
+		gam = new NEATGATrainingManager();
+		try {
+			gam.initialise(configs);
+		} catch (InitialisationFailedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		ga = (NEATGeneticAlgorithmMario)gam.ga();
+		config = gam.GetConfig();
+
+		work.execute();
+		}
 	}
 
 	public realtimeInterface() {
@@ -390,8 +501,23 @@ public class realtimeInterface extends JFrame implements ActionListener {
 	
 	public void CheckBoxRunOptions(final Container content){
 		JCheckBox enableSelfRegulation = new JCheckBox("Enable Self Regulation Gene");
-		enableSelfRegulation.setSelected(true);
+		enableSelfRegulation.setSelected(false);
 		enableSelfRegulation.addItemListener(new  ItemListener(){
+
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+
+		        if (e.getStateChange() == ItemEvent.DESELECTED) {
+		        	configs.updateConfig("SELF.REG",Boolean.toString(false));
+		        }else {
+		        	configs.updateConfig("SELF.REG",Boolean.toString(true));
+		        }
+			}
+		});
+		
+		JCheckBox enableAutoSpecie = new JCheckBox("Enable Auto Dynamic Speciation");
+		enableAutoSpecie.setSelected(false);
+		enableAutoSpecie.addItemListener(new  ItemListener(){
 
 			@Override
 			public void itemStateChanged(ItemEvent e) {
@@ -409,6 +535,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		
 		JPanel radioPanel = new JPanel(new GridLayout(0, 1));
 		radioPanel.add(enableSelfRegulation);
+		radioPanel.add(enableAutoSpecie);
 		content.add(radioPanel);
 	}
 	
@@ -808,19 +935,6 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		content.add(QueuePanel);
 	}
 	
-	public void autoRun(){
-		switch(AutoRunMode){
-		case 0:
-			if(GenNumber >= GenerationLimit){
-				actionPerformed(null);
-			}
-			break;
-		default:
-			break;
-
-		} 
-		
-	}
 	
 	
 	//function to add level options such as difficulty or task trails
