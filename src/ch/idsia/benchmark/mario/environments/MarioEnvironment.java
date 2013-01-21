@@ -259,7 +259,7 @@ public final class MarioEnvironment implements Environment {
 
 	public void tick() {
 		levelScene.tick();
-		if (GlobalOptions.isVisualization)
+		if (marioVisualComponent != null)
 			marioVisualComponent.tick();
 		MarioMovement();
 		//calculateMovingToCloseSprite();

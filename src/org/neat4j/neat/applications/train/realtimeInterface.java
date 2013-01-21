@@ -167,6 +167,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 	static int AutoRunMode;
 	JTextField GenText;
 	static int GenerationLimit = 100;
+	static int ScoreLimit = 10000;
 	
 	/**
 	 * @param args
@@ -181,7 +182,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
         task = new ProgressTask(options);
     	seed = rand.nextInt();
     	
-		configs.updateConfig("INPUT.NODES" , Integer.toString((Vision.XVisionStart - Vision.XVisionEnd)*(Vision.YVisionStart - Vision.YVisionEnd) +  extraFeatures));
+		configs.updateConfig("INPUT.NODES" , Integer.toString((Vision.XVisionStart - Vision.XVisionEnd) * (Vision.YVisionStart - Vision.YVisionEnd) +  extraFeatures));
 
 		new realtimeInterface();
 	}
@@ -228,7 +229,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 	}
 	
 	public class mainWorker extends SwingWorker<Void, Void> {
-		private int gen =0;
+		private int gen = 0;
 		@Override
 		public Void doInBackground() {
 			int diffGen = 0;
@@ -275,6 +276,11 @@ public class realtimeInterface extends JFrame implements ActionListener {
 							return null;
 						}
 						break;
+					case 1:
+						if(ScoreLimit >= GenerationLimit){
+							return null;
+						}
+						break;
 					default:
 						break;
 
@@ -309,7 +315,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 			SpecDataTable.setModel(new DefaultTableModel(specData,SpecDataHeading));
 			SpecDataTable.updateUI();
 			
-			////////////////
+			////////////////Stats gathering 
 			runStatistics run = levelStat.get(runNumber - 1);
 			if(ga.discoverdBestMember() != null)
 				if(run.getBestFitness() != ga.discoverdBestMember().fitness()){
@@ -327,22 +333,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		 * @Override public void done() { ; }
 		 */
 	}
-	
-	public class reWorker extends SwingWorker<Void, Void> {
-		
-		@Override
-		public Void doInBackground() {
 
-			actionPerformed(null);
-			
-			return null;
-		}
-
-
-		/*
-		 * @Override public void done() { ; }
-		 */
-	}
 	
 	public void actionPerformed(ActionEvent e) {
 		if(!Autorun){
@@ -603,14 +594,13 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		b3.addActionListener(new  ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 
-				if(DemoMember != null && IsPaused)
+				if(DemoMember != null)
 				{
-					if(demoWorker == null || demoWorker.isDone()){
-
-						demoWorker = new SwingWorker<Void, Void>() {
-
+					//while(true){
+						Thread threadWorker = new Thread() {
+							Chromosome tempChrome = DemoMember;
 							@Override
-							public Void doInBackground() {
+							public void run() {
 
 								MarioAIOptions WorkerOptions = new MarioAIOptions("nothing");
 								
@@ -628,7 +618,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 									a.printStackTrace();
 								}
 								
-								((NEATNetDescriptor)(nets.netDescriptor())).updateStructure(DemoMember);
+								((NEATNetDescriptor)(nets.netDescriptor())).updateStructure(tempChrome);
 								((NEATNeuralNet)nets).updateNetStructure();
 								
 								NEATFrame frame = new NEATFrame((NEATNeuralNet)nets);
@@ -639,13 +629,22 @@ public class realtimeInterface extends JFrame implements ActionListener {
 								
 								 
 								
-								return null;
+								return;
 							}
 						};
-						demoWorker.execute();
 
+							threadWorker.start();
+//							while(threadWorker.isAlive()){
+//								try {
+//									Thread.sleep(400);
+//								} catch (InterruptedException e1) {
+//									// TODO Auto-generated catch block
+//									e1.printStackTrace();
+//								}
+//						}
+//							
+//						}
 
-					}
 				}
 				else{
 					System.out.println("Chromosome is null something is wrong");

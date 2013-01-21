@@ -15,6 +15,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 import org.apache.log4j.Category;
 import org.neat4j.neat.applications.train.VisionBound;
@@ -145,7 +147,11 @@ public class NEATGeneticAlgorithmMario implements GeneticAlgorithm , Serializabl
 	private void evaluatePopulation(Chromosome[] genoTypes,Task task,  VisionBound Vision) {
 		int i;
 		double eval[];
-		
+//		boolean isThreaded = true;
+//		int nThreads = 2;
+//		if(isThreaded){
+//			Executor execute = Executors.newFixedThreadPool(nThreads);
+//		}
 		for (i = 0; i < genoTypes.length; i++) {
 			eval = ((MSENEATFitnessFunction) this.func).evaluates(genoTypes[i], task, Vision);
 			((NEATChromosome)genoTypes[i]).updateAllFitness(eval);			
