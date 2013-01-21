@@ -114,7 +114,7 @@ private void updateArea(int x0, int y0, int w, int h)
     }
 }
 
-public void render(Graphics g, int tick)
+public void render(Graphics g, int tick,boolean isShowReceptiveField)
 {
     g.drawImage(image, 0, 0, null);
 
@@ -124,7 +124,7 @@ public void render(Graphics g, int tick)
             byte b = level.getBlock(x, y);
 
             //drawing of hidden block number
-            if (b == 1 && GlobalOptions.isShowReceptiveField)
+            if (b == 1 && isShowReceptiveField)
             {
                 g.setColor(Color.BLUE);
                 int yo = 0;

@@ -34,92 +34,92 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
 
-public abstract class GlobalOptions
+public class GlobalOptions
 {
-public static final int primaryVerionUID = 0;
-public static final int minorVerionUID = 1;
-public static final int minorSubVerionID = 9;
+public  final int primaryVerionUID = 0;
+public  final int minorVerionUID = 1;
+public  final int minorSubVerionID = 9;
 
-public static boolean areLabels = false;
-public static boolean isCameraCenteredOnMario = false;
-public static Integer FPS = 24;
-public static int MaxFPS = 100;
-public static boolean areFrozenCreatures = false;
+public  boolean areLabels = false;
+public  boolean isCameraCenteredOnMario = false;
+public  Integer FPS = 24;
+public  int MaxFPS = 100;
+public  boolean areFrozenCreatures = false;
 
-public static boolean isVisualization = true;
-public static boolean isGameplayStopped = false;
-public static boolean isFly = false;
+public  boolean isVisualization = true;
+public  boolean isGameplayStopped = false;
+public  boolean isFly = false;
 
-private static GameViewer GameViewer = null;
+private  GameViewer GameViewer = null;
 //    public static boolean isTimer = true;
 
-public static int mariosecondMultiplier = 15;
+public  int mariosecondMultiplier = 15;
 
-public static boolean isPowerRestoration;
+public  boolean isPowerRestoration;
 
 // required for rendering grid in ch/idsia/benchmark/mario/engine/sprites/Sprite.java
-public static int receptiveFieldWidth = 19;
-public static int receptiveFieldHeight = 19;
-public static int marioEgoCol = 9;
-public static int marioEgoRow = 9;
+public  int receptiveFieldWidth = 19;
+public  int receptiveFieldHeight = 19;
+public  int marioEgoCol = 9;
+public  int marioEgoRow = 9;
 
-private static MarioVisualComponent marioVisualComponent;
-public static int VISUAL_COMPONENT_WIDTH = 320;
-public static int VISUAL_COMPONENT_HEIGHT = 240;
+private  MarioVisualComponent marioVisualComponent;
+public  int VISUAL_COMPONENT_WIDTH = 320;
+public  int VISUAL_COMPONENT_HEIGHT = 240;
 
-public static boolean isShowReceptiveField = false;
-public static boolean isScale2x = false;
-public static boolean isRecording = false;
-public static boolean isReplaying = false;
+public  boolean isShowReceptiveField = false;
+public  boolean isScale2x = false;
+public  boolean isRecording = false;
+public  boolean isReplaying = false;
 
-public static int getPrimaryVersionUID()
+public  int getPrimaryVersionUID()
 {
     return primaryVerionUID;
 }
 
-public static int getMinorVersionUID()
+public  int getMinorVersionUID()
 {
     return minorVerionUID;
 }
 
-public static int getMinorSubVersionID()
+public  int getMinorSubVersionID()
 {
     return minorSubVerionID;
 }
 
-public static String getBenchmarkName()
+public  String getBenchmarkName()
 {
-    return "[~ Mario AI Benchmark ~" + GlobalOptions.getVersionUID() + "]";
+    return "[~ Mario AI Benchmark ~" + this.getVersionUID() + "]";
 }
 
-public static String getVersionUID()
+public  String getVersionUID()
 {
     return " " + getPrimaryVersionUID() + "." + getMinorVersionUID() + "." + getMinorSubVersionID();
 }
 
-public static void registerMarioVisualComponent(MarioVisualComponent mc)
+public  void registerMarioVisualComponent(MarioVisualComponent mc)
 {
     marioVisualComponent = mc;
 }
 
-public static void registerGameViewer(GameViewer gv)
+public  void registerGameViewer(GameViewer gv)
 {
     GameViewer = gv;
 }
 
-public static void AdjustMarioVisualComponentFPS()
+public  void AdjustMarioVisualComponentFPS()
 {
     if (marioVisualComponent != null)
         marioVisualComponent.adjustFPS();
 }
 
-public static void gameViewerTick()
+public  void gameViewerTick()
 {
     if (GameViewer != null)
         GameViewer.tick();
 }
 
-public static String getDateTime(Long d)
+public  String getDateTime(Long d)
 {
     final DateFormat dateFormat = (d == null) ? new SimpleDateFormat("yyyy/MM/dd HH:mm:ss:ms") :
             new SimpleDateFormat("HH:mm:ss:ms");
@@ -129,14 +129,14 @@ public static String getDateTime(Long d)
     return dateFormat.format(date);
 }
 
-final static private DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
+final  private DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
 
-public static String getTimeStamp()
+public  String getTimeStamp()
 {
     return dateFormat.format(new Date());
 }
 
-public static void changeScale2x()
+public  void changeScale2x()
 {
     if (marioVisualComponent == null)
         return;

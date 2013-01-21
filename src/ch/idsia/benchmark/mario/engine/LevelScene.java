@@ -44,8 +44,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public final class LevelScene implements SpriteContext
+public class LevelScene implements SpriteContext
 {
+	
+	
+private MarioAIOptions marioAIOptions;
 public static final boolean[] defaultKeys = new boolean[Environment.numberOfKeys];
 public static final String[] keysStr = {"<<L ", "R>> ", "\\\\//", "JUMP", " RUN", "^UP^"};
 
@@ -66,7 +69,7 @@ private int timeLeft;
 private int width;
 private int height;
 
-private static boolean onLadder = false;
+private boolean onLadder = false;
 
 private Random randomGen = new Random(0);
 
@@ -93,10 +96,10 @@ private int levelType;
 private int levelDifficulty;
 private int levelLength;
 private int levelHeight;
-public static int killedCreaturesTotal;
-public static int killedCreaturesByFireBall;
-public static int killedCreaturesByStomp;
-public static int killedCreaturesByShell;
+public int killedCreaturesTotal;
+public  int killedCreaturesByFireBall;
+public  int killedCreaturesByStomp;
+public  int killedCreaturesByShell;
 
 private Replayer replayer;
 
@@ -175,7 +178,7 @@ public void checkFireballCollide(Fireball fireball)
 
 public void tick()
 {
-    if (GlobalOptions.isGameplayStopped)
+    if (marioAIOptions.globalOptions.isGameplayStopped)
         return;
 
     timeLeft--;
@@ -194,8 +197,8 @@ public void tick()
     xCam = targetXCam;
 
     if (xCam < 0) xCam = 0;
-    if (xCam > level.length * cellSize - GlobalOptions.VISUAL_COMPONENT_WIDTH)
-        xCam = level.length * cellSize - GlobalOptions.VISUAL_COMPONENT_WIDTH;
+    if (xCam > level.length * cellSize - marioAIOptions.globalOptions.VISUAL_COMPONENT_WIDTH)
+        xCam = level.length * cellSize - marioAIOptions.globalOptions.VISUAL_COMPONENT_WIDTH;
 
     fireballsOnScreen = 0;
 
@@ -205,7 +208,7 @@ public void tick()
         {
             float xd = sprite.x - xCam;
             float yd = sprite.y - yCam;
-            if (xd < -64 || xd > GlobalOptions.VISUAL_COMPONENT_WIDTH + 64 || yd < -64 || yd > GlobalOptions.VISUAL_COMPONENT_HEIGHT + 64)
+            if (xd < -64 || xd > marioAIOptions.globalOptions.VISUAL_COMPONENT_WIDTH + 64 || yd < -64 || yd > marioAIOptions.globalOptions.VISUAL_COMPONENT_HEIGHT + 64)
             {
                 removeSprite(sprite);
             } else
@@ -413,9 +416,9 @@ public void bumpInto(int x, int y)
     }
 }
 
-public int getTimeSpent() { return startTime / GlobalOptions.mariosecondMultiplier; }
+public int getTimeSpent() { return startTime / marioAIOptions.globalOptions.mariosecondMultiplier; }
 
-public int getTimeLeft() { return timeLeft / GlobalOptions.mariosecondMultiplier; }
+public int getTimeLeft() { return timeLeft / marioAIOptions.globalOptions.mariosecondMultiplier; }
 
 public int getKillsTotal()
 {
@@ -502,6 +505,8 @@ public boolean isMarioAbleToJump()
 
 public void reset(MarioAIOptions marioAIOptions , SystemOfValues IntermediateRewardsSystemOfValues)
 {
+	
+	this.marioAIOptions = marioAIOptions;
 //        System.out.println("\nLevelScene RESET!");
 //        this.gameViewer = setUpOptions[0] == 1;
 //        System.out.println("this.mario.isMarioInvulnerable = " + this.mario.isMarioInvulnerable);
@@ -514,13 +519,12 @@ public void reset(MarioAIOptions marioAIOptions , SystemOfValues IntermediateRew
 //    this.levelType = marioAIOptions.getLevelType();
 //        System.out.println("levelType = " + levelType);
 
-
-    GlobalOptions.FPS = marioAIOptions.getFPS();
+	marioAIOptions.globalOptions.FPS = marioAIOptions.getFPS();
 //        System.out.println("GlobalOptions.FPS = " + GlobalOptions.FPS);
-    GlobalOptions.isPowerRestoration = marioAIOptions.isPowerRestoration();
+	marioAIOptions.globalOptions.isPowerRestoration = marioAIOptions.isPowerRestoration();
 //        System.out.println("GlobalOptions.isPowerRestoration = " + GlobalOptions.isPowerRestoration);
 //    GlobalOptions.isPauseWorld = marioAIOptions.isPauseWorld();
-    GlobalOptions.areFrozenCreatures = marioAIOptions.isFrozenCreatures();
+	marioAIOptions.globalOptions.areFrozenCreatures = marioAIOptions.isFrozenCreatures();
 //        System.out.println("GlobalOptions = " + GlobalOptions.isPauseWorld);
 //        GlobalOptions.isTimer = marioAIOptions.isTimer();
 //        System.out.println("GlobalOptions.isTimer = " + GlobalOptions.isTimer);
@@ -528,7 +532,7 @@ public void reset(MarioAIOptions marioAIOptions , SystemOfValues IntermediateRew
     this.setTimeLimit(marioAIOptions.getTimeLimit());
 //        System.out.println("this.getTimeLimit() = " + this.getTimeLimit());
 //        this.isViewAlwaysOnTop() ? 1 : 0, setUpOptions[13]
-    GlobalOptions.isVisualization = marioAIOptions.isVisualization();
+	marioAIOptions.globalOptions.isVisualization = marioAIOptions.isVisualization();
 //        System.out.println("visualization = " + visualization);
 
     killedCreaturesTotal = 0;
@@ -580,8 +584,8 @@ public void reset(MarioAIOptions marioAIOptions , SystemOfValues IntermediateRew
 
     Sprite.spriteContext = this;
     sprites.clear();
-    this.width = GlobalOptions.VISUAL_COMPONENT_WIDTH;
-    this.height = GlobalOptions.VISUAL_COMPONENT_HEIGHT;
+    this.width = 	marioAIOptions.globalOptions.VISUAL_COMPONENT_WIDTH;
+    this.height = 	marioAIOptions.globalOptions.VISUAL_COMPONENT_HEIGHT;
 
     Sprite.setCreaturesGravity(marioAIOptions.getCreaturesGravity());
     Sprite.setCreaturesWind(marioAIOptions.getWind());
@@ -597,7 +601,7 @@ public void reset(MarioAIOptions marioAIOptions , SystemOfValues IntermediateRew
 
     sprites.add(mario);
     startTime = 1;
-    timeLeft = timeLimit * GlobalOptions.mariosecondMultiplier;
+    timeLeft = timeLimit * 	marioAIOptions.globalOptions.mariosecondMultiplier;
 
     tickCount = 0;
 }

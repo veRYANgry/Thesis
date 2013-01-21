@@ -46,11 +46,14 @@ public class SimulationOptions extends ParameterContainer
 {
 final Point viewLocation = new Point(42, 42);
 protected Agent agent;
+
+public GlobalOptions globalOptions;
 //    protected MarioComponent marioComponent = null;
 
 protected SimulationOptions()
 {
     super();
+	globalOptions = new GlobalOptions();
 }
 
 public void setUpOptions(String[] args)
@@ -78,10 +81,10 @@ public void setUpOptions(String[] args)
                 System.err.println("Error: Wrong number of input parameters");
 //                System.err.println("It is a perfect day to kill yourself with the yellow wall");
             }
-    GlobalOptions.isVisualization = isVisualization();
-    GlobalOptions.FPS = getFPS() /*GlobalOptions.FPS*/;
+    globalOptions.isVisualization = isVisualization();
+    globalOptions.FPS = getFPS() /*GlobalOptions.FPS*/;
 //    GlobalOptions.isPauseWorld = isPauseWorld();
-    GlobalOptions.isPowerRestoration = isPowerRestoration();
+    globalOptions.isPowerRestoration = isPowerRestoration();
 //        GlobalOptions.isTimer = isTimer();
 }
 
@@ -115,7 +118,7 @@ public void setViewerAlwaysOnTop(boolean vaot)
 public void setFPS(int fps)
 {
     setParameterValue("-fps", s(fps));
-    GlobalOptions.FPS = getFPS();
+    globalOptions.FPS = getFPS();
 }
 
 public int getFPS()

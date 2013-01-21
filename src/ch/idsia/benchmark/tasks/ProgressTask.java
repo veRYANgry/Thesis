@@ -53,8 +53,9 @@ public final class ProgressTask extends BasicTask implements Task, Cloneable
 {
 private int uniqueSeed;
 private int fitnessEvaluations = 0;
+
 public int uid;
-private String fileTimeStamp = "-uid-" + uid + "-" + GlobalOptions.getTimeStamp();
+private String fileTimeStamp = "-uid-" + uid + "-" + options.globalOptions.getTimeStamp();
 
 private double DistanceHeuristic = 1, MushroomHeuristic = 0, FlowerHeuristic = 0,  CoinsHeuristic = 0, StompKillsHeuristic = 200,ShellKillHeuristic = 500;
 private double ConnectionHeuristic = 0, NeuronHeuristic = 0;

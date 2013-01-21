@@ -27,7 +27,6 @@
 
 package ch.idsia.tools;
 
-import ch.idsia.benchmark.mario.engine.GlobalOptions;
 import ch.idsia.benchmark.mario.simulation.SimulationOptions;
 
 import java.awt.*;
@@ -56,12 +55,13 @@ import java.util.Map;
  * @since MarioAI0.1
  */
 
-public final class MarioAIOptions extends SimulationOptions implements Serializable
+public class MarioAIOptions extends SimulationOptions implements Serializable
 {
-private static final HashMap<String, MarioAIOptions> CmdLineOptionsMapString = new HashMap<String, MarioAIOptions>();
+private HashMap<String, MarioAIOptions> CmdLineOptionsMapString = new HashMap<String, MarioAIOptions>();
 private String optionsAsString = "";
 
 final private Point marioInitialPos = new Point();
+
 
 public MarioAIOptions(String[] args)
 {
@@ -118,23 +118,23 @@ public void setArgs(String[] args)
     {
         this.printOptions(false);
     }
-    GlobalOptions.receptiveFieldWidth = getReceptiveFieldWidth();
-    GlobalOptions.receptiveFieldHeight = getReceptiveFieldHeight();
-    if (getMarioEgoPosCol() == 9 && GlobalOptions.receptiveFieldWidth != 19)
-        GlobalOptions.marioEgoCol = GlobalOptions.receptiveFieldWidth / 2;
+    globalOptions.receptiveFieldWidth = getReceptiveFieldWidth();
+    globalOptions.receptiveFieldHeight = getReceptiveFieldHeight();
+    if (getMarioEgoPosCol() == 9 && globalOptions.receptiveFieldWidth != 19)
+        globalOptions.marioEgoCol = globalOptions.receptiveFieldWidth / 2;
     else
-        GlobalOptions.marioEgoCol = getMarioEgoPosCol();
-    if (getMarioEgoPosRow() == 9 && GlobalOptions.receptiveFieldHeight != 19)
-        GlobalOptions.marioEgoRow = GlobalOptions.receptiveFieldHeight / 2;
+        globalOptions.marioEgoCol = getMarioEgoPosCol();
+    if (getMarioEgoPosRow() == 9 && globalOptions.receptiveFieldHeight != 19)
+        globalOptions.marioEgoRow = globalOptions.receptiveFieldHeight / 2;
     else
-        GlobalOptions.marioEgoRow = getMarioEgoPosRow();
+        globalOptions.marioEgoRow = getMarioEgoPosRow();
 
-    GlobalOptions.VISUAL_COMPONENT_HEIGHT = getViewHeight();
-    GlobalOptions.VISUAL_COMPONENT_WIDTH = getViewWidth();
-//        Environment.ObsWidth = GlobalOptions.receptiveFieldWidth/2;
-//        Environment.ObsHeight = GlobalOptions.receptiveFieldHeight/2;
-    GlobalOptions.isShowReceptiveField = isReceptiveFieldVisualized();
-    GlobalOptions.isGameplayStopped = isStopGamePlay();
+    globalOptions.VISUAL_COMPONENT_HEIGHT = getViewHeight();
+    globalOptions.VISUAL_COMPONENT_WIDTH = getViewWidth();
+//        Environment.ObsWidth = globalOptions.receptiveFieldWidth/2;
+//        Environment.ObsHeight = globalOptions.receptiveFieldHeight/2;
+    globalOptions.isShowReceptiveField = isReceptiveFieldVisualized();
+    globalOptions.isGameplayStopped = isStopGamePlay();
 }
 
 public float getMarioGravity()
@@ -204,7 +204,7 @@ public void printOptions(boolean singleLine)
             System.out.println(el.getKey() + " " + el.getValue() + " ");
 }
 
-public static MarioAIOptions getOptionsByString(String argString)
+public MarioAIOptions getOptionsByString(String argString)
 {
     // TODO: verify validity of this method, add unit tests
     if (CmdLineOptionsMapString.get(argString) == null)
@@ -216,7 +216,7 @@ public static MarioAIOptions getOptionsByString(String argString)
     return CmdLineOptionsMapString.get(argString);
 }
 
-public static MarioAIOptions getDefaultOptions()
+public MarioAIOptions getDefaultOptions()
 {
     return getOptionsByString("");
 }

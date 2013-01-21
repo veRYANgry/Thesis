@@ -65,6 +65,7 @@ public Graphics thisVolatileImageGraphics;
 public Graphics thisGraphics;
 
 private MarioEnvironment marioEnvironment;
+private MarioAIOptions marioAIOptions;
 private LevelRenderer layer;
 private BgRenderer[] bgLayer = new BgRenderer[2];
 
@@ -91,6 +92,7 @@ private Scale2x scale2x = new Scale2x(640, 480);
 public MarioVisualComponent(MarioAIOptions marioAIOptions, MarioEnvironment marioEnvironment)
 {
     this.marioEnvironment = marioEnvironment;
+    this.marioAIOptions = marioAIOptions;
     adjustFPS();
 
     this.setFocusable(true);
@@ -114,7 +116,7 @@ public MarioVisualComponent(MarioAIOptions marioAIOptions, MarioEnvironment mari
 
 //        System.out.println("this (from constructor) = " + this);
 
-    GlobalOptions.registerMarioVisualComponent(this);
+    marioAIOptions.globalOptions.registerMarioVisualComponent(this);
 
     if (marioAIOptions.isGameViewer())
     {
@@ -136,7 +138,7 @@ public void CreateMarioComponentFrame(MarioVisualComponent m)
 {
     if (marioComponentFrame == null)
     {
-        marioComponentFrame = new JFrame(/*evaluationOptions.getAgentFullLoadName() +*/ GlobalOptions.getBenchmarkName());
+        marioComponentFrame = new JFrame(/*evaluationOptions.getAgentFullLoadName() +*/  marioAIOptions.globalOptions.getBenchmarkName());
         marioComponentFrame.setContentPane(m);
         m.init();
         marioComponentFrame.pack();
@@ -214,14 +216,14 @@ public void tick()
     }
 //        thisVolatileImageGraphics.setColor(Color.DARK_GRAY);
     drawStringDropShadow(thisVolatileImageGraphics, "FPS: ", 33, 2, 7);
-    drawStringDropShadow(thisVolatileImageGraphics, ((GlobalOptions.FPS > 99) ? "\\infty" : "  " + GlobalOptions.FPS.toString()), 33, 3, 7);
+    drawStringDropShadow(thisVolatileImageGraphics, ((marioAIOptions.globalOptions.FPS > 99) ? "\\infty" : "  " + marioAIOptions.globalOptions.FPS.toString()), 33, 3, 7);
 
 //        msg = totalNumberOfTrials == -2 ? "" : currentTrial + "(" + ((totalNumberOfTrials == -1) ? "\\infty" : totalNumberOfTrials) + ")";
 
 //        drawStringDropShadow(thisVolatileImageGraphics, "Trial:", 33, 4, 7);
 //        drawStringDropShadow(thisVolatileImageGraphics, msg, 33, 5, 7);
 
-    if (GlobalOptions.isScale2x)
+    if (marioAIOptions.globalOptions.isScale2x)
     {
         //TODO: handle this (what?)
         thisGraphics.drawImage(scale2x.scale(thisVolatileImage), 0, 0, null);
@@ -252,7 +254,7 @@ public void render(Graphics g)
     int xCam = (int) (mario.xOld + (mario.x - mario.xOld)) - 160;
     int yCam = (int) (mario.yOld + (mario.y - mario.yOld)) - 120;
 
-    if (GlobalOptions.isCameraCenteredOnMario)
+    if (marioAIOptions.globalOptions.isCameraCenteredOnMario)
     {
     } else
     {
@@ -260,10 +262,10 @@ public void render(Graphics g)
         //        int yCam = (int) (yCamO + (this.yCam - yCamO) * cameraOffSet);
         if (xCam < 0) xCam = 0;
         if (yCam < 0) yCam = 0;
-        if (xCam > level.length * LevelScene.cellSize - GlobalOptions.VISUAL_COMPONENT_WIDTH)
-            xCam = level.length * LevelScene.cellSize - GlobalOptions.VISUAL_COMPONENT_WIDTH;
-        if (yCam > level.height * LevelScene.cellSize - GlobalOptions.VISUAL_COMPONENT_HEIGHT)
-            yCam = level.height * LevelScene.cellSize - GlobalOptions.VISUAL_COMPONENT_HEIGHT;
+        if (xCam > level.length * LevelScene.cellSize - marioAIOptions.globalOptions.VISUAL_COMPONENT_WIDTH)
+            xCam = level.length * LevelScene.cellSize - marioAIOptions.globalOptions.VISUAL_COMPONENT_WIDTH;
+        if (yCam > level.height * LevelScene.cellSize - marioAIOptions.globalOptions.VISUAL_COMPONENT_HEIGHT)
+            yCam = level.height * LevelScene.cellSize - marioAIOptions.globalOptions.VISUAL_COMPONENT_HEIGHT;
     }
 //          g.drawImage(Art.background, 0, 0, null);
 
@@ -281,7 +283,7 @@ public void render(Graphics g)
     g.translate(xCam, yCam);
 
     layer.setCam(xCam, yCam);
-    layer.render(g, marioEnvironment.getTick() /*levelScene.paused ? 0 : */);
+    layer.render(g, marioEnvironment.getTick(),marioAIOptions.globalOptions.isShowReceptiveField  /*levelScene.paused ? 0 : */);
 
     g.translate(-xCam, -yCam);
 
@@ -313,7 +315,7 @@ public void render(Graphics g)
     drawStringDropShadow(g, "by Stomp : " + marioEnvironment.getKilledCreaturesByStomp(), 19, 3, 1);
 //    drawStringDropShadow(g, "FLOWERS  : " + df.format(Mario.flowersDevoured), 0, 6, 4);
 
-    if (GlobalOptions.isRecording)
+    if (marioAIOptions.globalOptions.isRecording)
     {
         --recordIndicator;
         if (recordIndicator >= 0)
@@ -325,7 +327,7 @@ public void render(Graphics g)
         } else if (recordIndicator == -20)
             recordIndicator = 20;
     }
-    if (GlobalOptions.isReplaying)
+    if (marioAIOptions.globalOptions.isReplaying)
     {
         g.setColor(new Color(0, 200, 0));
         g.fillPolygon(new int[]{303, 303, 316}, new int[]{16, 4, 10}, 3);
@@ -341,7 +343,7 @@ public void render(Graphics g)
 
     drawProgress(g);
 
-    if (GlobalOptions.areLabels)
+    if (marioAIOptions.globalOptions.areLabels)
     {
         g.drawString("xCam: " + xCam + "yCam: " + yCam, 10, 205);
         g.drawString("x : " + mario.x + "y: " + mario.y, 10, 215);
@@ -398,7 +400,7 @@ public void init()
 public void postInitGraphics()
 {
 //        System.out.println("this = " + this);
-    this.thisVolatileImage = this.createVolatileImage(GlobalOptions.VISUAL_COMPONENT_WIDTH, GlobalOptions.VISUAL_COMPONENT_HEIGHT);
+    this.thisVolatileImage = this.createVolatileImage(marioAIOptions.globalOptions.VISUAL_COMPONENT_WIDTH, marioAIOptions.globalOptions.VISUAL_COMPONENT_HEIGHT);
     this.thisGraphics = getGraphics();
     this.thisVolatileImageGraphics = this.thisVolatileImage.getGraphics();
 //        System.out.println("thisGraphics = " + thisGraphics);
@@ -421,18 +423,18 @@ public void postInitGraphicsAndLevel()
         for (int i = 0; i < bgLayer.length; i++)
         {
             int scrollSpeed = 4 >> i;
-            int w = ((level.length * 16) - GlobalOptions.VISUAL_COMPONENT_WIDTH) / scrollSpeed + GlobalOptions.VISUAL_COMPONENT_WIDTH;
-            int h = ((level.height * 16) - GlobalOptions.VISUAL_COMPONENT_HEIGHT) / scrollSpeed + GlobalOptions.VISUAL_COMPONENT_HEIGHT;
+            int w = ((level.length * 16) - marioAIOptions.globalOptions.VISUAL_COMPONENT_WIDTH) / scrollSpeed + marioAIOptions.globalOptions.VISUAL_COMPONENT_WIDTH;
+            int h = ((level.height * 16) - marioAIOptions.globalOptions.VISUAL_COMPONENT_HEIGHT) / scrollSpeed + marioAIOptions.globalOptions.VISUAL_COMPONENT_HEIGHT;
             Level bgLevel = BgLevelGenerator.createLevel(w / 32 + 1, h / 32 + 1, i == 0, marioEnvironment.getLevelType());
-            bgLayer[i] = new BgRenderer(bgLevel, graphicsConfiguration, GlobalOptions.VISUAL_COMPONENT_WIDTH, GlobalOptions.VISUAL_COMPONENT_HEIGHT, scrollSpeed);
+            bgLayer[i] = new BgRenderer(bgLevel, graphicsConfiguration, marioAIOptions.globalOptions.VISUAL_COMPONENT_WIDTH, marioAIOptions.globalOptions.VISUAL_COMPONENT_HEIGHT, scrollSpeed);
         }
     } else throw new Error("[Mario AI : ERROR] : Graphics Configuration is null. Graphics initialization failed");
 }
 
 public void adjustFPS()
 {
-    int fps = GlobalOptions.FPS;
-    delay = (fps > 0) ? (fps >= GlobalOptions.MaxFPS) ? 0 : (1000 / fps) : 100;
+    int fps = marioAIOptions.globalOptions.FPS;
+    delay = (fps > 0) ? (fps >= marioAIOptions.globalOptions.MaxFPS) ? 0 : (1000 / fps) : 100;
 //        System.out.println("Delay: " + delay);
 }
 
@@ -472,7 +474,7 @@ public void changeScale2x()
 
 private void renderBlackout(Graphics g, int x, int y, int radius)
 {
-    if (radius > GlobalOptions.VISUAL_COMPONENT_WIDTH) return;
+    if (radius > marioAIOptions.globalOptions.VISUAL_COMPONENT_WIDTH) return;
 
     int[] xp = new int[20];
     int[] yp = new int[20];
@@ -481,12 +483,12 @@ private void renderBlackout(Graphics g, int x, int y, int radius)
         xp[i] = x + (int) (Math.cos(i * Math.PI / 15) * radius);
         yp[i] = y + (int) (Math.sin(i * Math.PI / 15) * radius);
     }
-    xp[16] = GlobalOptions.VISUAL_COMPONENT_WIDTH;
+    xp[16] = marioAIOptions.globalOptions.VISUAL_COMPONENT_WIDTH;
     yp[16] = y;
-    xp[17] = GlobalOptions.VISUAL_COMPONENT_WIDTH;
-    yp[17] = GlobalOptions.VISUAL_COMPONENT_HEIGHT;
+    xp[17] = marioAIOptions.globalOptions.VISUAL_COMPONENT_WIDTH;
+    yp[17] = marioAIOptions.globalOptions.VISUAL_COMPONENT_HEIGHT;
     xp[18] = 0;
-    yp[18] = GlobalOptions.VISUAL_COMPONENT_HEIGHT;
+    yp[18] = marioAIOptions.globalOptions.VISUAL_COMPONENT_HEIGHT;
     xp[19] = 0;
     yp[19] = y;
     g.fillPolygon(xp, yp, xp.length);
@@ -496,9 +498,9 @@ private void renderBlackout(Graphics g, int x, int y, int radius)
         xp[i] = x - (int) (Math.cos(i * Math.PI / 15) * radius);
         yp[i] = y - (int) (Math.sin(i * Math.PI / 15) * radius);
     }
-    xp[16] = GlobalOptions.VISUAL_COMPONENT_WIDTH;
+    xp[16] = marioAIOptions.globalOptions.VISUAL_COMPONENT_WIDTH;
     yp[16] = y;
-    xp[17] = GlobalOptions.VISUAL_COMPONENT_WIDTH;
+    xp[17] = marioAIOptions.globalOptions.VISUAL_COMPONENT_WIDTH;
     yp[17] = 0;
     xp[18] = 0;
     yp[18] = 0;
