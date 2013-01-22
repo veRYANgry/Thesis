@@ -216,9 +216,9 @@ public MarioAIOptions getOptionsByString(String argString)
     return CmdLineOptionsMapString.get(argString);
 }
 
-public MarioAIOptions getDefaultOptions()
+public static MarioAIOptions getDefaultOptions()
 {
-    return getOptionsByString("");
+    return new MarioAIOptions("".trim().split("\\s+"));
 }
 
 public boolean isToolsConfigurator()

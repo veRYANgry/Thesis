@@ -68,7 +68,7 @@ public static void main(String[] args)
     {
         System.out.println("New EvolveIncrementally phase with difficulty = " + difficulty + " started.");
         options.setLevelDifficulty(difficulty);
-        options.setFPS(GlobalOptions.MaxFPS);
+        options.setFPS(options.globalOptions.MaxFPS);
         options.setVisualization(false);
         Task task = new ProgressTask(options);
        

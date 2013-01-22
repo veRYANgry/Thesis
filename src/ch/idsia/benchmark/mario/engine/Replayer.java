@@ -154,8 +154,8 @@ public ReplayerOptions.Interval getNextIntervalInMarioseconds()
     return options.getNextIntervalInMarioseconds();
 }
 
-public ReplayerOptions.Interval getNextIntervalInTicks()
-{
-    return options.getNextIntervalInTicks();
-}
+//public ReplayerOptions.Interval getNextIntervalInTicks()
+//{
+//    return options.getNextIntervalInTicks();
+//}
 }

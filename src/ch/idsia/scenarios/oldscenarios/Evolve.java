@@ -66,7 +66,7 @@ public static void main(String[] args)
         options.setLevelDifficulty(difficulty);
         options.setAgent((Agent) initial);
 
-        options.setFPS(GlobalOptions.MaxFPS);
+        options.setFPS(options.globalOptions.MaxFPS);
         options.setVisualization(false);
 
         Task task = new ProgressTask(options);

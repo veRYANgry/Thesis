@@ -60,7 +60,7 @@ public static void main(String[] args)
     {
         initial = (Evolvable) AgentsPool.loadAgent(args[0], options.isPunj());
     }
-    options.setFPS(GlobalOptions.MaxFPS);
+    options.setFPS(options.globalOptions.MaxFPS);
     options.setVisualization(false);
     MultiSeedProgressTask task = new MultiSeedProgressTask(options);
     task.setNumberOfSeeds(3);

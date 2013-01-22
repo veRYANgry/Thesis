@@ -28,7 +28,6 @@
 package ch.idsia.benchmark.mario.engine;
 
 import ch.idsia.agents.Agent;
-import ch.idsia.agents.controllers.human.CheaterKeyboardAgent;
 import ch.idsia.benchmark.mario.engine.level.BgLevelGenerator;
 import ch.idsia.benchmark.mario.engine.level.Level;
 import ch.idsia.benchmark.mario.engine.sprites.Mario;
@@ -56,7 +55,6 @@ import java.util.List;
 
 public class MarioVisualComponent extends JComponent
 {
-private CheaterKeyboardAgent cheatAgent = null;
 
 public int width, height;
 
@@ -107,12 +105,6 @@ public MarioVisualComponent(MarioAIOptions marioAIOptions, MarioEnvironment mari
     setMaximumSize(new Dimension(width * 2, height * 2));
 
     setFocusable(true);
-
-    if (this.cheatAgent == null)
-    {
-        this.cheatAgent = new CheaterKeyboardAgent();
-        this.addKeyListener(cheatAgent);
-    }
 
 //        System.out.println("this (from constructor) = " + this);
 
@@ -205,8 +197,6 @@ public void tick()
     if (mario.keys[Mario.KEY_SPEED])
         thisVolatileImageGraphics.drawImage(Art.particles[0][3], 234, 59, 10, 10, null);
 
-    if (mario.cheatKeys[CheaterKeyboardAgent.CHEAT_KEY_WIN])
-        mario.win();
 
     if (!this.hasFocus() && (tm - tm0) / (delay + 1) % 42 < 20)
     {
@@ -283,7 +273,7 @@ public void render(Graphics g)
     g.translate(xCam, yCam);
 
     layer.setCam(xCam, yCam);
-    layer.render(g, marioEnvironment.getTick(),marioAIOptions.globalOptions.isShowReceptiveField  /*levelScene.paused ? 0 : */);
+    layer.render(g, marioEnvironment.getTick() /*levelScene.paused ? 0 : */);
 
     g.translate(-xCam, -yCam);
 
@@ -416,7 +406,6 @@ public void postInitGraphicsAndLevel()
 //        level = marioEnvironment.getLevel();
 
         this.mario = marioEnvironment.getMario();
-        this.mario.cheatKeys = cheatAgent.getAction();
 //            System.out.println("mario = " + mario);
         this.level = marioEnvironment.getLevel();
         layer = new LevelRenderer(level, graphicsConfiguration, this.width, this.height);

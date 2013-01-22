@@ -112,7 +112,7 @@ public class NEATGATrainingManager {
 		
 	    MarioAIOptions options = new MarioAIOptions("nothing");
        // options.setArgs("-ls " + "resources/test.lvl" );
-        options.setFPS(GlobalOptions.MaxFPS);
+        options.setFPS(options.globalOptions.MaxFPS);
         options.setVisualization(false);
         Task task = new ProgressTask(options);
 	    
@@ -170,7 +170,7 @@ public class NEATGATrainingManager {
 				
 				
 		      
-		        options.setFPS(GlobalOptions.MaxFPS);
+		        options.setFPS(options.globalOptions.MaxFPS);
 		        options.setVisualization(false);
 
 				if(((NEATGeneticAlgorithmMario) this.ga).genBest() >= 2000){

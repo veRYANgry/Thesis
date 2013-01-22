@@ -114,7 +114,7 @@ private void updateArea(int x0, int y0, int w, int h)
     }
 }
 
-public void render(Graphics g, int tick,boolean isShowReceptiveField)
+public void render(Graphics g, int tick)
 {
     g.drawImage(image, 0, 0, null);
 
@@ -124,14 +124,14 @@ public void render(Graphics g, int tick,boolean isShowReceptiveField)
             byte b = level.getBlock(x, y);
 
             //drawing of hidden block number
-            if (b == 1 && isShowReceptiveField)
-            {
-                g.setColor(Color.BLUE);
-                int yo = 0;
-                if (x >= 0 && y >= 0 && x < level.length && y < level.height) yo = level.data[x][y];
-                if (yo > 0) yo = (int) (Math.sin(yo / 4.0f * Math.PI) * 8);
-                g.drawString(String.valueOf(1), (x << 4) - xCam, (y << 4) - yCam - yo + LevelScene.cellSize);
-            }
+//            if (b == 1 && isShowReceptiveField)
+//            {
+//                g.setColor(Color.BLUE);
+//                int yo = 0;
+//                if (x >= 0 && y >= 0 && x < level.length && y < level.height) yo = level.data[x][y];
+//                if (yo > 0) yo = (int) (Math.sin(yo / 4.0f * Math.PI) * 8);
+//                g.drawString(String.valueOf(1), (x << 4) - xCam, (y << 4) - yCam - yo + LevelScene.cellSize);
+//            }
 
             if (((Level.TILE_BEHAVIORS[b & 0xff]) & Level.BIT_ANIMATED) > 0)
             {

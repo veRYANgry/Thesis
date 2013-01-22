@@ -66,14 +66,14 @@ public void playOneFile(final MarioAIOptions options)
     while (!environment.isLevelFinished())
     {
         if (environment.getTimeSpent() == interval.from) //TODO: Comment this piece
-            GlobalOptions.isVisualization = true;
+        	options.globalOptions.isVisualization = true;
         else if (environment.getTimeSpent() == interval.to)
         {
-            GlobalOptions.isVisualization = false;
+        	options.globalOptions.isVisualization = false;
             interval = replayer.getNextIntervalInMarioseconds();
         }
         environment.tick();
-        if (!GlobalOptions.isGameplayStopped)
+        if (!options.globalOptions.isGameplayStopped)
         {
             boolean[] action = agent.getAction();
             environment.performAction(action);
@@ -121,13 +121,13 @@ public void startReplay()
 
             environment.setReplayer(replayer);
             environment.reset(options);
-            GlobalOptions.isVisualization = false;
+            options.globalOptions.isVisualization = false;
 
             replayer.openFile("actions.act");
 
             playOneFile(options);
 
-            GlobalOptions.isVisualization = true;
+            options.globalOptions.isVisualization = true;
 //            replayer.closeFile();
             replayer.closeReplayFile();
         }
@@ -145,10 +145,10 @@ public boolean isFinished()
     return false;
 }
 
-public void reset(String replayOptions)
+public void reset(String replayOptions, MarioAIOptions options)
 {
     replayer = new Replayer(replayOptions);
-    GlobalOptions.isReplaying = true;
+    options.globalOptions.isReplaying = true;
 }
 
 public void reset()

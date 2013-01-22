@@ -56,7 +56,7 @@ public static void main(String[] args)
 //        options.setEvaluationQuota(1);
     Evolvable initial = new SmallMLPAgent();
     AgentsPool.addAgent((Agent) initial);
-    options.setFPS(GlobalOptions.MaxFPS);
+    options.setFPS(options.globalOptions.MaxFPS);
     options.setVisualization(false);
     MultiDifficultyProgressTask task = new MultiDifficultyProgressTask(options);
 

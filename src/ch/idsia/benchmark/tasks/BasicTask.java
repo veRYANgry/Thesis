@@ -74,7 +74,7 @@ public boolean runSingleEpisode(final int repetitionsOfSingleEpisode)
         while (!environment.isLevelFinished())
         {
             environment.tick();
-            if (!GlobalOptions.isGameplayStopped)
+            if (!options.globalOptions.isGameplayStopped)
             {
                 c = System.currentTimeMillis();
                 agent.integrateObservation(environment);

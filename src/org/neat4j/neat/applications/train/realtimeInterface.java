@@ -177,7 +177,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 
 		configs = new NEATLoader().loadConfig("xor_neat.ga");
 		options = new MarioAIOptions("nothing");
-        options.setFPS(GlobalOptions.MaxFPS);
+        options.setFPS(options.globalOptions.MaxFPS);
         options.setVisualization(false);
         task = new ProgressTask(options);
     	seed = rand.nextInt();
@@ -910,7 +910,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				MarioAIOptions WorkerOptions = new MarioAIOptions("nothing");
 				WorkerOptions.setLevelDifficulty(difficulty);
-				WorkerOptions.setFPS(GlobalOptions.MaxFPS);
+				WorkerOptions.setFPS(options.globalOptions.MaxFPS);
 				WorkerOptions.setVisualization(false);
 				setOptions(WorkerOptions);
 				levelQueue.add(WorkerOptions);

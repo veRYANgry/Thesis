@@ -53,7 +53,7 @@ public class NEATGeneticAlgorithmMario implements GeneticAlgorithm , Serializabl
 	private Chromosome genBest;
 	private double genBestdoub;
 	private Species specieList;
-	private static int specieIdIdx = 1;
+	private int specieIdIdx = 1;
 	private int eleCount = 0;
 
 	/**

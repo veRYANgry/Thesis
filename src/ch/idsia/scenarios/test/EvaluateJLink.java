@@ -70,7 +70,7 @@ public double evaluateLargeSRN(double[][] inputs, double[][] recurrent, double[]
     options.setLevelRandSeed(seed);
 //        options.setEvaluationQuota(1);
     options.setVisualization(false);
-    options.setFPS(GlobalOptions.MaxFPS);
+    options.setFPS(options.globalOptions.MaxFPS);
     options.setLevelDifficulty(level);
     agent.reset();
     options.setAgent(agent);

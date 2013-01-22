@@ -28,18 +28,20 @@
 package ch.idsia.benchmark.mario.engine.sprites;
 
 import ch.idsia.benchmark.mario.engine.Art;
+import ch.idsia.benchmark.mario.engine.LevelScene;
 
 public class Particle extends Sprite
 {
 public int life;
 
-public Particle(int x, int y, float xa, float ya)
+public Particle(int x, int y, float xa, float ya,LevelScene spriteContext)
 {
-    this(x, y, xa, ya, (int) (Math.random() * 2), 0);
+    this(x, y, xa, ya, (int) (Math.random() * 2), 0,spriteContext);
 }
 
-public Particle(int x, int y, float xa, float ya, int xPic, int yPic)
+public Particle(int x, int y, float xa, float ya, int xPic, int yPic,LevelScene spriteContext)
 {
+	super(spriteContext);
     kind = KIND_PARTICLE;
     sheet = Art.particles;
     this.x = x;
@@ -58,7 +60,7 @@ public Particle(int x, int y, float xa, float ya, int xPic, int yPic)
 
 public void move()
 {
-    if (life-- < 0) Sprite.spriteContext.removeSprite(this);
+    if (life-- < 0) this.spriteContext.removeSprite(this);
     x += xa;
     y += ya;
     ya *= 0.95f;

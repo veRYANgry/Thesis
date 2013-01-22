@@ -28,6 +28,7 @@
 package ch.idsia.benchmark.mario.engine.sprites;
 
 import ch.idsia.benchmark.mario.engine.GlobalOptions;
+import ch.idsia.benchmark.mario.engine.LevelScene;
 import ch.idsia.benchmark.mario.engine.MarioVisualComponent;
 import ch.idsia.benchmark.mario.engine.level.SpriteTemplate;
 
@@ -61,11 +62,11 @@ public static final int KIND_FIREBALL = 25;
 
 public static final int KIND_UNDEF = -42;
 
-public static SpriteContext spriteContext;
+protected LevelScene spriteContext;
 public byte kind = KIND_UNDEF;
 
-protected static float GROUND_INERTIA = 0.89f;
-protected static float AIR_INERTIA = 0.89f;
+protected  float GROUND_INERTIA = 0.89f;
+protected  float AIR_INERTIA = 0.89f;
 
 public float xOld, yOld, x, y, xa, ya;
 public int mapX, mapY;
@@ -85,24 +86,28 @@ public int layer = 1;
 
 public SpriteTemplate spriteTemplate;
 
-public static void setCreaturesGravity(final float creaturesGravity)
-{
-    Sprite.creaturesGravity = creaturesGravity;
+public Sprite(LevelScene spriteContext){
+	this.spriteContext = spriteContext;
 }
 
-public static void setCreaturesWind(final float wind)
+public  void setCreaturesGravity( float creaturesGravity)
 {
-    Sprite.windCoeff = wind;
+    this.creaturesGravity = creaturesGravity;
 }
 
-public static void setCreaturesIce(final float ice)
+public  void setCreaturesWind( float wind)
 {
-    Sprite.iceCoeff = ice;
+    windCoeff = wind;
 }
 
-protected static float creaturesGravity;
-protected static float windCoeff = 0;
-protected static float iceCoeff = 0;
+public  void setCreaturesIce( float ice)
+{
+    iceCoeff = ice;
+}
+
+protected  float creaturesGravity = 1;
+protected  float windCoeff = 0;
+protected  float iceCoeff = 0;
 
 public static String getNameByKind(final int kind)
 {
@@ -187,24 +192,24 @@ public void render(final Graphics og)
 //        System.err.println("ok:" + this.kind + ", " + xPic);
     }
     // Labels
-    if (GlobalOptions.areLabels)
+    if (spriteContext.marioAIOptions.globalOptions.areLabels)
         og.drawString("" + xPixel + "," + yPixel, xPixel, yPixel);
 
     // Mario Grid Visualization Enable
-    if (GlobalOptions.isShowReceptiveField)
+    if (spriteContext.marioAIOptions.globalOptions.isShowReceptiveField)
     {
         if (this.kind == KIND_MARIO)
         {
 //                og.drawString("M", (int) x, (int) y);
             og.drawString("Matrix View", xPixel - 40, yPixel - 20);
-            int width = GlobalOptions.receptiveFieldWidth;// * 16;
-            int height = GlobalOptions.receptiveFieldHeight;// * 16;
+            int width = spriteContext.marioAIOptions.globalOptions.receptiveFieldWidth;// * 16;
+            int height = spriteContext.marioAIOptions.globalOptions.receptiveFieldHeight;// * 16;
 
-            int rows = GlobalOptions.receptiveFieldHeight;
-            int columns = GlobalOptions.receptiveFieldWidth;
+            int rows = spriteContext.marioAIOptions.globalOptions.receptiveFieldHeight;
+            int columns = spriteContext.marioAIOptions.globalOptions.receptiveFieldWidth;
 
-            int marioCol = GlobalOptions.marioEgoCol;
-            int marioRow = GlobalOptions.marioEgoRow;
+            int marioCol = spriteContext.marioAIOptions.globalOptions.marioEgoCol;
+            int marioRow = spriteContext.marioAIOptions.globalOptions.marioEgoRow;
 
             int htOfRow = 16;//height / (columns);
             int k;

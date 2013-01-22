@@ -66,7 +66,7 @@ public static void main(String[] args)
 //        }
     options.setTimeLimit(100);
     options.setAgent((Agent) initial);
-    options.setFPS(GlobalOptions.MaxFPS);
+    options.setFPS(options.globalOptions.MaxFPS);
     options.setVisualization(false);
     ProgressTask task = new ProgressTask(options);
 //        MultiSeedProgressTask task = new MultiSeedProgressTask(options);

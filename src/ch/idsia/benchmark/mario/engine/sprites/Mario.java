@@ -77,9 +77,9 @@ private int prevHPic;
 private boolean isRacoon;
 private float yaa = 1;
 
-private static float windCoeff = 0f;
-private static float iceCoeff = 0f;
-private static float jumpPower;
+private  float windCoeff = 0f;
+private  float iceCoeff = 0f;
+private  float jumpPower;
 private boolean inLadderZone;
 private boolean onLadder;
 private boolean onTopOfLadder = false;
@@ -139,7 +139,7 @@ private boolean ableToShoot = false;
 int width = 4;
 int height = 24;
 
-private static LevelScene levelScene;
+private LevelScene levelScene;
 public int facing;
 
 public int xDeathPos, yDeathPos;
@@ -154,6 +154,7 @@ public Sprite carried = null;
 
 public Mario(LevelScene levelScene, SystemOfValues IntermediateRewardsSystemOfValues)
 {
+	super(levelScene);
     kind = KIND_MARIO;
     this.levelScene = levelScene;
     this.IntermediateRewardsSystemOfValues = IntermediateRewardsSystemOfValues;
@@ -252,7 +253,7 @@ private void savePrevState()
 
 public void move()
 {
-    if (GlobalOptions.isFly)
+    if (levelScene.marioAIOptions.globalOptions.isFly)
     {
         xa = ya = 0;
         ya = keys[KEY_DOWN] ? 10 : ya;
@@ -404,7 +405,7 @@ public void move()
         levelScene.addSprite(new Fireball(levelScene, x + facing * 6, y - 20, facing));
     }
     // Cheats:
-    if (GlobalOptions.isPowerRestoration && keys[KEY_SPEED] && (!large || !fire))
+    if (levelScene.marioAIOptions.globalOptions.isPowerRestoration && keys[KEY_SPEED] && (!large || !fire))
         setMode(true, true);
 //        if (cheatKeys[KEY_LIFE_UP])
 //            this.lives++;
@@ -437,7 +438,7 @@ public void move()
     {
         for (int i = 0; i < 1; i++)
         {
-            levelScene.addSprite(new Sparkle((int) (x + Math.random() * 4 - 2) + facing * 8, (int) (y + Math.random() * 4) - 24, (float) (Math.random() * 2 - 1), (float) Math.random() * 1, 0, 1, 5));
+            levelScene.addSprite(new Sparkle((int) (x + Math.random() * 4 - 2) + facing * 8, (int) (y + Math.random() * 4) - 24, (float) (Math.random() * 2 - 1), (float) Math.random() * 1, 0, 1, 5,spriteContext));
         }
         ya *= 0.5f;
     }
@@ -540,7 +541,7 @@ private void calcPic()
         {
             for (int i = 0; i < 3; i++)
             {
-                levelScene.addSprite(new Sparkle((int) (x + Math.random() * 8 - 4), (int) (y + Math.random() * 4), (float) (Math.random() * 2 - 1), (float) Math.random() * -1, 0, 1, 5));
+                levelScene.addSprite(new Sparkle((int) (x + Math.random() * 8 - 4), (int) (y + Math.random() * 4), (float) (Math.random() * 2 - 1), (float) Math.random() * -1, 0, 1, 5,spriteContext));
             }
         }
     }
@@ -663,7 +664,7 @@ private boolean isBlocking(final float _x, final float _y, final float xa, final
         levelScene.level.setBlock(x, y, (byte) 0);
         for (int xx = 0; xx < 2; xx++)
             for (int yy = 0; yy < 2; yy++)
-                levelScene.addSprite(new Sparkle(x * 16 + xx * 8 + (int) (Math.random() * 8), y * 16 + yy * 8 + (int) (Math.random() * 8), 0, 0, 0, 2, 5));
+                levelScene.addSprite(new Sparkle(x * 16 + xx * 8 + (int) (Math.random() * 8), y * 16 + yy * 8 + (int) (Math.random() * 8), 0, 0, 0, 2, 5,spriteContext));
     }
 
     if (blocking && ya < 0)

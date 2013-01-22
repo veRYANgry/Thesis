@@ -45,8 +45,9 @@ public int anim;
 public boolean dead = false;
 private int deadTime = 0;
 
-public BulletBill(LevelScene world, float x, float y, int dir)
+public BulletBill(LevelScene world, float x, float y, int dir,LevelScene spriteContext)
 {
+	super(spriteContext);
     kind = KIND_BULLET_BILL;
     sheet = Art.enemies;
 
@@ -81,8 +82,8 @@ public void collideCheck()
             {
                 world.mario.stomp(this);
                 dead = true;
-                ++LevelScene.killedCreaturesTotal;
-                ++LevelScene.killedCreaturesByStomp;
+                ++world.killedCreaturesTotal;
+                ++world.killedCreaturesByStomp;
 
                 xa = 0;
                 ya = 1;
@@ -106,7 +107,7 @@ public void move()
             deadTime = 1;
             for (int i = 0; i < 8; i++)
             {
-                world.addSprite(new Sparkle((int) (x + Math.random() * 16 - 8) + 4, (int) (y - Math.random() * 8) + 4, (float) (Math.random() * 2 - 1), (float) Math.random() * -1, 0, 1, 5));
+                world.addSprite(new Sparkle((int) (x + Math.random() * 16 - 8) + 4, (int) (y - Math.random() * 8) + 4, (float) (Math.random() * 2 - 1), (float) Math.random() * -1, 0, 1, 5,spriteContext));
             }
             spriteContext.removeSprite(this);
         }

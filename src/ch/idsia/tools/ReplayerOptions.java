@@ -110,16 +110,16 @@ public Interval getNextIntervalInMarioseconds()
     return chunks.poll();
 }
 
-public Interval getNextIntervalInTicks()
-{
-    Interval i = chunks.poll();
-    Interval res = null;
-
-    if (i != null)
-        res = new Interval(i.from * GlobalOptions.mariosecondMultiplier, i.to * GlobalOptions.mariosecondMultiplier);
-
-    return res;
-}
+//public Interval getNextIntervalInTicks()
+//{
+//    Interval i = chunks.poll();
+//    Interval res = null;
+//
+//    if (i != null)
+//        res = new Interval(i.from * GlobalOptions.mariosecondMultiplier, i.to * GlobalOptions.mariosecondMultiplier);
+//
+//    return res;
+//}
 
 public boolean hasMoreChunks()
 {

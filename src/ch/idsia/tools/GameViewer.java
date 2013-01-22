@@ -49,6 +49,9 @@ import java.awt.event.ItemListener;
 
 public class GameViewer extends JFrame
 {
+
+public MarioAIOptions marioAIOptions;
+	
 Dimension defaultSize = new Dimension(900, 800);
 Point defaultLocation = new Point(350, 10);
 
@@ -61,7 +64,7 @@ private MarioVisualComponent marioVisualComponent;
 public void AdjustFPS()
 {
     int fps = FPS; // GlobalOptions.FPS;
-    delay = (fps > 0) ? (fps >= GlobalOptions.MaxFPS) ? 0 : (1000 / fps) : 100;
+    delay = (fps > 0) ? (fps >= marioAIOptions.globalOptions.MaxFPS) ? 0 : (1000 / fps) : 100;
     System.out.println("Game Viewer animator delay: " + delay);
 }
 
@@ -144,7 +147,7 @@ private class GameViewerView extends JPanel implements Runnable
 
 public void tick()
 {
-    if (GlobalOptions.isGameplayStopped)
+    if (marioAIOptions.globalOptions.isGameplayStopped)
         return;
     gameViewerViewPanel.repaint();
 }
@@ -172,7 +175,9 @@ private int ZLevelEnemiesValue = 0;
 
 public GameViewer(MarioAIOptions marioAIOptions)
 {
-    super(GlobalOptions.getBenchmarkName() + " Game Viewer");
+    super(marioAIOptions.globalOptions.getBenchmarkName() + " Game Viewer");
+    this.marioAIOptions = marioAIOptions;
+    
     Dimension size = null;
     Point location = null;
 
@@ -234,7 +239,7 @@ public GameViewer(MarioAIOptions marioAIOptions)
     borderPanel.add(BorderLayout.CENTER, new JScrollPane(gameViewerViewPanel));
     setContentPane(borderPanel);
 
-    GlobalOptions.registerGameViewer(this);
+    marioAIOptions.globalOptions.registerGameViewer(this);
 }
 
 

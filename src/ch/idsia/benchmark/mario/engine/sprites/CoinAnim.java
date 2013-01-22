@@ -28,14 +28,16 @@
 package ch.idsia.benchmark.mario.engine.sprites;
 
 import ch.idsia.benchmark.mario.engine.Art;
+import ch.idsia.benchmark.mario.engine.LevelScene;
 
 
 public class CoinAnim extends Sprite
 {
 private int life = 16;
 
-public CoinAnim(int xTile, int yTile)
+public CoinAnim(int xTile, int yTile,LevelScene spriteContext)
 {
+	super(spriteContext);
     kind = KIND_COIN_ANIM;
     sheet = Art.level;
     wPic = hPic = 16;
@@ -52,10 +54,10 @@ public void move()
 {
     if (life-- < 0)
     {
-        Sprite.spriteContext.removeSprite(this);
+        this.spriteContext.removeSprite(this);
         for (int xx = 0; xx < 2; xx++)
             for (int yy = 0; yy < 2; yy++)
-                Sprite.spriteContext.addSprite(new Sparkle((int) x + xx * 8 + (int) (Math.random() * 8), (int) y + yy * 8 + (int) (Math.random() * 8), 0, 0, 0, 2, 5));
+            	 this.spriteContext.addSprite(new Sparkle((int) x + xx * 8 + (int) (Math.random() * 8), (int) y + yy * 8 + (int) (Math.random() * 8), 0, 0, 0, 2, 5,spriteContext));
     }
 
     xPic = life & 3;

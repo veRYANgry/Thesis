@@ -71,10 +71,10 @@ public boolean noFireballDeath;
 
 public Enemy(LevelScene levelScene, int x, int y, int dir, int type, boolean winged, int mapX, int mapY)
 {
+	super(levelScene);
     kind = (byte) type;
     sheet = Art.enemies;
     this.winged = winged;
-
     this.x = x;
     this.y = y;
     this.mapX = mapX;
@@ -158,8 +158,8 @@ public void collideCheck()
                     {
                         spriteContext.addSprite(new Shell(levelScene, x, y, 1));
                     }
-                    ++LevelScene.killedCreaturesTotal;
-                    ++LevelScene.killedCreaturesByStomp;
+                    ++levelScene.killedCreaturesTotal;
+                    ++levelScene.killedCreaturesByStomp;
                 }
             } else
             {
@@ -181,7 +181,7 @@ public void move()
             deadTime = 1;
             for (int i = 0; i < 8; i++)
             {
-                levelScene.addSprite(new Sparkle((int) (x + Math.random() * 16 - 8) + 4, (int) (y - Math.random() * 8) + 4, (float) (Math.random() * 2 - 1), (float) Math.random() * -1, 0, 1, 5));
+                levelScene.addSprite(new Sparkle((int) (x + Math.random() * 16 - 8) + 4, (int) (y - Math.random() * 8) + 4, (float) (Math.random() * 2 - 1), (float) Math.random() * -1, 0, 1, 5,spriteContext));
             }
             spriteContext.removeSprite(this);
         }
@@ -335,7 +335,7 @@ public boolean move(float xa, float ya)
         return false;
     } else
     {
-        if (GlobalOptions.areFrozenCreatures)
+        if (levelScene.marioAIOptions.globalOptions.areFrozenCreatures)
             return true;
 
         x += xa;
@@ -377,8 +377,8 @@ public boolean shellCollideCheck(Shell shell)
             hPic = -hPic;
             yPicO = -yPicO + 16;
 //                System.out.println("shellCollideCheck");
-            ++LevelScene.killedCreaturesTotal;
-            ++LevelScene.killedCreaturesByShell;
+            ++levelScene.killedCreaturesTotal;
+            ++levelScene.killedCreaturesByShell;
             return true;
         }
     }
@@ -407,8 +407,8 @@ public boolean fireballCollideCheck(Fireball fireball)
             hPic = -hPic;
             yPicO = -yPicO + 16;
 //                System.out.println("fireballCollideCheck");
-            ++LevelScene.killedCreaturesTotal;
-            ++LevelScene.killedCreaturesByFireBall;
+            ++levelScene.killedCreaturesTotal;
+            ++levelScene.killedCreaturesByFireBall;
             return true;
         }
     }

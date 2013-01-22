@@ -55,7 +55,7 @@ public static void doStats(Agent agent, int startingSeed)
 
 //        options.setEvaluationQuota(1);
     options.setVisualization(false);
-    options.setFPS(GlobalOptions.MaxFPS);
+    options.setFPS(options.globalOptions.MaxFPS);
     System.out.println("Testing controller " + controller + " with starting seed " + startingSeed);
 
     double competitionScore = 0;

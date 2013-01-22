@@ -50,7 +50,7 @@ public static void main(String[] args)
     System.out.print(options);
     Environment environment = new MarioEnvironment();
     Agent agent = new ForwardAgent();
-    environment.reset(options);
+    //environment.reset(options);
     while (!environment.isLevelFinished())
     {
         environment.tick();

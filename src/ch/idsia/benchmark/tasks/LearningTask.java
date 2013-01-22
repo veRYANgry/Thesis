@@ -49,7 +49,7 @@ private static final long EVALUATION_QUOTA = 100000;
 private long currentEvaluation = 0;
 public int uid;
 
-private String fileTimeStamp = "-uid-" + uid + "-" + GlobalOptions.getTimeStamp();
+private String fileTimeStamp = "-uid-" + uid + "-" + options.globalOptions.getTimeStamp();
 private int fitnessEvaluations = 0;
 
 public LearningTask(MarioAIOptions marioAIOptions)

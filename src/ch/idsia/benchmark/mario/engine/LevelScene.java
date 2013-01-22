@@ -48,7 +48,7 @@ public class LevelScene implements SpriteContext
 {
 	
 	
-private MarioAIOptions marioAIOptions;
+public MarioAIOptions marioAIOptions;
 public static final boolean[] defaultKeys = new boolean[Environment.numberOfKeys];
 public static final String[] keysStr = {"<<L ", "R>> ", "\\\\//", "JUMP", " RUN", "^UP^"};
 
@@ -263,9 +263,9 @@ public void tick()
 //                                    xCannon = x;
                             for (int i = 0; i < 8; i++)
                             {
-                                addSprite(new Sparkle(x * cellSize + 8, y * cellSize + (int) (Math.random() * cellSize), (float) Math.random() * dir, 0, 0, 1, 5));
+                                addSprite(new Sparkle(x * cellSize + 8, y * cellSize + (int) (Math.random() * cellSize), (float) Math.random() * dir, 0, 0, 1, 5,this));
                             }
-                            addSprite(new BulletBill(this, x * cellSize + 8 + dir * 8, y * cellSize + 15, dir));
+                            addSprite(new BulletBill(this, x * cellSize + 8 + dir * 8, y * cellSize + 15, dir,this));
 
 //                                    hasShotCannon = true;
                         }
@@ -380,7 +380,7 @@ public void bump(int x, int y, boolean canBreakBricks)
         } else
         {
             mario.gainCoin();
-            addSprite(new CoinAnim(x, y));
+            addSprite(new CoinAnim(x, y,this));
         }
     }
 
@@ -392,7 +392,7 @@ public void bump(int x, int y, boolean canBreakBricks)
             level.setBlock(x, y, (byte) 0);
             for (int xx = 0; xx < 2; xx++)
                 for (int yy = 0; yy < 2; yy++)
-                    addSprite(new Particle(x * cellSize + xx * 8 + 4, y * cellSize + yy * 8 + 4, (xx * 2 - 1) * 4, (yy * 2 - 1) * 4 - 8));
+                    addSprite(new Particle(x * cellSize + xx * 8 + 4, y * cellSize + yy * 8 + 4, (xx * 2 - 1) * 4, (yy * 2 - 1) * 4 - 8,this));
         } else
         {
             level.setBlockData(x, y, (byte) 4);
@@ -407,7 +407,7 @@ public void bumpInto(int x, int y)
     {
         mario.gainCoin();
         level.setBlock(x, y, (byte) 0);
-        addSprite(new CoinAnim(x, y + 1));
+        addSprite(new CoinAnim(x, y + 1,this));
     }
 
     for (Sprite sprite : sprites)
@@ -582,14 +582,14 @@ public void reset(MarioAIOptions marioAIOptions , SystemOfValues IntermediateRew
     this.levelType = level.type;
     this.levelDifficulty = level.difficulty;
 
-    Sprite.spriteContext = this;
+    
     sprites.clear();
     this.width = 	marioAIOptions.globalOptions.VISUAL_COMPONENT_WIDTH;
     this.height = 	marioAIOptions.globalOptions.VISUAL_COMPONENT_HEIGHT;
 
-    Sprite.setCreaturesGravity(marioAIOptions.getCreaturesGravity());
-    Sprite.setCreaturesWind(marioAIOptions.getWind());
-    Sprite.setCreaturesIce(marioAIOptions.getIce());
+//    spriteContext.setCreaturesGravity(marioAIOptions.getCreaturesGravity());
+//    spriteContext.setCreaturesWind(marioAIOptions.getWind());
+//    spriteContext.setCreaturesIce(marioAIOptions.getIce());
     mario = new Mario(this, IntermediateRewardsSystemOfValues);
     mario.resetStatic(marioAIOptions);
 

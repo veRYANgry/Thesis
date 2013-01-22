@@ -107,7 +107,7 @@ public class NEATGATrainingManagerLoad {
 	    {
 	        System.out.println("New EvolveIncrementally phase with difficulty = " + difficulty + " started.");
 	        options.setLevelDifficulty(difficulty);
-	        options.setFPS(GlobalOptions.MaxFPS);
+	        options.setFPS(options.globalOptions.MaxFPS);
 	        options.setVisualization(false);
 	        Task task = new ProgressTask(options);
 
@@ -148,7 +148,7 @@ public class NEATGATrainingManagerLoad {
 				
 		       
 				
-		        options.setFPS(GlobalOptions.MaxFPS);
+		        options.setFPS(options.globalOptions.MaxFPS);
 		        options.setVisualization(false);
 
 				if(((NEATGeneticAlgorithmMario) this.ga).genBest() >= passlevel[difficulty] && lastBestGen  >= passlevel[difficulty] - 1000 ){

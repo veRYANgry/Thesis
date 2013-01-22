@@ -77,7 +77,7 @@ public void learn()
         if (fitn > bestScore /*&& marioStatus == Environment.MARIO_STATUS_WIN*/)
         {
             bestScore = fitn;
-            fileName = "evolved-progress-" + name + gen + "-uid-" + GlobalOptions.getTimeStamp() + ".xml";
+            fileName = "evolved-progress-" + name + gen + "-uid-" + ".xml";
             final Agent a = (Agent) es.getBests()[0];
             Easy.save(a, fileName);
             learningTask.dumpFitnessEvaluation(bestScore, "fitnessImprovements-" + name + ".txt");

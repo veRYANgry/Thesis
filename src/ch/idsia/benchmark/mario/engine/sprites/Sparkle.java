@@ -28,19 +28,21 @@
 package ch.idsia.benchmark.mario.engine.sprites;
 
 import ch.idsia.benchmark.mario.engine.Art;
+import ch.idsia.benchmark.mario.engine.LevelScene;
 
 public class Sparkle extends Sprite
 {
 public int life;
 public int xPicStart;
 
-public Sparkle(int x, int y, float xa, float ya)
+public Sparkle(int x, int y, float xa, float ya,LevelScene spriteContext)
 {
-    this(x, y, xa, ya, (int) (Math.random() * 2), 0, 5);
+    this(x, y, xa, ya, (int) (Math.random() * 2), 0, 5,spriteContext);
 }
 
-public Sparkle(int x, int y, float xa, float ya, int xPic, int yPic, int timeSpan)
+public Sparkle(int x, int y, float xa, float ya, int xPic, int yPic, int timeSpan,LevelScene spriteContext)
 {
+	super(spriteContext);
     kind = KIND_SPARCLE;
     sheet = Art.particles;
     this.x = x;
@@ -65,7 +67,7 @@ public void move()
     else
         xPic = xPicStart + (10 - life) * 4 / 10;
 
-    if (life-- < 0) Sprite.spriteContext.removeSprite(this);
+    if (life-- < 0) this.spriteContext.removeSprite(this);
 
     x += xa;
     y += ya;

@@ -28,6 +28,7 @@
 package ch.idsia.scenarios;
 
 import ch.idsia.benchmark.tasks.ReplayTask;
+import ch.idsia.tools.MarioAIOptions;
 
 /**
  * Created by IntelliJ IDEA.
@@ -41,16 +42,9 @@ public class Replay
 public static void main(String[] args)
 {
 
-    //TODO : FIX IT!
-    /* TODO : FIX IT!
-[~ Mario AI Benchmark ~ 0.1.9]
-Exception in thread "main" java.lang.ArrayIndexOutOfBoundsException: 0
-	at ch.idsia.scenarios.Replay.main(Replay.java:18)
-    
-     */
-//    final MarioAIOptions cmdLineOptions = new MarioAIOptions(args);
+    MarioAIOptions cmdLineOptions = new MarioAIOptions(args);
     final ReplayTask replayTask = new ReplayTask();
-    replayTask.reset(args[0]);
+    replayTask.reset(args[0],cmdLineOptions);
     replayTask.startReplay();
     // TODO: output evaluationInfo as in BasicTask
     System.out.println(replayTask.getEnvironment().getEvaluationInfoAsString());

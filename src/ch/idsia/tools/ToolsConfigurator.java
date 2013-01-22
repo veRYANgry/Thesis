@@ -76,7 +76,7 @@ public static void main(String[] args)
     toolsConfigurator.CheckboxShowVizualization.setState(marioAIOptions.isVisualization());
 //        toolsConfigurator.JSpinnerMaxAttempts.setValue(marioAIOptions.getNumberOfTrials());
     toolsConfigurator.ChoiceAgent.select(AgentsPool.getCurrentAgent().getName());
-    toolsConfigurator.CheckboxMaximizeFPS.setState(marioAIOptions.getFPS() > GlobalOptions.MaxFPS - 1);
+    toolsConfigurator.CheckboxMaximizeFPS.setState(marioAIOptions.getFPS() > marioAIOptions.globalOptions.MaxFPS - 1);
     toolsConfigurator.CheckboxPowerRestoration.setState(marioAIOptions.isPowerRestoration());
 //        toolsConfigurator.CheckboxStopSimulationIfWin.setState(marioAIOptions.isStopSimulationIfWin());
     toolsConfigurator.CheckboxExitOnFinish.setState(marioAIOptions.isExitProgramWhenFinished());
@@ -115,7 +115,7 @@ static void CreateMarioComponentFrame(SimulationOptions simulationOptions)
 //        frame.setLocation((screenSize.length-frame.getWidth())/2, (screenSize.height-frame.getHeight())/2);
     if (marioComponentFrame == null)
     {
-        marioComponentFrame = new JFrame(/*evaluationOptions.getAgentFullLoadName() +*/ "Mario AI benchmark-tools" + GlobalOptions.getVersionUID());
+        marioComponentFrame = new JFrame(/*evaluationOptions.getAgentFullLoadName() +*/ "Mario AI benchmark-tools"  );
 //            marioComponent = new MarioComponent(320, 240);
 //            marioVisualComponent = new MarioVisualComponent(320, 240);
 //            marioComponentFrame.setContentPane(marioComponent);
@@ -145,7 +145,7 @@ public Checkbox CheckboxShowGameViewer = new Checkbox("Show Game Viewer", true);
 
 public Label LabelConsole = new Label("Console:");
 public TextArea TextAreaConsole = new TextArea("Console:"/*, 8,40*/);  // Verbose all, keys, events, actions, observations
-public Checkbox CheckboxShowVizualization = new Checkbox("Enable Visualization", GlobalOptions.isVisualization);
+public Checkbox CheckboxShowVizualization = new Checkbox("Enable Visualization", marioAIOptions.globalOptions.isVisualization);
 public Checkbox CheckboxMaximizeFPS = new Checkbox("Maximize FPS");
 public Choice ChoiceAgent = new Choice();
 public Choice ChoiceLevelType = new Choice();
@@ -387,9 +387,9 @@ public class ToolsConfiguratorActions implements ActionListener, ItemListener, C
             simulateOrPlay();
         } else if (ob == upFPS)
         {
-            if (++GlobalOptions.FPS >= GlobalOptions.MaxFPS)
+            if (++marioAIOptions.globalOptions.FPS >= marioAIOptions.globalOptions.MaxFPS)
             {
-                GlobalOptions.FPS = GlobalOptions.MaxFPS;
+            	marioAIOptions.globalOptions.FPS = marioAIOptions.globalOptions.MaxFPS;
                 CheckboxMaximizeFPS.setState(true);
             }
 //                marioComponent.adjustFPS();
@@ -397,8 +397,8 @@ public class ToolsConfiguratorActions implements ActionListener, ItemListener, C
 //                        LOGGER.VERBOSE_MODE.INFO );
         } else if (ob == downFPS)
         {
-            if (--GlobalOptions.FPS < 1)
-                GlobalOptions.FPS = 1;
+            if (--marioAIOptions.globalOptions.FPS < 1)
+            	marioAIOptions.globalOptions.FPS = 1;
             CheckboxMaximizeFPS.setState(false);
 //                marioComponent.adjustFPS();
 //                LOGGER.println("FPS set to " + (CheckboxMaximizeFPS.getState() ? "infinity" : GlobalOptions.FPS),
@@ -437,12 +437,12 @@ public class ToolsConfiguratorActions implements ActionListener, ItemListener, C
         {
 //                LOGGER.println("Vizualization " + (CheckboxShowVizualization.getState() ? "On" : "Off"),
 //                        LOGGER.VERBOSE_MODE.INFO );
-            GlobalOptions.isVisualization = CheckboxShowVizualization.getState();
-            marioComponentFrame.setVisible(GlobalOptions.isVisualization);
+        	marioAIOptions.globalOptions.isVisualization = CheckboxShowVizualization.getState();
+            marioComponentFrame.setVisible(marioAIOptions.globalOptions.isVisualization);
         } else if (ob == CheckboxMaximizeFPS)
         {
-            prevFPS = (GlobalOptions.FPS == GlobalOptions.MaxFPS) ? prevFPS : GlobalOptions.FPS;
-            GlobalOptions.FPS = CheckboxMaximizeFPS.getState() ? 100 : prevFPS;
+            prevFPS = (marioAIOptions.globalOptions.FPS == marioAIOptions.globalOptions.MaxFPS) ? prevFPS : marioAIOptions.globalOptions.FPS;
+            marioAIOptions.globalOptions.FPS = CheckboxMaximizeFPS.getState() ? 100 : prevFPS;
 //                marioComponent.adjustFPS();
 //                LOGGER.println("FPS set to " + (CheckboxMaximizeFPS.getState() ? "infinity" : GlobalOptions.FPS),
 //                        LOGGER.VERBOSE_MODE.INFO );
@@ -464,7 +464,7 @@ public class ToolsConfiguratorActions implements ActionListener, ItemListener, C
             TextAreaConsole.setText("1\n2\n3\n");
         } else if (ob == CheckboxPowerRestoration)
         {
-            GlobalOptions.isPowerRestoration = CheckboxPowerRestoration.getState();
+        	marioAIOptions.globalOptions.isPowerRestoration = CheckboxPowerRestoration.getState();
 //                LOGGER.println("Mario Power Restoration Turned " + (GlobalOptions.isPowerRestoration ? "on" : "off"),
 //                        LOGGER.VERBOSE_MODE.INFO);
         }

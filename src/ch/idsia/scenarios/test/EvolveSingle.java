@@ -53,7 +53,7 @@ public static void main(String[] args)
 //        options.setEvaluationQuota(1);
     Evolvable initial = new SimpleMLPAgent();
 //        RegisterableAgent.registerAgent ((Agent) initial);
-    options.setFPS(GlobalOptions.MaxFPS);
+    options.setFPS(options.globalOptions.MaxFPS);
     options.setLevelDifficulty(0);
     options.setVisualization(false);
     ProgressTask task = new ProgressTask(options);

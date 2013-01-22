@@ -96,7 +96,7 @@ public final class MarioEnvironment implements Environment {
 		// System.getProperty("-verbose"));
 		// System.out.println("Java: JA ZDES'!!");
 		// System.out.flush();
-		System.out.println(GlobalOptions.getBenchmarkName());
+		//System.out.println(GlobalOptions.getBenchmarkName());
 		levelScene = new LevelScene();
 		System.out.println(levelScene.mario == null);
 		//levelScene.mario.x += 1;
@@ -153,7 +153,7 @@ public final class MarioEnvironment implements Environment {
 	}
 
 	public void reset(String args) {
-		MarioAIOptions marioAIOptions = MarioAIOptions.getOptionsByString(args);
+		MarioAIOptions marioAIOptions = new MarioAIOptions(args);
 		this.reset(marioAIOptions);
 		// MarioAIOptions opts = new MarioAIOptions(setUpOptions);
 		// int[] intOpts = opts.toIntArray();
@@ -216,7 +216,7 @@ public final class MarioEnvironment implements Environment {
 					.isViewAlwaysOnTop());
 
 			if (setUpOptions.isScale2X())
-				GlobalOptions.changeScale2x();
+				setUpOptions.globalOptions.changeScale2x();
 		} else
 			levelScene.reset(setUpOptions, IntermediateRewardsSystemOfValues);
 
@@ -227,7 +227,7 @@ public final class MarioEnvironment implements Environment {
 
 		if (!recordingFileName.equals("off")) {
 			if (recordingFileName.equals("on"))
-				recordingFileName = GlobalOptions.getTimeStamp() + ".zip";
+				recordingFileName = setUpOptions.globalOptions.getTimeStamp() + ".zip";
 
 			try {
 				if (recordingFileName.equals("lazy"))
@@ -600,8 +600,8 @@ public final class MarioEnvironment implements Environment {
 		try {
 			if (recorder != null && recorder.canRecord() && action != null) {
 				recorder.writeAction(action);
-				recorder.changeRecordingState(GlobalOptions.isRecording,
-						getTimeSpent());
+//				recorder.changeRecordingState(GlobalOptions.isRecording,
+//						getTimeSpent());
 			}
 		} catch (IOException e) {
 			e.printStackTrace();

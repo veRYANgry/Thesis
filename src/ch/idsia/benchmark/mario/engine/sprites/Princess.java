@@ -35,8 +35,9 @@ public class Princess extends Sprite
 private LevelScene world;
 private int runTime = 0;
 
-public Princess(LevelScene world, int x, int y, int mapX, int mapY)
+public Princess(LevelScene world, int x, int y, int mapX, int mapY,LevelScene spriteContext)
 {
+	super(spriteContext);
     kind = KIND_PRINCESS;
     sheet = Art.princess;
 
