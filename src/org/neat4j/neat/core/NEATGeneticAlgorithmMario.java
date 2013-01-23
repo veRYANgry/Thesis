@@ -15,11 +15,16 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Vector;
 import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import org.apache.log4j.Category;
+import org.neat4j.core.AIConfig;
+import org.neat4j.core.InitialisationFailedException;
 import org.neat4j.neat.applications.train.VisionBound;
+import org.neat4j.neat.core.control.NEATNetManager;
 import org.neat4j.neat.core.fitness.MSENEATFitnessFunction;
 import org.neat4j.neat.core.mutators.NEATMutator;
 import org.neat4j.neat.ga.core.Chromosome;
@@ -33,7 +38,9 @@ import org.neat4j.neat.ga.core.ParentSelector;
 import org.neat4j.neat.ga.core.Population;
 import org.neat4j.neat.ga.core.Specie;
 import org.neat4j.neat.ga.core.Species;
+import org.neat4j.neat.nn.core.NeuralNet;
 
+import ch.idsia.benchmark.tasks.ProgressTask;
 import ch.idsia.benchmark.tasks.Task;
 
 /**
@@ -46,6 +53,7 @@ public class NEATGeneticAlgorithmMario implements GeneticAlgorithm , Serializabl
 	private NEATGADescriptor descriptor;
 	private NEATMutator mut;
 	private FitnessFunction func;
+	public  AIConfig config;
 	private ParentSelector selector;
 	private CrossOver xOver;
 	private Population pop;
@@ -147,14 +155,73 @@ public class NEATGeneticAlgorithmMario implements GeneticAlgorithm , Serializabl
 	private void evaluatePopulation(Chromosome[] genoTypes,Task task,  VisionBound Vision) {
 		int i;
 		double eval[];
-//		boolean isThreaded = true;
-//		int nThreads = 2;
-//		if(isThreaded){
-//			Executor execute = Executors.newFixedThreadPool(nThreads);
-//		}
-		for (i = 0; i < genoTypes.length; i++) {
-			eval = ((MSENEATFitnessFunction) this.func).evaluates(genoTypes[i], task, Vision);
-			((NEATChromosome)genoTypes[i]).updateAllFitness(eval);			
+		boolean isThreaded = true;
+		int nThreads = 4;
+		if(isThreaded){
+			ExecutorService execute = Executors.newFixedThreadPool(nThreads);
+			Vector<runEval> threadVector = new Vector<runEval>();
+			for (i = 0; i < genoTypes.length; i++) {
+				try {
+					threadVector.add(new runEval(genoTypes[i], task, Vision,new MSENEATFitnessFunction( createNet(this.config), null)));
+				} catch (InitialisationFailedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+			for (Thread t : threadVector) {
+				execute.execute(t);
+			}
+			execute.shutdown();
+			while(!execute.isTerminated()){
+				try {
+					Thread.sleep(400);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+			}
+
+		} else{
+			for (i = 0; i < genoTypes.length; i++) {
+				eval = ((MSENEATFitnessFunction) this.func).evaluates(genoTypes[i], task, Vision);
+				((NEATChromosome)genoTypes[i]).updateAllFitness(eval);			
+			}
+		}
+	}
+	
+	public NeuralNet createNet(AIConfig config) throws InitialisationFailedException {
+		String nnConfigFile;
+		AIConfig nnConfig;
+		NEATNetManager netManager;
+		
+		nnConfigFile = config.configElement("NN.CONFIG");
+		nnConfig  = new NEATLoader().loadConfig(nnConfigFile);
+		nnConfig.updateConfig("INPUT_SIZE", config.configElement("INPUT.NODES"));
+		nnConfig.updateConfig("OUTPUT_SIZE", config.configElement("OUTPUT.NODES"));
+		netManager = new NEATNetManager();
+		netManager.initialise(nnConfig);
+		
+		return ((NEATNeuralNet)netManager.managedNet());
+	}
+	
+	private class runEval extends Thread {
+		public Chromosome chrome;
+		public Task task;
+		public VisionBound Vision;
+		public FitnessFunction func;
+		public runEval(Chromosome chrome, Task task,VisionBound Vision, FitnessFunction func ) {
+			this.chrome = chrome;
+			this.task = ((ProgressTask) task).clone();
+			this.Vision = Vision;
+			this.func = func;
+		}
+		
+		public void run() {
+			double eval[];
+			eval = ((MSENEATFitnessFunction) this.func).evaluates(chrome, task, Vision);
+			((NEATChromosome)chrome).updateAllFitness(eval);			
 		}
 	}
 	

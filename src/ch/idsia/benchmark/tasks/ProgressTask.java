@@ -41,7 +41,7 @@ import java.util.Vector;
 
 import org.neat4j.neat.core.NEATNeuralNet;
 
-/**
+/*
  * Created by IntelliJ IDEA.
  * User: Sergey Karakovskiy
  * Date: Apr 8, 2009
@@ -105,7 +105,7 @@ public void setTotalEpisodes(int totalEpisodes) {
 public ProgressTask(MarioAIOptions evaluationOptions)
 {
     super(evaluationOptions);
-    System.out.println("evaluationOptions = " + evaluationOptions);
+    //System.out.println( "evaluationOptions = " + evaluationOptions);
     setOptionsAndReset(evaluationOptions);
 }
 
@@ -118,7 +118,7 @@ private double[] evaluateSingleLevel(int ld, int tl, int ls, boolean vis, Agent 
     float distanceTravelled = 0;
     int randomStartDistance;
     double results[];
-    //options.setMarioInitialPos(rand.nextInt(100), 120);
+    options.setMarioInitialPos(rand.nextInt(100), 120);
     
     if(((NeatAgent)controller).getHueristics() != null){
     	results = new double[2];
@@ -228,6 +228,33 @@ public boolean isFinished()
 {
     System.out.println("options = " + options);
     return false;
+}
+
+public ProgressTask clone(){
+	
+	//this.options.printOptions(true);
+
+	MarioAIOptions WorkerOptions = this.options.CloneOptions();
+
+	ProgressTask WorkerTask = new ProgressTask(WorkerOptions);
+	
+	if(levelQueue != null){
+		for(MarioAIOptions mario: levelQueue){
+			WorkerTask.levelQueue.add(mario.CloneOptions());
+		}
+	}
+
+	WorkerTask.CoinsHeuristic = this.CoinsHeuristic;
+	WorkerTask.ConnectionHeuristic = this.ConnectionHeuristic;
+	WorkerTask.DistanceHeuristic = this.DistanceHeuristic;
+	WorkerTask.MushroomHeuristic = this.MushroomHeuristic;
+	WorkerTask.FlowerHeuristic = this.FlowerHeuristic;
+	WorkerTask.StompKillsHeuristic = this.StompKillsHeuristic;
+	WorkerTask.NeuronHeuristic = this.NeuronHeuristic;
+	WorkerTask.ShellKillHeuristic = this.ShellKillHeuristic;
+	
+	
+	return WorkerTask;	
 }
 
 }

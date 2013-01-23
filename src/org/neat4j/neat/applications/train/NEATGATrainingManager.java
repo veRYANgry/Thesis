@@ -78,6 +78,7 @@ public class NEATGATrainingManager {
 			this.ga.pluginMutator(this.createMutator(config));
 			this.ga.pluginParentSelector(this.createParentSelector(config));
 			this.ga.createPopulation();
+			((NEATGeneticAlgorithmMario)this.ga).config = config;
 		} catch (InvalidFitnessFunction e) {
 			throw new InitialisationFailedException(e.getMessage());
 		} catch (InvalidCrossoverFunction e) {

@@ -204,6 +204,14 @@ public void printOptions(boolean singleLine)
             System.out.println(el.getKey() + " " + el.getValue() + " ");
 }
 
+public MarioAIOptions CloneOptions()
+{
+	MarioAIOptions options = new MarioAIOptions();
+	options.optionsHashMap.putAll(this.optionsHashMap);
+	return options;
+	
+}
+
 public MarioAIOptions getOptionsByString(String argString)
 {
     // TODO: verify validity of this method, add unit tests

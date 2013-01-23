@@ -562,7 +562,7 @@ public void reset(MarioAIOptions marioAIOptions , SystemOfValues IntermediateRew
             e.printStackTrace();
         }
     } else
-        level = LevelGenerator.createLevel(marioAIOptions);
+        level = (new LevelGenerator()).createLevel(marioAIOptions);
 
     String fileName = marioAIOptions.getLevelFileName();
     if (!fileName.equals(""))
