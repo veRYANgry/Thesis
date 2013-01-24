@@ -391,19 +391,6 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		
 		if(work == null || work.isDone()){
 			work = new loopWorker();
-		InnovationDatabase.databaseReset();
-
-		//lets shove the config from the old main class into this one
-
-		gam = new NEATGATrainingManager();
-		try {
-			gam.initialise(configs);
-		} catch (InitialisationFailedException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		ga = (NEATGeneticAlgorithmMario)gam.ga();
-		config = gam.GetConfig();
 
 		work.execute();
 		}
