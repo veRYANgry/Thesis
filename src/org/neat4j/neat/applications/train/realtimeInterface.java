@@ -278,7 +278,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 						}
 						break;
 					case 1:
-						if(ScoreLimit >= ga.discoverdBestMember().fitness()){
+						if(ga.discoverdBestMember().fitness() >= ScoreLimit){
 							return null;
 						}
 						break;
