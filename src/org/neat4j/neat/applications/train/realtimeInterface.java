@@ -648,12 +648,11 @@ public class realtimeInterface extends JFrame implements ActionListener {
 				public void actionPerformed(ActionEvent e) {
 
 
-						if((demoWorker == null || demoWorker.isDone()) && IsPaused){
+					Thread threadWorker = new Thread() {
+						Chromosome tempChrome = ga.generationBest();
+						@Override
+						public void run() {
 
-							demoWorker = new SwingWorker<Void, Void>() {
-
-								@Override
-								public Void doInBackground() {
 
 									MarioAIOptions WorkerOptions = new MarioAIOptions("");
 									
@@ -671,27 +670,23 @@ public class realtimeInterface extends JFrame implements ActionListener {
 										a.printStackTrace();
 									}
 									
-									((NEATNetDescriptor)(nets.netDescriptor())).updateStructure(ga.generationBest());
+									((NEATNetDescriptor)(nets.netDescriptor())).updateStructure(tempChrome);
 									((NEATNeuralNet)nets).updateNetStructure();
 									
 									NEATFrame frame = new NEATFrame((NEATNeuralNet)nets);
-									frame.setTitle("Demo");
+									frame.setTitle("Best Demo");
 									frame.showNet();
 							        
 									WorkerTask.evaluateAll((Agent) new NeatAgent(nets, Vision, null));
 									
-									 
 									
-									return null;
-								}
-							};
-							demoWorker.execute();
+									return;
+						}
+					};
+					threadWorker.start();
 
 
 						}
-	
-
-					}
 
 				
 			});
