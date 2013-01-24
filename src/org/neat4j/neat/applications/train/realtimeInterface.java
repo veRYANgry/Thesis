@@ -166,8 +166,9 @@ public class realtimeInterface extends JFrame implements ActionListener {
 	static boolean Autorun = true;
 	static int AutoRunMode;
 	JTextField GenText;
+	JTextField ScoreText;
 	static int GenerationLimit = 100;
-	static int ScoreLimit = 10000;
+	static int ScoreLimit = 6000;
 	
 	/**
 	 * @param args
@@ -277,7 +278,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 						}
 						break;
 					case 1:
-						if(ScoreLimit >= GenerationLimit){
+						if(ScoreLimit >= ga.discoverdBestMember().fitness()){
 							return null;
 						}
 						break;
@@ -621,16 +622,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 						};
 
 							threadWorker.start();
-//							while(threadWorker.isAlive()){
-//								try {
-//									Thread.sleep(400);
-//								} catch (InterruptedException e1) {
-//									// TODO Auto-generated catch block
-//									e1.printStackTrace();
-//								}
-//						}
-//							
-//						}
+
 
 				}
 				else{
@@ -942,18 +934,46 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		
 		AutoOnGeneration.setSelected(true);
 		
+		JRadioButton AutoOnScore = new JRadioButton("New Run On score:");
+		AutoOnScore.addActionListener(new  ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+					Autorun = true;
+					AutoRunMode = 1;
+		        }
+
+		});
+		
 		
 		
 		ButtonGroup group = new ButtonGroup();
 		group.add(setNoAuto);
 		group.add(AutoOnGeneration);
+		group.add(AutoOnScore);
 
 		
 		JPanel radioPanel = new JPanel(new GridLayout(0, 1));
 		radioPanel.add(Title);
 		radioPanel.add(setNoAuto);
-		radioPanel.add(AutoOnGeneration);
+		radioPanel.add(AutoOnScore);
+		
+		
+		JPanel ScorePanel = new JPanel(new GridLayout(0, 3));
+		JLabel ScoreLabel = new JLabel("Score");
+	    ScoreText = new JTextField(10);
+		ScoreText.setText(Integer.toString(ScoreLimit));
+		
+		JButton ScoreButton = new JButton("Set Score");
+		ScoreButton.addActionListener(new  ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				ScoreLimit = Integer.valueOf(ScoreText.getText());
+			}
+		});
+		
+		ScorePanel.add(ScoreLabel);
+		ScorePanel.add(ScoreText);
+		ScorePanel.add(ScoreButton);
 
+		radioPanel.add(ScorePanel);
 		
 		JPanel GenPanel = new JPanel(new GridLayout(0, 3));
 		JLabel GenLabel = new JLabel("Generation");
@@ -970,6 +990,9 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		GenPanel.add(GenLabel);
 		GenPanel.add(GenText);
 		GenPanel.add(GenButton);
+		
+		radioPanel.add(AutoOnGeneration);
+		
 		radioPanel.add(GenPanel);
 		
 
