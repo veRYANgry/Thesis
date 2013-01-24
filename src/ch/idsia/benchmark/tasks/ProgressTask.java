@@ -239,6 +239,7 @@ public ProgressTask clone(){
 	ProgressTask WorkerTask = new ProgressTask(WorkerOptions);
 	
 	if(levelQueue != null){
+		WorkerTask.levelQueue = new Vector<MarioAIOptions>();
 		for(MarioAIOptions mario: levelQueue){
 			WorkerTask.levelQueue.add(mario.CloneOptions());
 		}

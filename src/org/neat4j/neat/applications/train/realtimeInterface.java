@@ -134,7 +134,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 	//Mario testbed stuff
 	///////////////////////////////
 	static ProgressTask task;
-	static MarioAIOptions options = new MarioAIOptions("nothing");
+	static MarioAIOptions options = new MarioAIOptions("");
 	static int difficulty = 0;
 	static int seed = 0;
 	static Random rand = new Random(System.currentTimeMillis());
@@ -176,7 +176,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 	public static void main(final String[] args) {
 
 		configs = new NEATLoader().loadConfig("xor_neat.ga");
-		options = new MarioAIOptions("nothing");
+		options = new MarioAIOptions("");
         options.setFPS(options.globalOptions.MaxFPS);
         options.setVisualization(false);
         task = new ProgressTask(options);
@@ -602,7 +602,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 							@Override
 							public void run() {
 
-								MarioAIOptions WorkerOptions = new MarioAIOptions("nothing");
+								MarioAIOptions WorkerOptions = new MarioAIOptions("");
 								
 								WorkerOptions.setLevelDifficulty(difficulty);
 								WorkerOptions.setFPS(32);
@@ -668,7 +668,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 								@Override
 								public Void doInBackground() {
 
-									MarioAIOptions WorkerOptions = new MarioAIOptions("nothing");
+									MarioAIOptions WorkerOptions = new MarioAIOptions("");
 									
 									WorkerOptions.setLevelDifficulty(difficulty);
 									WorkerOptions.setFPS(32);
@@ -908,7 +908,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		QueuePanel.add(AddLevelButton);
 		AddLevelButton.addActionListener(new  ActionListener(){
 			public void actionPerformed(ActionEvent e) {
-				MarioAIOptions WorkerOptions = new MarioAIOptions("nothing");
+				MarioAIOptions WorkerOptions = new MarioAIOptions("");
 				WorkerOptions.setLevelDifficulty(difficulty);
 				WorkerOptions.setFPS(options.globalOptions.MaxFPS);
 				WorkerOptions.setVisualization(false);
