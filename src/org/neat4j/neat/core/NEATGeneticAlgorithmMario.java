@@ -155,9 +155,8 @@ public class NEATGeneticAlgorithmMario implements GeneticAlgorithm , Serializabl
 	private void evaluatePopulation(Chromosome[] genoTypes,Task task,  VisionBound Vision) {
 		int i;
 		double eval[];
-		boolean isThreaded = true;
-		int nThreads = 4;
-		if(isThreaded){
+		int nThreads = this.descriptor.getThreads();
+		if(nThreads > 1){
 			ExecutorService execute = Executors.newFixedThreadPool(nThreads);
 			Vector<runEval> threadVector = new Vector<runEval>();
 			for (i = 0; i < genoTypes.length; i++) {

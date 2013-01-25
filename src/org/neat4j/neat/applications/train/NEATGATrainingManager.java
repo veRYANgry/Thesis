@@ -317,9 +317,13 @@ public class NEATGATrainingManager {
 		double maxPerturb = Double.parseDouble(config.configElement("MAX.PERTURB"));
 		double maxBiasPerturb = Double.parseDouble(config.configElement("MAX.BIAS.PERTURB"));
 		boolean selfreg = Boolean.valueOf(config.configElement("SELF.REG")).booleanValue();
+		boolean dynamicSpeciation = Boolean.valueOf(config.configElement("DYN.SPCIE")).booleanValue();
+		int threads = Integer.parseInt(config.configElement("THREADS"));
 
 		
 		NEATGADescriptor descriptor = new NEATGADescriptor();
+		descriptor.setThreads(threads);
+		descriptor.setDynamicSpeciation(dynamicSpeciation);
 		descriptor.setSelfRegulation(selfreg);
 		descriptor.setPAddLink(pAddLink);
 		descriptor.setPAddNode(pAddNode);

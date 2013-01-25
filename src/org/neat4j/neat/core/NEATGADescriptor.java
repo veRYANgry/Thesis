@@ -50,8 +50,24 @@ public class NEATGADescriptor implements GADescriptor , Serializable {
 	private boolean naturalOrder;
 	private double maxPerturb;
 	private double maxBiasPerturb;
-	private boolean selfRegulation = true;
+	private boolean selfRegulation = false;
+	
+	private boolean dynamicSpeciation = false;
+	private int threads = 4;
+	
 
+	public boolean isDynamicSpeciation() {
+		return dynamicSpeciation;
+	}
+	public void setDynamicSpeciation(boolean dynamicSpeciation) {
+		this.dynamicSpeciation = dynamicSpeciation;
+	}
+	public int getThreads() {
+		return threads;
+	}
+	public void setThreads(int threads) {
+		this.threads = threads;
+	}
 	public boolean isSelfRegulation() {
 		return selfRegulation;
 	}

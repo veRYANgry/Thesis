@@ -233,12 +233,8 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		private int gen = 0;
 		@Override
 		public Void doInBackground() {
-			int diffGen = 0;
 			runNumber++;
 			levelStat.add(new runStatistics("" + runNumber,0,0));
-		    for (difficulty = 0; difficulty < 11; difficulty++)
-		    {
-		        System.out.println("New EvolveIncrementally phase with difficulty = " + difficulty + " started.");
 			
 			while (true) {
 
@@ -292,12 +288,10 @@ public class realtimeInterface extends JFrame implements ActionListener {
 				if(isCancelled())
 					return null;
 
-				diffGen++;
 				gen++;
 			}
-		    }
 			
-			return null;
+			//return null;
 		}
 		
 		
@@ -502,9 +496,9 @@ public class realtimeInterface extends JFrame implements ActionListener {
 			public void itemStateChanged(ItemEvent e) {
 
 		        if (e.getStateChange() == ItemEvent.DESELECTED) {
-		        	configs.updateConfig("SELF.REG",Boolean.toString(false));
+		        	configs.updateConfig("DYN.SPCIE",Boolean.toString(false));
 		        }else {
-		        	configs.updateConfig("SELF.REG",Boolean.toString(true));
+		        	configs.updateConfig("DYN.SPCIE",Boolean.toString(true));
 		        }
 			}
 		});
@@ -1009,6 +1003,10 @@ public class realtimeInterface extends JFrame implements ActionListener {
 	
 	//function to add level options such as difficulty or task trails
 	public void levelOptions(final Container content){
+		
+		
+		
+		
 		JRadioButton setLevelSingle = new JRadioButton("Use level from file for all runs");
 		setLevelSingle.addActionListener(new  ActionListener(){
 			public void actionPerformed(ActionEvent e) {
@@ -1065,7 +1063,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		radioPanel.add(setLevelRandomOnly);
 		radioPanel.add(setEachLevelRandomOnly);
 		radioPanel.add(setSeed);
-		
+		////////Seed panel
 		JPanel SeedPanel = new JPanel(new GridLayout(0, 3));
 		JLabel SeedLabel = new JLabel("Seed");
 		 SeedText = new JTextField(10);
@@ -1082,6 +1080,32 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		SeedPanel.add(SeedText);
 		SeedPanel.add(SeedButton);
 		radioPanel.add(SeedPanel);
+		//Difficulty settings
+		JPanel DiffPanel = new JPanel(new GridLayout(0, 3));
+		JLabel DiffLabel = new JLabel("Difficulty");
+
+		
+		String[] List = new String[19];
+		for(int i = 0;i < 11; i++){
+			List[i] = Integer.toString(i);
+		}
+		
+		JComboBox Xstart = new JComboBox(List);
+		Xstart.setSelectedIndex(0);
+
+		Xstart.addActionListener(new  ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				
+				difficulty = ((JComboBox)e.getSource()).getSelectedIndex();
+				}
+
+		});
+		
+		
+		DiffPanel.add(DiffLabel);
+		DiffPanel.add(Xstart);
+		radioPanel.add(DiffPanel);
+		/////////
 		
 		JButton LevelButton = new JButton("Edit levels");
 		LevelButton.addActionListener(new  ActionListener(){
@@ -1182,6 +1206,14 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		OptionsBoxes.add(SpecieCountText);
 		OptionsBoxesHash.add("SPECIE.COUNT");
 		
+		JLabel ThreadCountLabel = new JLabel("Computation Threads");
+		JTextField  ThreadCountText = new JTextField(5);
+		ThreadCountText.setText("4");
+		OptionsPanel.add(ThreadCountLabel);
+		OptionsPanel.add(ThreadCountText);
+		OptionsBoxes.add(ThreadCountText);
+		OptionsBoxesHash.add("THREADS");
+		
     	for(int i = 0;i < OptionsBoxes.size();i++){
     		OptionsBoxes.get(i).setActionCommand(OptionsBoxesHash.get(i));
     		OptionsBoxes.get(i).addActionListener(Listener);
@@ -1221,7 +1253,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 	public void LoadConfigText()
 	{
     	for(int i = 0;i < OptionsBoxes.size();i++){
-    		if(configs!= null)
+    		if(configs != null)
     		OptionsBoxes.get(i).setText(configs.configElement(OptionsBoxesHash.get(i)));
     	}
 	}

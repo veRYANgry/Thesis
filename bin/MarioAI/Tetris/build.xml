@@ -1,0 +1,46 @@
+<!-- 
+This is the ant build file for tetris4j.
+It's used to compile the project.
+You will need Apache Ant to run this file.
+-->
+
+<project name="tetris4j" default="debug-compile">
+
+	<target name="compile" depends="clean">
+		<!-- compile the code -->
+		<javac srcdir="./code" destdir="./build" />
+
+		<!-- copy the resources -->
+		<copy todir="./build/image">
+			<fileset dir="./image"/>
+		</copy>
+		<copy todir="./build/sound">
+			<fileset dir="./sound"/>
+		</copy>
+
+	</target>
+
+	<!-- same as above, but keep debug information. -->
+	<target name="debug-compile" depends="clean">
+		<!-- compile the code -->
+		<javac srcdir="./code" destdir="./build" debug="true" debuglevel="lines,vars,source" />
+
+		<!-- copy the resources -->
+		<copy todir="./build/image">
+			<fileset dir="./image"/>
+		</copy>
+		<copy todir="./build/sound">
+			<fileset dir="./sound"/>
+		</copy>
+
+	</target>
+
+	<target name="clean">
+		<delete dir="./build"/>
+		<mkdir dir="./build"/>
+	</target>
+
+
+
+
+</project>
