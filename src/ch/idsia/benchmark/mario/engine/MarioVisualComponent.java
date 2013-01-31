@@ -106,7 +106,6 @@ public MarioVisualComponent(MarioAIOptions marioAIOptions, MarioEnvironment mari
 
     setFocusable(true);
 
-//        System.out.println("this (from constructor) = " + this);
 
     marioAIOptions.globalOptions.registerMarioVisualComponent(this);
 
@@ -394,7 +393,7 @@ public void postInitGraphics()
     this.thisGraphics = getGraphics();
     this.thisVolatileImageGraphics = this.thisVolatileImage.getGraphics();
 //        System.out.println("thisGraphics = " + thisGraphics);
-//        System.out.println("thisVolatileImageGraphics = " + thisVolatileImageGraphics);
+       // System.out.println(" wodth and hieght " + marioAIOptions.globalOptions.VISUAL_COMPONENT_HEIGHT + "::" + marioAIOptions.globalOptions.VISUAL_COMPONENT_WIDTH);
 }
 
 public void postInitGraphicsAndLevel()

@@ -63,6 +63,7 @@ public class NEATGeneticAlgorithmMario implements GeneticAlgorithm , Serializabl
 	private Species specieList;
 	private int specieIdIdx = 1;
 	private int eleCount = 0;
+	private double DynamicSpeciationThresh = .1;
 
 	/**
 	 * Creates a NEAT GA with behaviour defined by the descriptor
@@ -324,13 +325,32 @@ public class NEATGeneticAlgorithmMario implements GeneticAlgorithm , Serializabl
 		// Display specie stats
 		validSpecieList = this.specieList.validSpecieList(champ.getSpecieId());
 		System.out.println("Num species:" + validSpecieList.size());
-		if (this.descriptor.getCompatabilityChange() > 0) {
-			if (validSpecieList.size() > this.descriptor.getSpecieCount()) {
-				this.descriptor.setThreshold(this.descriptor.getThreshold() + this.descriptor.getCompatabilityChange());
-			} else if (validSpecieList.size() < this.descriptor.getSpecieCount() && (this.descriptor.getThreshold() > this.descriptor.getCompatabilityChange())) {
-				this.descriptor.setThreshold(this.descriptor.getThreshold() - this.descriptor.getCompatabilityChange());
+		
+		if(this.descriptor.isDynamicSpeciation()){
+		    if (validSpecieList.size() > this.descriptor.getSpecieCount()) {
+		    	if(DynamicSpeciationThresh < 0)
+		    		DynamicSpeciationThresh = .1;
+		    	this.descriptor.setThreshold(this.descriptor.getThreshold() + DynamicSpeciationThresh);
+				DynamicSpeciationThresh = DynamicSpeciationThresh * 2;
+		    } else if(validSpecieList.size() < this.descriptor.getSpecieCount() ){
+		    	if(DynamicSpeciationThresh > 0)
+		    		DynamicSpeciationThresh = -.1;
+		    	this.descriptor.setThreshold(this.descriptor.getThreshold() + DynamicSpeciationThresh);
+				DynamicSpeciationThresh = DynamicSpeciationThresh * 2;
+		    } else{
+		    	DynamicSpeciationThresh = .1;
+		    }
+		}else
+		{
+			if (this.descriptor.getCompatabilityChange() > 0) {
+				if (validSpecieList.size() > this.descriptor.getSpecieCount()) {
+					this.descriptor.setThreshold(this.descriptor.getThreshold() + this.descriptor.getCompatabilityChange());
+				} else if (validSpecieList.size() < this.descriptor.getSpecieCount() && (this.descriptor.getThreshold() > this.descriptor.getCompatabilityChange())) {
+					this.descriptor.setThreshold(this.descriptor.getThreshold() - this.descriptor.getCompatabilityChange());
+				}
 			}
 		}
+
 		this.eleCount++;
 	}
 	
