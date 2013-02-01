@@ -1,5 +1,7 @@
 package tetris;
 
+import java.awt.Point;
+
 import org.neat4j.neat.data.core.NetworkOutputSet;
 import org.neat4j.neat.nn.core.NeuralNet;
 
@@ -24,7 +26,13 @@ public class NetBrain implements Brain {
 		MarioInput ip;
 		boolean[][] grid;
 		double[] op;
-		double[] inputs = new double[board.height * board.width];
+		double[] inputs = new double[board.height * board.width + 16];
+		
+		//calculate the grid representation of the piece then use it as an input
+		// max size for inputs is 16 blocks 4X4
+		Point[] pieceParts = piece.getBody();
+		
+		
 		
 		grid = board.grid;
 		//copy over entire board
