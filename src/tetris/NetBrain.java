@@ -30,9 +30,12 @@ public class NetBrain implements Brain {
 		
 		//calculate the grid representation of the piece then use it as an input
 		// max size for inputs is 16 blocks 4X4
+		// place it at the end of the inputs
 		Point[] pieceParts = piece.getBody();
 		
-		
+		for(Point t : pieceParts){
+			inputs[board.height * board.width + t.x + t.y * 4] =  1;
+		}
 		
 		grid = board.grid;
 		//copy over entire board
@@ -50,6 +53,13 @@ public class NetBrain implements Brain {
 
 		opSet = net.execute(ip);
 		op = opSet.nextOutput().values();
+		
+		
+		Move move = new Move();
+		move.x = (int) (op[0] * 10);
+		move.y = (int) (op[1] * 10);
+		if(op[2] > .75);
+		move.piece = piece.nextRotation();
 		
 		return null;
 	}

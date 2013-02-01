@@ -27,7 +27,7 @@ public class BrainFitnessFunction extends NEATFitnessFunction {
 	
 	public double evaluate(Chromosome genoType) {return 2;}
 	
-	public double[] evaluates(Chromosome genoType, Task task, VisionBound Vision) {
+	public double[] evaluates(Chromosome genoType) {
 
 
 		// need to create a net based on this chromo
@@ -35,9 +35,6 @@ public class BrainFitnessFunction extends NEATFitnessFunction {
 
 	   // System.out.println("fitness is " + fitness);
 		//TODO return an array of fitnesses 
-		if(((NEATChromosome)genoType).findActiveReg() != null)
-			return ((ProgressTask)task).evaluateAll((Agent) new NeatAgent(this.net(),Vision,((NEATChromosome)genoType).findActiveReg().getHueristics()));
-		else
 			return ((ProgressTask)task).evaluateAll((Agent) new NeatAgent(this.net(),Vision,null));
 	}
 	
