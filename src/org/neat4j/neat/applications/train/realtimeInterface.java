@@ -159,6 +159,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 	//Statistics stuff
 	////////////
 	Vector<runStatistics> levelStat = new Vector<runStatistics>();
+	static int selectedRun;
 	
 	////////////
 	//AutoRun stuff
@@ -167,6 +168,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 	static int AutoRunMode;
 	JTextField GenText;
 	JTextField ScoreText;
+	//mario
 	static int GenerationLimit = 100;
 	static int ScoreLimit = 6000;
 	
@@ -310,14 +312,23 @@ public class realtimeInterface extends JFrame implements ActionListener {
 			SpecDataTable.setModel(new DefaultTableModel(specData,SpecDataHeading));
 			SpecDataTable.updateUI();
 			
-			////////////////Stats gathering 
+			////////////////Stats gathering /////////////
 			runStatistics run = levelStat.get(runNumber - 1);
 			if(ga.discoverdBestMember() != null)
 				if(run.getBestFitness() != ga.discoverdBestMember().fitness()){
 					run.setBestFitness(ga.discoverdBestMember().fitness());
+					run.setBestchrome(ga.discoverdBestMember());
 					run.setBestFitGen(GenNumber);
+					run.setAiconfig(config);
+					run.setSeed(seed);
+					run.setLevelModeIndex(LevelModeIndex);
+					run.setLevelName(levelName);
+					run.setDifficulty(difficulty);
+					
 				}
+			
 			run.setGeneration(GenNumber);
+			/////////////////////////////////////////////
 			StatisticsTableUp();
 			
 			
@@ -855,6 +866,37 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		JScrollPane StatPane = new JScrollPane(StatDataTable);
 		StatPane.setPreferredSize(new Dimension(400, 50));
 		StatsPanel.add(StatPane);
+		
+		
+		StatDataTable.addMouseListener( new MouseAdapter() {
+	          public void mouseClicked(MouseEvent e) {
+	              try
+	              {
+	            	  selectedRun = StatDataTable.getSelectedRow();
+	              }
+	              catch(Exception x)
+	              {}
+	          }
+		});
+		
+				
+		JButton DemoButton = new JButton("View best of selected run");
+		StatsPanel.add(DemoButton);
+		DemoButton.addActionListener(new  ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				if(levelStat.size() > selectedRun ){
+				runStatistics run = levelStat.get(selectedRun);
+				Thread threadworker = new ThreadDemo(run.getBestchrome(), run.getDifficulty(),
+						new MarioAIOptions(), Vision,
+						gam, run.getAiconfig(),run.getLevelModeIndex(),
+						run.getSeed(), run.getLevelName());
+				threadworker.start();
+				}
+				
+			}
+		});
+		
+		
 		
 		content.add(StatsPanel);
 	}

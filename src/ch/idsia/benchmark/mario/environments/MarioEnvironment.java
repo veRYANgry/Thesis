@@ -82,6 +82,7 @@ public final class MarioEnvironment implements Environment {
 	private double moveTowards = 0;
 	
 	private int lastTime = 0;
+	
 
 	DecimalFormat df = new DecimalFormat("######.#");
 

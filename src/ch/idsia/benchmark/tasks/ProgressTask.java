@@ -109,6 +109,12 @@ public ProgressTask(MarioAIOptions evaluationOptions)
     setOptionsAndReset(evaluationOptions);
 }
 
+public ProgressTask(Vector<MarioAIOptions> levelQueue)
+{
+	super(null);
+	this.levelQueue = levelQueue;
+}
+
 public int totalEpisodes = 0;
 
 private double[] evaluateSingleLevel(int ld, int tl, int ls, boolean vis, Agent controller)
