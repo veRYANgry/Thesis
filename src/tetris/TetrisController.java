@@ -135,7 +135,7 @@ public class TetrisController {
 			break;
 
 		default:
-			throw new RuntimeException("Bad verb");
+			break;
 		}
 		
 		Move newMove = new Move();

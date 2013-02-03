@@ -21,11 +21,26 @@ import javax.swing.JCheckBox;
 public class JBrainTetris extends JTetris {
 	private static final long serialVersionUID = 1L;
 
-	private Brain mBrain = new Ply1Brain();
+	public NetBrain mBrain;
 	private Move mMove;
 	protected javax.swing.Timer timerAI;
 	int current_count = -1;
 
+	/** Creates new JBrainTetris */
+	public JBrainTetris(int width, int height,NetBrain mBrain) {
+		super(width, height);
+		this.mBrain = mBrain;
+		// Create the Timer object and have it send
+		// tick(DOWN) periodically
+		/*
+		timerAI = new javax.swing.Timer(0, new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				tickAI();
+			}
+		});
+		*/
+	}
+	
 	/** Creates new JBrainTetris */
 	public JBrainTetris(int width, int height) {
 		super(width, height);
@@ -52,24 +67,31 @@ public class JBrainTetris extends JTetris {
 	}
 	
 	public void tick(int verb) {
-		if (tickAI()) {
-			super.tick(verb);
-		}
+		tickAI();
+
 	}
 
 	public boolean tickAI() {
 		if (current_count != tc.count) {
 			current_count = tc.count;
-			mMove = mBrain.bestMove(new Board(tc.board), tc.currentMove.piece, tc.nextPiece, tc.board.getHeight()-TetrisController.TOP_SPACE);
+			 mBrain.netMove(new Board(tc.board),
+					tc.currentMove, tc.nextPiece, tc.board
+					.getHeight()
+					- TetrisController.TOP_SPACE);
+
+
+			tc.tick(10);		}
+		
+		
+		if (!tc.gameOn) {
+			stopGame();
 		}
 		
-		if (!tc.currentMove.piece.equals(mMove.piece)) { 
-			super.tick(TetrisController.ROTATE);
-		} else if (tc.currentMove.x != mMove.x) {
-			super.tick(((tc.currentMove.x < mMove.x) ? TetrisController.RIGHT : TetrisController.LEFT));
-		} else {
-			return true;
-		}
+		countLabel.setText(Integer.toString(tc.count));
+		nextPiecePanel.setPiece(tc.nextPiece);
+		
+		repaint();
+		
 		return false;
 	}
 

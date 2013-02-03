@@ -12,6 +12,9 @@ import org.neat4j.neat.data.core.NetworkOutputSet;
 import org.neat4j.neat.ga.core.Chromosome;
 import org.neat4j.neat.nn.core.NeuralNet;
 
+import tetris.BrainScorer;
+import tetris.NetBrain;
+
 
 public class BrainFitnessFunction extends NEATFitnessFunction {
 
@@ -32,10 +35,12 @@ public class BrainFitnessFunction extends NEATFitnessFunction {
 
 		// need to create a net based on this chromo
 		this.createNetFromChromo(genoType);
-
+		BrainScorer scorer = new BrainScorer();
 	   // System.out.println("fitness is " + fitness);
 		//TODO return an array of fitnesses 
-			return ((ProgressTask)task).evaluateAll((Agent) new NeatAgent(this.net(),Vision,null));
+		double[] temp = new double[1];
+		temp[0] = scorer.rate(new NetBrain(this.net()));
+		return temp;
 	}
 	
 	
