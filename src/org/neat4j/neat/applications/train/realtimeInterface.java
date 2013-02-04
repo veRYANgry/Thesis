@@ -172,6 +172,11 @@ public class realtimeInterface extends JFrame implements ActionListener {
 	static int GenerationLimit = 100;
 	static int ScoreLimit = 6000;
 	
+	////////////
+	//Run type stuff
+	////////////
+	static int runType = 0;
+	
 	/**
 	 * @param args
 	 */
@@ -241,7 +246,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 			while (true) {
 
 				setOptions(options);
-		        System.out.println("Running Epoch[" + gen + "] with diff:" + difficulty);
+		    //    System.out.println("Running Epoch[" + gen + "] with diff:" + difficulty);
 		        GenNumber = gen;
 		        
 				((NEATGeneticAlgorithmMario)ga).runEpoch(task,Vision);
@@ -425,22 +430,10 @@ public class realtimeInterface extends JFrame implements ActionListener {
 	    content.add(tabbedPane);
 	    
 	    JPanel GridPanel = new JPanel(new FlowLayout());
-	    
-	    RunningStatus = new JLabel(RunningPausedNotification);
-	    GridPanel.add(RunningStatus);
-	    
-		JButton b1 = new JButton("Start New Run");
-		b1.addActionListener(this);
-		GridPanel.add(b1);
+	
 		
-		JButton b2 = new JButton("Pause on next break");
-		b2.addActionListener(new  ActionListener(){
-			public void actionPerformed(ActionEvent e) {
-				IsPaused = !IsPaused;
-			}
-		});
-		GridPanel.add(b2);
-		
+
+		Gamemode(GridPanel);
 		
 		
 		JPanel StackPanel = new JPanel(new GridLayout(4, 2));
@@ -470,6 +463,54 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		
 		this.pack();
 
+	}
+	
+	public void Gamemode(final Container content){
+		//chromosome data
+	    RunningStatus = new JLabel(RunningPausedNotification);
+	    content.add(RunningStatus);
+	    
+		JButton b1 = new JButton("Start New Run");
+		b1.addActionListener(this);
+		content.add(b1);
+		
+		JButton b2 = new JButton("Pause on next break");
+		b2.addActionListener(new  ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				IsPaused = !IsPaused;
+			}
+		});
+		content.add(b2);
+		
+		JRadioButton setMario = new JRadioButton("Mario mode");
+		setMario.setSelected(false);
+		
+		setMario.addActionListener(new  ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				runType = 1;
+			}
+		});
+		
+		JRadioButton setTetris = new JRadioButton("Tetris mode");
+		setTetris.setSelected(true);
+		
+		setTetris.addActionListener(new  ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				runType = 0;
+			}
+		});
+		
+		
+		ButtonGroup group = new ButtonGroup();
+		group.add(setTetris);
+		group.add(setMario);
+		
+		JPanel radioPanel = new JPanel(new GridLayout(0, 1));
+		radioPanel.add(setTetris);
+		radioPanel.add(setMario);
+		
+		content.add(radioPanel);
+		
 	}
 	
 	public void GeneInfo(final Container content){
