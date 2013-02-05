@@ -41,12 +41,10 @@ public class BrainScorer {
 
 				tc.tick(TetrisController.DOWN);
 				
-				if(tc.count > 100)
-					break;
 
 		}
 
-		return tc.count;
+		return tc.count + tc.rowsCleared * 100;
 	}
 	
 	public void demo(NetBrain brain){
