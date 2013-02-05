@@ -125,7 +125,9 @@ public class realtimeInterface extends JFrame implements ActionListener {
 	///////////////////////////////
 	static NEATGATrainingManager gam;
 	private static NEATGeneticAlgorithmMario ga;
-	private static AIConfig config;
+	private static AIConfig configMario;
+	private static AIConfig configTetris;
+	
 	private static Chromosome DemoMember;
 	private static AIConfig configs;
 	private static VisionBound Vision = new VisionBound(-3,3,-5,3);
@@ -183,7 +185,8 @@ public class realtimeInterface extends JFrame implements ActionListener {
 
 	public static void main(final String[] args) {
 
-		configs = new NEATLoader().loadConfig("xor_neat.ga");
+		configMario = configs = new NEATLoader().loadConfig("xor_neat.ga");
+		configTetris = new NEATLoader().loadConfig("xor_tetris.ga");
 		options = new MarioAIOptions("");
         options.setFPS(options.globalOptions.MaxFPS);
         options.setVisualization(false);
@@ -217,7 +220,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 					e1.printStackTrace();
 				}
 				ga = (NEATGeneticAlgorithmMario)gam.ga();
-				config = gam.GetConfig();
+				configs = gam.GetConfig();
 
 				workerThread.execute();
 				}
@@ -249,7 +252,16 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		    //    System.out.println("Running Epoch[" + gen + "] with diff:" + difficulty);
 		        GenNumber = gen;
 		        
-				((NEATGeneticAlgorithmMario)ga).runEpoch(task,Vision);
+				switch(runType){
+				case 0:
+					((NEATGeneticAlgorithmMario)ga).runEpoch(task,Vision);
+					break;
+				case 1:
+					((NEATGeneticAlgorithmMario)ga).runEpochTetris();
+					break;
+				default:
+					break;
+				} 
 
 				
 				/////////////////////////////////////////
@@ -324,7 +336,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 					run.setBestFitness(ga.discoverdBestMember().fitness());
 					run.setBestchrome(ga.discoverdBestMember());
 					run.setBestFitGen(GenNumber);
-					run.setAiconfig(config);
+					run.setAiconfig(configs);
 					run.setSeed(seed);
 					run.setLevelModeIndex(LevelModeIndex);
 					run.setLevelName(levelName);
@@ -382,7 +394,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 			e1.printStackTrace();
 		}
 		ga = (NEATGeneticAlgorithmMario)gam.ga();
-		config = gam.GetConfig();
+		configs = gam.GetConfig();
 
 		work.execute();
 		}
@@ -443,7 +455,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		
 		runPanel.add(StackPanel);
 		
-		GeneInfo(runPanel);
+		GeneInfo(StackPanel);
 		
 		JPanel SidePanel = new JPanel(new GridLayout(0, 1));
 		StatisticBox(SidePanel);
@@ -487,16 +499,19 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		
 		setMario.addActionListener(new  ActionListener(){
 			public void actionPerformed(ActionEvent e) {
-				runType = 1;
+				runType = 0;
+				configs = configMario;
 			}
 		});
 		
+		
 		JRadioButton setTetris = new JRadioButton("Tetris mode");
-		setTetris.setSelected(true);
+		setMario.setSelected(true);
 		
 		setTetris.addActionListener(new  ActionListener(){
 			public void actionPerformed(ActionEvent e) {
-				runType = 0;
+				runType = 1;
+				configs = configTetris;
 			}
 		});
 		
@@ -563,6 +578,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		radioPanel.add(enableAutoSpecie);
 		content.add(radioPanel);
 	}
+
 	
 	public void SpeciesBoxes(final Container content){
 		//species data table
@@ -646,7 +662,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 								
 						        NeuralNet nets = null;
 								try {
-									nets = gam.createNet(config);
+									nets = gam.createNet(configs);
 								} catch (InitialisationFailedException a) {
 									// TODO Auto-generated catch block
 									a.printStackTrace();
@@ -684,50 +700,26 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		JButton DemoGenBestButton = new JButton("View demo of best member this gen");
 		DemoGenBestButton.addActionListener(new  ActionListener(){
 				public void actionPerformed(ActionEvent e) {
-
-
-					Thread threadWorker = new Thread() {
-						Chromosome tempChrome = ga.generationBest();
-						@Override
-						public void run() {
-
-
-									MarioAIOptions WorkerOptions = new MarioAIOptions("");
-									
-									WorkerOptions.setLevelDifficulty(difficulty);
-									WorkerOptions.setFPS(32);
-									WorkerOptions.setVisualization(true);
-									setOptions(WorkerOptions);
-									ProgressTask WorkerTask = new ProgressTask(WorkerOptions);
-									
-							        NeuralNet nets = null;
-									try {
-										nets = gam.createNet(config);
-									} catch (InitialisationFailedException a) {
-										// TODO Auto-generated catch block
-										a.printStackTrace();
-									}
-									
-									((NEATNetDescriptor)(nets.netDescriptor())).updateStructure(tempChrome);
-									((NEATNeuralNet)nets).updateNetStructure();
-									
-									NEATFrame frame = new NEATFrame((NEATNeuralNet)nets);
-									frame.setTitle("Best Demo");
-									frame.showNet();
-							        
-									WorkerTask.evaluateAll((Agent) new NeatAgent(nets, Vision, null));
-									
-									
-									return;
-						}
-					};
-					threadWorker.start();
-
-
-						}
-
+					Chromosome tempChrome = ga.generationBest();
+					switch(runType){
+					case 0:
+						Thread threadworker = new ThreadDemo(tempChrome, difficulty,
+								new MarioAIOptions(), Vision,
+								gam, configs,LevelModeIndex,
+								seed, levelName);
+						threadworker.start();
+						break;
+					case 1:
+						Thread threadworker2 = new ThreadDemoTetris(gam, configs,tempChrome);
+						threadworker2.start();
+						break;
+					default:
+						break;
+					} 
+				}
 				
 			});
+		
 		FlowPanel2.add(DemoGenBestButton);
 		 
 		content.add(FlowPanel1);

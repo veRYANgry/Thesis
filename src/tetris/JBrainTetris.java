@@ -32,13 +32,13 @@ public class JBrainTetris extends JTetris {
 		this.mBrain = mBrain;
 		// Create the Timer object and have it send
 		// tick(DOWN) periodically
-		/*
-		timerAI = new javax.swing.Timer(0, new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				tickAI();
-			}
-		});
-		*/
+//		
+//		timerAI = new javax.swing.Timer(0, new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				tickAI();
+//			}
+//		});
+		
 	}
 	
 	/** Creates new JBrainTetris */
@@ -72,15 +72,22 @@ public class JBrainTetris extends JTetris {
 	}
 
 	public boolean tickAI() {
-		if (current_count != tc.count) {
-			current_count = tc.count;
-			 mBrain.netMove(new Board(tc.board),
+		Move tempMove;
+		tempMove = mBrain.netMove(new Board(tc.board),
 					tc.currentMove, tc.nextPiece, tc.board
 					.getHeight()
 					- TetrisController.TOP_SPACE);
 
 
-			tc.tick(10);		}
+				if (!tc.currentMove.piece.equals(tempMove.piece)) { 
+					tc.tick(TetrisController.ROTATE);
+				} 
+				if (tc.currentMove.x != tempMove.x) {
+					tc.tick(((tc.currentMove.x < tempMove.x) ? TetrisController.RIGHT : TetrisController.LEFT));
+				} 
+			tc.tick(TetrisController.DOWN);
+			
+
 		
 		
 		if (!tc.gameOn) {

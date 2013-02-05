@@ -26,18 +26,26 @@ public class BrainScorer {
 		tc.startGame(seed);
 		
 		while (tc.gameOn) {
-
-				brain.netMove(new Board(tc.board),
+			Move tempMove;
+			tempMove = brain.netMove(new Board(tc.board),
 					tc.currentMove, tc.nextPiece, tc.board
 					.getHeight()
 					- TetrisController.TOP_SPACE);
+				
+				if (!tc.currentMove.piece.equals(tempMove.piece)) { 
+					tc.tick(TetrisController.ROTATE);
+				} 
+				if (tc.currentMove.x != tempMove.x) {
+					tc.tick(((tc.currentMove.x < tempMove.x) ? TetrisController.RIGHT : TetrisController.LEFT));
+				} 
 
-
-			tc.tick(10);
-
+				tc.tick(TetrisController.DOWN);
+				
+				if(tc.count > 100)
+					break;
 
 		}
-		
+
 		return tc.count;
 	}
 	
@@ -75,15 +83,11 @@ public class BrainScorer {
 		container.add(panel, BorderLayout.EAST);
 		frame.pack();
 		frame.setVisible(true);
+		tetris.tc.startGame(seed);
 
-		// Quit on window close
-		frame.addWindowListener(
-			new WindowAdapter() {
-				public void windowClosing(WindowEvent e) {
-					System.exit(0);
-				}
-			}
-		);
+		while(tetris.tc.gameOn){
+			;
+		}
 	}
 	
 }

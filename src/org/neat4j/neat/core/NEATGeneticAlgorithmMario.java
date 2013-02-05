@@ -25,6 +25,7 @@ import org.neat4j.core.AIConfig;
 import org.neat4j.core.InitialisationFailedException;
 import org.neat4j.neat.applications.train.VisionBound;
 import org.neat4j.neat.core.control.NEATNetManager;
+import org.neat4j.neat.core.fitness.BrainFitnessFunction;
 import org.neat4j.neat.core.fitness.MSENEATFitnessFunction;
 import org.neat4j.neat.core.mutators.NEATMutator;
 import org.neat4j.neat.ga.core.Chromosome;
@@ -152,6 +153,46 @@ public class NEATGeneticAlgorithmMario implements GeneticAlgorithm , Serializabl
 		
 		return (best);
 	}
+	
+	private void evaluatePopulationTetris(Chromosome[] genoTypes) {
+		int i;
+		double eval[];
+		int nThreads = this.descriptor.getThreads();
+		if(nThreads > 1){
+			ExecutorService execute = Executors.newFixedThreadPool(nThreads);
+			Vector<runEvalTetris> threadVector = new Vector<runEvalTetris>();
+			for (i = 0; i < genoTypes.length; i++) {
+				try {
+					threadVector.add(new runEvalTetris(genoTypes[i],new BrainFitnessFunction( createNet(this.config), null)));
+				} catch (InitialisationFailedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+			for (Thread t : threadVector) {
+				execute.execute(t);
+			}
+			execute.shutdown();
+			while(!execute.isTerminated()){
+				try {
+					Thread.sleep(400);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+			}
+
+		} else{
+			for (i = 0; i < genoTypes.length; i++) {
+				eval = ((BrainFitnessFunction) this.func).evaluates(genoTypes[i]);
+				((NEATChromosome)genoTypes[i]).updateAllFitness(eval);			
+			}
+		}
+	}
+
+	
 
 	private void evaluatePopulation(Chromosome[] genoTypes,Task task,  VisionBound Vision) {
 		int i;
@@ -225,6 +266,21 @@ public class NEATGeneticAlgorithmMario implements GeneticAlgorithm , Serializabl
 		}
 	}
 	
+	private class runEvalTetris extends Thread {
+		public Chromosome chrome;
+		public FitnessFunction func;
+		public runEvalTetris(Chromosome chrome,FitnessFunction func) {
+			this.chrome = chrome;
+			this.func = func;
+		}
+		
+		public void run() {
+			double eval[];
+			eval = ((BrainFitnessFunction) this.func).evaluates(chrome);
+			((NEATChromosome)chrome).updateAllFitness(eval);			
+		}
+	}
+	
 	private Chromosome cloneBest(Chromosome best) {
 		Chromosome cloneBest = new NEATChromosome(best.genes());
 		((NEATChromosome)cloneBest).updateFitness(best.fitness());
@@ -289,6 +345,14 @@ public class NEATGeneticAlgorithmMario implements GeneticAlgorithm , Serializabl
 		this.setChromosomeNO(currentGen);
 		System.out.println("Evaluating pop");
 		this.evaluatePopulation(currentGen, task, Vision);
+		this.runEvolutionCycle(currentGen);
+	}
+	
+	public void runEpochTetris() {
+		Chromosome[] currentGen = this.pop.genoTypes();
+		this.setChromosomeNO(currentGen);
+		System.out.println("Evaluating pop");
+		this.evaluatePopulationTetris(currentGen);
 		this.runEvolutionCycle(currentGen);
 	}
 	

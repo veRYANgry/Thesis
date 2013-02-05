@@ -125,7 +125,7 @@ public class NEATGATrainingManager {
 		
 		while (true) {
 	        System.out.println("Running Epoch[" + i + "] with diff:" + difficulty);
-			((NEATGeneticAlgorithmMario)this.ga).runEpoch(task,Vision);
+			((NEATGeneticAlgorithmMario)this.ga).runEpochTetris();
 			
 					
 			if(first){

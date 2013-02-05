@@ -20,7 +20,7 @@ public class NetBrain implements Brain {
 	}
 
 	
-	public void netMove(Board board, Move move, Piece nextPiece,
+	public Move netMove(Board board, Move move, Piece nextPiece,
 			int limitHeight) {
 		NetworkOutputSet opSet;
 		MarioInput ip;
@@ -54,13 +54,19 @@ public class NetBrain implements Brain {
 		opSet = net.execute(ip);
 		op = opSet.nextOutput().values();
 		
-		if(op[0] > .75)
-			move.x++;
-		if(op[1] > .75)
-			move.x--;
-		if(op[2] > .75);
-		move.piece = move.piece.nextRotation();
+		Move newMove = new Move();
+		newMove.x = move.x;
+		newMove.y = move.y;
 		
+		if(op[0] > .75)
+			newMove.x++;
+		if(op[1] > .75)
+			newMove.x--;
+		if(op[2] > .75)
+			newMove.piece = move.piece.nextRotation();
+		else
+			newMove.piece = move.piece;
+		return newMove;
 	}
 
 	public Brain setRater(BoardRater r)
@@ -76,5 +82,7 @@ public class NetBrain implements Brain {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
 
 }

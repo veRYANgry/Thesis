@@ -91,7 +91,7 @@ public class ThreadDemo extends Thread {
 		((NEATNeuralNet) nets).updateNetStructure();
 
 		NEATFrame frame = new NEATFrame((NEATNeuralNet) nets);
-		frame.setTitle("Best Demo");
+		frame.setTitle("Demo");
 		frame.showNet();
 
 		WorkerTask.evaluateAll((Agent) new NeatAgent(nets, Vision, null));
