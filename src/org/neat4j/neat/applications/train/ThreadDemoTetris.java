@@ -11,11 +11,6 @@ import org.neat4j.neat.nn.core.NeuralNet;
 import tetris.BrainScorer;
 import tetris.NetBrain;
 
-import ch.idsia.agents.Agent;
-import ch.idsia.agents.controllers.NeatAgent;
-import ch.idsia.benchmark.tasks.ProgressTask;
-import ch.idsia.tools.MarioAIOptions;
-
 public class ThreadDemoTetris extends Thread {
 	private NEATGATrainingManager gam;
 	private AIConfig config;

@@ -26,7 +26,7 @@ public class NetBrain implements Brain {
 		MarioInput ip;
 		boolean[][] grid;
 		double[] op;
-		double[] inputs = new double[board.height * board.width + 16];
+		double[] inputs = new double[4 * board.width + 16];
 		
 		//calculate the grid representation of the piece then use it as an input
 		// max size for inputs is 16 blocks 4X4
@@ -34,12 +34,12 @@ public class NetBrain implements Brain {
 		Point[] pieceParts = move.piece.getBody();
 		
 		for(Point t : pieceParts){
-			inputs[board.height * board.width + t.x + t.y * 4] =  1;
+			inputs[4 * board.width + t.x + t.y * 4] =  1;
 		}
 		
 		grid = board.grid;
 		//copy over entire board
-		for(int i = 0;i < board.height ; i++){
+		for(int i = 0;i <4 ; i++){
 			for(int j = 0;j < board.width ; j++){
 				inputs[i * board.width + j ] = grid[j][i] ? 1 : 0;
 			}
