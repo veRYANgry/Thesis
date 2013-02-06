@@ -4,7 +4,7 @@ import java.util.Random;
 public class TetrisController {
 	// size of the board in blocks
 	public static final int WIDTH = 10; //10
-	public static final int HEIGHT = 20; //20
+	public static final int HEIGHT = 4; //20
 	// public static final int WIDTH = 100; //10
   // public static final int HEIGHT = 30; //20
 	

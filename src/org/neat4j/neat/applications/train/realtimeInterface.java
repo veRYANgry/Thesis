@@ -247,10 +247,9 @@ public class realtimeInterface extends JFrame implements ActionListener {
 			levelStat.add(new runStatistics("" + runNumber,0,0));
 			
 			while (true) {
-
+		        GenNumber = gen;
 				setOptions(options);
 		    //    System.out.println("Running Epoch[" + gen + "] with diff:" + difficulty);
-		        GenNumber = gen;
 		        
 				switch(runType){
 				case 0:

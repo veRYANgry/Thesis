@@ -26,7 +26,16 @@ public class NetBrain implements Brain {
 		MarioInput ip;
 		boolean[][] grid;
 		double[] op;
-		double[] inputs = new double[4 * board.width + 16];
+		double[] inputs = new double[board.height * board.width + 16];
+		
+		
+		grid = board.grid;
+		//copy over entire board
+		for(int i = 0;i < board.height ; i++){
+			for(int j = 0;j < board.width ; j++){
+				inputs[i * board.width + j ] = grid[j][i] ? 1 : 0;
+			}
+		}
 		
 		//calculate the grid representation of the piece then use it as an input
 		// max size for inputs is 16 blocks 4X4
@@ -34,16 +43,24 @@ public class NetBrain implements Brain {
 		Point[] pieceParts = move.piece.getBody();
 		
 		for(Point t : pieceParts){
-			inputs[4 * board.width + t.x + t.y * 4] =  1;
+			//copy an image of the piece
+			inputs[board.height * board.width + t.x + t.y * 4] =  1;
+			//copy the piece to the board
+			inputs[t.x + t.y * board.width + move.x + move.y * board.width] = 1;
 		}
 		
-		grid = board.grid;
-		//copy over entire board
-		for(int i = 0;i <4 ; i++){
-			for(int j = 0;j < board.width ; j++){
-				inputs[i * board.width + j ] = grid[j][i] ? 1 : 0;
-			}
-		}
+		
+//		System.out.println("<-<");
+//		for(int i = 0;i < board.height ; i++){
+//			for(int j = 0;j < board.width ; j++){
+//				if(inputs[i * board.width + j ] > .6)
+//				System.out.print("0");
+//				else
+//				System.out.print("_");
+//			}
+//			System.out.println();
+//		}
+		
 		
 		ip = new MarioInput();
 

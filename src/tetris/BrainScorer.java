@@ -18,7 +18,7 @@ import boardrater.*;
 
 public class BrainScorer {
 
-	public int seed = 0;
+	public int seed = new Random(System.currentTimeMillis()).nextInt();
 	
 	public double rate(NetBrain brain){
 		
@@ -83,9 +83,7 @@ public class BrainScorer {
 		frame.setVisible(true);
 		tetris.tc.startGame(seed);
 
-		while(tetris.tc.gameOn){
-			;
-		}
+
 	}
 	
 }
