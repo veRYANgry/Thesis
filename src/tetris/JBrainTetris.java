@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Random;
 import boardrater.*;
+
 import javax.swing.Box;
 import javax.swing.JCheckBox;
 
@@ -20,10 +21,11 @@ import javax.swing.JCheckBox;
  */
 public class JBrainTetris extends JTetris {
 	private static final long serialVersionUID = 1L;
-
+	BoardRater boardRater = new FinalRater();
 	public NetBrain mBrain;
 	private Move mMove;
 	protected javax.swing.Timer timerAI;
+	int movetime = 0;
 	int current_count = -1;
 
 	/** Creates new JBrainTetris */
@@ -78,16 +80,24 @@ public class JBrainTetris extends JTetris {
 					.getHeight()
 					- TetrisController.TOP_SPACE);
 
-
-				if (!tc.currentMove.piece.equals(tempMove.piece)) { 
-					tc.tick(TetrisController.ROTATE);
-				} 
-				if (tc.currentMove.x != tempMove.x) {
-					tc.tick(((tc.currentMove.x < tempMove.x) ? TetrisController.RIGHT : TetrisController.LEFT));
-				} 
-			tc.tick(TetrisController.DOWN);
+		if (!tc.currentMove.piece.equals(tempMove.piece)) { 
+			movetime++;
+			tc.tick(TetrisController.ROTATE);
+		} 
+		if (tc.currentMove.x != tempMove.x) {
+			movetime++;
+			tc.tick(((tc.currentMove.x < tempMove.x) ? TetrisController.RIGHT : TetrisController.LEFT));
+			if(movetime > 8) {
+				tc.tick(TetrisController.DOWN);
+				movetime = 0;
+			}
 			
-
+		}else {
+			tc.tick(TetrisController.DOWN);
+			movetime = 0;
+		}
+			
+		System.out.println("board is rated :" + boardRater.rateBoard(tc.board)); 
 		
 		
 		if (!tc.gameOn) {

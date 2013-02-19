@@ -22,18 +22,24 @@ public class NetBrain implements Brain {
 	
 	public Move netMove(Board board, Move move, Piece nextPiece,
 			int limitHeight) {
+		
+		int eyewidth = 11;
+		int eyedepth = 5;
 		NetworkOutputSet opSet;
 		MarioInput ip;
 		boolean[][] grid;
 		double[] op;
-		double[] inputs = new double[board.height * board.width + 16];
+		double[] inputs = new double[eyewidth * eyedepth + 16];
 		
 		
 		grid = board.grid;
 		//copy over entire board
-		for(int i = 0;i < board.height ; i++){
-			for(int j = 0;j < board.width ; j++){
-				inputs[i * board.width + j ] = grid[j][i] ? 1 : 0;
+		for(int x =  move.x - 5;x < move.x + 6 ; x++){
+			for(int y = move.y;y > move.y - eyedepth ; y--){
+				if(y < board.height && x < board.width && x >= 0 && y >= 0)
+					inputs[(move.y - y )* eyewidth + (x - move.x + 5)] = grid[x][y] ? 1 : 0;
+				else
+					inputs[(move.y - y )* eyewidth + (x - move.x + 5)] = 1;
 			}
 		}
 		
@@ -44,9 +50,8 @@ public class NetBrain implements Brain {
 		
 		for(Point t : pieceParts){
 			//copy an image of the piece
-			inputs[board.height * board.width + t.x + t.y * 4] =  1;
-			//copy the piece to the board
-			inputs[t.x + t.y * board.width + move.x + move.y * board.width] = 1;
+			inputs[eyewidth * eyedepth + t.x + t.y * 4] = 1;
+
 		}
 		
 		

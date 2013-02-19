@@ -46,6 +46,9 @@ import javax.swing.JCheckBox;
 
 import junit.framework.Test;
 
+import org.jfree.data.xy.XYDataset;
+import org.jfree.data.xy.XYSeries;
+import org.jfree.data.xy.XYSeriesCollection;
 import org.neat4j.core.AIConfig;
 import org.neat4j.core.InitialisationFailedException;
 import org.neat4j.neat.applications.gui.NEATFrame;
@@ -162,6 +165,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 	////////////
 	Vector<runStatistics> levelStat = new Vector<runStatistics>();
 	static int selectedRun;
+	static XYSeriesCollection dataset;
 	
 	////////////
 	//AutoRun stuff
@@ -192,6 +196,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
         options.setVisualization(false);
         task = new ProgressTask(options);
     	seed = rand.nextInt();
+    	dataset = new XYSeriesCollection();
     	
 		configs.updateConfig("INPUT.NODES" , Integer.toString((Vision.XVisionStart - Vision.XVisionEnd) * (Vision.YVisionStart - Vision.YVisionEnd) +  extraFeatures));
 
@@ -329,7 +334,18 @@ public class realtimeInterface extends JFrame implements ActionListener {
 			SpecDataTable.updateUI();
 			
 			////////////////Stats gathering /////////////
+			
+			if(dataset.getSeries().size() < runNumber){
+				dataset.addSeries(new XYSeries(runNumber));
+			}
+				
+			XYSeries tempset = (XYSeries) dataset.getSeries().get(runNumber - 1);
+			
+			tempset.add(GenNumber , ga.genBest());
+			
 			runStatistics run = levelStat.get(runNumber - 1);
+			
+			
 			if(ga.discoverdBestMember() != null)
 				if(run.getBestFitness() != ga.discoverdBestMember().fitness()){
 					run.setBestFitness(ga.discoverdBestMember().fitness());
@@ -432,8 +448,12 @@ public class realtimeInterface extends JFrame implements ActionListener {
         runPanel.setLayout(new FlowLayout());
         JPanel optionsPanel = new JPanel(false);
         optionsPanel.setLayout(new FlowLayout());
+        JPanel graphPanel = new JPanel(false);
+        graphPanel.setLayout(new FlowLayout());
+        
         tabbedPane.add("Run Info" , runPanel);
         tabbedPane.add("Options" , optionsPanel);
+        tabbedPane.add("Graph" , graphPanel);
         
 		Container content = this.getContentPane();
 	    content.setLayout(new FlowLayout());
@@ -455,6 +475,10 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		runPanel.add(StackPanel);
 		
 		GeneInfo(StackPanel);
+		
+		chartFitness fitnessChart = new chartFitness(dataset);
+		
+		graphPanel.add(fitnessChart.chartPanel);
 		
 		JPanel SidePanel = new JPanel(new GridLayout(0, 1));
 		StatisticBox(SidePanel);

@@ -19,32 +19,43 @@ import boardrater.*;
 public class BrainScorer {
 
 	public int seed = new Random(System.currentTimeMillis()).nextInt();
+	BoardRater boardRater = new FinalRater();
 	
 	public double rate(NetBrain brain){
 		
 		TetrisController tc = new TetrisController();
 		tc.startGame(seed);
-		
+		int movetime = 0;
 		while (tc.gameOn) {
 			Move tempMove;
+			
 			tempMove = brain.netMove(new Board(tc.board),
 					tc.currentMove, tc.nextPiece, tc.board
 					.getHeight()
 					- TetrisController.TOP_SPACE);
 				
-				if (!tc.currentMove.piece.equals(tempMove.piece)) { 
-					tc.tick(TetrisController.ROTATE);
-				} 
-				if (tc.currentMove.x != tempMove.x) {
-					tc.tick(((tc.currentMove.x < tempMove.x) ? TetrisController.RIGHT : TetrisController.LEFT));
-				} 
-
+			if (!tc.currentMove.piece.equals(tempMove.piece)) { 
+				movetime++;
+				tc.tick(TetrisController.ROTATE);
+			} 
+			if (tc.currentMove.x != tempMove.x) {
+				movetime++;
+				tc.tick(((tc.currentMove.x < tempMove.x) ? TetrisController.RIGHT : TetrisController.LEFT));
+				if(movetime > 8) {
+					tc.tick(TetrisController.DOWN);
+					movetime = 0;
+				}
+				
+			}else {
 				tc.tick(TetrisController.DOWN);
+				movetime = 0;
+			}
+			if(tc.count > 100)
+				break;
 				
 
 		}
-
-		return tc.count + tc.rowsCleared * 100;
+		return  tc.count + tc.rowsCleared * 100 + boardRater.rateBoard(tc.board);
 	}
 	
 	public void demo(NetBrain brain){
