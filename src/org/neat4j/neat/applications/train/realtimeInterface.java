@@ -341,7 +341,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 				
 			XYSeries tempset = (XYSeries) dataset.getSeries().get(runNumber - 1);
 			
-			tempset.add(GenNumber , ga.genBest());
+			tempset.add(GenNumber , ga.GetSpecies().totalAvSpeciesFitness());
 			
 			runStatistics run = levelStat.get(runNumber - 1);
 			
@@ -726,11 +726,17 @@ public class realtimeInterface extends JFrame implements ActionListener {
 					Chromosome tempChrome = ga.generationBest();
 					switch(runType){
 					case 0:
-						Thread threadworker = new ThreadDemo(tempChrome, difficulty,
-								new MarioAIOptions(), Vision,
-								gam, configs,LevelModeIndex,
-								seed, levelName);
-						threadworker.start();
+						if(levelQueue != null){
+							Thread threadworker = new ThreadDemo(tempChrome, Vision,
+                                    gam, configs, task);
+							threadworker.start();
+						}else{
+							Thread threadworker = new ThreadDemo(tempChrome, difficulty,
+									new MarioAIOptions(), Vision,
+									gam, configs,LevelModeIndex,
+									seed, levelName);
+							threadworker.start();
+						}
 						break;
 					case 1:
 						Thread threadworker2 = new ThreadDemoTetris(gam, configs,tempChrome);

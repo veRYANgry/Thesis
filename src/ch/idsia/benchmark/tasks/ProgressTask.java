@@ -55,6 +55,7 @@ private int uniqueSeed;
 private int fitnessEvaluations = 0;
 
 public int uid;
+public boolean showDemo = false;
 private String fileTimeStamp = "-uid-" + uid + "-" + options.globalOptions.getTimeStamp();
 
 private double DistanceHeuristic = 1, MushroomHeuristic = 0, FlowerHeuristic = 0,  CoinsHeuristic = 0, StompKillsHeuristic = 200,ShellKillHeuristic = 500;
@@ -136,12 +137,11 @@ private double[] evaluateSingleLevel(int ld, int tl, int ls, boolean vis, Agent 
     options.setMarioMode(0);
     
     options.setAgent(controller);
-//        options.setLevelDifficulty(ld);
-//        options.setTimeLimit(tl);
-//        options.setLevelRandSeed(ls);
-//        options.setVisualization(vis);
-//        options.setFPS(vis ? 42 : 100);
-//        this.setAgent(controller);
+    
+    if(this.showDemo){
+    	options.setFPS(32);
+		options.setVisualization(true);
+    }
 
     this.setOptionsAndReset(options);
     this.runSingleEpisode(1);

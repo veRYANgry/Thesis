@@ -29,7 +29,7 @@ public class ThreadDemo extends Thread {
 	private int LevelModeIndex;
 	private int seed;
 	private String levelName;
-	private Vector<MarioAIOptions> levelQueue;
+	private ProgressTask task;
 
 	public ThreadDemo(Chromosome tempChrome, int difficulty,
 			MarioAIOptions workerOptions, VisionBound vision,
@@ -47,21 +47,16 @@ public class ThreadDemo extends Thread {
 		this.levelName = levelName;
 	}
 
-	public ThreadDemo(Chromosome tempChrome, int difficulty,
+	public ThreadDemo(Chromosome tempChrome,
 			VisionBound vision, NEATGATrainingManager gam, AIConfig config,
-			int levelModeIndex, int seed, String levelName,
-			Vector<MarioAIOptions> levelQueue) {
+			ProgressTask task) {
 		super();
 		this.tempChrome = tempChrome;
-		this.difficulty = difficulty;
 
 		Vision = vision;
 		this.gam = gam;
 		this.config = config;
-		LevelModeIndex = levelModeIndex;
-		this.seed = seed;
-		this.levelName = levelName;
-		this.levelQueue = levelQueue;
+		this.task = task.clone();
 	}
 
 	@Override
@@ -75,7 +70,8 @@ public class ThreadDemo extends Thread {
 			setOptions(WorkerOptions);
 			WorkerTask = new ProgressTask(WorkerOptions);
 		} else {
-			WorkerTask = new ProgressTask(levelQueue);
+			WorkerTask = task;
+			task.showDemo = true;
 		}
 
 		NeuralNet nets = null;

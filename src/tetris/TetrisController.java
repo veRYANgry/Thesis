@@ -190,7 +190,7 @@ public class TetrisController {
 	 set in startGame().
 	 */
 	public DisplayPiece pickNextPiece() {	
-		return pieces[random.nextInt(2)];
+		return pieces[random.nextInt(3)];
 	}
 
 	/**
