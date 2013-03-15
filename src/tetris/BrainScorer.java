@@ -23,6 +23,19 @@ public class BrainScorer {
 	
 	public double rate(NetBrain brain){
 		
+		
+		double score = 0;
+		
+		score += scoreBrain(seed,brain);
+		score += scoreBrain(0,brain);
+		score += scoreBrain(2,brain);
+		score += scoreBrain(4,brain);
+		
+		return  score;
+	}
+	
+	private double scoreBrain(int seed,NetBrain brain ){
+		
 		TetrisController tc = new TetrisController();
 		tc.startGame(seed);
 		int movetime = 0;
@@ -55,7 +68,8 @@ public class BrainScorer {
 				
 
 		}
-		return  tc.count + tc.rowsCleared * 100 + boardRater.rateBoard(tc.board);
+		return  tc.count * 10 + tc.rowsCleared * 100 + boardRater.rateBoard(tc.board);
+		
 	}
 	
 	public void demo(NetBrain brain){

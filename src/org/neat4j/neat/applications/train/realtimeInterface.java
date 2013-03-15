@@ -166,6 +166,8 @@ public class realtimeInterface extends JFrame implements ActionListener {
 	Vector<runStatistics> levelStat = new Vector<runStatistics>();
 	static int selectedRun;
 	static XYSeriesCollection dataset;
+	static XYSeriesCollection Bestdataset;
+	static XYSeriesCollection Speciesdataset;
 	
 	////////////
 	//AutoRun stuff
@@ -197,6 +199,8 @@ public class realtimeInterface extends JFrame implements ActionListener {
         task = new ProgressTask(options);
     	seed = rand.nextInt();
     	dataset = new XYSeriesCollection();
+    	Bestdataset = new XYSeriesCollection();
+        Speciesdataset = new XYSeriesCollection();
     	
 		configs.updateConfig("INPUT.NODES" , Integer.toString((Vision.XVisionStart - Vision.XVisionEnd) * (Vision.YVisionStart - Vision.YVisionEnd) +  extraFeatures));
 
@@ -337,15 +341,23 @@ public class realtimeInterface extends JFrame implements ActionListener {
 			
 			if(dataset.getSeries().size() < runNumber){
 				dataset.addSeries(new XYSeries(runNumber));
+				Bestdataset.addSeries(new XYSeries(runNumber));
+		        Speciesdataset.addSeries(new XYSeries(runNumber));
 			}
 				
 			XYSeries tempset = (XYSeries) dataset.getSeries().get(runNumber - 1);
-			
 			tempset.add(GenNumber , ga.GetSpecies().totalAvSpeciesFitness());
+
+			
+			tempset = (XYSeries) Bestdataset.getSeries().get(runNumber - 1);
+			tempset.add(GenNumber , ga.genBest());
+	
+			
+			tempset = (XYSeries) Speciesdataset.getSeries().get(runNumber - 1);
+			tempset.add(GenNumber , ga.GetSpecies().specieList().size());
+			
 			
 			runStatistics run = levelStat.get(runNumber - 1);
-			
-			
 			if(ga.discoverdBestMember() != null)
 				if(run.getBestFitness() != ga.discoverdBestMember().fitness()){
 					run.setBestFitness(ga.discoverdBestMember().fitness());
@@ -458,6 +470,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		Container content = this.getContentPane();
 	    content.setLayout(new FlowLayout());
 	    
+	    
 	    content.add(tabbedPane);
 	    
 	    JPanel GridPanel = new JPanel(new FlowLayout());
@@ -476,9 +489,8 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		
 		GeneInfo(StackPanel);
 		
-		chartFitness fitnessChart = new chartFitness(dataset);
+	    Graphs(graphPanel);
 		
-		graphPanel.add(fitnessChart.chartPanel);
 		
 		JPanel SidePanel = new JPanel(new GridLayout(0, 1));
 		StatisticBox(SidePanel);
@@ -499,6 +511,38 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		this.pack();
 
 	}
+	
+	public void Graphs(final Container content){
+		
+        JTabbedPane tabbedPane = new JTabbedPane();
+        
+        
+        JPanel BestPanel = new JPanel(false);
+        BestPanel.setLayout(new FlowLayout());
+        
+        JPanel SpeciesPanel = new JPanel(false);
+        SpeciesPanel.setLayout(new FlowLayout());
+        
+        JPanel FitPanel = new JPanel(false);
+        BestPanel.setLayout(new FlowLayout());
+        
+        tabbedPane.add("Best Fitness" , BestPanel);
+        tabbedPane.add("Number of species" , SpeciesPanel);
+        tabbedPane.add("Total Fitness" , FitPanel);
+        
+        content.add(tabbedPane);
+        
+		chartFitness fitnessChart = new chartFitness(dataset, "Total fitness", "Generation", "Fitness");
+		FitPanel.add(fitnessChart.chartPanel);
+		
+		chartFitness bestFitnessChart = new chartFitness(Bestdataset, "Best fitness", "Generation", "Fitness");
+		BestPanel.add(bestFitnessChart.chartPanel);
+		
+		chartFitness speciesChart = new chartFitness(Speciesdataset, "Number of species", "Generation", "Species");
+		SpeciesPanel.add(speciesChart.chartPanel);
+		
+	}
+	
 	
 	public void Gamemode(final Container content){
 		//chromosome data
@@ -998,7 +1042,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		RemoveLevelButton.addActionListener(new  ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				int RecentClicked = queueDataTable.getSelectedRow();
-				if(RecentClicked < levelQueue.size())
+				if(RecentClicked < levelQueue.size() && RecentClicked >= -1)
 					levelQueue.remove(RecentClicked);
 				setQueueLevels();
 			}

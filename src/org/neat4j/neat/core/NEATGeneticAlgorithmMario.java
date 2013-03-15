@@ -393,16 +393,16 @@ public class NEATGeneticAlgorithmMario implements GeneticAlgorithm , Serializabl
 		if(this.descriptor.isDynamicSpeciation()){
 		    if (validSpecieList.size() > this.descriptor.getSpecieCount()) {
 		    	if(DynamicSpeciationThresh < 0)
-		    		DynamicSpeciationThresh = .1;
+		    		DynamicSpeciationThresh = .001;
 		    	this.descriptor.setThreshold(this.descriptor.getThreshold() + DynamicSpeciationThresh);
 				DynamicSpeciationThresh = DynamicSpeciationThresh * 2;
 		    } else if(validSpecieList.size() < this.descriptor.getSpecieCount() ){
 		    	if(DynamicSpeciationThresh > 0)
-		    		DynamicSpeciationThresh = -.1;
+		    		DynamicSpeciationThresh = -.001;
 		    	this.descriptor.setThreshold(this.descriptor.getThreshold() + DynamicSpeciationThresh);
 				DynamicSpeciationThresh = DynamicSpeciationThresh * 2;
 		    } else{
-		    	DynamicSpeciationThresh = .1;
+		    	DynamicSpeciationThresh = .001;
 		    }
 		}else
 		{

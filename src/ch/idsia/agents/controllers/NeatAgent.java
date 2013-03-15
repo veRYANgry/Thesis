@@ -92,11 +92,11 @@ public class NeatAgent extends BasicMarioAIAgent implements Agent {
 				inputs[which++] = probe(i, j, scene);
 			}
 		}
-		if(pulse == 0)
-			pulse = 1;
-		else
-			pulse = 0;
-		inputs[inputs.length - 1] = pulse;
+//		if(pulse == 0)
+//			pulse = 1;
+//		else
+//			pulse = 0;
+		inputs[inputs.length - 1] = isMarioCarrying ? 1 : 0;
 		inputs[inputs.length - 2] = 0;
 		//inputs[inputs.length - 5] = marioMode == 0 ? 1 : 0;
 		//inputs[inputs.length - 1] = isMarioCarrying ? 1 : 0;

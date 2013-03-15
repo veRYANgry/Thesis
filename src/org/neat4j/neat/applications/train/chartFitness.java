@@ -27,14 +27,18 @@ public class chartFitness {
 	public ChartPanel chartPanel;
 	private JFreeChart chart;
 	private XYSeriesCollection dataset;
+	private String title, xAxis , yAxis;
 	
 	
 	
-    public chartFitness(XYSeriesCollection dataset) {
+    public chartFitness(XYSeriesCollection dataset , String title, String xAxis, String yAxis ) {
 		super();
 		this.dataset = dataset;
 		chart  = createChart(this.dataset);
 		chartPanel = createDemoPanel();
+		this.title = title;
+		this.xAxis = xAxis;
+		this.yAxis = yAxis;
 	}
 
 	public ChartPanel createDemoPanel() {
@@ -48,9 +52,9 @@ public class chartFitness {
     private JFreeChart createChart(XYDataset dataset) {
 
         JFreeChart chart = ChartFactory.createXYLineChart(
-            "Fitness vs Generation",  // title
-            "Generation",             // x-axis label
-            "Fitness",   // y-axis label
+        		title,  // title
+        		xAxis,             // x-axis label
+        		yAxis,   // y-axis label
             dataset,            // data
             PlotOrientation.VERTICAL,
             true,               // create legend?

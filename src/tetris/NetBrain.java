@@ -23,23 +23,23 @@ public class NetBrain implements Brain {
 	public Move netMove(Board board, Move move, Piece nextPiece,
 			int limitHeight) {
 		
-		int eyewidth = 11;
+		int eyewidth = 7;
 		int eyedepth = 5;
 		NetworkOutputSet opSet;
 		MarioInput ip;
 		boolean[][] grid;
 		double[] op;
-		double[] inputs = new double[eyewidth * eyedepth + 16];
+		double[] inputs = new double[eyewidth * eyedepth + 16 + 6];
 		
 		
 		grid = board.grid;
 		//copy over entire board
-		for(int x =  move.x - 5;x < move.x + 6 ; x++){
+		for(int x =  move.x - 3;x < move.x + 4 ; x++){
 			for(int y = move.y;y > move.y - eyedepth ; y--){
 				if(y < board.height && x < board.width && x >= 0 && y >= 0)
-					inputs[(move.y - y )* eyewidth + (x - move.x + 5)] = grid[x][y] ? 1 : 0;
+					inputs[(move.y - y )* eyewidth + (x - move.x + 3)] = grid[x][y] ? 1 : 0;
 				else
-					inputs[(move.y - y )* eyewidth + (x - move.x + 5)] = 1;
+					inputs[(move.y - y )* eyewidth + (x - move.x + 3)] = 1;
 			}
 		}
 		
@@ -54,18 +54,21 @@ public class NetBrain implements Brain {
 
 		}
 		
+		for(int i = 0; i < 6; i++){
+			inputs[eyewidth * eyedepth + 16 + i] =  move.y > i ? 1 : 0;
+		}
 		
 //		System.out.println("<-<");
-//		for(int i = 0;i < board.height ; i++){
-//			for(int j = 0;j < board.width ; j++){
-//				if(inputs[i * board.width + j ] > .6)
+//		for(int i = 0;i < eyedepth ; i++){
+//			for(int j = 0;j <eyewidth ; j++){
+//				if(inputs[i * eyewidth + j ] > .6)
 //				System.out.print("0");
 //				else
 //				System.out.print("_");
 //			}
 //			System.out.println();
 //		}
-		
+//		
 		
 		ip = new MarioInput();
 
