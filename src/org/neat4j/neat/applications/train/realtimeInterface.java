@@ -11,7 +11,10 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
@@ -541,6 +544,91 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		chartFitness speciesChart = new chartFitness(Speciesdataset, "Number of species", "Generation", "Species");
 		SpeciesPanel.add(speciesChart.chartPanel);
 		
+		JButton b1 = new JButton("Save graph");
+		b1.addActionListener(new  ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				for(int i = 0; i < dataset.getSeries().size();i++){
+					
+					XYSeries  temp = (XYSeries) dataset.getSeries().get(i);
+					FileWriter fstream;
+					try {
+						fstream = new FileWriter(System.currentTimeMillis() + "" + i +  "totalfitdataset.txt");
+						BufferedWriter out = new BufferedWriter(fstream);
+					
+					for(int j = 0; j < temp.getItems().size();j++){
+						out.append(temp.getX(j).toString());
+						out.append("  ");
+						out.append(temp.getY(j).toString());
+						out.append("\n");
+					}
+					out.close();
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					
+				}
+			}
+		});
+		FitPanel.add(b1);
+		
+		
+		
+		JButton b2 = new JButton("Save graph");
+		b2.addActionListener(new  ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				for(int i = 0; i < Bestdataset.getSeries().size();i++){
+					
+					XYSeries  temp = (XYSeries) Bestdataset.getSeries().get(i);
+					FileWriter fstream;
+					try {
+						fstream = new FileWriter(System.currentTimeMillis() + "" + i +  "Bestdataset.txt");
+						BufferedWriter out = new BufferedWriter(fstream);
+					
+					for(int j = 0; j < temp.getItems().size();j++){
+						out.append(temp.getX(j).toString());
+						out.append("  ");
+						out.append(temp.getY(j).toString());
+						out.append("\n");
+					}
+					out.close();
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					
+				}
+			}
+		});
+		BestPanel.add(b2);
+		
+		JButton b3 = new JButton("Save graph");
+		b3.addActionListener(new  ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				for(int i = 0; i < Speciesdataset.getSeries().size();i++){
+					
+					XYSeries  temp = (XYSeries) Speciesdataset.getSeries().get(i);
+					FileWriter fstream;
+					try {
+						fstream = new FileWriter(System.currentTimeMillis() + "" + i +  "Speciesdataset.txt");
+						BufferedWriter out = new BufferedWriter(fstream);
+					
+					for(int j = 0; j < temp.getItems().size();j++){
+						out.append(temp.getX(j).toString());
+						out.append("  ");
+						out.append(temp.getY(j).toString());
+						out.append("\n");
+					}
+					out.close();
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					
+				}
+			}
+		});
+		SpeciesPanel.add(b3);
 	}
 	
 	
