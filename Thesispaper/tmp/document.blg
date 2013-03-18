@@ -1,0 +1,55 @@
+This is BibTeX, Version 0.99d (TeX Live 2012/Debian)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: document.aux
+The style file: abbrv.bst
+Illegal, another \bibstyle command---line 71 of file document.aux
+ : \bibstyle
+ :          {plain}
+I'm skipping whatever remains of this command
+Database file #1: references.bib
+Warning--entry type for "tetris" isn't style-file defined
+--line 8 of file references.bib
+Warning--to sort, need author or key in tetris
+Warning--empty year in Revello
+You've used 11 entries,
+            2118 wiz_defined-function locations,
+            567 strings with 5641 characters,
+and the built_in function-call counts, 3781 in all, are:
+= -- 382
+> -- 134
+< -- 6
++ -- 56
+- -- 42
+* -- 241
+:= -- 584
+add.period$ -- 32
+call.type$ -- 11
+change.case$ -- 53
+chr.to.int$ -- 0
+cite$ -- 13
+duplicate$ -- 162
+empty$ -- 318
+format.name$ -- 42
+if$ -- 834
+int.to.chr$ -- 0
+int.to.str$ -- 11
+missing$ -- 8
+newline$ -- 56
+num.names$ -- 20
+pop$ -- 59
+preamble$ -- 1
+purify$ -- 43
+quote$ -- 0
+skip$ -- 137
+stack$ -- 0
+substring$ -- 261
+swap$ -- 55
+text.length$ -- 6
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 44
+warning$ -- 2
+while$ -- 35
+width$ -- 13
+write$ -- 120
+(There was 1 error message)

@@ -35,10 +35,10 @@ public class chartFitness {
 		super();
 		this.dataset = dataset;
 		chart  = createChart(this.dataset);
-		chartPanel = createDemoPanel();
 		this.title = title;
 		this.xAxis = xAxis;
 		this.yAxis = yAxis;
+		chartPanel = createDemoPanel();
 	}
 
 	public ChartPanel createDemoPanel() {
@@ -50,11 +50,10 @@ public class chartFitness {
     }
     
     private JFreeChart createChart(XYDataset dataset) {
-
         JFreeChart chart = ChartFactory.createXYLineChart(
-        		title,  // title
-        		xAxis,             // x-axis label
-        		yAxis,   // y-axis label
+        		this.title,  // title
+        		this.xAxis,             // x-axis label
+        		this.yAxis,   // y-axis label
             dataset,            // data
             PlotOrientation.VERTICAL,
             true,               // create legend?

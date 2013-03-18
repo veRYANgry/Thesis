@@ -1,0 +1,622 @@
+\documentclass[12pt]{ucthesis} \newif\ifpdf \ifx\pdfoutput\undefined
+    \pdffalse % we are not running PDFLaTeX
+\else \pdfoutput=1 % we are running PDFLaTeX \pdftrue \fi
+\usepackage{url}
+\ifpdf
+    \usepackage[pdftex]{graphicx}
+    % Update title and author below...
+    \usepackage[pdftex,plainpages=false,breaklinks=true,colorlinks=true,urlcolor=blue,citecolor=blue,%
+                                       linkcolor=blue,bookmarks=true,bookmarksopen=true,%
+                                       bookmarksopenlevel=3,pdfstartview=FitV,
+                                       pdfauthor={__author__},
+                                       pdftitle={___Your_title_here___},
+                                       pdfkeywords={thesis, masters} ]{hyperref}
+    % Options with pdfstartview are FitV, FitB and FitH
+    \pdfcompresslevel=1
+\else
+    \usepackage{graphicx}
+\fi
+
+\usepackage{longtable}
+\usepackage{float}
+\usepackage{amssymb}
+\usepackage{amsmath}        % need for equations
+\usepackage[letterpaper]{geometry} \usepackage[overload]{textcase}
+\usepackage{graphicx}        % standard LaTeX graphics tool \usepackage{subfig} 
+        % when including figure files
+
+\newcommand{\thickhline}{\noalign{\hrule height 1.0pt}}
+\newcommand{\tab}{$\hspace{6pt}$}
+\newcommand{\mathbi}[1]{\textbf{\em #1}}
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\bibliographystyle{abbrv}
+
+\setlength{\parindent}{0.25in} \setlength{\parskip}{6pt}
+
+\geometry{verbose,nohead,tmargin=1.25in,bmargin=1in,lmargin=1.5in,rmargin=1.3in}
+
+\setcounter{tocdepth}{2}
+
+% Different font in captions (single-spaced, bold) ------------
+\newcommand{\captionfonts}{\small\bf\ssp}
+
+\makeatletter  % Allow the use of @ in command names
+\long\def\@makecaption#1#2{%
+  \vskip\abovecaptionskip \sbox\@tempboxa{{\captionfonts #1: #2}}% \ifdim
+  \wd\@tempboxa >\hsize
+    {\captionfonts #1: #2\par}
+  \else
+    \hbox to\hsize{\hfil\box\@tempboxa\hfil}%
+  \fi \vskip\belowcaptionskip}
+\makeatother   % Cancel the effect of \makeatletter
+% ---------------------------------------
+
+\begin{document}
+
+\title{___Your_title_here___}
+
+\author{Ryan De Haven}
+\degreemonth{December} \degreeyear{2013} \degree{Master of Science}
+\defensemonth{October} \defenseyear{2013}
+\numberofmembers{3} \chair{Dr. Christopher M. Clark} \othermemberA{Dr. Zo\"{e} Wood} \othermemberB{Dr. Christopher Lupo} \field{Computer Science} \campus{San Luis Obispo} 
+\copyrightyears{thirteen}
+
+
+\maketitle
+
+\begin{frontmatter}
+
+% Custom made for Cal Poly (by Mark Barry).
+\copyrightpage
+
+% Custom made for Cal Poly (by Mark Barry).
+\approvalpage
+
+ 
+\begin{abstract}
+This paper discusses a modification to improve usability and functionality to a
+genetic neural net algorithm called NEAT. The modification aims to accomplish
+its goal by automatically changing parameters used by the algorithm with little
+input from a user. The advantage of the modification is to reduce the guesswork
+needed to setup a successful experiment with NEAT that produces a usable AI.
+
+The modified algorithm is tested against the vanilla NEAT with several different
+setups and the results discussed. The algorithm shows strengths in some areas
+but can increase the runtime of NEAT due to addition of parameters into the
+solution search space.
+
+\end{abstract}
+
+\begin{acknowledgements}
+
+\end{acknowledgements}
+
+\addcontentsline{toc}{chapter}{Contents}
+\tableofcontents
+
+\listoftables
+
+\listoffigures
+
+\end{frontmatter}
+
+\pagestyle{plain}
+
+\renewcommand{\baselinestretch}{1.66}
+
+
+\chapter{Introduction}
+
+
+
+\chapter{Background or Related Works}
+
+
+\section{Genetic algorithms}
+
+Genetic algorithms (GAs) are a system that builds up solutions to a problem
+space. GAs use a population of individuals that represent a solution to a given
+problem. These individuals consist of genome, a descriptions of different parts
+to a solution much like genetic data (DNA) in biology. Over many generations,
+GAs weed out bad solutions by only keeping genes from a top percent of the
+individuals. Most GAs use a method called crossover to mate two parent genomes
+selecting random genes and creating an offspring. GAs repeat the process of
+creating offspring until a solution of acceptable quality is found.
+
+Genetic algorithms show promise in the field of video games with research on
+genitic AI \cite{Revello,PengHuo,Chih-Sheng}. Ever since the begginging of
+genetic research with John H. Holland, applications of genetic algorithms have
+been expanding. The new application of GAs in Nueral network topology is
+presented in the algorithms of SANE \cite{moriarty:focus} , ESP
+\cite{gomez:proposal} , and GNARL \cite{Angeline}.
+
+
+\section{Galactic Arms Race}
+
+The Galactic Arms Race or GAR incorporates a type of NEAT for generating content
+in the game called cgNEAT.[4] In the game the player fights aliens and collects
+weapons to do so. The genetic algorithm cgNEAT generates the weapons the player
+can get based upon the ones that all players in the game are collecting and
+using. The neural networks created are compositional pattern producing networks
+that generate the way the weapons looks.[4]
+
+GAR starts the users in the game with a set of weapons that are “starter
+weapons” that are not in the genetic pool. Then players can find weapons spawned
+in the game world that are created by cgNEAT. Items that are picked up by
+players and used are then added to the population of offspring that will
+reproduce. An example of a weapon evolving the game of GAR is shown below.[4]
+
+Due to players picking weapons that work better for them, it can be seen that
+later generation perform better than earlier generations as seen above. GAR
+shows promising development for genetic algorithms that can create usable
+content.
+
+\section{Neural genetic agents: NERO}
+
+Neuro-Evolving Robotic Operatives or NERO for short, is a game based on the
+rtNEAT implementation of NEAT.[5] In the NERO game the player trains and uses
+robot units to complete certain tasks. The main part of the game play is
+defending and capturing towers against another team of trained robots.
+
+The most interesting aspect of NERO and rtNEAT is that the agents are created in
+real time. This means that during training or gameplay agents will be removed
+and replaced with new neural nets derived from species in the given population.
+rtNEAT only selects parents for new agents from those that are old enough to
+have been evaluated. This avoids the problem of removing the fit from the
+population due to improper evaluation.
+
+Training mode in NERO involves giving the player 50 units to run through a
+course defined by the player. The player sets a spawn point for the robots where
+they will have to move from and complete a certain task. After a set amount of
+time the robots will be restarted from the spawn point with a new brain. The
+restart is to make sure that no robot is at an advantage when it has its brain
+replaced. As with the original NEAT neural nets for the initial robots start
+with a randomly connected topology. The outputs and inputs default to a simple
+approach with only 3 outputs and 13 inputs as shown in figure 6.
+
+Players could set up different scenarios using obstacles such as turrets and
+walls. The player would then give the robots a fitness score based on certain
+performances of the robot. By training agents to do different tasks a player
+could assemble a team of robots to face against another team.
+
+By allowing real time replacement the user can see clearly how the training is
+affecting the algorithm and is improving the intelligence of the agents. For
+this reason, NERO is a great way to learn about genetic algorithms and neural
+net evolution.
+
+\section{Artiﬁcial Neural Networks}
+
+Neural networks aim to simulate the way the brain works by connecting neurons as
+nodes to each other using links. In a brain the cells perform some operation on
+the incoming signals and then send out signals to other neurons.
+Neural networks have shown themselves to be useful for memorizing patterns and
+solving parallel logic. Neural nets have shown promise in image recognition from
+the beginning of its research \cite{lippmann}. Studies on animals have shown
+that fully connected neural networks are what helps cats’ eyes recognized shapes
+\cite{hubel1959receptive}.
+Neural networks are made up of layers of nodes that feed into each other.
+Usually the input nodes are the first layer that feed to the next layer and so
+on until the output nodes are reached. Input and Output nodes are connected to
+the program that is running the network and are ultimately what runs the AI.
+There are different types of neural networks depending on the connections within
+them. Neural networks with links from nodes either at the same level or towards
+the input level are called recurrent networks. There are standard forms of
+connected neural nets where all nodes are fully connected between each level of
+nodes. NEAT does not follow this nor any other standard set of topology form,
+due to its ability to generate topology randomly. Connections in nonstandard
+graphs can connect from any level to any other level as long as they do not
+travel towards the input nodes, if they do they are nonstandard recurrent
+networks.
+he operation each node performs is a sum across all of its input nodes and an
+activation function using threshold logic, a binary function (on or off) or
+sigmoid function. In NEAT the nodes activation function is always a sigmoid
+function. The equation is described as in (insert equation).
+
+NEAT uses standard fitness sharing to determine how many individuals are to be
+created from each specie. Fitness sharing simply uses the fitness of the species
+over the total fitness of all individuals times the current population number to
+calculate the offspring for the specie.
+
+While neat uses simple genetic methods it uses a unique way of comparing
+structure that allow it to perform efficient evolution of topologies and is the
+reason it was chosen to study.
+
+\section{NEAT background}
+
+NEAT or NeuroEvolution of Augmenting Topologies  was originally developed in
+2002 and since then has been used in multiple games and developed extensively
+\cite{stanley:phd04}.NEAT is a compination of Neural nets and genetic algorithms
+to create an algorithm that build on a simple neural net and evolve it over many
+generations. NEAT evolves both the connection and weights on nodes incrementally
+improving the network. These type of algorithms are called Topology and Weight
+Evolving Artiﬁcial Neural Networks or TWEANNs. NEAT solves the problem of
+protecting newly created structures in its genome through speciation. This way
+topologies can be formed in their own specie and evolve without directly
+competing with other individuals outside their own specie. Most TWEANN’s do not
+use speciation due to the problem of fitting individuals into distinct species
+since grouping similar topologies is difficult. NEAT solves this problem by
+recording historical information about each new gene. Each new gene that is
+added is given a global innovation number. Each topological change can then be
+tracked by this number. Individuals are grouped into species by comparing each
+individuals connection and node genes. The comparison checks for genes that have
+the same innovation number in both genomes, the genes that do not match are
+called excess or disjoint genes. Excess genes are genes that fall beyond the
+innovation number of the last gene in the first genome being compared. Disjoint
+genes are merely the genes that do not match innovation numbers, but they
+numbered at or before the last innovation number in the first parent being
+compared. An example can be seen in  ~\ref{fig:parentgenes}.In order to fit
+individual members into species, each member is compared with previous
+representatives for each past specie. These representatives are chosen at random
+from the past generation. The individual is placed into the first specie
+possible if the calculated value of (insert EQ) falls below a certain threshold
+parameter delta , where E are the number of excess genes, D is the number of
+disjoint genes, and N is the number of genes in the larger genome. Constants c1
+- c2 determine how much each each variable affects the comparison. If there is
+no match when comparing all of the previous species then a new specie is created
+and the individual is added to that specie.
+
+\section{Mario platform}
+Mario the famous Nintendo game, Super Mario Bros.  The platform
+that is used in this paper is called Mario AI benchmark and has been used in
+numerous competitions \cite{karakovskiy2012mario}. The platform was chosen as a
+testbed due to being easily be able to benchmark and compare results on a well
+known game. The platform allows for randomly generated, allowing for variety of
+difficulty. The difficulty can range from a flat level with no pits to large
+pits. The Mario AI benchmark supplies an API that makes it easy to interact
+using an AI. The API can supply the AI positions of enemies, blocks, and states
+that the Mario sprite is in. The grid layout that represents the Mario sprites
+vision is shown in ~\ref{fig:mariogrid}. The agent interface supplies a method
+that outputs Mario’s buttons presses for each 40ms frame. The allowed buttons
+are A (jump) , B (run / grab shell) , and the directionals : left, right, up,
+and down. The benchmark records scores on distance traveled, kills, and items
+collected so these scores can be used in heuristics and benchmarking.
+
+\section{Tetris platform}
+
+Tetris is one of the must successful and widely known games. It was created by
+Alexet Panitnov in 1984 in the soviet union. The gameplay of tetris is a puzzle
+game where the player must fit different shaped pieces to form lines of blocks.
+These blocks are then removed that the above blocks slide down. Game pieces are
+allowed to by rotated into 4 different rotations and move left and right.
+Application of Tetris in this paper use a Tetris clone developed by professors
+at Stanford for teaching students about AI. This platform was chosen due to the
+easy API developed for creating AI to work with Tetris. The coding platform lets
+the user define a generic size Tetris board represented by a grid of boolean
+values. The value of each cell in a grid shows if there is a tetris block place
+there or not.
+
+\begin{figure}[h!]
+  \caption{Mario, with his available cells of vision.}
+  \centering
+    \includegraphics[width=0.5\textwidth]{mariogrid.png}
+   \label{fig:mariogrid} 
+\end{figure}
+
+\chapter{Algorithm}
+
+In order to asses the difficulty of creating an AI interface for use in the NEAT
+environment, a Tetris game was reworked with NEAT and the difficulties were
+recorded. The Tetris game that was used came from a beginning programing class
+and had an interface for AI that most games would have before implementing any
+kind of neural nets \cite{tetris}. Before starting to code the interface between
+the Tetris AI and the genetic neural algorithm a few hypothesis were made:
+
+Writing the interface / test harness interface would be simple (only take one
+try) Tetris would perform well compared to normal AI provided
+
+Tetris only took a few hours to code into the testing harness that was already
+implemented. The most difficult part was changing the Tetris AI interface to
+accept suitable neural inputs and return some kind of vision to the AI. The AI
+originally was given a board state then asked for the best move given a piece
+and a next piece. The move was a position (x,y) and a rotation of the given
+piece. This was changed to better suit the neural net, giving it boolean inputs
+for the board and what the piece looked like. Instead of asking for a move for
+each piece the AI was asked for a move each cycle of the game, more like what a
+human would experience while playing. After making these changes, the Tetris AI
+was tested with the NEAT harness and was able to control the game.
+
+After testing Tetris with the initial inputs and outputs as the whole board, it
+became apparent that the AI was having trouble figuring out that it should be
+trying to place pieces to score lines. The AI would at best put pieces to the
+left then the right. This was due to the setup and shortsightedness of the
+programmer. Since the neural net had inputs for the whole board(10 by 20
+blocks), it was receiving over 200 inputs, much higher than that of the AI mario
+tests (around 50). In order to achieve a correct move, the neural net would have
+to memorize exact board states. With 200 inputs the genetic NEAT algorithm would
+have to randomly create weights for the connecting inputs. After 10 runs, the AI
+never scored higher than 1 line.
+
+The next implementation used a more roaming eye approach as described in
+\cite{stanley:phd04}. This approach helps simplify the amount of inputs by
+giving the AI a small moving subset of vision instead of the whole board. After
+implementing the modifications to the original AI a series of tests were run to
+see if there was improvement. Again, the AI failed to gain more than one line.
+
+In order to debug the program to find the reason for failure, I printed out the
+grid of vision each time the AI was run. I found a small error with converting a
+grid booleans to the neural inputs. After fixing the error, the AI still behaved
+poorly. For further testing, the Tetris pieces the AI was given during testing
+was set to only vertical bars. While observing the AI, I found it having trouble
+with the edges of the Tetris board. Vision outside of the tetris board had been
+set to empty in the AI code, giving the AI the apearance of a place to put the
+piece after it had discovered how to place lines. This problem was easily solved
+by filling the outside of the game area with filled in blocks (as if there were
+Tetris pieces filling it in).
+
+\section{NEAT interface}
+
+The genetic description about how to initialize the neural network and how to
+genetically change the individuals is loaded from a .ga file at startup. The
+file contains parameters for setting such as the genetic crossover rates and
+mutation rates. In order to simplify the testing process a GUI was created to
+automate the experiments, allow easily changing parameters, and observing
+collected data across runs.
+
+The created interface simplifies the testing process of neat and allows the user
+to change datasets (Mario levels) mid run and observe changes in species and
+individuals through lists of data. Demos can be run of any individual or
+individual with the best fitness that generation. These demos show the neural
+net structure described by the genome and runs the AI on the selected task of
+Tetris or Mario. The visualization code was supplied by the NEAT4j code base
+and an example can be seen in ~\ref{fig:simplemarionet}.
+These demos are threaded so they can be run while still performing the
+experiment.
+
+Each species present in the current run is displayed in a list showing the
+number of species. Selecting a specie shows the individuals in that specie.
+Selecting an individual shows each gene present in the genome and selected
+information for each gene. If a self-regulation gene is present in the genome
+then the contents of that gene are shown in a separate box. These information
+boxes are useful for debugging, especially for debugging the self regulation
+gene affect on the algorithm.
+
+Both the Tetris and Mario mode of the interface are threaded to decrease the
+runtime of long experiments. Only the testing phase of the genetic algorithm is
+multi threaded as this is where most of the runtime is located.
+
+For the Mario testing there is a level queue that allows setting up any number
+of levels at any difficulty.  Marios vision parameters can be changed as well as
+all the parameters as described in the NEAT4j section. Each run can be set to
+automatically restart at a set breakpoint of a number of generation or a maximum
+score reached.
+
+There is a graphing tab in the GUI interface that allows for viewing the total
+fitness of the population over a history of runs. The graph tool is useful for
+debugging changes to the NEAT algorithm as well as the AI interface between the
+neural net and the game it is controlling. For example, while creating the AI
+interface between tetris and the neural net there was a clear improvement when
+allowing the neural net to use the level of the current Tetris block as an
+input.
+
+\begin{figure}[h!]
+  \caption{An example of a nueral network demo}
+  \centering
+    \includegraphics[width=0.5\textwidth]{simplemarionet.png}
+   \label{fig:simplemarionet} 
+\end{figure}
+
+
+\chapter{Algorithm: Experiments with NEAT and Mario}
+
+
+In this section the process to try and implement a system that allows the
+application of neat to a general set of AI problems will be discussed. The
+software that was modified for this was the NEAT4J implementation of NEAT
+written in Java. The NEAT algorithm was selected due to its success would have
+been a global settings in NEAT4J.
+
+Heuristics that help promote a correct solution are critically important for
+GA’s to work correctly. Finding good heuristics for GA’s can be tedious or
+impossible to find if the search space for the neural network is large enough.
+In order to solve the aforementioned problems,the first experiment was to allow
+for each genome run to determine its own heuristics.  A new genotype was added
+called a self regulation gene. This gene contains numerical values for the
+heuristics in the Mario game. The default heuristics that were used are shown in
+~\ref{tab:Heuristics}. Although for the Mario game the number of different
+heuristics was short, the number could be much greater in more complex games. in
+video games as discussed in the related works. While experimenting with NEAT,
+the amount of set up and tweaking of variables seemed to be too much of a hassle
+for a normal user.  I tried a couple of modifications to the neat algorithm to
+try and alleviate the difficulty of using NEAT.  These modifications added a new
+gene that determined specific heuristic changes to be used during the speciation
+process where only the individuals with the highest fitness are used to populate
+the next generation.
+
+Each specie would use its highest fitness individual’s self regulation gene to
+determine the heuristics for all individuals that fit into the specie. The
+reason behind this was to not allow individual to just give themselves larger
+and larger heuristic values. The self rating was called the self fitness value.
+This value was then averaged with a baseline default heuristic value to further
+prevent self heuristic inflation. The results are shown later in section
+(results).
+
+The first algorithm explored gave each individual in generation 0 a random
+heuristic values so each gene would be a unique set of heuristic values. This
+would well for small sets of heuristic values to search through or situations
+where changing the heuristics mid-run will ruin the population. If the ability
+for heuristics to change dynamically was added then the GA would be able to
+change as needed to improve the overall fitness while adjusting specific
+heuristics within each species. This was the hypothesis that led to another
+change that would let the self regulation gene guide the whole genetic algorithm
+while changing parameters for NEAT dynamically. These parameters that would be
+changed are listed in ~\ref{tab:Parameters} . As well as containing these
+parameters, the self regulation gene would contain parameters for how it will
+change different sets of parameters. For example, the
+pMutatateRegulationHueristics variable would change the probability that a
+hueristic is changed by at most by the variable PerturbRegulation.
+
+
+Initial Agent Implementation
+
+Most of the implementation work was creating the framework to allow NEAT to
+control Mario agents in Infinite Mario. I used the NEATGATrainingManager class
+as a starting place to create the main to create and evaluate agents. After I
+figured out how that was running experiments I created an agent for Infinite
+Mario that took in a neural net from NEAT and wired the appropriate inputs and
+outputs. Once Mario started jumping around with a default configuration I moved
+to tweaking the program to get a Mario that could complete static levels.
+In order to make sure the algorithm was creating good Mario agents I set up a
+system that allowed you to see each agents fitness score at the end of its test
+and every time a Mario completed a level it would display that Mario net
+actually doing the level. NEAT also let me visualize the neural net topologies
+that were being generated. That way I could see how each setting changed how the
+neural nets were formed.
+ 
+\begin{longtable}{| l | c |}
+  \hline
+  Heuristic & Default Value \\ \hline                   
+  Distance travelled & 1  \\ \hline
+  Mushrooms collected & 0 \\ \hline
+  Flowers collected & 0  \\ \hline
+  Coins collected & 0  \\ \hline
+  Stomp kills & 200  \\ \hline
+  Shell kills  & 500  \\ \hline
+  Connection genes  & 0  \\ \hline
+  Total Nodes  & 0  \\ \hline
+
+\caption{Table of default heuristics for the Mario genetic
+ algorithm}
+\label{tab:Heuristics} 
+\end{longtable}
+
+\chapter{Results}
+
+The goal of the experiment was to create a modification to the neat algorithm
+that would automatically vary parameters for NEAT rather than doing it by hand.
+while the results show improvements in some areas, the method has some pitfalls
+and shortcomings revealed by tests.
+
+All tests done on the Mario testbed were done giving a vision grid with one
+block behind Mario and 5 blocks ahead of Mario, 3 blocks above Mario and 5
+blocks below Mario. Other inputs include a bias input of 0, an input if Mario is
+carrying a shell, an input for if Mario can jump and an input if Mario is on the
+ground. These inputs totaled to 52 inputs with 5 outputs for each button Mario
+could press. Mario was also given the ability to jump by continuously holding
+the jump button down, making the logic more simple to evolve.
+
+\section{Results for Mario running NEAT with default parameters}
+The Mario benchmark was run with the default setting for NEAT4j and a population
+size of 500. The total fitness graph shows a problem keeping fitness as the
+number of species changes. This is due to the compatibility threshold
+fluctuating to compensate for the number of species which started at 500, the
+same as the population number. Some of the constants in the compatibility
+threshold were set too far off to promote good growth. As the number of species
+was reduced by the algorithm so was the potential for creating useful offspring
+with protected. These mistakes are easily fixed by changing the values of c1,
+c2, and/ or theta.
+
+\chapter{Conclusions and Future Works}
+\section{Conclusions}
+
+\section{Future Works}
+
+\subsection{Different Genes}
+
+An alternate approach to the implementation of the self regulation gene using
+multiple genes containing information on specific parameters could lead to
+improved convergence on parameters. This improvement would allow for genes to be
+used only where they are needed, instead of using all the parameters present in
+NEAT.
+\subsection{Dynamic Data Set Selection}
+
+In addition to generating heuristic values for the datasets or levels used to
+runt he AI against, datasets or level could be selected from a set to improve AI
+creation. Selections could be made on  the difficulty the AI has solving certain
+levels or levels that are shown to have a hgistory of producing high fitness
+individuals.
+\subsection{Improved Specie Allocation}
+
+There are a few parts of the NEAT algorithm that conflict with goals of the
+modification. The distribution of individuals could be improved so that genes
+are protected better during dynamic speciation. In some of the tests it was
+apparent that too many species were being created and destroyed in order to keep
+the number of species constant. This led to a large drop in the total fitness of
+whole population. Either creating a modification to the dynamic compatibility
+threshold algorithm or allowing the self regulation gene to have more control
+over speciation could be explored to solve this issue.
+\subsection{Aging}
+
+Allowing the self regulation gene was tested in preliminary experiments and
+showed problems due to species developing higher and higher youth boost
+parameters. Species would inflate their own fitness without actually improving
+anything. If this problem could be fixed, aging functionality, allowing
+modification of the specie age threshold, the specie youth threshold, the specie
+old penalty , the specie age threshold, and the specie youth threshold, could be
+dynamically changed.
+
+
+\clearpage
+\bibliography{references}
+\bibliographystyle{plain}
+
+
+\begin{longtable}{| l | p{6cm} | c  | c |}
+  \hline
+  Parameter Name & Parameter Description & Range & Example  \\ \hline
+  PROBABILITY.MUTATION & This value controls the mutation of connection weights
+  and the sigmoid factor of the neurons. & 0 - 1  & 0.25 \\ \hline
+  PROBABILITY.CROSSOVER & This value controls the rate at which individuals,
+  within the same specie, perform a GA crossover operation as defined in the
+  NEAT algortihm. & 0 - 1  & 0.2 \\ \hline PROBABILITY.ADDLINK & This is the
+  rate at which new links are added between neurons. It does not take into
+  account the recurrent parameter as this check is performed at the end of a
+  mutation. & 0 - 1  & 0.05 \\ \hline PROBABILITY.ADDNODE & This is the rate at
+  which new neuron is added to an enabled link. & 0 - 1  & 0.03 \\ \hline
+  PROBABILITY.MUTATEBIAS & Each neuron has a bias value. This parameter controls
+  the rate at which they are mutated. & 0 - 1  & 0.3 \\ \hline
+  PROBABILITY.TOGGLELINK & A link (neuron-neuron connection) has two states,
+  enabled and disabled. This paramter controls the rate at which a link might
+  toggle its state. & 0 - 1  & 0.3 \\ \hline PROBABILITY.WEIGHT.REPLACED & A
+  link can have its weight reset to some arbitrary value regardless of its
+  current value. This parameter controls the rate at which this happens. & 0 - 1
+   & 0.3 \\ \hline EXCESS.COEFFICIENT & A NEAT specific coefficient that
+  privides a measure of importance to the excess of genes, within a chromosome,
+  when it comes to calculating the compatability between two chromosomes. &
+  \textgreater=0 & 1 \\ \hline DISJOINT.COEFFICIENT & A NEAT specific
+  coefficient that privides a measure of importance to the difference of genes,
+  within a chromosome, when it comes to calculating the compatability between
+  two chromosomes. & \textgreater=0 & 1 \\ \hline 
+  WEIGHT.COEFFICIENT & A NEAT
+  specific coefficient that privides a measure of importance to the weight
+  differences of link genes, within a chromosome, when it comes to calculating
+  the compatability between two chromosomes. & \textgreater=0 & 3 \\ \hline
+  COMPATABILITY.THRESHOLD & A speciation parameter that is used when deciding if
+  a given chromosome should go in a given species. & \textgreater=0 & 3 \\
+  \hline COMPATABILITY.CHANGE & If this is 0, then the COMPATABILITY.THRESHOLD
+  will not change at all. This means that the number of species will be not
+  controlled.
+  If this is greater than 0, then the COMPATABILITY.THRESHOLD will by
+  dynalically changed (*up or down) by this change value to try and keep the
+  number of species to be SPECIE.COUNT. & \textgreater=0 & .1 \\ \hline
+  SPECIE.COUNT & A speciation parameter that is used when deciding if
+  a given chromosome should go in a given species. & \textgreater=1 & 15 \\
+  \hline
+  SPECIE.COUNT & A speciation parameter that is used when deciding if
+  a given chromosome should go in a given species. & \textgreater=1 & 15 \\
+  \hline
+   SURVIVAL.THRESHOLD & During mating within a species, this value defines the
+   fraction of the top specie members that are allowed to mate. For example, if
+   the value was 0.2, then only the fittest 20\% of the specie would be allowed
+   to mate. & \textgreater=0 & .4 \\
+  \hline
+   SPECIE.AGE.THRESHOLD & Once a species age reaches this value, the fitnesses
+   of the specie members will be multiplied by SPECIE.OLD.PENALTY. &
+   \textgreater=1 & 80 \\
+  \hline
+    SPECIE.YOUTH.THRESHOLD & Whilst a species age is less than this value, the
+    fitnesses of the specie members will be multiplied by SPECIE.YOUTH.BOOST &
+   \textgreater=1 & 10 \\
+  \hline
+    SPECIE.OLD.PENALTY & The penalty applied to the fitness of a given species
+    members. Note, if NATURAL.ORDER.STRATEGY is true, this should be \textgreater= 1 else
+    \textless= 1 & \textgreater=1 or \textless= 1 & 1.2 \\
+  \hline
+  
+  
+\caption{Table of Parameters for NEAT4J}
+\label{tab:Parameters} 
+\end{longtable}
+
+\end{document}reference.  

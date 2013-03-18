@@ -1,0 +1,94 @@
+@ONLINE{NEAT4J,
+title = {NEAT4J code {@ONLINE}},
+month = apr,
+year = {2013},
+url = {http://neat4j.sourceforge.net/}
+}
+
+@ONLINE{tetris,
+title = {tetris code {@ONLINE}},
+month = apr,
+year = {2009},
+url = {http://code.google.com/p/tetris-ai/}
+}
+
+
+@PhdThesis{stanley:phd04,
+title={Efficient Evolution of Neural Networks Through Complexification},
+author={Kenneth O. Stanley},
+school={Department of Computer Sciences, The University of Texas at Austin},
+url="http://nn.cs.utexas.edu/?stanley:phd04",
+year={2004}
+}
+
+@article{karakovskiy2012mario,
+  title={The mario ai benchmark and competitions},
+  author={Karakovskiy, Sergey and Togelius, Julian},
+  journal={Computational Intelligence and AI in Games, IEEE Transactions on},
+  volume={4},
+  number={1},
+  pages={55--67},
+  year={2012},
+  publisher={IEEE}
+}
+
+@ARTICLE{Angeline,
+author={Angeline, P.J. and Saunders, G.M. and Pollack, J.B.},
+journal={Neural Networks, IEEE Transactions on}, title={An evolutionary algorithm that constructs recurrent neural networks},
+year={Jan},
+volume={5},
+number={1},
+pages={54-65},
+keywords={optimisation;recurrent neural nets;GNARL;evolutionary algorithm;evolutionary programming;genetic algorithms;population-based search methods;recurrent neural networks;Artificial intelligence;Ash;Computer architecture;Evolutionary computation;Genetic algorithms;Genetic programming;Induction generators;Network topology;Recurrent neural networks;Search methods},
+doi={10.1109/72.265960},
+ISSN={1045-9227},}
+
+@Unpublished{gomez:proposal,
+title={Solving Non-Markovian Control Tasks With Neuroevolution},
+author={Faustino J. Gomez and Risto Miikkulainen},
+pages={6},
+note={Dissertation Proposal, Computer Science Department,  University of Texas at Austin},
+url="http://nn.cs.utexas.edu/?gomez:ijcai99",
+year={1999}
+}
+
+@InProceedings{moriarty:focus,
+title={Evolving Neural Networks To Focus Minimax Search},
+author={David E. Moriarty and Risto Miikkulainen},
+booktitle={Proceedings of the Twelfth National Conference on Artificial Intelligence (AAAI-94)},
+address={Seattle, WA},
+publisher={Cambridge, MA: MIT Press},
+key={AAAI},
+pages={1371-1377},
+url="http://nn.cs.utexas.edu/?moriarty:focus",
+year={1994}
+}
+
+@INPROCEEDINGS{Revello,
+author={Revello, T.E. and McCartney, R.},
+booktitle={Evolutionary Computation, 2002. CEC '02. Proceedings of the 2002 Congress on}, title={Generating war game strategies using a genetic algorithm},
+volume={2},
+pages={1086-1091},
+keywords={games of skill;genetic algorithms;military computing;uncertainty handling;evolutionary computation;experiment;genetic algorithm;military organizations;rules;uncertainty;war game strategy generation;Computer science;Decision making;Game theory;Genetic algorithms;History;Military computing;Problem-solving;State-space methods;Tiles;Uncertainty},
+doi={10.1109/CEC.2002.1004394},}
+
+@INPROCEEDINGS{PengHuo,
+author={Peng Huo and Shiu, S. C K and Haibo Wang and Ben Niu},
+booktitle={Natural Computation, 2009. ICNC '09. Fifth International Conference on}, title={Application and Comparison of Particle Swarm Optimization and Genetic Algorithm in Strategy Defense Game},
+year={Aug.},
+volume={5},
+pages={387-392},
+keywords={computer games;genetic algorithms;military systems;particle swarm optimisation;GA;PSO;convergence speed;damage value;execution time;genetic algorithm;optimum cannon placement;particle swarm optimization;real time strategy defense military game;tower defense game;Application software;Artificial intelligence;Computer applications;Computer industry;Convergence;Genetic algorithms;Military computing;Particle swarm optimization;Poles and towers;Testing;Particle swarm optimization;Strategy Defense Game;genetic algorithm},
+doi={10.1109/ICNC.2009.552},}
+
+@INPROCEEDINGS{Chih-Sheng,
+author={Chih-Sheng Lin and Chuan-Kang Ting},
+booktitle={Technologies and Applications of Artificial Intelligence (TAAI), 2011 International Conference on}, title={Emergent Tactical Formation Using Genetic Algorithm in Real-Time Strategy Games},
+year={Nov.},
+pages={325-330},
+keywords={computer games;genetic algorithms;StarCraft testbed;emergent tactical formation;flat terrain environment;game AI;genetic algorithm;real time strategy games;unforeseen game situations;Artificial intelligence;Biological cells;Games;Genetic algorithms;Real time systems;Shape;Vectors;Genetic algorithm;real-time strategy games;tactical formation},
+doi={10.1109/TAAI.2011.63},}
+
+@article{lippmann,  title={An introduction to computing with neural nets},  author={Lippmann, Richard},  journal={ASSP Magazine, IEEE},  volume={4},  number={2},  pages={4--22},  year={1987},  publisher={IEEE}}
+
+@article{hubel1959receptive,  title={Receptive fields of single neurones in the cat's striate cortex},  author={Hubel, David H and Wiesel, Torsten N},  journal={The Journal of physiology},  volume={148},  number={3},  pages={574--591},  year={1959},  publisher={Physiological Soc}}

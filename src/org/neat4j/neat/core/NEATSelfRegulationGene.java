@@ -144,12 +144,12 @@ public class NEATSelfRegulationGene implements NEATGene, Cloneable {
       // TODO age needs to be worked on!!!!!!!
       // //////////////////
       maxSpecieAge = Rand.nextInt(1000);
-      specieAgeThreshold = 20;
-      specieYouthThreshold = 5;
+      specieAgeThreshold = 80;
+      specieYouthThreshold = 10;
       // TODO use equations to check for suitable ranges (may not even be
       // needed)
-      agePenalty = 1.5;
-      youthBoost = 1.1;
+      agePenalty = .9;
+      youthBoost = 8.8;
 
       pMutatateRegulation = .01;
       pMutatateRegulationHueristics = .01;

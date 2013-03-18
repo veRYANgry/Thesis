@@ -216,7 +216,9 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		@Override
 		protected Void doInBackground() throws Exception {
 			while(this.isDone){
-				
+				if(runNumber > 1){
+					break;
+				}
 				
 				if(workerThread == null || workerThread.isDone()){
 					workerThread = new mainWorker();
@@ -349,7 +351,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
 			}
 				
 			XYSeries tempset = (XYSeries) dataset.getSeries().get(runNumber - 1);
-			tempset.add(GenNumber , ga.GetSpecies().totalAvSpeciesFitness());
+			tempset.add(GenNumber , ga.GetSpecies().totalAvSpeciesFitness() / ga.GetSpecies().specieList().size());
 
 			
 			tempset = (XYSeries) Bestdataset.getSeries().get(runNumber - 1);
@@ -535,7 +537,7 @@ public class realtimeInterface extends JFrame implements ActionListener {
         
         content.add(tabbedPane);
         
-		chartFitness fitnessChart = new chartFitness(dataset, "Total fitness", "Generation", "Fitness");
+		chartFitness fitnessChart = new chartFitness(dataset, "Average Fitness", "Generation", "Ave. Fitness");
 		FitPanel.add(fitnessChart.chartPanel);
 		
 		chartFitness bestFitnessChart = new chartFitness(Bestdataset, "Best fitness", "Generation", "Fitness");
