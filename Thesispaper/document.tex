@@ -40,7 +40,19 @@
 \setcounter{tocdepth}{2}
 
 % Different font in captions (single-spaced, bold) ------------
+\newcommand{\captionfonts}{\small\bf\ssp}
 
+\makeatletter  % Allow the use of @ in command names
+\long\def\@makecaption#1#2{%
+  \vskip\abovecaptionskip
+  \sbox\@tempboxa{{\captionfonts #1: #2}}%
+  \ifdim \wd\@tempboxa >\hsize
+    {\captionfonts #1: #2\par}
+  \else
+    \hbox to\hsize{\hfil\box\@tempboxa\hfil}%
+  \fi
+  \vskip\belowcaptionskip}
+\makeatother   % Cancel the effect of \makeatletter
 % ---------------------------------------
 
 \begin{document}

@@ -1,0 +1,2 @@
+stomp kills = 200
+sjell kills = 500

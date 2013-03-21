@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2013.2.11)  20 MAR 2013 18:02
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2013.2.11)  20 MAR 2013 18:05
 entering extended mode
  restricted \write18 enabled.
  Source specials enabled.
@@ -198,18 +198,18 @@ Package: textcase 2004/10/07 v0.07 Text only upper/lower case changing (DPC)
 ) (./document.aux)
 \openout1 = `document.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 46.
-LaTeX Font Info:    ... okay on input line 46.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 46.
-LaTeX Font Info:    ... okay on input line 46.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 46.
-LaTeX Font Info:    ... okay on input line 46.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 46.
-LaTeX Font Info:    ... okay on input line 46.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 46.
-LaTeX Font Info:    ... okay on input line 46.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 46.
-LaTeX Font Info:    ... okay on input line 46.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 58.
+LaTeX Font Info:    ... okay on input line 58.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 58.
+LaTeX Font Info:    ... okay on input line 58.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 58.
+LaTeX Font Info:    ... okay on input line 58.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 58.
+LaTeX Font Info:    ... okay on input line 58.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 58.
+LaTeX Font Info:    ... okay on input line 58.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 58.
+LaTeX Font Info:    ... okay on input line 58.
  (/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count110
@@ -305,24 +305,24 @@ e
 Non-PDF special ignored!
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 62.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 74.
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 62.
-LaTeX Font Info:    Try loading font information for U+msa on input line 62.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 74.
+LaTeX Font Info:    Try loading font information for U+msa on input line 74.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2009/06/22 v3.00 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 62.
+LaTeX Font Info:    Try loading font information for U+msb on input line 74.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2009/06/22 v3.00 AMS symbols B
 ) [2]
-Overfull \hbox (3.034pt too wide) in paragraph at lines 65--65
+Overfull \hbox (3.034pt too wide) in paragraph at lines 77--77
 [][] 
  []
 
@@ -352,7 +352,7 @@ Missing character: There is no Å in font cmr12!
 ]
 Chapter 1.
 ! Misplaced alignment tab character &.
-l.111 such as Black &
+l.123 such as Black &
                       White 2 and the NEAT specific NERO \cite{hastings2009e...
 I can't figure out why you would want to use a tab mark
 here. If you just want an ampersand, the remedy is
@@ -390,8 +390,8 @@ Missing character: There is no Ä in font cmr12!
 Missing character: There is no ô in font cmr12!
 
 
-LaTeX Warning: Reference `fig:parentgenes' on page 6 undefined on input line 25
-4.
+LaTeX Warning: Reference `fig:parentgenes' on page 6 undefined on input line 26
+6.
 
 [6]
 Missing character: There is no ‚ in font cmr12!
@@ -400,7 +400,7 @@ Missing character: There is no ô in font cmr12!
  [7] <mariogrid.png, id=56, 494.84875pt x 373.395pt>
 File: mariogrid.png Graphic file (type png)
  <use mariogrid.png>
-Package pdftex.def Info: mariogrid.png used on input line 298.
+Package pdftex.def Info: mariogrid.png used on input line 310.
 (pdftex.def)             Requested size: 205.96939pt x 155.41753pt.
 
 [8 <./mariogrid.png>]
@@ -411,7 +411,7 @@ Chapter 3.
 File: simplemarionet.png Graphic file (type png)
 
 <use simplemarionet.png>
-Package pdftex.def Info: simplemarionet.png used on input line 401.
+Package pdftex.def Info: simplemarionet.png used on input line 413.
 (pdftex.def)             Requested size: 205.96939pt x 97.19058pt.
  [12 <./simplemarionet.png>]
 Chapter 4.
@@ -428,7 +428,7 @@ Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ô in font cmr12!
  [14]
-Underfull \vbox (badness 10000) detected at line 487
+Underfull \vbox (badness 10000) detected at line 499
  []
 
 [15]
@@ -443,59 +443,59 @@ Chapter 6.
 
 
 ])
-Underfull \hbox (badness 3668) in paragraph at lines 565--567
+Underfull \hbox (badness 3668) in paragraph at lines 577--579
 \OT1/cmr/m/n/12 which in-di-vid-u-als, within the
  []
 
 
-Underfull \hbox (badness 5388) in paragraph at lines 565--567
+Underfull \hbox (badness 5388) in paragraph at lines 577--579
 \OT1/cmr/m/n/12 same specie, per-form a GA
  []
 
 
-Underfull \hbox (badness 1184) in paragraph at lines 574--576
+Underfull \hbox (badness 1184) in paragraph at lines 586--588
 [][]|\OT1/cmr/m/n/12 A link (neuron-neuron con-nec-
  []
 
-LaTeX Font Info:    Try loading font information for OML+cmr on input line 582.
+LaTeX Font Info:    Try loading font information for OML+cmr on input line 594.
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/omlcmr.fd
 File: omlcmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <12> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 582.
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 594.
 
-Underfull \hbox (badness 2653) in paragraph at lines 586--589
+Underfull \hbox (badness 2653) in paragraph at lines 598--601
 \OT1/cmr/m/n/12 pri-v-ides a mea-sure of im-por-
  []
 
 
-Underfull \hbox (badness 7238) in paragraph at lines 617--619
+Underfull \hbox (badness 7238) in paragraph at lines 629--631
 [][]|\OT1/cmr/m/n/12 The penalty ap-plied to the
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 617--619
+Underfull \hbox (badness 10000) in paragraph at lines 629--631
 \OT1/cmr/m/n/12 fit-ness of a given species
  []
 
 
-Underfull \hbox (badness 4353) in paragraph at lines 617--619
+Underfull \hbox (badness 4353) in paragraph at lines 629--631
 \OT1/cmr/m/n/12 mem-bers. Note, if NAT-U-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 617--619
+Underfull \hbox (badness 10000) in paragraph at lines 629--631
 \OT1/cmr/m/n/12 RAL.ORDER.STRATEGY is
  []
 
 
-Overfull \hbox (129.43008pt too wide) in alignment at lines 560--625
+Overfull \hbox (129.43008pt too wide) in alignment at lines 572--637
  [] [] [] [] 
  []
 
 
-Underfull \vbox (badness 10000) detected at line 625
+Underfull \vbox (badness 10000) detected at line 637
  []
 
 [21] [22] [23] [24] [25] (./document.aux)
@@ -505,11 +505,11 @@ LaTeX Warning: There were undefined references.
  )
 (\end occurred when \ifx on line 1 was incomplete) 
 Here is how much of TeX's memory you used:
- 3224 strings out of 495059
- 42807 string characters out of 3182030
- 134528 words of memory out of 3000000
- 6337 multiletter control sequences out of 15000+200000
- 10756 words of font info for 40 fonts, out of 3000000 for 9000
+ 3228 strings out of 495059
+ 42860 string characters out of 3182030
+ 134529 words of memory out of 3000000
+ 6340 multiletter control sequences out of 15000+200000
+ 11364 words of font info for 42 fonts, out of 3000000 for 9000
  14 hyphenation exceptions out of 8191
  38i,9n,24p,270b,227s stack positions out of 5000i,500n,10000p,200000b,50000s
 </usr/share/texlive/texmf-dis
@@ -518,7 +518,7 @@ s/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/fonts/type
 1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/publi
 c/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsf
 onts/cm/cmti12.pfb>
-Output written on document.pdf (34 pages, 511091 bytes).
+Output written on document.pdf (34 pages, 511118 bytes).
 PDF statistics:
  135 PDF objects out of 1000 (max. 8388607)
  91 compressed objects within 1 object stream

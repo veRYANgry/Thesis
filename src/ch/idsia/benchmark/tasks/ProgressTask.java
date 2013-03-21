@@ -167,7 +167,7 @@ private double[] evaluateSingleLevel(int ld, int tl, int ls, boolean vis, Agent 
     //TODO for each level type run and get results
     if(((NeatAgent)controller).getHueristics() != null){
     	int i = 0;
-        distanceTravelled += (this.getEnvironment().getEvaluationInfo().computeDistancePassed() -  randomStartDistance) / 4000 * ((NeatAgent)controller).getHueristics().get(i)[0];
+        distanceTravelled += (this.getEnvironment().getEvaluationInfo().computeDistancePassed() -  randomStartDistance) * ((NeatAgent)controller).getHueristics().get(i)[0];
         distanceTravelled += this.getEnvironment().getEvaluationInfo().mushroomsDevoured * ((NeatAgent)controller).getHueristics().get(i)[1];
         distanceTravelled += this.getEnvironment().getEvaluationInfo().flowersDevoured * ((NeatAgent)controller).getHueristics().get(i)[2];
         distanceTravelled += this.getEnvironment().getEvaluationInfo().coinsGained / 100 * ((NeatAgent)controller).getHueristics().get(i)[3];
