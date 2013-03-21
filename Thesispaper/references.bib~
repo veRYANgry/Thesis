@@ -89,6 +89,25 @@ pages={325-330},
 keywords={computer games;genetic algorithms;StarCraft testbed;emergent tactical formation;flat terrain environment;game AI;genetic algorithm;real time strategy games;unforeseen game situations;Artificial intelligence;Biological cells;Games;Genetic algorithms;Real time systems;Shape;Vectors;Genetic algorithm;real-time strategy games;tactical formation},
 doi={10.1109/TAAI.2011.63},}
 
+@inproceedings{hastings2009evolving,
+  title={Evolving content in the galactic arms race video game},
+  author={Hastings, Erin J and Guha, Ratan K and Stanley, Kenneth O},
+  booktitle={Computational Intelligence and Games, 2009. CIG 2009. IEEE Symposium on},
+  pages={241--248},
+  year={2009},
+  organization={IEEE}
+}
+
+@inproceedings{stanley:cig05,
+title={Evolving Neural Network Agents in the NERO Video Game},
+author={Kenneth O. Stanley and Bobby D. Bryant and Risto Miikkulainen},
+booktitle={Proceedings of the IEEE 2005 Symposium on Computational Intelligence and Games (CIG'05)},
+address={Piscataway, NJ},
+publisher={IEEE},
+url="http://nn.cs.utexas.edu/?stanley:cig05",
+year={2005}
+}
+
 @article{lippmann,  title={An introduction to computing with neural nets},  author={Lippmann, Richard},  journal={ASSP Magazine, IEEE},  volume={4},  number={2},  pages={4--22},  year={1987},  publisher={IEEE}}
 
 @article{hubel1959receptive,  title={Receptive fields of single neurones in the cat's striate cortex},  author={Hubel, David H and Wiesel, Torsten N},  journal={The Journal of physiology},  volume={148},  number={3},  pages={574--591},  year={1959},  publisher={Physiological Soc}}

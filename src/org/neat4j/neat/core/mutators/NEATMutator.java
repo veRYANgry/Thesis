@@ -140,7 +140,7 @@ public class NEATMutator implements Mutator, Serializable {
 			
 			if(mutateHue){
 				int place = perturbRand.nextInt((mutatee.getHueristics().size() * mutatee.getHueristics().get(0).length));
-				mutated.getHueristics().get(place /  mutatee.getHueristics().get(0).length)[place %  mutatee.getHueristics().get(0).length] += MathUtils.nextClampedDouble(-PerturbRegulation, PerturbRegulation);
+				mutated.getHueristics().get(place /  mutatee.getHueristics().get(0).length)[place %  mutatee.getHueristics().get(0).length] += MathUtils.nextClampedDouble(-PerturbRegulation * 100, PerturbRegulation * 100);
 			}
 			
 			if(mutateReg){

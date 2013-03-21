@@ -40,22 +40,12 @@
 \setcounter{tocdepth}{2}
 
 % Different font in captions (single-spaced, bold) ------------
-\newcommand{\captionfonts}{\small\bf\ssp}
 
-\makeatletter  % Allow the use of @ in command names
-\long\def\@makecaption#1#2{%
-  \vskip\abovecaptionskip \sbox\@tempboxa{{\captionfonts #1: #2}}% \ifdim
-  \wd\@tempboxa >\hsize
-    {\captionfonts #1: #2\par}
-  \else
-    \hbox to\hsize{\hfil\box\@tempboxa\hfil}%
-  \fi \vskip\belowcaptionskip}
-\makeatother   % Cancel the effect of \makeatletter
 % ---------------------------------------
 
 \begin{document}
 
-\title{___Your_title_here___}
+\title{Smarter NEAT Nets}
 
 \author{Ryan De Haven}
 \degreemonth{December} \degreeyear{2013} \degree{Master of Science}
@@ -109,12 +99,26 @@ solution search space.
 
 \chapter{Introduction}
 
+AI is used in all video games in todays world, but there is rarely games that
+have AI that learns. By using machine learning AI in video games or other AI
+applications could improve as they compete against user. AI using machine
+learning or in the case of this paper genetic algorithms could create AIs better
+than any programmer and could do so with little input from a programmer. These
+genetic algorithms are great for searching through problems were there are a
+large number of variables. 
 
+Machine learning, specifically neural networks, has been used in games recently
+such as Black & White 2 and the NEAT specific NERO \cite{hastings2009evolving}.
+By using machine learning like neural nets programmers can create AI that
+changes to adapt to the user or even generate content. This paper aims to
+improve using the NEAT algorithm to allow machine learning to be easier and
+better to use. 
+ 
 
 \chapter{Background or Related Works}
 
 
-\section{Genetic algorithms}
+\section{Genetic Algorithms}
 
 Genetic algorithms (GAs) are a system that builds up solutions to a problem
 space. GAs use a population of individuals that represent a solution to a given
@@ -136,28 +140,29 @@ presented in the algorithms of SANE \cite{moriarty:focus} , ESP
 \section{Galactic Arms Race}
 
 The Galactic Arms Race or GAR incorporates a type of NEAT for generating content
-in the game called cgNEAT.[4] In the game the player fights aliens and collects
-weapons to do so. The genetic algorithm cgNEAT generates the weapons the player
+in the game called cgNEAT \cite{hastings2009evolving}. In the game the player
+fights aliens and collects weapons to do so. The genetic algorithm cgNEAT generates the weapons the player
 can get based upon the ones that all players in the game are collecting and
 using. The neural networks created are compositional pattern producing networks
-that generate the way the weapons looks.[4]
+that generate the way the weapons looks\cite{hastings2009evolving}.
 
 GAR starts the users in the game with a set of weapons that are “starter
 weapons” that are not in the genetic pool. Then players can find weapons spawned
 in the game world that are created by cgNEAT. Items that are picked up by
 players and used are then added to the population of offspring that will
-reproduce. An example of a weapon evolving the game of GAR is shown below.[4]
+reproduce. An example of a weapon evolving the game of GAR is shown
+below\cite{hastings2009evolving}.
 
 Due to players picking weapons that work better for them, it can be seen that
 later generation perform better than earlier generations as seen above. GAR
 shows promising development for genetic algorithms that can create usable
 content.
 
-\section{Neural genetic agents: NERO}
-
+\section{Neural Genetic Agents: NERO}
+  
 Neuro-Evolving Robotic Operatives or NERO for short, is a game based on the
-rtNEAT implementation of NEAT.[5] In the NERO game the player trains and uses
-robot units to complete certain tasks. The main part of the game play is
+rtNEAT implementation of NEAT\cite{stanley:cig05}. In the NERO game the player
+trains and uses robot units to complete certain tasks. The main part of the game play is
 defending and capturing towers against another team of trained robots.
 
 The most interesting aspect of NERO and rtNEAT is that the agents are created in
@@ -223,7 +228,7 @@ While neat uses simple genetic methods it uses a unique way of comparing
 structure that allow it to perform efficient evolution of topologies and is the
 reason it was chosen to study.
 
-\section{NEAT background}
+\section{NEAT Background}
 
 NEAT or NeuroEvolution of Augmenting Topologies  was originally developed in
 2002 and since then has been used in multiple games and developed extensively
@@ -257,7 +262,7 @@ disjoint genes, and N is the number of genes in the larger genome. Constants c1
 no match when comparing all of the previous species then a new specie is created
 and the individual is added to that specie.
 
-\section{Mario platform}
+\section{Mario Platform}
 Mario the famous Nintendo game, Super Mario Bros.  The platform
 that is used in this paper is called Mario AI benchmark and has been used in
 numerous competitions \cite{karakovskiy2012mario}. The platform was chosen as a
@@ -273,7 +278,7 @@ are A (jump) , B (run / grab shell) , and the directionals : left, right, up,
 and down. The benchmark records scores on distance traveled, kills, and items
 collected so these scores can be used in heuristics and benchmarking.
 
-\section{Tetris platform}
+\section{Tetris Platform}
 
 Tetris is one of the must successful and widely known games. It was created by
 Alexet Panitnov in 1984 in the soviet union. The gameplay of tetris is a puzzle
@@ -287,8 +292,8 @@ the user define a generic size Tetris board represented by a grid of boolean
 values. The value of each cell in a grid shows if there is a tetris block place
 there or not.
 
-\begin{figure}[h!]
-  \caption{Mario, with his available cells of vision.}
+\begin{figure}[h!] 
+\caption{The mario vison grid}
   \centering
     \includegraphics[width=0.5\textwidth]{mariogrid.png}
    \label{fig:mariogrid} 
@@ -388,7 +393,7 @@ debugging changes to the NEAT algorithm as well as the AI interface between the
 neural net and the game it is controlling. For example, while creating the AI
 interface between tetris and the neural net there was a clear improvement when
 allowing the neural net to use the level of the current Tetris block as an
-input.
+input. 
 
 \begin{figure}[h!]
   \caption{An example of a nueral network demo}

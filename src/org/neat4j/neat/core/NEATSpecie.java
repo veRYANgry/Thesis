@@ -82,12 +82,12 @@ public class NEATSpecie extends Specie implements Serializable {
 		int i;
 		Chromosome member;
 		this.fitnessMultiplier = 1;
-		NEATSelfRegulationGene reg  = ((NEATChromosome)this.specieRepresentative).getLastRegulationGene();
-		if(reg != null){
-			this.ageThreshold = reg.getSpecieAgeThreshold();
-			this.youthBoost = reg.getYouthBoost();
-			this.agePenalty = reg.getAgePenalty();
-		}
+//		NEATSelfRegulationGene reg  = ((NEATChromosome)this.specieRepresentative).getLastRegulationGene();
+//		if(reg != null){
+//			this.ageThreshold = reg.getSpecieAgeThreshold();
+//			this.youthBoost = reg.getYouthBoost();
+//			this.agePenalty = reg.getAgePenalty();
+//		}
 			
 		if (this.ageThreshold < this.specieAge) {
 			this.fitnessMultiplier = this.agePenalty;

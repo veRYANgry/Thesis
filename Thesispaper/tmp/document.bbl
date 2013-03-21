@@ -14,6 +14,12 @@ F.~J. Gomez and R.~Miikkulainen.
 \newblock Dissertation Proposal, Computer Science Department, University of
   Texas at Austin, 1999.
 
+\bibitem{hastings2009evolving}
+E.~J. Hastings, R.~K. Guha, and K.~O. Stanley.
+\newblock Evolving content in the galactic arms race video game.
+\newblock In {\em Computational Intelligence and Games, 2009. CIG 2009. IEEE
+  Symposium on}, pages 241--248. IEEE, 2009.
+
 \bibitem{hubel1959receptive}
 D.~H. Hubel and T.~N. Wiesel.
 \newblock Receptive fields of single neurones in the cat's striate cortex.
@@ -63,5 +69,11 @@ K.~O. Stanley.
   Complexification}.
 \newblock PhD thesis, Department of Computer Sciences, The University of Texas
   at Austin, 2004.
+
+\bibitem{stanley:cig05}
+K.~O. Stanley, B.~D. Bryant, and R.~Miikkulainen.
+\newblock Evolving neural network agents in the nero video game.
+\newblock In {\em Proceedings of the IEEE 2005 Symposium on Computational
+  Intelligence and Games (CIG'05)}, Piscataway, NJ, 2005. IEEE.
 
 \end{thebibliography}

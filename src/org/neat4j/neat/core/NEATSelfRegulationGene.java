@@ -164,7 +164,7 @@ public class NEATSelfRegulationGene implements NEATGene, Cloneable {
       Hueristics = new ArrayList<double[]>();
       Hueristics.add(new double[8]);
       for (int i = 0; i < Hueristics.get(0).length; i++) {
-         Hueristics.get(0)[i] = (Rand.nextDouble() - .5) * 2;
+         Hueristics.get(0)[i] = (Rand.nextDouble() - .5) * 200;
       }
 
    }
@@ -206,6 +206,7 @@ public class NEATSelfRegulationGene implements NEATGene, Cloneable {
 
    public double Difference(NEATSelfRegulationGene compareTo) {
       double totalDiff = 0;
+      double HDiff = 0;
       totalDiff += Math.abs(this.pAddLink - compareTo.pAddLink);
       totalDiff += Math.abs(this.pAddNode - compareTo.pAddNode);
       totalDiff += Math.abs(this.pToggleLink - compareTo.pToggleLink);
@@ -240,9 +241,13 @@ public class NEATSelfRegulationGene implements NEATGene, Cloneable {
             - compareTo.pMutatateRegulationAgeing);
       totalDiff +=
          Math.abs(this.maxPerturbRegulation - compareTo.maxPerturbRegulation);
+      
+      for (int i = 0; i < Hueristics.get(0).length; i++) {
+    	  HDiff += (this.Hueristics.get(0)[i] - compareTo.Hueristics.get(0)[i]) / Math.max(this.Hueristics.get(0)[i] , compareTo.Hueristics.get(0)[i]);
+       }
 
       return totalDiff
-         / Math.min(this.maxPerturbRegulation, compareTo.maxPerturbRegulation);
+         / Math.min(this.maxPerturbRegulation, compareTo.maxPerturbRegulation) + HDiff;
    }
 
    public ArrayList<double[]> getHueristics() {

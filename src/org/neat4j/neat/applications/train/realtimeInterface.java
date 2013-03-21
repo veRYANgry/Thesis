@@ -540,10 +540,10 @@ public class realtimeInterface extends JFrame implements ActionListener {
 		chartFitness fitnessChart = new chartFitness(dataset, "Average Fitness", "Generation", "Ave. Fitness");
 		FitPanel.add(fitnessChart.chartPanel);
 		
-		chartFitness bestFitnessChart = new chartFitness(Bestdataset, "Best fitness", "Generation", "Fitness");
+		chartFitness bestFitnessChart = new chartFitness(Bestdataset, "Best Fitness", "Generation", "Fitness");
 		BestPanel.add(bestFitnessChart.chartPanel);
 		
-		chartFitness speciesChart = new chartFitness(Speciesdataset, "Number of species", "Generation", "Species");
+		chartFitness speciesChart = new chartFitness(Speciesdataset, "Number of Species", "Generation", "Species");
 		SpeciesPanel.add(speciesChart.chartPanel);
 		
 		JButton b1 = new JButton("Save graph");
