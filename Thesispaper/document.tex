@@ -263,16 +263,24 @@ called excess or disjoint genes. Excess genes are genes that fall beyond the
 innovation number of the last gene in the first genome being compared. Disjoint
 genes are merely the genes that do not match innovation numbers, but they
 numbered at or before the last innovation number in the first parent being
-compared. An example can be seen in  ~\ref{fig:parentgenes}.In order to fit
+compared. An example can be seen in  ~\ref{fig:parentgenes}. In order to fit
 individual members into species, each member is compared with previous
 representatives for each past specie. These representatives are chosen at random
 from the past generation. The individual is placed into the first specie
-possible if the calculated value of (insert EQ) falls below a certain threshold
-parameter delta , where E are the number of excess genes, D is the number of
-disjoint genes, and N is the number of genes in the larger genome. Constants c1
-- c2 determine how much each each variable affects the comparison. If there is
-no match when comparing all of the previous species then a new specie is created
-and the individual is added to that specie.
+possible if the calculated value of $\frac{c_{2}D}{N} + c_{3} \cdot
+\overline{W}$ falls below a certain threshold parameter $\delta$ , where E are
+the number of excess genes, D is the number of disjoint genes, and N is the
+number of genes in the larger genome. Constants $c_{1} - c_{3}$ determine how
+much each each variable affects the comparison. If there is no match when comparing all of the previous species then a new specie is created and the individual is added to that specie.
+
+\begin{figure}[h!] 
+\caption{The production of offspring and gene characterisitics
+\cite{stanley:phd04}}
+  \centering
+    \includegraphics[width=1\textwidth]{parentgenes.png}
+   \label{fig:parentgenes}
+\end{figure}
+
 
 \section{Mario Platform}
 Mario the famous Nintendo game, Super Mario Bros.  The platform
@@ -410,7 +418,7 @@ input.
 \begin{figure}[h!]
   \caption{An example of a nueral network demo}
   \centering
-    \includegraphics[width=0.5\textwidth]{simplemarionet.png}
+    \includegraphics[width=1\textwidth]{simplemarionet.png}
    \label{fig:simplemarionet} 
 \end{figure}
 
@@ -513,16 +521,67 @@ ground. These inputs totaled to 52 inputs with 5 outputs for each button Mario
 could press. Mario was also given the ability to jump by continuously holding
 the jump button down, making the logic more simple to evolve.
 
-\section{Results for Mario running NEAT with default parameters}
-The Mario benchmark was run with the default setting for NEAT4j and a population
-size of 500. The total fitness graph shows a problem keeping fitness as the
-number of species changes. This is due to the compatibility threshold
-fluctuating to compensate for the number of species which started at 500, the
-same as the population number. Some of the constants in the compatibility
-threshold were set too far off to promote good growth. As the number of species
-was reduced by the algorithm so was the potential for creating useful offspring
-with protected. These mistakes are easily fixed by changing the values of c1,
-c2, and/ or theta.
+\section{Results for Mario Running NEAT with the Same Huerisitics}
+The Mario benchmark was run with various setting for NEAT4j and a population
+size of 500. Heuristic values are all set to 1 across these experiments. As a
+base for comparison a run with the default parameters values as listed in
+~\ref{tab:Parameters} is presented. For the base run the total fitness graph
+~\ref{fig:defaultave} shows a problem keeping fitness as the number of species
+changes. This is due to the compatibility threshold fluctuating to compensate
+for the number of species which started at 500, the same as the population
+number. The algorithm is trying to keep the number of species to 15 species by
+changing the $/theta$ value as seen in ~\ref{fig:defaultspecies}. As this value
+changes genes can be lost as species combine with others, which is why a
+fluctuation in average fitness is seen.
+
+In comparison to a limited feature set of the self regulation gene and compatibility change enabled, the default parameters converged to a solution in about 10 generations while the self regulation implementation takes 50 to 80 generations as seen in ~\ref{fig:defaultbest} and  ~\ref{fig:selfreg_default_best}. This is due to the starting parameters of the self regulation genes starting at much smaller mutation rates than the default parameters. The self regulation gene is set this way to avoid creating species that mutate too fast too early.
+When the level difficulty is changed to a harder level the self regulation gene helps increase mutation rates. As shown in graphs ~\ref{fig:selfreg_default_hard_best} and ~\ref{fig:default_hard_best} the normal NEAT algorithm has parameters set too low to develop any solutions to the problems it is facing. 
+
+\begin{figure}[h!]
+  \caption{Average fitness using default parameters}
+  \centering
+    \includegraphics[width=1\textwidth]{graphsone/defaultave.png}
+   \label{fig:defaultave} 
+\end{figure}
+
+\begin{figure}[h!]
+  \caption{Number of species using default parameters}
+  \centering
+    \includegraphics[width=1\textwidth]{graphsone/defaultspecies.png}
+   \label{fig:defaultspecies} 
+\end{figure}
+
+\begin{figure}[h!]
+  \caption{The best fit individual using default parameters}
+  \centering
+    \includegraphics[width=1\textwidth]{graphsone/defaultbest.png}
+   \label{fig:defaultbest} 
+\end{figure}
+
+\begin{figure}[h!]
+  \caption{The best fit individual using self regulation gene}
+  \centering
+    \includegraphics[width=1\textwidth]{graphsone/selfreg_default_best.png}
+   \label{fig:selfreg_default_best} 
+\end{figure}
+
+
+\begin{figure}[h!]
+  \caption{The best fit individual using self regulation gene on hard
+  difficulty}
+  \centering
+    \includegraphics[width=1\textwidth]{graphsone/selfreg_default_hard_best.png}
+   \label{fig:selfreg_default_hard_best} 
+\end{figure}
+
+\begin{figure}[h!]
+  \caption{The best fit individual using default paramters on hard difficulty}
+  \centering
+    \includegraphics[width=1\textwidth]{graphsone/default_hard_best.png}
+   \label{fig:default_hard_best} 
+\end{figure}
+
+
 
 \chapter{Conclusions and Future Works}
 \section{Conclusions}

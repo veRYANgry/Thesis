@@ -1,8 +1,15 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {2.1}{\ignorespaces The mario vison grid}}{8}
+\contentsline {figure}{\numberline {2.1}{\ignorespaces The production of offspring and gene characterisitics \cite {stanley:phd04}}}{8}
+\contentsline {figure}{\numberline {2.2}{\ignorespaces The mario vison grid}}{9}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces An example of a nueral network demo}}{12}
+\contentsline {figure}{\numberline {3.1}{\ignorespaces An example of a nueral network demo}}{13}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Average fitness using default parameters}}{19}
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Number of species using default parameters}}{19}
+\contentsline {figure}{\numberline {5.3}{\ignorespaces The best fit individual using default parameters}}{20}
+\contentsline {figure}{\numberline {5.4}{\ignorespaces The best fit individual using self regulation gene}}{20}
+\contentsline {figure}{\numberline {5.5}{\ignorespaces The best fit individual using self regulation gene on hard difficulty}}{21}
+\contentsline {figure}{\numberline {5.6}{\ignorespaces The best fit individual using default paramters on hard difficulty}}{22}
 \addvspace {10\p@ }
