@@ -15,11 +15,12 @@
 \contentsline {chapter}{\numberline {4}Algorithm: Experiments with NEAT and Mario}{14}
 \contentsline {chapter}{\numberline {5}Results}{17}
 \contentsline {section}{\numberline {5.1}Results for Mario Running NEAT with the Same Huerisitics}{18}
-\contentsline {chapter}{\numberline {6}Conclusions and Future Works}{23}
-\contentsline {section}{\numberline {6.1}Conclusions}{23}
-\contentsline {section}{\numberline {6.2}Future Works}{23}
-\contentsline {subsection}{\numberline {6.2.1}Different Genes}{23}
-\contentsline {subsection}{\numberline {6.2.2}Dynamic Data Set Selection}{23}
-\contentsline {subsection}{\numberline {6.2.3}Improved Specie Allocation}{24}
-\contentsline {subsection}{\numberline {6.2.4}Aging}{24}
-\contentsline {chapter}{Bibliography}{25}
+\contentsline {section}{\numberline {5.2}Results for Tetris Running NEAT}{20}
+\contentsline {chapter}{\numberline {6}Conclusions and Future Works}{26}
+\contentsline {section}{\numberline {6.1}Conclusions}{26}
+\contentsline {section}{\numberline {6.2}Future Works}{27}
+\contentsline {subsection}{\numberline {6.2.1}Different Genes}{27}
+\contentsline {subsection}{\numberline {6.2.2}Dynamic Data Set Selection}{27}
+\contentsline {subsection}{\numberline {6.2.3}Improved Specie Allocation}{27}
+\contentsline {subsection}{\numberline {6.2.4}Aging}{28}
+\contentsline {chapter}{Bibliography}{29}

@@ -38,8 +38,14 @@ public class BrainFitnessFunction extends NEATFitnessFunction {
 		BrainScorer scorer = new BrainScorer();
 	   // System.out.println("fitness is " + fitness);
 		//TODO return an array of fitnesses 
-		double[] temp = new double[1];
-		temp[0] = scorer.rate(new NetBrain(this.net()));
+		double[] temp = new double[2];
+		
+		if(((NEATChromosome)genoType).findActiveReg() != null){
+			temp = scorer.rate(new NetBrain(this.net()),((NEATChromosome)genoType).findActiveReg().getHueristics());
+		} else{
+			temp = scorer.rate(new NetBrain(this.net()), null);
+		}
+		
 		return temp;
 	}
 	

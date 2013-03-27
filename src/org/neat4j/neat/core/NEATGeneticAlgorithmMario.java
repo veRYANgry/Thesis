@@ -355,7 +355,7 @@ public class NEATGeneticAlgorithmMario implements GeneticAlgorithm , Serializabl
 		this.evaluatePopulationTetris(currentGen);
 		this.runEvolutionCycle(currentGen);
 	}
-	
+	private int lastSpecieCount;
 	/**
 	 * Runs an evolution cycle on the given population
 	 * @param currentGen
@@ -392,18 +392,24 @@ public class NEATGeneticAlgorithmMario implements GeneticAlgorithm , Serializabl
 		
 		if(this.descriptor.isDynamicSpeciation()){
 		    if (validSpecieList.size() > this.descriptor.getSpecieCount()) {
+		    	if(lastSpecieCount <= validSpecieList.size()){
+		    	
 		    	if(DynamicSpeciationThresh < 0)
 		    		DynamicSpeciationThresh = .001;
 		    	this.descriptor.setThreshold(this.descriptor.getThreshold() + DynamicSpeciationThresh);
 				DynamicSpeciationThresh = DynamicSpeciationThresh * 2;
+		    	}
 		    } else if(validSpecieList.size() < this.descriptor.getSpecieCount() ){
+		    	if(lastSpecieCount >= validSpecieList.size()){
 		    	if(DynamicSpeciationThresh > 0)
 		    		DynamicSpeciationThresh = -.001;
 		    	this.descriptor.setThreshold(this.descriptor.getThreshold() + DynamicSpeciationThresh);
 				DynamicSpeciationThresh = DynamicSpeciationThresh * 2;
+		    	}
 		    } else{
 		    	DynamicSpeciationThresh = .001;
 		    }
+		    lastSpecieCount = validSpecieList.size();
 		}else
 		{
 			if (this.descriptor.getCompatabilityChange() > 0) {

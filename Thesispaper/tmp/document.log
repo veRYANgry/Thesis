@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2013.2.11)  22 MAR 2013 16:34
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2013.2.11)  27 MAR 2013 12:59
 entering extended mode
  restricted \write18 enabled.
  Source specials enabled.
@@ -439,145 +439,178 @@ Underfull \vbox (badness 10000) detected at line 507
 Chapter 5.
 [17
 
-] <graphsone/defaultave.png, id=95, 683.55376pt x 423.5825pt>
+] [18] <graphsone/defaultave.png, id=98, 683.55376pt x 423.5825pt>
 File: graphsone/defaultave.png Graphic file (type png)
 
 <use graphsone/defaultave.png>
-Package pdftex.def Info: graphsone/defaultave.png used on input line 543.
+Package pdftex.def Info: graphsone/defaultave.png used on input line 569.
 (pdftex.def)             Requested size: 411.93878pt x 255.27608pt.
 
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-<graphsone/defaultspecies.png, id=96, 680.5425pt x 422.57875pt>
+<graphsone/defaultspecies.png, id=99, 680.5425pt x 422.57875pt>
 File: graphsone/defaultspecies.png Graphic file (type png)
 
 <use graphsone/defaultspecies.png>
-Package pdftex.def Info: graphsone/defaultspecies.png used on input line 550.
+Package pdftex.def Info: graphsone/defaultspecies.png used on input line 576.
 (pdftex.def)             Requested size: 411.93878pt x 255.7931pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<graphsone/defaultbest.png, id=97, 681.54625pt x 423.5825pt>
+<graphsone/defaultbest.png, id=100, 681.54625pt x 423.5825pt>
 File: graphsone/defaultbest.png Graphic file (type png)
 
 <use graphsone/defaultbest.png>
-Package pdftex.def Info: graphsone/defaultbest.png used on input line 557.
+Package pdftex.def Info: graphsone/defaultbest.png used on input line 583.
 (pdftex.def)             Requested size: 411.93878pt x 256.02583pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<graphsone/selfreg_default_best.png, id=98, 685.56125pt x 425.59pt>
+<graphsone/selfreg_default_best.png, id=101, 685.56125pt x 425.59pt>
 File: graphsone/selfreg_default_best.png Graphic file (type png)
 
 <use graphsone/selfreg_default_best.png>
 Package pdftex.def Info: graphsone/selfreg_default_best.png used on input line 
-564.
+590.
 (pdftex.def)             Requested size: 411.93878pt x 255.7326pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<graphsone/selfreg_default_hard_best.png, id=99, 683.55376pt x 425.59pt>
+<graphsone/selfreg_default_hard_best.png, id=102, 683.55376pt x 425.59pt>
 File: graphsone/selfreg_default_hard_best.png Graphic file (type png)
 
 <use graphsone/selfreg_default_hard_best.png>
 Package pdftex.def Info: graphsone/selfreg_default_hard_best.png used on input 
-line 573.
+line 599.
 (pdftex.def)             Requested size: 411.93878pt x 256.4859pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<graphsone/default_hard_best.png, id=100, 681.54625pt x 421.575pt>
+<graphsone/default_hard_best.png, id=103, 681.54625pt x 421.575pt>
 File: graphsone/default_hard_best.png Graphic file (type png)
 
 <use graphsone/default_hard_best.png>
-Package pdftex.def Info: graphsone/default_hard_best.png used on input line 580
+Package pdftex.def Info: graphsone/default_hard_best.png used on input line 606
 .
 (pdftex.def)             Requested size: 411.93878pt x 254.81242pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[18] [19 <./graphsone/defaultave.png> <./graphsone/defaultspecies.png>]
-[20 <./graphsone/defaultbest.png> <./graphsone/selfreg_default_best.png>]
-[21 <./graphsone/selfreg_default_hard_best.png>] [22 <./graphsone/default_hard_
-best.png>]
-Chapter 6.
-[23
+<graphsone/selfreg_random_best.png, id=104, 683.55376pt x 422.57875pt>
+File: graphsone/selfreg_random_best.png Graphic file (type png)
 
-] [24] (./document.bbl [25
+<use graphsone/selfreg_random_best.png>
+Package pdftex.def Info: graphsone/selfreg_random_best.png used on input line 6
+14.
+(pdftex.def)             Requested size: 411.93878pt x 254.67116pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[19 <./graphsone/defaultave.png>] [20 <./graphsone/defaultspecies.png>]
+<graphstetris/default_best.png, id=111, 683.55376pt x 424.58624pt>
+File: graphstetris/default_best.png Graphic file (type png)
+
+<use graphstetris/default_best.png>
+Package pdftex.def Info: graphstetris/default_best.png used on input line 642.
+(pdftex.def)             Requested size: 411.93878pt x 255.881pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<graphstetris/self_reg_best.png, id=112, 683.55376pt x 425.59pt>
+File: graphstetris/self_reg_best.png Graphic file (type png)
+
+<use graphstetris/self_reg_best.png>
+Package pdftex.def Info: graphstetris/self_reg_best.png used on input line 649.
+
+(pdftex.def)             Requested size: 411.93878pt x 256.4859pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[21 <./graphsone/defaultbest.png>] [22 <./graphsone/selfreg_default_best.png> <
+./graphsone/selfreg_default_hard_best.png>] [23 <./graphsone/default_hard_best.
+png>] [24 <./graphsone/selfreg_random_best.png> <./graphstetris/default_best.pn
+g>] [25 <./graphstetris/self_reg_best.png>]
+Chapter 6.
+Missing character: There is no â in font cmr12!
+Missing character: There is no € in font cmr12!
+Missing character: There is no ™ in font cmr12!
+[26
+
+] [27] [28] (./document.bbl [29
 
 
 ])
-Underfull \hbox (badness 3668) in paragraph at lines 636--638
+Underfull \hbox (badness 3668) in paragraph at lines 715--717
 \OT1/cmr/m/n/12 which in-di-vid-u-als, within the
  []
 
 
-Underfull \hbox (badness 5388) in paragraph at lines 636--638
+Underfull \hbox (badness 5388) in paragraph at lines 715--717
 \OT1/cmr/m/n/12 same specie, per-form a GA
  []
 
 
-Underfull \hbox (badness 1184) in paragraph at lines 645--647
+Underfull \hbox (badness 1184) in paragraph at lines 724--726
 [][]|\OT1/cmr/m/n/12 A link (neuron-neuron con-nec-
  []
 
-LaTeX Font Info:    Try loading font information for OML+cmr on input line 653.
+LaTeX Font Info:    Try loading font information for OML+cmr on input line 732.
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/omlcmr.fd
 File: omlcmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <12> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 653.
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 732.
 
-Underfull \hbox (badness 2653) in paragraph at lines 657--660
+Underfull \hbox (badness 2653) in paragraph at lines 736--739
 \OT1/cmr/m/n/12 pri-v-ides a mea-sure of im-por-
  []
 
 
-Underfull \hbox (badness 7238) in paragraph at lines 688--690
+Underfull \hbox (badness 7238) in paragraph at lines 767--769
 [][]|\OT1/cmr/m/n/12 The penalty ap-plied to the
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 688--690
+Underfull \hbox (badness 10000) in paragraph at lines 767--769
 \OT1/cmr/m/n/12 fit-ness of a given species
  []
 
 
-Underfull \hbox (badness 4353) in paragraph at lines 688--690
+Underfull \hbox (badness 4353) in paragraph at lines 767--769
 \OT1/cmr/m/n/12 mem-bers. Note, if NAT-U-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 688--690
+Underfull \hbox (badness 10000) in paragraph at lines 767--769
 \OT1/cmr/m/n/12 RAL.ORDER.STRATEGY is
  []
 
 
-Overfull \hbox (129.43008pt too wide) in alignment at lines 631--696
+Overfull \hbox (129.43008pt too wide) in alignment at lines 710--775
  [] [] [] [] 
  []
 
 
-Underfull \vbox (badness 10000) detected at line 696
+Underfull \vbox (badness 10000) detected at line 775
  []
 
-[26] [27] [28] [29] [30] (./document.aux) )
+[30] [31] [32] [33] [34] (./document.aux) )
 (\end occurred when \ifx on line 1 was incomplete) 
 Here is how much of TeX's memory you used:
- 3270 strings out of 495059
- 44056 string characters out of 3182030
- 134605 words of memory out of 3000000
- 6374 multiletter control sequences out of 15000+200000
+ 3289 strings out of 495059
+ 44627 string characters out of 3182030
+ 134638 words of memory out of 3000000
+ 6389 multiletter control sequences out of 15000+200000
  11364 words of font info for 42 fonts, out of 3000000 for 9000
  14 hyphenation exceptions out of 8191
- 38i,9n,24p,589b,227s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 38i,9n,24p,270b,227s stack positions out of 5000i,500n,10000p,200000b,50000s
 </usr/share/texlive/texmf-dis
 t/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/font
 s/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/fonts/type
@@ -586,10 +619,10 @@ c/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfo
 nts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/c
 mr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pf
 b></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on document.pdf (39 pages, 772248 bytes).
+Output written on document.pdf (43 pages, 855253 bytes).
 PDF statistics:
- 173 PDF objects out of 1000 (max. 8388607)
- 113 compressed objects within 2 object streams
+ 189 PDF objects out of 1000 (max. 8388607)
+ 122 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 46 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 61 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -6,7 +6,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 import java.util.Random;
+import java.util.Vector;
 
 import javax.swing.Box;
 import javax.swing.JButton;
@@ -21,20 +23,39 @@ public class BrainScorer {
 	public int seed = new Random(System.currentTimeMillis()).nextInt();
 	BoardRater boardRater = new FinalRater();
 	
-	public double rate(NetBrain brain){
+	
+	public double[] rate(NetBrain brain, ArrayList<double[]> hueristics){
 		
 		
-		double score = 0;
+		double[] score = new double[2];
+		double[] temp;
 		
-		score += scoreBrain(seed,brain);
-		score += scoreBrain(0,brain);
-		score += scoreBrain(2,brain);
-		score += scoreBrain(4,brain);
+		temp = scorerun(seed,brain,hueristics);
+		score[0] +=  temp[0];
+		score[1] +=  temp[1];
+		temp =  scorerun(0,brain,hueristics);
+		score[0] +=  temp[0];
+		score[1] +=  temp[1];
+		temp =  scorerun(2,brain,hueristics);
+		score[0] +=  temp[0];
+		score[1] +=  temp[1];
 		
 		return  score;
 	}
 	
-	private double scoreBrain(int seed,NetBrain brain ){
+	private double[] scorerun(int seed ,NetBrain brain, ArrayList<double[]> heuristics){
+		double[] score = new double[2];
+		double[] values = scoreBrain(seed,brain);
+		double[] constantH = {1 , 10 , 1};
+		if(heuristics != null){
+			score[1] = heuristics.get(0)[0] * values[0] + heuristics.get(0)[1] * values[1] + heuristics.get(0)[2] * values[2];
+		}
+		
+		score[0] = constantH[0] * values[0] +  constantH[1] * values[1] +  constantH[2] * values[2];
+		return score;
+	}
+	
+	private double[] scoreBrain(int seed,NetBrain brain ){
 		
 		TetrisController tc = new TetrisController();
 		tc.startGame(seed);
@@ -68,7 +89,12 @@ public class BrainScorer {
 				
 
 		}
-		return  tc.count * 10 + tc.rowsCleared * 100 + boardRater.rateBoard(tc.board);
+		double[] values = new double[3];
+		values[0] = tc.count;
+		values[1] = tc.rowsCleared;
+		values[2] =  boardRater.rateBoard(tc.board);
+		
+		return  values;
 		
 	}
 	

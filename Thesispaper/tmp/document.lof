@@ -7,9 +7,12 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {5.1}{\ignorespaces Average fitness using default parameters}}{19}
-\contentsline {figure}{\numberline {5.2}{\ignorespaces Number of species using default parameters}}{19}
-\contentsline {figure}{\numberline {5.3}{\ignorespaces The best fit individual using default parameters}}{20}
-\contentsline {figure}{\numberline {5.4}{\ignorespaces The best fit individual using self regulation gene}}{20}
-\contentsline {figure}{\numberline {5.5}{\ignorespaces The best fit individual using self regulation gene on hard difficulty}}{21}
-\contentsline {figure}{\numberline {5.6}{\ignorespaces The best fit individual using default paramters on hard difficulty}}{22}
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Number of species using default parameters}}{20}
+\contentsline {figure}{\numberline {5.3}{\ignorespaces The best fit individual using default parameters}}{21}
+\contentsline {figure}{\numberline {5.4}{\ignorespaces The best fit individual using self regulation gene}}{22}
+\contentsline {figure}{\numberline {5.5}{\ignorespaces The best fit individual using self regulation gene on hard difficulty}}{22}
+\contentsline {figure}{\numberline {5.6}{\ignorespaces The best fit individual using default paramters on hard difficulty}}{23}
+\contentsline {figure}{\numberline {5.7}{\ignorespaces The best fit individual using self regulation gene with random paramters on hard difficulty}}{24}
+\contentsline {figure}{\numberline {5.8}{\ignorespaces The best fit individual using default paramters for Tetris}}{24}
+\contentsline {figure}{\numberline {5.9}{\ignorespaces The best fit individual using self regulation for Tetris}}{25}
 \addvspace {10\p@ }

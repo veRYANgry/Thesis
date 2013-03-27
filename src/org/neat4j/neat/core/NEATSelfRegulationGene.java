@@ -125,15 +125,15 @@ public class NEATSelfRegulationGene implements NEATGene, Cloneable {
    }
 
    public void initialize(Random Rand) {
-      pAddLink = .05;
-      pAddNode = .05;
-      pToggleLink = .05;
-      pMutation = .05;
-      pMutateBias = .15;
-      pWeightReplaced = .05;
+      pAddLink = Rand.nextDouble();
+      pAddNode = Rand.nextDouble();
+      pToggleLink = Rand.nextDouble();
+      pMutation = Rand.nextDouble();
+      pMutateBias = Rand.nextDouble();
+      pWeightReplaced = Rand.nextDouble();
 
-      maxPerturb = .05;
-      maxBiasPerturb = .05;
+      maxPerturb = Rand.nextDouble();
+      maxBiasPerturb = Rand.nextDouble();
 
       disjointCoeff = 1;
       excessCoeff = 1;
@@ -151,12 +151,12 @@ public class NEATSelfRegulationGene implements NEATGene, Cloneable {
       agePenalty = .9;
       youthBoost = 8.8;
 
-      pMutatateRegulation = .01;
-      pMutatateRegulationHueristics = .01;
-      pMutatateRegulationCoeff = .01;
-      pMutatateRegulationMutation = .01;
-      pMutatateRegulationAgeing = .01;
-      maxPerturbRegulation = .5;
+      pMutatateRegulation = Rand.nextDouble();
+      pMutatateRegulationHueristics = Rand.nextDouble();
+      pMutatateRegulationCoeff = Rand.nextDouble();
+      pMutatateRegulationMutation = Rand.nextDouble();
+      pMutatateRegulationAgeing = Rand.nextDouble();
+      maxPerturbRegulation = Rand.nextDouble();
 
       // TODO create a way to vary the number of h values
       // TODO normalize h values from the runs to be constant for max value or
