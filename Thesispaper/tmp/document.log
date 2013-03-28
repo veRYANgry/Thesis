@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2013.2.11)  27 MAR 2013 12:59
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2013.2.11)  27 MAR 2013 13:22
 entering extended mode
  restricted \write18 enabled.
  Source specials enabled.
@@ -352,7 +352,7 @@ Missing character: There is no Å in font cmr12!
 ]
 Chapter 1.
 ! Misplaced alignment tab character &.
-l.123 such as Black &
+l.125 such as Black &
                       White 2 and the NEAT specific NERO \cite{hastings2009e...
 I can't figure out why you would want to use a tab mark
 here. If you just want an ampersand, the remedy is
@@ -392,7 +392,7 @@ Missing character: There is no ô in font cmr12!
 File: parentgenes.png Graphic file (type png)
 
 <use parentgenes.png>
-Package pdftex.def Info: parentgenes.png used on input line 280.
+Package pdftex.def Info: parentgenes.png used on input line 282.
 (pdftex.def)             Requested size: 411.93878pt x 387.8249pt.
 
 
@@ -405,7 +405,7 @@ Missing character: There is no ô in font cmr12!
 File: mariogrid.png Graphic file (type png)
 
 <use mariogrid.png>
-Package pdftex.def Info: mariogrid.png used on input line 318.
+Package pdftex.def Info: mariogrid.png used on input line 320.
 (pdftex.def)             Requested size: 205.96939pt x 155.41753pt.
  [9 <./mariogrid.png>]
 Chapter 3.
@@ -415,7 +415,7 @@ Chapter 3.
 File: simplemarionet.png Graphic file (type png)
 
 <use simplemarionet.png>
-Package pdftex.def Info: simplemarionet.png used on input line 421.
+Package pdftex.def Info: simplemarionet.png used on input line 423.
 (pdftex.def)             Requested size: 411.93878pt x 194.39482pt.
  [13 <./simplemarionet.png>]
 Chapter 4.
@@ -432,7 +432,7 @@ Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ô in font cmr12!
  [15]
-Underfull \vbox (badness 10000) detected at line 507
+Underfull \vbox (badness 10000) detected at line 509
  []
 
 [16]
@@ -443,14 +443,14 @@ Chapter 5.
 File: graphsone/defaultave.png Graphic file (type png)
 
 <use graphsone/defaultave.png>
-Package pdftex.def Info: graphsone/defaultave.png used on input line 569.
+Package pdftex.def Info: graphsone/defaultave.png used on input line 571.
 (pdftex.def)             Requested size: 411.93878pt x 255.27608pt.
 
 <graphsone/defaultspecies.png, id=99, 680.5425pt x 422.57875pt>
 File: graphsone/defaultspecies.png Graphic file (type png)
 
 <use graphsone/defaultspecies.png>
-Package pdftex.def Info: graphsone/defaultspecies.png used on input line 576.
+Package pdftex.def Info: graphsone/defaultspecies.png used on input line 578.
 (pdftex.def)             Requested size: 411.93878pt x 255.7931pt.
 
 
@@ -460,7 +460,7 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 File: graphsone/defaultbest.png Graphic file (type png)
 
 <use graphsone/defaultbest.png>
-Package pdftex.def Info: graphsone/defaultbest.png used on input line 583.
+Package pdftex.def Info: graphsone/defaultbest.png used on input line 585.
 (pdftex.def)             Requested size: 411.93878pt x 256.02583pt.
 
 
@@ -471,7 +471,7 @@ File: graphsone/selfreg_default_best.png Graphic file (type png)
 
 <use graphsone/selfreg_default_best.png>
 Package pdftex.def Info: graphsone/selfreg_default_best.png used on input line 
-590.
+592.
 (pdftex.def)             Requested size: 411.93878pt x 255.7326pt.
 
 
@@ -482,7 +482,7 @@ File: graphsone/selfreg_default_hard_best.png Graphic file (type png)
 
 <use graphsone/selfreg_default_hard_best.png>
 Package pdftex.def Info: graphsone/selfreg_default_hard_best.png used on input 
-line 599.
+line 601.
 (pdftex.def)             Requested size: 411.93878pt x 256.4859pt.
 
 
@@ -492,7 +492,7 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 File: graphsone/default_hard_best.png Graphic file (type png)
 
 <use graphsone/default_hard_best.png>
-Package pdftex.def Info: graphsone/default_hard_best.png used on input line 606
+Package pdftex.def Info: graphsone/default_hard_best.png used on input line 608
 .
 (pdftex.def)             Requested size: 411.93878pt x 254.81242pt.
 
@@ -504,7 +504,7 @@ File: graphsone/selfreg_random_best.png Graphic file (type png)
 
 <use graphsone/selfreg_random_best.png>
 Package pdftex.def Info: graphsone/selfreg_random_best.png used on input line 6
-14.
+16.
 (pdftex.def)             Requested size: 411.93878pt x 254.67116pt.
 
 
@@ -515,7 +515,7 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 File: graphstetris/default_best.png Graphic file (type png)
 
 <use graphstetris/default_best.png>
-Package pdftex.def Info: graphstetris/default_best.png used on input line 642.
+Package pdftex.def Info: graphstetris/default_best.png used on input line 644.
 (pdftex.def)             Requested size: 411.93878pt x 255.881pt.
 
 
@@ -525,7 +525,7 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 File: graphstetris/self_reg_best.png Graphic file (type png)
 
 <use graphstetris/self_reg_best.png>
-Package pdftex.def Info: graphstetris/self_reg_best.png used on input line 649.
+Package pdftex.def Info: graphstetris/self_reg_best.png used on input line 651.
 
 (pdftex.def)             Requested size: 411.93878pt x 256.4859pt.
 
@@ -546,59 +546,59 @@ Missing character: There is no ô in font cmr12!
 
 
 ])
-Underfull \hbox (badness 3668) in paragraph at lines 715--717
+Underfull \hbox (badness 3668) in paragraph at lines 717--719
 \OT1/cmr/m/n/12 which in-di-vid-u-als, within the
  []
 
 
-Underfull \hbox (badness 5388) in paragraph at lines 715--717
+Underfull \hbox (badness 5388) in paragraph at lines 717--719
 \OT1/cmr/m/n/12 same specie, per-form a GA
  []
 
 
-Underfull \hbox (badness 1184) in paragraph at lines 724--726
+Underfull \hbox (badness 1184) in paragraph at lines 726--728
 [][]|\OT1/cmr/m/n/12 A link (neuron-neuron con-nec-
  []
 
-LaTeX Font Info:    Try loading font information for OML+cmr on input line 732.
+LaTeX Font Info:    Try loading font information for OML+cmr on input line 734.
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/omlcmr.fd
 File: omlcmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <12> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 732.
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 734.
 
-Underfull \hbox (badness 2653) in paragraph at lines 736--739
+Underfull \hbox (badness 2653) in paragraph at lines 738--741
 \OT1/cmr/m/n/12 pri-v-ides a mea-sure of im-por-
  []
 
 
-Underfull \hbox (badness 7238) in paragraph at lines 767--769
+Underfull \hbox (badness 7238) in paragraph at lines 769--771
 [][]|\OT1/cmr/m/n/12 The penalty ap-plied to the
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 767--769
+Underfull \hbox (badness 10000) in paragraph at lines 769--771
 \OT1/cmr/m/n/12 fit-ness of a given species
  []
 
 
-Underfull \hbox (badness 4353) in paragraph at lines 767--769
+Underfull \hbox (badness 4353) in paragraph at lines 769--771
 \OT1/cmr/m/n/12 mem-bers. Note, if NAT-U-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 767--769
+Underfull \hbox (badness 10000) in paragraph at lines 769--771
 \OT1/cmr/m/n/12 RAL.ORDER.STRATEGY is
  []
 
 
-Overfull \hbox (129.43008pt too wide) in alignment at lines 710--775
+Overfull \hbox (129.43008pt too wide) in alignment at lines 712--777
  [] [] [] [] 
  []
 
 
-Underfull \vbox (badness 10000) detected at line 775
+Underfull \vbox (badness 10000) detected at line 777
  []
 
 [30] [31] [32] [33] [34] (./document.aux) )
@@ -619,7 +619,7 @@ c/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfo
 nts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/c
 mr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pf
 b></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on document.pdf (43 pages, 855253 bytes).
+Output written on document.pdf (43 pages, 855364 bytes).
 PDF statistics:
  189 PDF objects out of 1000 (max. 8388607)
  122 compressed objects within 2 object streams
