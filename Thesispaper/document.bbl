@@ -1,0 +1,79 @@
+\begin{thebibliography}{10}
+
+\bibitem{tetris}
+tetris code {@ONLINE}, Apr. 2009.
+
+\bibitem{Angeline}
+P.~Angeline, G.~Saunders, and J.~Pollack.
+\newblock An evolutionary algorithm that constructs recurrent neural networks.
+\newblock {\em Neural Networks, IEEE Transactions on}, 5(1):54--65, Jan.
+
+\bibitem{gomez:proposal}
+F.~J. Gomez and R.~Miikkulainen.
+\newblock Solving non-markovian control tasks with neuroevolution.
+\newblock Dissertation Proposal, Computer Science Department, University of
+  Texas at Austin, 1999.
+
+\bibitem{hastings2009evolving}
+E.~J. Hastings, R.~K. Guha, and K.~O. Stanley.
+\newblock Evolving content in the galactic arms race video game.
+\newblock In {\em Computational Intelligence and Games, 2009. CIG 2009. IEEE
+  Symposium on}, pages 241--248. IEEE, 2009.
+
+\bibitem{hubel1959receptive}
+D.~H. Hubel and T.~N. Wiesel.
+\newblock Receptive fields of single neurones in the cat's striate cortex.
+\newblock {\em The Journal of physiology}, 148(3):574--591, 1959.
+
+\bibitem{PengHuo}
+P.~Huo, S.~C.~K. Shiu, H.~Wang, and B.~Niu.
+\newblock Application and comparison of particle swarm optimization and genetic
+  algorithm in strategy defense game.
+\newblock In {\em Natural Computation, 2009. ICNC '09. Fifth International
+  Conference on}, volume~5, pages 387--392, Aug.
+
+\bibitem{karakovskiy2012mario}
+S.~Karakovskiy and J.~Togelius.
+\newblock The mario ai benchmark and competitions.
+\newblock {\em Computational Intelligence and AI in Games, IEEE Transactions
+  on}, 4(1):55--67, 2012.
+
+\bibitem{Chih-Sheng}
+C.-S. Lin and C.-K. Ting.
+\newblock Emergent tactical formation using genetic algorithm in real-time
+  strategy games.
+\newblock In {\em Technologies and Applications of Artificial Intelligence
+  (TAAI), 2011 International Conference on}, pages 325--330, Nov.
+
+\bibitem{lippmann}
+R.~Lippmann.
+\newblock An introduction to computing with neural nets.
+\newblock {\em ASSP Magazine, IEEE}, 4(2):4--22, 1987.
+
+\bibitem{moriarty:focus}
+D.~E. Moriarty and R.~Miikkulainen.
+\newblock Evolving neural networks to focus minimax search.
+\newblock In {\em Proceedings of the Twelfth National Conference on Artificial
+  Intelligence (AAAI-94)}, pages 1371--1377, Seattle, WA, 1994. Cambridge, MA:
+  MIT Press.
+
+\bibitem{Revello}
+T.~Revello and R.~McCartney.
+\newblock Generating war game strategies using a genetic algorithm.
+\newblock In {\em Evolutionary Computation, 2002. CEC '02. Proceedings of the
+  2002 Congress on}, volume~2, pages 1086--1091.
+
+\bibitem{stanley:phd04}
+K.~O. Stanley.
+\newblock {\em Efficient Evolution of Neural Networks Through
+  Complexification}.
+\newblock PhD thesis, Department of Computer Sciences, The University of Texas
+  at Austin, 2004.
+
+\bibitem{stanley:cig05}
+K.~O. Stanley, B.~D. Bryant, and R.~Miikkulainen.
+\newblock Evolving neural network agents in the nero video game.
+\newblock In {\em Proceedings of the IEEE 2005 Symposium on Computational
+  Intelligence and Games (CIG'05)}, Piscataway, NJ, 2005. IEEE.
+
+\end{thebibliography}

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2013.2.11)  18 MAR 2013 15:36
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2013.2.11)  28 MAR 2013 22:00
 entering extended mode
  restricted \write18 enabled.
  Source specials enabled.
@@ -198,18 +198,18 @@ Package: textcase 2004/10/07 v0.07 Text only upper/lower case changing (DPC)
 ) (./document.aux)
 \openout1 = `document.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 56.
-LaTeX Font Info:    ... okay on input line 56.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 56.
-LaTeX Font Info:    ... okay on input line 56.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 56.
-LaTeX Font Info:    ... okay on input line 56.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 56.
-LaTeX Font Info:    ... okay on input line 56.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 56.
-LaTeX Font Info:    ... okay on input line 56.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 56.
-LaTeX Font Info:    ... okay on input line 56.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 58.
+LaTeX Font Info:    ... okay on input line 58.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 58.
+LaTeX Font Info:    ... okay on input line 58.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 58.
+LaTeX Font Info:    ... okay on input line 58.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 58.
+LaTeX Font Info:    ... okay on input line 58.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 58.
+LaTeX Font Info:    ... okay on input line 58.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 58.
+LaTeX Font Info:    ... okay on input line 58.
  (/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count110
@@ -301,592 +301,32 @@ e
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-! Missing $ inserted.
-<inserted text> 
-                $
-l.67 \maketitle
-               
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-LaTeX Font Info:    Try loading font information for U+msa on input line 67.
-(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
-File: umsa.fd 2009/06/22 v3.00 AMS symbols A
-)
-LaTeX Font Info:    Try loading font information for U+msb on input line 67.
-
-(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
-File: umsb.fd 2009/06/22 v3.00 AMS symbols B
-)
-! Missing { inserted.
-<to be read again> 
-                   _
-l.67 \maketitle
-               
-A left brace was mandatory here, so I've put one in.
-You might want to delete and/or insert some corrections
-so that I will find a matching right brace soon.
-(If you're confused by all this, try typing `I}' now.)
-
-! Missing { inserted.
-<to be read again> 
-                   _
-l.67 \maketitle
-               
-A left brace was mandatory here, so I've put one in.
-You might want to delete and/or insert some corrections
-so that I will find a matching right brace soon.
-(If you're confused by all this, try typing `I}' now.)
-
-! Missing { inserted.
-<to be read again> 
-                   _
-l.67 \maketitle
-               
-A left brace was mandatory here, so I've put one in.
-You might want to delete and/or insert some corrections
-so that I will find a matching right brace soon.
-(If you're confused by all this, try typing `I}' now.)
-
-! Missing { inserted.
-<to be read again> 
-                   _
-l.67 \maketitle
-               
-A left brace was mandatory here, so I've put one in.
-You might want to delete and/or insert some corrections
-so that I will find a matching right brace soon.
-(If you're confused by all this, try typing `I}' now.)
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.67 \maketitle
-               
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-! Missing } inserted.
-<inserted text> 
-                }
-l.67 \maketitle
-               
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-! Missing } inserted.
-<inserted text> 
-                }
-l.67 \maketitle
-               
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-! Missing } inserted.
-<inserted text> 
-                }
-l.67 \maketitle
-               
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-! Missing } inserted.
-<inserted text> 
-                }
-l.67 \maketitle
-               
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-! Missing } inserted.
-<inserted text> 
-                }
-l.67 \maketitle
-               
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-! Extra }, or forgotten \endgroup.
-\par ...m \@noitemerr {\@@par }\fi \else {\@@par }
-                                                  \fi 
-l.67 \maketitle
-               
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
 [1
 Non-PDF special ignored!
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 72.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 74.
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 72.
- [2]
-! Missing $ inserted.
-<inserted text> 
-                $
-l.75 \approvalpage
-                  
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 74.
+LaTeX Font Info:    Try loading font information for U+msa on input line 74.
 
-! Missing { inserted.
-<to be read again> 
-                   _
-l.75 \approvalpage
-                  
-A left brace was mandatory here, so I've put one in.
-You might want to delete and/or insert some corrections
-so that I will find a matching right brace soon.
-(If you're confused by all this, try typing `I}' now.)
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2009/06/22 v3.00 AMS symbols A
+)
+LaTeX Font Info:    Try loading font information for U+msb on input line 74.
 
-! Missing { inserted.
-<to be read again> 
-                   _
-l.75 \approvalpage
-                  
-A left brace was mandatory here, so I've put one in.
-You might want to delete and/or insert some corrections
-so that I will find a matching right brace soon.
-(If you're confused by all this, try typing `I}' now.)
-
-! Missing { inserted.
-<to be read again> 
-                   _
-l.75 \approvalpage
-                  
-A left brace was mandatory here, so I've put one in.
-You might want to delete and/or insert some corrections
-so that I will find a matching right brace soon.
-(If you're confused by all this, try typing `I}' now.)
-
-! Missing { inserted.
-<to be read again> 
-                   _
-l.75 \approvalpage
-                  
-A left brace was mandatory here, so I've put one in.
-You might want to delete and/or insert some corrections
-so that I will find a matching right brace soon.
-(If you're confused by all this, try typing `I}' now.)
-
-! Misplaced \cr.
-\reserved@c ->\ifnum 0=`{\fi }\cr 
-                                  
-l.75 \approvalpage
-                  
-I can't figure out why you would want to use a tab mark
-or \cr or \span just now. If something like a right brace
-up above has ended a previous alignment prematurely,
-you're probably due for more error messages, and you
-might try typing `S' now just to see what is salvageable.
-
-! Misplaced \cr.
-\reserved@c ->\ifnum 0=`{\fi }\cr 
-                                  
-l.75 \approvalpage
-                  
-I can't figure out why you would want to use a tab mark
-or \cr or \span just now. If something like a right brace
-up above has ended a previous alignment prematurely,
-you're probably due for more error messages, and you
-might try typing `S' now just to see what is salvageable.
-
-! Misplaced alignment tab character &.
-\approvalpage ... TITLE: & \@title \\ \\ AUTHOR: &
-                                                   \@author \\ \\ DATE SUBMI...
-l.75 \approvalpage
-                  
-I can't figure out why you would want to use a tab mark
-here. If you just want an ampersand, the remedy is
-simple: Just type `I\&' now. But if some right brace
-up above has ended a previous alignment prematurely,
-you're probably due for more error messages, and you
-might try typing `S' now just to see what is salvageable.
-
-! Misplaced \cr.
-\reserved@c ->\ifnum 0=`{\fi }\cr 
-                                  
-l.75 \approvalpage
-                  
-I can't figure out why you would want to use a tab mark
-or \cr or \span just now. If something like a right brace
-up above has ended a previous alignment prematurely,
-you're probably due for more error messages, and you
-might try typing `S' now just to see what is salvageable.
-
-! Misplaced \cr.
-\reserved@c ->\ifnum 0=`{\fi }\cr 
-                                  
-l.75 \approvalpage
-                  
-I can't figure out why you would want to use a tab mark
-or \cr or \span just now. If something like a right brace
-up above has ended a previous alignment prematurely,
-you're probably due for more error messages, and you
-might try typing `S' now just to see what is salvageable.
-
-! Misplaced alignment tab character &.
-\approvalpage ... \@author \\ \\ DATE SUBMITTED: &
-                                                   \@degreemonth ~\@degreeye...
-l.75 \approvalpage
-                  
-I can't figure out why you would want to use a tab mark
-here. If you just want an ampersand, the remedy is
-simple: Just type `I\&' now. But if some right brace
-up above has ended a previous alignment prematurely,
-you're probably due for more error messages, and you
-might try typing `S' now just to see what is salvageable.
-
-! Misplaced \cr.
-\reserved@c ->\ifnum 0=`{\fi }\cr 
-                                  
-l.75 \approvalpage
-                  
-I can't figure out why you would want to use a tab mark
-or \cr or \span just now. If something like a right brace
-up above has ended a previous alignment prematurely,
-you're probably due for more error messages, and you
-might try typing `S' now just to see what is salvageable.
-
-! Misplaced \cr.
-\reserved@c ->\ifnum 0=`{\fi }\cr 
-                                  
-l.75 \approvalpage
-                  
-I can't figure out why you would want to use a tab mark
-or \cr or \span just now. If something like a right brace
-up above has ended a previous alignment prematurely,
-you're probably due for more error messages, and you
-might try typing `S' now just to see what is salvageable.
-
-! Misplaced \cr.
-\reserved@c ->\ifnum 0=`{\fi }\cr 
-                                  
-l.75 \approvalpage
-                  
-I can't figure out why you would want to use a tab mark
-or \cr or \span just now. If something like a right brace
-up above has ended a previous alignment prematurely,
-you're probably due for more error messages, and you
-might try typing `S' now just to see what is salvageable.
-
-! Misplaced alignment tab character &.
-\approvalpage ...eyear \\ \\ \\ COMMITTEE CHAIR: &
-                                                   \@chair \\ \\ COMMITTEE M...
-l.75 \approvalpage
-                  
-I can't figure out why you would want to use a tab mark
-here. If you just want an ampersand, the remedy is
-simple: Just type `I\&' now. But if some right brace
-up above has ended a previous alignment prematurely,
-you're probably due for more error messages, and you
-might try typing `S' now just to see what is salvageable.
-
-! Misplaced \cr.
-\reserved@c ->\ifnum 0=`{\fi }\cr 
-                                  
-l.75 \approvalpage
-                  
-I can't figure out why you would want to use a tab mark
-or \cr or \span just now. If something like a right brace
-up above has ended a previous alignment prematurely,
-you're probably due for more error messages, and you
-might try typing `S' now just to see what is salvageable.
-
-! Misplaced \cr.
-\reserved@c ->\ifnum 0=`{\fi }\cr 
-                                  
-l.75 \approvalpage
-                  
-I can't figure out why you would want to use a tab mark
-or \cr or \span just now. If something like a right brace
-up above has ended a previous alignment prematurely,
-you're probably due for more error messages, and you
-might try typing `S' now just to see what is salvageable.
-
-! Misplaced alignment tab character &.
-\approvalpage ...\@chair \\ \\ COMMITTEE MEMBER: &
-                                                   \@othermemberA \\ \\ COMM...
-l.75 \approvalpage
-                  
-I can't figure out why you would want to use a tab mark
-here. If you just want an ampersand, the remedy is
-simple: Just type `I\&' now. But if some right brace
-up above has ended a previous alignment prematurely,
-you're probably due for more error messages, and you
-might try typing `S' now just to see what is salvageable.
-
-
-LaTeX Warning: Command \" invalid in math mode on input line 75.
-
-! Please use \mathaccent for accents in math mode.
-\add@accent ...@spacefactor \spacefactor }\accent 
-                                                  #1 #2\egroup \spacefactor ...
-l.75 \approvalpage
-                  
-I'm changing \accent to \mathaccent here; wish me luck.
-(Accents are not the same in formulas as they are in text.)
-
-! You can't use `\spacefactor' in math mode.
-\add@accent ...}\accent #1 #2\egroup \spacefactor 
-                                                  \accent@spacefactor 
-l.75 \approvalpage
-                  
-Sorry, but I'm not programmed to handle this case;
-I'll just pretend that you didn't ask for it.
-If you're in the wrong mode, you might be able to
-return to the right one by typing `I}' or `I$' or `I\par'.
-
-! Misplaced \cr.
-\reserved@c ->\ifnum 0=`{\fi }\cr 
-                                  
-l.75 \approvalpage
-                  
-I can't figure out why you would want to use a tab mark
-or \cr or \span just now. If something like a right brace
-up above has ended a previous alignment prematurely,
-you're probably due for more error messages, and you
-might try typing `S' now just to see what is salvageable.
-
-! Misplaced \cr.
-\reserved@c ->\ifnum 0=`{\fi }\cr 
-                                  
-l.75 \approvalpage
-                  
-I can't figure out why you would want to use a tab mark
-or \cr or \span just now. If something like a right brace
-up above has ended a previous alignment prematurely,
-you're probably due for more error messages, and you
-might try typing `S' now just to see what is salvageable.
-
-! Misplaced alignment tab character &.
-\approvalpage ...memberA \\ \\ COMMITTEE MEMBER: &
-                                                   \@othermemberB \\ \par \e...
-l.75 \approvalpage
-                  
-I can't figure out why you would want to use a tab mark
-here. If you just want an ampersand, the remedy is
-simple: Just type `I\&' now. But if some right brace
-up above has ended a previous alignment prematurely,
-you're probably due for more error messages, and you
-might try typing `S' now just to see what is salvageable.
-
-! Misplaced \cr.
-\reserved@c ->\ifnum 0=`{\fi }\cr 
-                                  
-l.75 \approvalpage
-                  
-I can't figure out why you would want to use a tab mark
-or \cr or \span just now. If something like a right brace
-up above has ended a previous alignment prematurely,
-you're probably due for more error messages, and you
-might try typing `S' now just to see what is salvageable.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.75 \approvalpage
-                  
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-! Missing } inserted.
-<inserted text> 
-                }
-l.75 \approvalpage
-                  
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-! Missing } inserted.
-<inserted text> 
-                }
-l.75 \approvalpage
-                  
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-! Missing } inserted.
-<inserted text> 
-                }
-l.75 \approvalpage
-                  
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-! Missing } inserted.
-<inserted text> 
-                }
-l.75 \approvalpage
-                  
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-Missing character: There is no Ë in font cmex7!
-
-Overfull \hbox (495.31915pt too wide) in paragraph at lines 75--75
-[]$[]$ 
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2009/06/22 v3.00 AMS symbols B
+) [2]
+Overfull \hbox (3.034pt too wide) in paragraph at lines 77--77
+[][] 
  []
 
-[3]
-! Missing $ inserted.
-<inserted text> 
-                $
-l.78 \begin{abstract}
-                     
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-! Missing { inserted.
-<to be read again> 
-                   _
-l.78 \begin{abstract}
-                     
-A left brace was mandatory here, so I've put one in.
-You might want to delete and/or insert some corrections
-so that I will find a matching right brace soon.
-(If you're confused by all this, try typing `I}' now.)
-
-! Missing { inserted.
-<to be read again> 
-                   _
-l.78 \begin{abstract}
-                     
-A left brace was mandatory here, so I've put one in.
-You might want to delete and/or insert some corrections
-so that I will find a matching right brace soon.
-(If you're confused by all this, try typing `I}' now.)
-
-! Missing { inserted.
-<to be read again> 
-                   _
-l.78 \begin{abstract}
-                     
-A left brace was mandatory here, so I've put one in.
-You might want to delete and/or insert some corrections
-so that I will find a matching right brace soon.
-(If you're confused by all this, try typing `I}' now.)
-
-! Missing { inserted.
-<to be read again> 
-                   _
-l.78 \begin{abstract}
-                     
-A left brace was mandatory here, so I've put one in.
-You might want to delete and/or insert some corrections
-so that I will find a matching right brace soon.
-(If you're confused by all this, try typing `I}' now.)
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.78 \begin{abstract}
-                     
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-! Missing } inserted.
-<inserted text> 
-                }
-l.78 \begin{abstract}
-                     
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-! Missing } inserted.
-<inserted text> 
-                }
-l.78 \begin{abstract}
-                     
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-! Missing } inserted.
-<inserted text> 
-                }
-l.78 \begin{abstract}
-                     
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-! Missing } inserted.
-<inserted text> 
-                }
-l.78 \begin{abstract}
-                     
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-! Missing } inserted.
-<inserted text> 
-                }
-l.78 \begin{abstract}
-                     
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-! Extra }, or forgotten \endgroup.
-\abstract ...by\par \vspace {.1in} \@author \par }
-                                                  \vspace {.1in} \end {center}
-l.78 \begin{abstract}
-                     
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-[4] [5] (./document.toc
+[3] [4] [5] (./document.toc
 Missing character: There is no Ô in font cmr12!
 Missing character: There is no ¨ in font cmr12!
 Missing character: There is no Å in font cmr12!
@@ -906,34 +346,25 @@ Missing character: There is no Å in font cmr12!
 \tf@lof=\write5
 \openout5 = `document.lof'.
 
- [9
+
+[9
 
 ]
 Chapter 1.
+! Misplaced alignment tab character &.
+l.125 such as Black &
+                      White 2 and the NEAT specific NERO \cite{hastings2009e...
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
 [1
 
 ]
 Chapter 2.
-
-LaTeX Warning: Citation `Revello' on page 2 undefined on input line 129.
-
-
-LaTeX Warning: Citation `PengHuo' on page 2 undefined on input line 129.
-
-
-LaTeX Warning: Citation `Chih-Sheng' on page 2 undefined on input line 129.
-
-
-LaTeX Warning: Citation `moriarty:focus' on page 2 undefined on input line 132.
-
-
-
-LaTeX Warning: Citation `gomez:proposal' on page 2 undefined on input line 133.
-
-
-
-LaTeX Warning: Citation `Angeline' on page 2 undefined on input line 133.
-
 [2
 
 ]
@@ -947,282 +378,46 @@ Missing character: There is no ù in font cmr12!
 Missing character: There is no Ô in font cmbx12!
 Missing character: There is no ¨ in font cmbx12!
 Missing character: There is no Å in font cmbx12!
-
-
-LaTeX Warning: Citation `lippmann' on page 4 undefined on input line 196.
-
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ô in font cmr12!
-
-LaTeX Warning: Citation `hubel1959receptive' on page 4 undefined on input line 
-198.
-
-[4] [5]
-
-LaTeX Warning: Citation `stanley:phd04' on page 6 undefined on input line 230.
-
+ [4] [5]
 Missing character: There is no Ô in font cmr12!
 Missing character: There is no ¨ in font cmr12!
 Missing character: There is no Å in font cmr12!
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ô in font cmr12!
+ [6] <parentgenes.png, id=53, 1028.84375pt x 968.61874pt>
+File: parentgenes.png Graphic file (type png)
 
-LaTeX Warning: Reference `fig:parentgenes' on page 6 undefined on input line 24
-9.
+<use parentgenes.png>
+Package pdftex.def Info: parentgenes.png used on input line 282.
+(pdftex.def)             Requested size: 411.93878pt x 387.8249pt.
 
-[6]
 
-LaTeX Warning: Citation `karakovskiy2012mario' on page 7 undefined on input lin
-e 263.
+LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ô in font cmr12!
-[7]
-! Missing number, treated as zero.
-<to be read again> 
-                   >
-l.291 ...rio, with his available cells of vision.}
-                                                  
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
-! Illegal unit of measure (pt inserted).
-<to be read again> 
-                   >
-l.291 ...rio, with his available cells of vision.}
-                                                  
-Dimensions can be in units of em, ex, in, pt, pc,
-cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
-I'll assume that you meant to say pt, for printer's points.
-To recover gracefully from this error, it's best to
-delete the erroneous units; e.g., type `2' to delete
-two letters. (See Chapter 27 of The TeXbook.)
-
-! Missing number, treated as zero.
-<to be read again> 
-                   {
-l.291 ...rio, with his available cells of vision.}
-                                                  
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
-! Illegal unit of measure (pt inserted).
-<to be read again> 
-                   {
-l.291 ...rio, with his available cells of vision.}
-                                                  
-Dimensions can be in units of em, ex, in, pt, pc,
-cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
-I'll assume that you meant to say pt, for printer's points.
-To recover gracefully from this error, it's best to
-delete the erroneous units; e.g., type `2' to delete
-two letters. (See Chapter 27 of The TeXbook.)
-
-
-Overfull \hbox (67.70828pt too wide) in paragraph at lines 291--291
-[][]\OT1/cmr/m/n/12 >\OT1/cmr/bx/n/12 Figure 2.1:
- []
-
-
-Overfull \hbox (39.13197pt too wide) in paragraph at lines 291--291
-\OT1/cmr/bx/n/12 Mario,
- []
-
-
-Overfull \hbox (26.25pt too wide) in paragraph at lines 291--291
-\OT1/cmr/bx/n/12 with
- []
-
-
-Overfull \hbox (16.57501pt too wide) in paragraph at lines 291--291
-\OT1/cmr/bx/n/12 his
- []
-
-
-Overfull \hbox (31.125pt too wide) in paragraph at lines 291--291
-\OT1/cmr/bx/n/12 avail-
- []
-
-
-Overfull \hbox (23.97221pt too wide) in paragraph at lines 291--291
-\OT1/cmr/bx/n/12 able
- []
-
-
-Overfull \hbox (24.98473pt too wide) in paragraph at lines 291--291
-\OT1/cmr/bx/n/12 cells
- []
-
-
-Overfull \hbox (10.875pt too wide) in paragraph at lines 291--291
-\OT1/cmr/bx/n/12 of
- []
-
-
-Overfull \hbox (15.375pt too wide) in paragraph at lines 291--291
-\OT1/cmr/bx/n/12 vi-
- []
-
-
-Overfull \hbox (27.07501pt too wide) in paragraph at lines 291--291
-\OT1/cmr/bx/n/12 sion. 
- []
-
-! Extra \else.
-\@makecaption ...\captionfonts #1: #2\par } \else 
-                                                  \hbox to\hsize {\hfil \box...
-l.291 ...rio, with his available cells of vision.}
-                                                  
-I'm ignoring this; it doesn't match any \if.
-
-<mariogrid.png, id=58, 494.84875pt x 373.395pt>
+[7] [8 <./parentgenes.png>] <mariogrid.png, id=64, 494.84875pt x 373.395pt>
 File: mariogrid.png Graphic file (type png)
- <use mariogrid.png>
-Package pdftex.def Info: mariogrid.png used on input line 293.
+
+<use mariogrid.png>
+Package pdftex.def Info: mariogrid.png used on input line 320.
 (pdftex.def)             Requested size: 205.96939pt x 155.41753pt.
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-[8] [9 <./mariogrid.png>]
+ [9 <./mariogrid.png>]
 Chapter 3.
-
-LaTeX Warning: Citation `tetris' on page 10 undefined on input line 303.
-
 [10
 
-]
-
-LaTeX Warning: Citation `stanley:phd04' on page 11 undefined on input line 332.
-
-
-[11] [12]
-! Missing number, treated as zero.
-<to be read again> 
-                   >
-l.394 ...tion{An example of a nueral network demo}
-                                                  
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
-! Illegal unit of measure (pt inserted).
-<to be read again> 
-                   >
-l.394 ...tion{An example of a nueral network demo}
-                                                  
-Dimensions can be in units of em, ex, in, pt, pc,
-cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
-I'll assume that you meant to say pt, for printer's points.
-To recover gracefully from this error, it's best to
-delete the erroneous units; e.g., type `2' to delete
-two letters. (See Chapter 27 of The TeXbook.)
-
-! Missing number, treated as zero.
-<to be read again> 
-                   {
-l.394 ...tion{An example of a nueral network demo}
-                                                  
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
-! Illegal unit of measure (pt inserted).
-<to be read again> 
-                   {
-l.394 ...tion{An example of a nueral network demo}
-                                                  
-Dimensions can be in units of em, ex, in, pt, pc,
-cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
-I'll assume that you meant to say pt, for printer's points.
-To recover gracefully from this error, it's best to
-delete the erroneous units; e.g., type `2' to delete
-two letters. (See Chapter 27 of The TeXbook.)
-
-
-Overfull \hbox (67.70828pt too wide) in paragraph at lines 394--394
-[][]\OT1/cmr/m/n/12 >\OT1/cmr/bx/n/12 Figure 3.1:
- []
-
-
-Overfull \hbox (17.69444pt too wide) in paragraph at lines 394--394
-\OT1/cmr/bx/n/12 An
- []
-
-
-Overfull \hbox (17.78471pt too wide) in paragraph at lines 394--394
-\OT1/cmr/bx/n/12 ex-
- []
-
-
-Overfull \hbox (22.3125pt too wide) in paragraph at lines 394--394
-\OT1/cmr/bx/n/12 am-
- []
-
-
-Overfull \hbox (17.40971pt too wide) in paragraph at lines 394--394
-\OT1/cmr/bx/n/12 ple
- []
-
-
-Overfull \hbox (10.875pt too wide) in paragraph at lines 394--394
-\OT1/cmr/bx/n/12 of
- []
-
-
-Overfull \hbox (6.5625pt too wide) in paragraph at lines 394--394
-\OT1/cmr/bx/n/12 a
- []
-
-
-Overfull \hbox (36.61111pt too wide) in paragraph at lines 394--394
-\OT1/cmr/bx/n/12 nueral
- []
-
-
-Overfull \hbox (23.40971pt too wide) in paragraph at lines 394--394
-\OT1/cmr/bx/n/12 net-
- []
-
-
-Overfull \hbox (28.7639pt too wide) in paragraph at lines 394--394
-\OT1/cmr/bx/n/12 work
- []
-
-
-Overfull \hbox (31.65971pt too wide) in paragraph at lines 394--394
-\OT1/cmr/bx/n/12 demo 
- []
-
-! Extra \else.
-\@makecaption ...\captionfonts #1: #2\par } \else 
-                                                  \hbox to\hsize {\hfil \box...
-l.394 ...tion{An example of a nueral network demo}
-                                                  
-I'm ignoring this; it doesn't match any \if.
-
-! Extra \fi.
-\@makecaption ...\hfil \box \@tempboxa \hfil }\fi 
-                                                  \vskip \belowcaptionskip 
-l.394 ...tion{An example of a nueral network demo}
-                                                  
-I'm ignoring this; it doesn't match any \if.
-
-<simplemarionet.png, id=75, 1895.08pt x 894.34125pt>
+] [11] [12] <simplemarionet.png, id=78, 1895.08pt x 894.34125pt>
 File: simplemarionet.png Graphic file (type png)
- <use simplemarionet.png>
-Package pdftex.def Info: simplemarionet.png used on input line 396.
-(pdftex.def)             Requested size: 205.96939pt x 97.19058pt.
 
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-[13] [14 <./simplemarionet.png>]
+<use simplemarionet.png>
+Package pdftex.def Info: simplemarionet.png used on input line 423.
+(pdftex.def)             Requested size: 411.93878pt x 194.39482pt.
+ [13 <./simplemarionet.png>]
 Chapter 4.
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
@@ -1230,107 +425,113 @@ Missing character: There is no ô in font cmr12!
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ô in font cmr12!
-[15
+[14
 
 ]
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ô in font cmr12!
- [16]
-Underfull \vbox (badness 10000) detected at line 482
+ [15]
+Underfull \vbox (badness 10000) detected at line 509
  []
 
-[17]
+[16]
 Chapter 5.
-[18
+[17
 
-] [19]
-Chapter 6.
-[20
+] [18] <graphsone/defaultave.png, id=98, 683.55376pt x 423.5825pt>
+File: graphsone/defaultave.png Graphic file (type png)
 
-] [21]
-No file document.bbl.
+<use graphsone/defaultave.png>
+Package pdftex.def Info: graphsone/defaultave.png used on input line 571.
+(pdftex.def)             Requested size: 411.93878pt x 255.27608pt.
 
-Underfull \hbox (badness 3668) in paragraph at lines 560--562
-\OT1/cmr/m/n/12 which in-di-vid-u-als, within the
- []
+<graphsone/defaultspecies.png, id=99, 680.5425pt x 422.57875pt>
+File: graphsone/defaultspecies.png Graphic file (type png)
 
-
-Underfull \hbox (badness 5388) in paragraph at lines 560--562
-\OT1/cmr/m/n/12 same specie, per-form a GA
- []
+<use graphsone/defaultspecies.png>
+Package pdftex.def Info: graphsone/defaultspecies.png used on input line 578.
+(pdftex.def)             Requested size: 411.93878pt x 255.7931pt.
 
 
-Underfull \hbox (badness 1184) in paragraph at lines 569--571
-[][]|\OT1/cmr/m/n/12 A link (neuron-neuron con-nec-
- []
+LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-LaTeX Font Info:    Try loading font information for OML+cmr on input line 577.
+<graphsone/defaultbest.png, id=100, 681.54625pt x 423.5825pt>
+File: graphsone/defaultbest.png Graphic file (type png)
 
-(/usr/share/texlive/texmf-dist/tex/latex/base/omlcmr.fd
-File: omlcmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
-)
-LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <12> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 577.
-
-Underfull \hbox (badness 2653) in paragraph at lines 581--584
-\OT1/cmr/m/n/12 pri-v-ides a mea-sure of im-por-
- []
+<use graphsone/defaultbest.png>
+Package pdftex.def Info: graphsone/defaultbest.png used on input line 585.
+(pdftex.def)             Requested size: 411.93878pt x 256.02583pt.
 
 
-Underfull \hbox (badness 7238) in paragraph at lines 612--614
-[][]|\OT1/cmr/m/n/12 The penalty ap-plied to the
- []
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<graphsone/selfreg_default_best.png, id=101, 685.56125pt x 425.59pt>
+File: graphsone/selfreg_default_best.png Graphic file (type png)
+
+<use graphsone/selfreg_default_best.png>
+Package pdftex.def Info: graphsone/selfreg_default_best.png used on input line 
+592.
+(pdftex.def)             Requested size: 411.93878pt x 255.7326pt.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 612--614
-\OT1/cmr/m/n/12 fit-ness of a given species
- []
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<graphsone/selfreg_default_hard_best.png, id=102, 683.55376pt x 425.59pt>
+File: graphsone/selfreg_default_hard_best.png Graphic file (type png)
+
+<use graphsone/selfreg_default_hard_best.png>
+Package pdftex.def Info: graphsone/selfreg_default_hard_best.png used on input 
+line 601.
+(pdftex.def)             Requested size: 411.93878pt x 256.4859pt.
 
 
-Underfull \hbox (badness 4353) in paragraph at lines 612--614
-\OT1/cmr/m/n/12 mem-bers. Note, if NAT-U-
- []
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<graphsone/default_hard_best.png, id=103, 681.54625pt x 421.575pt>
+File: graphsone/default_hard_best.png Graphic file (type png)
+
+<use graphsone/default_hard_best.png>
+Package pdftex.def Info: graphsone/default_hard_best.png used on input line 608
+.
+(pdftex.def)             Requested size: 411.93878pt x 254.81242pt.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 612--614
-\OT1/cmr/m/n/12 RAL.ORDER.STRATEGY is
- []
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<graphsone/selfreg_random_best.png, id=104, 683.55376pt x 422.57875pt>
+File: graphsone/selfreg_random_best.png Graphic file (type png)
+
+<use graphsone/selfreg_random_best.png>
+Package pdftex.def Info: graphsone/selfreg_random_best.png used on input line 6
+16.
+(pdftex.def)             Requested size: 411.93878pt x 254.67116pt.
 
 
-Overfull \hbox (129.43008pt too wide) in alignment at lines 555--620
- [] [] [] [] 
- []
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[19 <./graphsone/defaultave.png>] [20 <./graphsone/defaultspecies.png>]
+<graphstetris/default_best.png, id=111, 683.55376pt x 424.58624pt>
+File: graphstetris/default_best.png Graphic file (type png)
+
+<use graphstetris/default_best.png>
+Package pdftex.def Info: graphstetris/default_best.png used on input line 644.
+(pdftex.def)             Requested size: 411.93878pt x 255.881pt.
 
 
-Underfull \vbox (badness 10000) detected at line 620
- []
+LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[22
+<graphstetris/self_reg_best.png, id=112, 683.55376pt x 425.59pt>
+File: graphstetris/self_reg_best.png Graphic file (type png)
 
-] [23] [24] [25] (./document.aux)
+<use graphstetris/self_reg_best.png>
+Package pdftex.def Info: graphstetris/self_reg_best.png used on input line 651.
 
-LaTeX Warning: There were undefined references.
+(pdftex.def)             Requested size: 411.93878pt x 256.4859pt.
 
- ) 
-Here is how much of TeX's memory you used:
- 3222 strings out of 495059
- 42776 string characters out of 3182030
- 131485 words of memory out of 3000000
- 6337 multiletter control sequences out of 15000+200000
- 11017 words of font info for 41 fonts, out of 3000000 for 9000
- 14 hyphenation exceptions out of 8191
- 38i,15n,24p,270b,238s stack positions out of 5000i,500n,10000p,200000b,50000s
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></us
-r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/shar
-e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texli
-ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texm
-f-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/f
-onts/type1/public/amsfonts/cm/cmsy10.pfb>
-Output written on document.pdf (34 pages, 514200 bytes).
-PDF statistics:
- 139 PDF objects out of 1000 (max. 8388607)
- 94 compressed objects within 1 object stream
- 0 named destinations out of 1000 (max. 500000)
- 11 words of extra memory for PDF output out of 10000 (max. 10000000)
 
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[21 <./graphsone/defaultbest.png>
+!pdfTeX error: /usr/bin/pdflatex: fflush() failed (Broken pipe)
+ ==> Fatal error occurred, no output PDF file produced!
