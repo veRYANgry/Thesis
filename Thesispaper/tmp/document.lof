@@ -1,18 +1,22 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {2.1}{\ignorespaces The production of offspring and gene characterisitics \cite {stanley:phd04}}}{8}
-\contentsline {figure}{\numberline {2.2}{\ignorespaces The mario vison grid}}{9}
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Different weapons created by cgNEAT}}{3}
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Evolution of weapons using cgNEAT}}{4}
+\contentsline {figure}{\numberline {2.3}{\ignorespaces Inputs and outputs for NERO}}{5}
+\contentsline {figure}{\numberline {2.4}{\ignorespaces Robots navigating a maze}}{5}
+\contentsline {figure}{\numberline {2.5}{\ignorespaces The production of offspring and gene characteristics \cite {stanley:phd04}}}{9}
+\contentsline {figure}{\numberline {2.6}{\ignorespaces The mario vison grid}}{10}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces An example of a nueral network demo}}{13}
+\contentsline {figure}{\numberline {3.1}{\ignorespaces An example of a neural network demo}}{15}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {5.1}{\ignorespaces Average fitness using default parameters}}{19}
-\contentsline {figure}{\numberline {5.2}{\ignorespaces Number of species using default parameters}}{20}
-\contentsline {figure}{\numberline {5.3}{\ignorespaces The best fit individual using default parameters}}{21}
-\contentsline {figure}{\numberline {5.4}{\ignorespaces The best fit individual using self regulation gene}}{22}
-\contentsline {figure}{\numberline {5.5}{\ignorespaces The best fit individual using self regulation gene on hard difficulty}}{22}
-\contentsline {figure}{\numberline {5.6}{\ignorespaces The best fit individual using default paramters on hard difficulty}}{23}
-\contentsline {figure}{\numberline {5.7}{\ignorespaces The best fit individual using self regulation gene with random paramters on hard difficulty}}{24}
-\contentsline {figure}{\numberline {5.8}{\ignorespaces The best fit individual using default paramters for Tetris}}{24}
-\contentsline {figure}{\numberline {5.9}{\ignorespaces The best fit individual using self regulation for Tetris}}{25}
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Average fitness using default parameters}}{22}
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Number of species using default parameters}}{23}
+\contentsline {figure}{\numberline {5.3}{\ignorespaces The best fit individual using default parameters}}{24}
+\contentsline {figure}{\numberline {5.4}{\ignorespaces The best fit individual using self regulation gene}}{25}
+\contentsline {figure}{\numberline {5.5}{\ignorespaces The best fit individual using self regulation gene on hard difficulty}}{25}
+\contentsline {figure}{\numberline {5.6}{\ignorespaces The best fit individual using default parameters on hard difficulty}}{26}
+\contentsline {figure}{\numberline {5.7}{\ignorespaces The best fit individual using self regulation gene with random parameters on hard difficulty}}{27}
+\contentsline {figure}{\numberline {5.8}{\ignorespaces The best fit individual using default paramters for Tetris}}{27}
+\contentsline {figure}{\numberline {5.9}{\ignorespaces The best fit individual using self regulation for Tetris}}{28}
 \addvspace {10\p@ }

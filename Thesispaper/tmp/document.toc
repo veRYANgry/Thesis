@@ -5,22 +5,23 @@
 \contentsline {chapter}{\numberline {2}Background or Related Works}{2}
 \contentsline {section}{\numberline {2.1}Genetic Algorithms}{2}
 \contentsline {section}{\numberline {2.2}Galactic Arms Race}{3}
-\contentsline {section}{\numberline {2.3}Neural Genetic Agents: NERO}{3}
-\contentsline {section}{\numberline {2.4}Artiﬁcial Neural Networks}{4}
-\contentsline {section}{\numberline {2.5}NEAT Background}{6}
-\contentsline {section}{\numberline {2.6}Mario Platform}{7}
-\contentsline {section}{\numberline {2.7}Tetris Platform}{8}
-\contentsline {chapter}{\numberline {3}Algorithm}{10}
-\contentsline {section}{\numberline {3.1}NEAT interface}{12}
-\contentsline {chapter}{\numberline {4}Algorithm: Experiments with NEAT and Mario}{14}
-\contentsline {chapter}{\numberline {5}Results}{17}
-\contentsline {section}{\numberline {5.1}Results for Mario Running NEAT with the Same Huerisitics}{18}
-\contentsline {section}{\numberline {5.2}Results for Tetris Running NEAT}{20}
-\contentsline {chapter}{\numberline {6}Conclusions and Future Works}{26}
-\contentsline {section}{\numberline {6.1}Conclusions}{26}
-\contentsline {section}{\numberline {6.2}Future Works}{27}
-\contentsline {subsection}{\numberline {6.2.1}Different Genes}{27}
-\contentsline {subsection}{\numberline {6.2.2}Dynamic Data Set Selection}{27}
-\contentsline {subsection}{\numberline {6.2.3}Improved Specie Allocation}{27}
-\contentsline {subsection}{\numberline {6.2.4}Aging}{28}
-\contentsline {chapter}{Bibliography}{29}
+\contentsline {section}{\numberline {2.3}Neural Genetic Agents: NERO}{4}
+\contentsline {section}{\numberline {2.4}Artiﬁcial Neural Networks}{6}
+\contentsline {section}{\numberline {2.5}NEAT Background}{7}
+\contentsline {section}{\numberline {2.6}Mario Platform}{8}
+\contentsline {section}{\numberline {2.7}Tetris Platform}{10}
+\contentsline {chapter}{\numberline {3}Algorithm}{11}
+\contentsline {section}{\numberline {3.1}NEAT interface}{13}
+\contentsline {chapter}{\numberline {4}Algorithm: Experiments with NEAT and Mario}{16}
+\contentsline {section}{\numberline {4.1}Initial Agent Implementation}{18}
+\contentsline {chapter}{\numberline {5}Results}{20}
+\contentsline {section}{\numberline {5.1}Results for Mario Running NEAT with the Same Heurisitics}{21}
+\contentsline {section}{\numberline {5.2}Results for Tetris Running NEAT}{23}
+\contentsline {chapter}{\numberline {6}Conclusions and Future Works}{29}
+\contentsline {section}{\numberline {6.1}Conclusions}{29}
+\contentsline {section}{\numberline {6.2}Future Works}{30}
+\contentsline {subsection}{\numberline {6.2.1}Different Genes}{30}
+\contentsline {subsection}{\numberline {6.2.2}Dynamic Data Set Selection}{30}
+\contentsline {subsection}{\numberline {6.2.3}Improved Specie Allocation}{30}
+\contentsline {subsection}{\numberline {6.2.4}Aging}{31}
+\contentsline {chapter}{Bibliography}{32}

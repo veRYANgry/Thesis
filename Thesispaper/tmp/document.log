@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2013.2.11)  27 MAR 2013 13:22
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2013.2.11)  10 APR 2013 13:21
 entering extended mode
  restricted \write18 enabled.
  Source specials enabled.
@@ -352,7 +352,7 @@ Missing character: There is no Å in font cmr12!
 ]
 Chapter 1.
 ! Misplaced alignment tab character &.
-l.125 such as Black &
+l.126 such as Black &
                       White 2 and the NEAT specific NERO \cite{hastings2009e...
 I can't figure out why you would want to use a tab mark
 here. If you just want an ampersand, the remedy is
@@ -367,32 +367,61 @@ might try typing `S' now just to see what is salvageable.
 Chapter 2.
 [2
 
-]
+] <weapons.jpg, id=40, 1027.84pt x 803.0pt>
+File: weapons.jpg Graphic file (type jpg)
+ <use weapons.jpg>
+Package pdftex.def Info: weapons.jpg used on input line 170.
+(pdftex.def)             Requested size: 205.96939pt x 160.90347pt.
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ú in font cmr12!
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ù in font cmr12!
- [3]
+
+<evoguns.png, id=41, 1074.0125pt x 232.87pt>
+File: evoguns.png Graphic file (type png)
+ <use evoguns.png>
+Package pdftex.def Info: evoguns.png used on input line 184.
+(pdftex.def)             Requested size: 370.74239pt x 80.38286pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[3 <./weapons.jpg>] <topology.png, id=46, 573.14125pt x 399.4925pt>
+File: topology.png Graphic file (type png)
+
+<use topology.png>
+Package pdftex.def Info: topology.png used on input line 219.
+(pdftex.def)             Requested size: 205.96939pt x 143.56726pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[4 <./evoguns.png>] <robot.png, id=52, 563.10374pt x 464.73625pt>
+File: robot.png Graphic file (type png)
+
+<use robot.png>
+Package pdftex.def Info: robot.png used on input line 232.
+(pdftex.def)             Requested size: 205.96939pt x 169.98543pt.
 Missing character: There is no Ô in font cmbx12!
 Missing character: There is no ¨ in font cmbx12!
 Missing character: There is no Å in font cmbx12!
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ô in font cmr12!
- [4] [5]
+ [5 <./topology.png> <./robot.png>] [6]
 Missing character: There is no Ô in font cmr12!
 Missing character: There is no ¨ in font cmr12!
 Missing character: There is no Å in font cmr12!
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ô in font cmr12!
- [6] <parentgenes.png, id=53, 1028.84375pt x 968.61874pt>
+ [7]
+<parentgenes.png, id=64, 1028.84375pt x 968.61874pt>
 File: parentgenes.png Graphic file (type png)
-
-<use parentgenes.png>
-Package pdftex.def Info: parentgenes.png used on input line 282.
+ <use parentgenes.png>
+Package pdftex.def Info: parentgenes.png used on input line 315.
 (pdftex.def)             Requested size: 411.93878pt x 387.8249pt.
 
 
@@ -401,23 +430,27 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ô in font cmr12!
-[7] [8 <./parentgenes.png>] <mariogrid.png, id=64, 494.84875pt x 373.395pt>
+[8] [9 <./parentgenes.png>] <mariogrid.png, id=75, 494.84875pt x 373.395pt>
 File: mariogrid.png Graphic file (type png)
 
 <use mariogrid.png>
-Package pdftex.def Info: mariogrid.png used on input line 320.
+Package pdftex.def Info: mariogrid.png used on input line 353.
 (pdftex.def)             Requested size: 205.96939pt x 155.41753pt.
- [9 <./mariogrid.png>]
+ [10 <./mariogrid.png>]
 Chapter 3.
-[10
+[11
 
-] [11] [12] <simplemarionet.png, id=78, 1895.08pt x 894.34125pt>
+] [12] [13] <simplemarionet.png, id=89, 1895.08pt x 894.34125pt>
 File: simplemarionet.png Graphic file (type png)
 
 <use simplemarionet.png>
-Package pdftex.def Info: simplemarionet.png used on input line 423.
+Package pdftex.def Info: simplemarionet.png used on input line 461.
 (pdftex.def)             Requested size: 411.93878pt x 194.39482pt.
- [13 <./simplemarionet.png>]
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[14] [15 <./simplemarionet.png>]
 Chapter 4.
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
@@ -425,192 +458,192 @@ Missing character: There is no ô in font cmr12!
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ô in font cmr12!
-[14
+[16
 
 ]
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ô in font cmr12!
- [15]
-Underfull \vbox (badness 10000) detected at line 509
+ [17]
+Underfull \vbox (badness 10000) detected at line 546
  []
 
-[16]
+[18] [19]
 Chapter 5.
-[17
+[20
 
-] [18] <graphsone/defaultave.png, id=98, 683.55376pt x 423.5825pt>
+] [21] <graphsone/defaultave.png, id=115, 683.55376pt x 423.5825pt>
 File: graphsone/defaultave.png Graphic file (type png)
 
 <use graphsone/defaultave.png>
-Package pdftex.def Info: graphsone/defaultave.png used on input line 571.
+Package pdftex.def Info: graphsone/defaultave.png used on input line 609.
 (pdftex.def)             Requested size: 411.93878pt x 255.27608pt.
 
-<graphsone/defaultspecies.png, id=99, 680.5425pt x 422.57875pt>
+<graphsone/defaultspecies.png, id=116, 680.5425pt x 422.57875pt>
 File: graphsone/defaultspecies.png Graphic file (type png)
 
 <use graphsone/defaultspecies.png>
-Package pdftex.def Info: graphsone/defaultspecies.png used on input line 578.
+Package pdftex.def Info: graphsone/defaultspecies.png used on input line 616.
 (pdftex.def)             Requested size: 411.93878pt x 255.7931pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<graphsone/defaultbest.png, id=100, 681.54625pt x 423.5825pt>
+<graphsone/defaultbest.png, id=117, 681.54625pt x 423.5825pt>
 File: graphsone/defaultbest.png Graphic file (type png)
 
 <use graphsone/defaultbest.png>
-Package pdftex.def Info: graphsone/defaultbest.png used on input line 585.
+Package pdftex.def Info: graphsone/defaultbest.png used on input line 623.
 (pdftex.def)             Requested size: 411.93878pt x 256.02583pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<graphsone/selfreg_default_best.png, id=101, 685.56125pt x 425.59pt>
+<graphsone/selfreg_default_best.png, id=118, 685.56125pt x 425.59pt>
 File: graphsone/selfreg_default_best.png Graphic file (type png)
 
 <use graphsone/selfreg_default_best.png>
 Package pdftex.def Info: graphsone/selfreg_default_best.png used on input line 
-592.
+630.
 (pdftex.def)             Requested size: 411.93878pt x 255.7326pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<graphsone/selfreg_default_hard_best.png, id=102, 683.55376pt x 425.59pt>
+<graphsone/selfreg_default_hard_best.png, id=119, 683.55376pt x 425.59pt>
 File: graphsone/selfreg_default_hard_best.png Graphic file (type png)
 
 <use graphsone/selfreg_default_hard_best.png>
 Package pdftex.def Info: graphsone/selfreg_default_hard_best.png used on input 
-line 601.
+line 639.
 (pdftex.def)             Requested size: 411.93878pt x 256.4859pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<graphsone/default_hard_best.png, id=103, 681.54625pt x 421.575pt>
+<graphsone/default_hard_best.png, id=120, 681.54625pt x 421.575pt>
 File: graphsone/default_hard_best.png Graphic file (type png)
 
 <use graphsone/default_hard_best.png>
-Package pdftex.def Info: graphsone/default_hard_best.png used on input line 608
+Package pdftex.def Info: graphsone/default_hard_best.png used on input line 646
 .
 (pdftex.def)             Requested size: 411.93878pt x 254.81242pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<graphsone/selfreg_random_best.png, id=104, 683.55376pt x 422.57875pt>
+<graphsone/selfreg_random_best.png, id=121, 683.55376pt x 422.57875pt>
 File: graphsone/selfreg_random_best.png Graphic file (type png)
 
 <use graphsone/selfreg_random_best.png>
 Package pdftex.def Info: graphsone/selfreg_random_best.png used on input line 6
-16.
+54.
 (pdftex.def)             Requested size: 411.93878pt x 254.67116pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[19 <./graphsone/defaultave.png>] [20 <./graphsone/defaultspecies.png>]
-<graphstetris/default_best.png, id=111, 683.55376pt x 424.58624pt>
+[22 <./graphsone/defaultave.png>] [23 <./graphsone/defaultspecies.png>]
+<graphstetris/default_best.png, id=129, 683.55376pt x 424.58624pt>
 File: graphstetris/default_best.png Graphic file (type png)
 
 <use graphstetris/default_best.png>
-Package pdftex.def Info: graphstetris/default_best.png used on input line 644.
+Package pdftex.def Info: graphstetris/default_best.png used on input line 682.
 (pdftex.def)             Requested size: 411.93878pt x 255.881pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<graphstetris/self_reg_best.png, id=112, 683.55376pt x 425.59pt>
+<graphstetris/self_reg_best.png, id=130, 683.55376pt x 425.59pt>
 File: graphstetris/self_reg_best.png Graphic file (type png)
 
 <use graphstetris/self_reg_best.png>
-Package pdftex.def Info: graphstetris/self_reg_best.png used on input line 651.
+Package pdftex.def Info: graphstetris/self_reg_best.png used on input line 689.
 
 (pdftex.def)             Requested size: 411.93878pt x 256.4859pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[21 <./graphsone/defaultbest.png>] [22 <./graphsone/selfreg_default_best.png> <
-./graphsone/selfreg_default_hard_best.png>] [23 <./graphsone/default_hard_best.
-png>] [24 <./graphsone/selfreg_random_best.png> <./graphstetris/default_best.pn
-g>] [25 <./graphstetris/self_reg_best.png>]
+[24 <./graphsone/defaultbest.png>] [25 <./graphsone/selfreg_default_best.png> <
+./graphsone/selfreg_default_hard_best.png>] [26 <./graphsone/default_hard_best.
+png>] [27 <./graphsone/selfreg_random_best.png> <./graphstetris/default_best.pn
+g>] [28 <./graphstetris/self_reg_best.png>]
 Chapter 6.
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ô in font cmr12!
-[26
+[29
 
-] [27] [28] (./document.bbl [29
+] [30] [31] (./document.bbl [32
 
 
 ])
-Underfull \hbox (badness 3668) in paragraph at lines 717--719
+Underfull \hbox (badness 3668) in paragraph at lines 755--757
 \OT1/cmr/m/n/12 which in-di-vid-u-als, within the
  []
 
 
-Underfull \hbox (badness 5388) in paragraph at lines 717--719
+Underfull \hbox (badness 5388) in paragraph at lines 755--757
 \OT1/cmr/m/n/12 same specie, per-form a GA
  []
 
 
-Underfull \hbox (badness 1184) in paragraph at lines 726--728
+Underfull \hbox (badness 1184) in paragraph at lines 764--766
 [][]|\OT1/cmr/m/n/12 A link (neuron-neuron con-nec-
  []
 
-LaTeX Font Info:    Try loading font information for OML+cmr on input line 734.
+LaTeX Font Info:    Try loading font information for OML+cmr on input line 772.
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/omlcmr.fd
 File: omlcmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <12> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 734.
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 772.
 
-Underfull \hbox (badness 2653) in paragraph at lines 738--741
-\OT1/cmr/m/n/12 pri-v-ides a mea-sure of im-por-
+Underfull \hbox (badness 1953) in paragraph at lines 776--779
+\OT1/cmr/m/n/12 pro-vides a mea-sure of im-por-
  []
 
 
-Underfull \hbox (badness 7238) in paragraph at lines 769--771
+Underfull \hbox (badness 7238) in paragraph at lines 807--809
 [][]|\OT1/cmr/m/n/12 The penalty ap-plied to the
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 769--771
+Underfull \hbox (badness 10000) in paragraph at lines 807--809
 \OT1/cmr/m/n/12 fit-ness of a given species
  []
 
 
-Underfull \hbox (badness 4353) in paragraph at lines 769--771
+Underfull \hbox (badness 4353) in paragraph at lines 807--809
 \OT1/cmr/m/n/12 mem-bers. Note, if NAT-U-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 769--771
+Underfull \hbox (badness 10000) in paragraph at lines 807--809
 \OT1/cmr/m/n/12 RAL.ORDER.STRATEGY is
  []
 
 
-Overfull \hbox (129.43008pt too wide) in alignment at lines 712--777
+Overfull \hbox (129.43008pt too wide) in alignment at lines 750--815
  [] [] [] [] 
  []
 
 
-Underfull \vbox (badness 10000) detected at line 777
+Underfull \vbox (badness 10000) detected at line 815
  []
 
-[30] [31] [32] [33] [34] (./document.aux) )
+[33] [34] [35] [36] [37] (./document.aux) )
 (\end occurred when \ifx on line 1 was incomplete) 
 Here is how much of TeX's memory you used:
- 3289 strings out of 495059
- 44627 string characters out of 3182030
- 134638 words of memory out of 3000000
- 6389 multiletter control sequences out of 15000+200000
+ 3314 strings out of 495059
+ 44978 string characters out of 3182030
+ 134688 words of memory out of 3000000
+ 6409 multiletter control sequences out of 15000+200000
  11364 words of font info for 42 fonts, out of 3000000 for 9000
  14 hyphenation exceptions out of 8191
- 38i,9n,24p,270b,227s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 38i,8n,24p,270b,227s stack positions out of 5000i,500n,10000p,200000b,50000s
 </usr/share/texlive/texmf-dis
 t/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/font
 s/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/fonts/type
@@ -619,10 +652,10 @@ c/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfo
 nts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/c
 mr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pf
 b></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on document.pdf (43 pages, 855364 bytes).
+Output written on document.pdf (46 pages, 1892801 bytes).
 PDF statistics:
- 189 PDF objects out of 1000 (max. 8388607)
- 122 compressed objects within 2 object streams
+ 206 PDF objects out of 1000 (max. 8388607)
+ 129 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 61 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 81 words of extra memory for PDF output out of 10000 (max. 10000000)
 
