@@ -2,7 +2,7 @@ This is BibTeX, Version 0.99d (TeX Live 2012/Debian)
 Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: document.aux
 The style file: abbrv.bst
-Illegal, another \bibstyle command---line 106 of file document.aux
+Illegal, another \bibstyle command---line 113 of file document.aux
  : \bibstyle
  :          {plain}
 I'm skipping whatever remains of this command
