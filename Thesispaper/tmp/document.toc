@@ -6,7 +6,7 @@
 \contentsline {section}{\numberline {2.1}Genetic Algorithms}{2}
 \contentsline {section}{\numberline {2.2}Galactic Arms Race}{3}
 \contentsline {section}{\numberline {2.3}Neural Genetic Agents: NERO}{4}
-\contentsline {section}{\numberline {2.4}Artiﬁcial Neural Networks}{6}
+\contentsline {section}{\numberline {2.4}Artificial Neural Networks}{6}
 \contentsline {section}{\numberline {2.5}NEAT Background}{7}
 \contentsline {section}{\numberline {2.6}Mario Platform}{8}
 \contentsline {section}{\numberline {2.7}Tetris Platform}{10}

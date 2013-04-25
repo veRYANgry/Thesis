@@ -62,7 +62,9 @@
 \author{Ryan De Haven}
 \degreemonth{December} \degreeyear{2013} \degree{Master of Science}
 \defensemonth{October} \defenseyear{2013}
-\numberofmembers{3} \chair{} \othermemberA{} \othermemberB{} \field{Computer Science} \campus{San Luis Obispo} 
+\numberofmembers{3} \chair{Franz J. Kurfess} \othermemberA{John Seng}
+\othermemberB{Foaad Khosmood}
+\field{Computer Science} \campus{San Luis Obispo}
 \copyrightyears{thirteen}
 
 
@@ -78,7 +80,7 @@
 
  
 \begin{abstract}
-This paper discusses a modification to improve usability and functionality to a
+This paper discusses a modification to improve usability and functionality of a
 genetic neural net algorithm called NEAT. The modification aims to accomplish
 its goal by automatically changing parameters used by the algorithm with little
 input from a user. The advantage of the modification is to reduce the guesswork
@@ -240,11 +242,11 @@ By allowing real time replacement the user can see clearly how the training is
 affecting the algorithm and is improving the intelligence of the agents. For
 this reason, NERO is a great way to learn about genetic algorithms and neural
 net evolution.
+ 
+\section{Artificial Neural Networks}
 
-\section{Artiﬁcial Neural Networks}
-
-Neural networks aim to simulate the way the brain works by connecting neurons as
-nodes to each other using links. In a brain the cells perform some operation on
+Neural networks aim to simulate the way the brain works by connecting neurons
+as nodes to each other using links. In a brain the cells perform some operation on
 the incoming signals and then send out signals to other neurons.
 Neural networks have shown themselves to be useful for memorizing patterns and
 solving parallel logic. Neural nets have shown promise in image recognition from
@@ -269,14 +271,14 @@ activation function using threshold logic, a binary function (on or off) or
 sigmoid function. In NEAT the nodes activation function is always a sigmoid
 function.
 
-NEAT uses standard fitness sharing to determine how many individuals are to be
+NEAT uses standard fitness sharing to determine how many individuals are
 created from each specie. Fitness sharing simply uses the fitness of the species
 over the total fitness of all individuals times the current population number to
 calculate the offspring for the specie.
 
-While NEAT uses simple genetic methods it uses a unique way of comparing
-structure that allow it to perform efficient evolution of topologies and is the
-reason it was chosen to study.
+While NEAT uses simple genetic methods, it uses a unique way of comparing
+structures that allow it to perform efficient evolution of topologies and is the
+reason why it was chosen to study.
 
 \section{NEAT Background}
 
