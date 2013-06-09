@@ -412,7 +412,7 @@
 \vspace*{\fill}
 
 \begin{center}
-   \copyright \tab 2012 \\
+   \copyright \tab 2013 \\
    \@author \\
    \fmfont
    ALL RIGHTS RESERVED

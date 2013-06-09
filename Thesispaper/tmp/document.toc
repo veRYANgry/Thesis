@@ -2,7 +2,7 @@
 \contentsline {chapter}{List of Tables}{viii}
 \contentsline {chapter}{List of Figures}{ix}
 \contentsline {chapter}{\numberline {1}Introduction}{1}
-\contentsline {chapter}{\numberline {2}Background or Related Works}{2}
+\contentsline {chapter}{\numberline {2}Related Works}{2}
 \contentsline {section}{\numberline {2.1}Genetic Algorithms}{2}
 \contentsline {section}{\numberline {2.2}Galactic Arms Race}{3}
 \contentsline {section}{\numberline {2.3}Neural Genetic Agents: NERO}{4}
